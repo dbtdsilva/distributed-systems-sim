@@ -19,22 +19,51 @@ public class Entrepreneur extends Thread {
     }
     @Override
     public void run() {
-        
+        do {
+            prepareToWork();
+            boolean canGoOut = false;
+            char sit;
+            do {
+                sit = appraiseSit();
+                switch (sit) {
+                    case 'C': 
+                        int id = addressACustomer();
+                        serviceCustomer(id);
+                        sayGoodByeToCustomer(id);
+                        break;
+                    case 'E': 
+                        closeTheDoor();
+                        canGoOut = !customersInTheShop();
+                        break;
+                    default:
+                        break;
+                }
+            } while (!canGoOut);
+            
+            prepareToLeave();
+            if (sit == 'T') {
+                goToWorkshop();
+            } else if (sit == 'M') {
+                visitSuppliers();
+                replenishStock();
+            }
+        } while(!endOpEntrep());
+
     }
     public void prepareToWork() {
         
     }
-    public void addressACustomer(Customer c) {
+    public int addressACustomer() {
+        return 0;
+    }
+    public void serviceCustomer(int id) {
         
     }
-    public void serviceCustomer(Customer c) {
-        
-    }
-    public void sayGoodByeToCustomer(Customer c) {
+    public void sayGoodByeToCustomer(int id) {
      
     }
-    public void appraiseSit() {
-        
+    public char appraiseSit() {
+        return 't';
     }
     public void closeTheDoor() {
         
@@ -54,7 +83,11 @@ public class Entrepreneur extends Thread {
     public void visitSuppliers() {
         
     }
-    public void takePrimeMaterialsToWorkshop() {
+    public void replenishStock() {
         
+    }
+
+    private boolean endOpEntrep() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
