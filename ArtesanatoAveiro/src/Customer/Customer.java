@@ -17,7 +17,21 @@ public class Customer extends Thread {
     }
     @Override
     public void run() {
+        do {
+            livingNormalLife();
+            goShopping();
         
+            if(isDoorOpen())
+            {
+                enterShop();
+                if(perusingAround())
+                    iWantThis();
+                
+                exitShop();
+            }
+            else
+                tryAgainLater();
+        } while (!endOpCustomer());
     }
     public void livingNormalLife() {
         
@@ -31,16 +45,20 @@ public class Customer extends Thread {
     public void enterShop() {
         
     }
-    public void perusingAround() {
-        
+    public boolean perusingAround() {
+        return false;
     }
     public void iWantThis() {
-        
+
     }
     public void tryAgainLater() {
         
     }
     public void exitShop() {
         
+    }
+
+    private boolean endOpCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
