@@ -17,4 +17,8 @@ public class Warehouse {
         this.nInitialPrimeMaterials = nPrimeMaterials;
         this.nCurrentPrimeMaterials = this.nInitialPrimeMaterials;
     }
+    
+    public int getnCurrentPrimeMaterials() {
+        return nCurrentPrimeMaterials;
+    }
 }

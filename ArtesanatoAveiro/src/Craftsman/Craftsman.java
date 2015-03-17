@@ -5,22 +5,41 @@
  */
 package Craftsman;
 
+import Workshop.Workshop;
+
 /**
  *
  * @author diogosilva
  */
 public class Craftsman extends Thread {
     private CraftsmanState state;
+    private Workshop ws;
+    private int id;
     
-    public Craftsman() {
+    public Craftsman(int id, Workshop ws) {
+        this.id = id;
+        this.ws = ws;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
     }
+
     @Override
     public void run() {
-        
+        do {
+            if (!collectingMaterials()) {
+                primeMaterialsNeeded();
+                backToWork();
+            } else {
+                prepareToProduce();
+                shappingItUp();
+                goToStore();
+                if (ws.getnProductsStored() >= ws.MAX_ProductsStored)
+                    batchReadyForTransfer();
+                backToWork();
+            }
+        } while (!endOperCraft());
     }
-    public void collectingMaterials() {
-        
+    public boolean collectingMaterials() {
+        return false;
     }
     public void primeMaterialsNeeded() {
         
@@ -39,5 +58,9 @@ public class Craftsman extends Thread {
     }
     public void goToStore() {
         
+    }
+
+    private boolean endOperCraft() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -6,6 +6,7 @@
 package Shop;
 
 import Customer.Customer;
+import Exec.GeneralRepo;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -21,12 +22,39 @@ public class Shop {
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     
-    public Shop() {
+    private GeneralRepo generalRepo;
+    
+    public Shop(GeneralRepo gr) {
+        this.generalRepo = gr;
         this.nProductsStock = 0;
         this.doorState = ShopDoorState.CLOSED;
         this.nCustomersInside = 0;
         this.waitingLine = new LinkedList<>();
         this.reqFetchProducts = false;
         this.reqPrimeMaterials = false;
+    }
+    
+    public int getnCustomersInside() {
+        return nCustomersInside;
+    }
+
+    public int getnProductsStock() {
+        return nProductsStock;
+    }
+
+    public ShopDoorState getDoorState() {
+        return doorState;
+    }
+
+    public Queue<Customer> getWaitingLine() {
+        return waitingLine;
+    }
+
+    public boolean isReqFetchProducts() {
+        return reqFetchProducts;
+    }
+
+    public boolean isReqPrimeMaterials() {
+        return reqPrimeMaterials;
     }
 }

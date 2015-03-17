@@ -6,6 +6,9 @@
 package Entrepreneur;
 
 import Customer.Customer;
+import Shop.Shop;
+import Warehouse.Warehouse;
+import Workshop.Workshop;
 
 /**
  *
@@ -13,9 +16,15 @@ import Customer.Customer;
  */
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
+    private Shop shop;
+    private Warehouse wh;
+    private Workshop ws;
     
-    public Entrepreneur() {
+    public Entrepreneur(Shop shop, Warehouse wh, Workshop ws) {
         state = EntrepreneurState.OPENING_THE_SHOP;
+        this.shop = shop;
+        this.wh = wh;
+        this.ws = ws;
     }
     @Override
     public void run() {
@@ -88,6 +97,12 @@ public class Entrepreneur extends Thread {
     }
 
     private boolean endOpEntrep() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return  shop.getnCustomersInside() == 0 &&
+                shop.getnProductsStock() == 0 &&
+                !shop.isReqPrimeMaterials() &&
+                !shop.isReqFetchProducts() &&
+                wh.getnCurrentPrimeMaterials() == 0 &&
+                ws.getnCurrentPrimeMaterials() < ws.primeMaterialsPerProduct &&
+                ws.getnProductsStored() == 0;
     }
 }

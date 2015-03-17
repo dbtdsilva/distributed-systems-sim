@@ -5,14 +5,20 @@
  */
 package Customer;
 
+import Shop.Shop;
+
 /**
  *
  * @author diogosilva
  */
 public class Customer extends Thread {
     private CustomerState state;
+    private int id;
+    private Shop shop;
     
-    public Customer() {
+    public Customer(int id, Shop shop) {
+        this.id = id;
+        this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     @Override
@@ -59,6 +65,7 @@ public class Customer extends Thread {
     }
 
     private boolean endOpCustomer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // WIP
+        return shop.getnProductsStock() == 0;
     }
 }

@@ -5,6 +5,14 @@
  */
 package Exec;
 
+import Craftsman.Craftsman;
+import Customer.Customer;
+import Entrepreneur.Entrepreneur;
+import Shop.Shop;
+import Warehouse.Warehouse;
+import Workshop.Workshop;
+import java.util.ArrayList;
+
 /**
  *
  * @author diogosilva
@@ -17,7 +25,53 @@ public class ArtesanatoAveiro {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        System.out.println(":D");
+        GeneralRepo gr = new GeneralRepo("logging.txt");
+        Shop shop = new Shop(gr);
+        Warehouse wh = new Warehouse(ProbConst.nPrimeMaterials);
+        
+        
+        /* precisa do shop por causa do telefone */
+        Workshop ws = new Workshop(gr,
+                                shop,
+                                ProbConst.MAXproductsInWorkshop, 
+                                ProbConst.minPM, 
+                                ProbConst.primeMaterialsPerProduct);
+        
+        ArrayList<Customer> customers = new ArrayList<>(ProbConst.nCustomers);
+        ArrayList<Craftsman> craftsmen = new ArrayList<>(ProbConst.nCraftsmen);
+
+            /* 3 repositorios */
+        Entrepreneur entr = new Entrepreneur(shop, wh, ws);
+        
+        for (int i = 0; i < ProbConst.nCustomers; i++)
+            customers.add(new Customer(i, shop));
+        for (int i = 0; i < ProbConst.nCraftsmen; i++)
+            craftsmen.add(new Craftsman(i, ws));
+        
+        for (Customer c : customers)
+            c.start();
+        for (Craftsman c : craftsmen)
+            c.start();
+        entr.start();
+        
+        for (Customer c : customers) { 
+            try { 
+                c.join ();
+            } catch (InterruptedException e) {}
+            System.out.println("O cliente " + c.getId() + " terminou.");
+        }
+        System.out.println();
+        
+        for (Craftsman c : craftsmen) { 
+            try { 
+                c.join ();
+            } catch (InterruptedException e) {}
+            System.out.println("O artesão " + c.getId() + " terminou.");
+        }
+        
+        try {
+            entr.join();
+        } catch (InterruptedException e) {}
+        System.out.println("A dona terminou.");
     }
-    
 }
