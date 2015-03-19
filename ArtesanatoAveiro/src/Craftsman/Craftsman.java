@@ -14,7 +14,7 @@ import Workshop.Workshop;
 public class Craftsman extends Thread {
     private CraftsmanState state;
     private Workshop ws;
-    private int id;
+    public int id;
     
     public Craftsman(int id, Workshop ws) {
         this.id = id;
@@ -61,6 +61,6 @@ public class Craftsman extends Thread {
     }
 
     private boolean endOperCraft() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 }

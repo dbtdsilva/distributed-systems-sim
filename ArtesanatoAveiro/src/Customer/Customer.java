@@ -6,6 +6,8 @@
 package Customer;
 
 import Shop.Shop;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,8 +15,9 @@ import Shop.Shop;
  */
 public class Customer extends Thread {
     private CustomerState state;
-    private int id;
-    private Shop shop;
+    public int id;
+    
+    private final Shop shop;
     
     public Customer(int id, Shop shop) {
         this.id = id;
@@ -30,9 +33,8 @@ public class Customer extends Thread {
             if(isDoorOpen())
             {
                 enterShop();
-                if(perusingAround())
+                if (perusingAround())
                     iWantThis();
-                
                 exitShop();
             }
             else
@@ -40,30 +42,47 @@ public class Customer extends Thread {
         } while (!endOpCustomer());
     }
     public void livingNormalLife() {
-        
+        // state = CustomerState.CARRYING_OUT_DAILY_CHORES;
+        try {
+            Thread.sleep((int) (Math.random() * 100));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void goShopping() {
-        
+        state = CustomerState.CHECKING_SHOP_DOOR_OPEN;
+        // saveState?
     }
     public boolean isDoorOpen() {
-        return false;
+        return shop.isDoorOpen();
     }
     public void enterShop() {
-        
+        state = CustomerState.APPRAISING_OFFER_IN_DISPLAY;
+        shop.enterShop();
+        // saveState?
     }
     public boolean perusingAround() {
-        return false;
+        return shop.perusingAround();
     }
     public void iWantThis() {
-
-    }
-    public void tryAgainLater() {
-        
+        state = CustomerState.BUYING_SOME_GOODS;
+        // saveState?
+        shop.iWantThis(id);
     }
     public void exitShop() {
-        
+        state = CustomerState.CARRYING_OUT_DAILY_CHORES;
+        shop.exitShop();
+        // saveState?
     }
-
+    public void tryAgainLater() {
+        state = CustomerState.CARRYING_OUT_DAILY_CHORES;
+        // saveState?
+        try {
+            Thread.sleep((int) (Math.random() * 100));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private boolean endOpCustomer() {
         // WIP
         return shop.getnProductsStock() == 0;
