@@ -11,6 +11,7 @@ package Shop;
  */
 public enum ShopDoorState {
     CLOSED, 
+    ECLOSED,
     OPEN;
     
     @Override
