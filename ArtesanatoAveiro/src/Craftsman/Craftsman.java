@@ -5,6 +5,7 @@
  */
 package Craftsman;
 
+import Customer.CustomerState;
 import Workshop.Workshop;
 
 /**

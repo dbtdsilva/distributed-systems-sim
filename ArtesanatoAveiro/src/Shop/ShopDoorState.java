@@ -10,9 +10,20 @@ package Shop;
  * @author diogosilva
  */
 public enum ShopDoorState {
-    CLOSED, 
-    ECLOSED,
-    OPEN;
+    CLOSED("CLS"), 
+    ECLOSED("ECLS"),
+    OPEN("OPEN");
+    
+    private String acronym;
+    
+    private ShopDoorState(String acronym) 
+    {
+        this.acronym = acronym;
+    }
+    
+    public String getAcronym() {
+        return acronym;
+    }
     
     @Override
     public String toString() {

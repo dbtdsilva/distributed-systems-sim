@@ -10,10 +10,21 @@ package Customer;
  * @author diogosilva
  */
 public enum CustomerState {
-    CARRYING_OUT_DAILY_CHORES,
-    CHECKING_SHOP_DOOR_OPEN,
-    APPRAISING_OFFER_IN_DISPLAY,
-    BUYING_SOME_GOODS;
+    CARRYING_OUT_DAILY_CHORES("CODC"),
+    CHECKING_SHOP_DOOR_OPEN("CSDO"),
+    APPRAISING_OFFER_IN_DISPLAY("AOID"),
+    BUYING_SOME_GOODS("BSG");
+    
+    private String acronym;
+    
+    private CustomerState(String acronym) 
+    {
+        this.acronym = acronym;
+    }
+    
+    public String getAcronym() {
+        return acronym;
+    }
     
     @Override
     public String toString() {

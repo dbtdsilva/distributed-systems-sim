@@ -5,9 +5,14 @@ import Customer.*;
 import Entrepreneur.*;
 import Shop.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Diogo Silva, 60337
@@ -19,17 +24,19 @@ public class Logging {
     /* Name for the file where we want to save the log */
     private String filename;
     
+    private PrintWriter pw;
+    
     /* Auxiliar variables */
     //Entrepeneur information
     private EntrepreneurState entrepState;
     
     //Customer information
-    private CustomerState customerState;
-    private int nBoughtGoods;
+    private Map<Integer, CustomerState> customers;
+    private Map<Integer, Integer> nBoughtGoods;
     
     //Craftsmen information
-    private CraftsmanState craftmState;
-    private int nManufacturedProds;
+    private Map<Integer, CraftsmanState> craftsmen;
+    private Map<Integer, Integer> nManufacturedProds;
     
     //Shop information
     private int nCustomerIn;
@@ -65,22 +72,77 @@ public class Logging {
             this.filename = loggerName;
         
         log = new File(filename);
+        
+        InitWriting();
     }
     
     /**
      * Adds a line to the logger with the simulation information updated.
      */
-    public synchronized void WriteLine()
+    private synchronized void WriteLine()
     {
+        pw.printf("  %-4s   ", entrepState.getAcronym());
         
+        for(int i = 0; i < customers.size(); i++)
+            pw.printf("%-4s %-2d ", customers.get(i), nBoughtGoods.get(i));
+
+        pw.printf(" ");
+        
+        for(int i = 0; i < craftsmen.size(); i++)
+            pw.printf("%-4s %-2d ", craftsmen.get(i), nManufacturedProds.get(i));
+        
+        char r;
+        if(reqFetchProds)
+            r = 'T';
+        else
+            r = 'F';
+        
+        char t;
+        if(reqPrimeMaterials)
+            t = 'T';
+        else
+            t = 'F';
+        
+        pw.printf(" %-4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), nCustomerIn, nGoodsInDisplay, r, t);
+        pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
+        pw.println();
     }
     
     /**
      * Writes the first lines of the header in the logger file created before.
      */
-    public void InitWriting()
+    private void InitWriting()
     {
-        
+        try {
+            pw = new PrintWriter(log);
+            
+            StringBuilder sb = new StringBuilder("ENTREPRE ");
+            StringBuilder sb2 = new StringBuilder("  Stat  ");
+            
+            for(int i = 0; i < customers.size(); i++)
+            {
+                sb.append(" CUST_").append(i);
+                sb2.append("Stat BP ");
+            }
+            
+            sb.append("  ");
+            sb2.append("  ");
+            
+            for(int i = 0; i < craftsmen.size(); i++)
+            {
+                sb.append("CRAFT_").append(i).append(" ");
+                sb2.append("Stat PP ");
+            }
+            
+            sb.append("          SHOP                 WORKSHOP       ");
+            sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP");
+            
+            pw.println(sb.toString());
+            pw.println(sb2.toString());
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -88,7 +150,9 @@ public class Logging {
      */
     public void EndWriting()
     {
-        
+        pw.println("SIMULATION ENDED!");
+        pw.flush();
+        pw.close();
     }
     
     /**
@@ -103,30 +167,83 @@ public class Logging {
     }
     
     /**
-     * Writes the state of the craftsman in the logger file.
+     * Writes the number of finished products of the craftsman in the logger file.
      * 
-     * @param cs The craftsman's current state
-     * @param nManufacturedProds Craftsman's total number of manufactured products
+     * @param id The craftsman's id
      */
-    public synchronized void WriteCraftsman(CraftsmanState cs, int nManufacturedProds)
+    public synchronized void CraftsmanFinishedProduct(int id)
     {
-        this.craftmState = cs;
-        this.nManufacturedProds = nManufacturedProds;
+        if(nManufacturedProds.containsKey(id))
+        {
+            int prods = nManufacturedProds.get(id);
+            prods++;
+            nManufacturedProds.replace(id, prods);
+        }
+        else
+        {
+            nManufacturedProds.put(id, 1);
+        }
         WriteLine();
     }
     
     /**
      * Writes the state of the craftsman in the logger file.
      * 
-     * @param cs The customer's current state
-     * @param nBoughtGoods Number of shop bought goods
+     * @param id The craftsman's id
+     * @param cs The craftsman's current state
      */
-    public synchronized void WriteCustomer(CustomerState cs, int nBoughtGoods)
+    public synchronized void UpdateCraftsmanState(int id, CraftsmanState cs)
     {
-        this.customerState = cs;
-        this.nBoughtGoods = nBoughtGoods;
+        if(craftsmen.containsKey(id))
+        {
+            craftsmen.replace(id, cs);
+        }
+        else
+        {
+            craftsmen.put(id, cs);
+        }
         WriteLine();
     }
+    
+    /**
+     * Writes the state of the customer in the logger file.
+     * 
+     * @param id The customer's id
+     * @param cs The customer's current state
+     */
+    public synchronized void UpdateCustomerState(int id, CustomerState cs)
+    {
+        if(customers.containsKey(id))
+        {
+            customers.replace(id, cs);
+        }
+        else
+        {
+            customers.put(id, cs);
+        }
+        WriteLine();
+    }
+    
+    /**
+     * Writes the number of bought goods by the customer in the logger file.
+     * 
+     * @param id The customer's id
+     */
+    public synchronized void CustomersBoughtGoods(int id)
+    {
+        if(this.nBoughtGoods.containsKey(new Integer(id)))
+        {
+            int prods = this.nBoughtGoods.get(id);
+            prods++;
+            this.nBoughtGoods.replace(id, prods);
+        }
+        else
+        {
+            this.nBoughtGoods.put(id, 1);
+        }
+        WriteLine();
+    }
+    
     
      /**
      * Writes the state of the shop in the logger file.

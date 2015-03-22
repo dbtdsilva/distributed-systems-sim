@@ -10,10 +10,21 @@ package Craftsman;
  * @author diogosilva
  */
 public enum CraftsmanState {
-    FETCHING_PRIME_MATERIALS,
-    CONTACTING_ENTREPRENEUR,
-    PRODUCING_A_NEW_PIECE,
-    STORING_IT_FOR_TRANSFER;
+    FETCHING_PRIME_MATERIALS("FPM"),
+    CONTACTING_ENTREPRENEUR("CE"),
+    PRODUCING_A_NEW_PIECE("PANP"),
+    STORING_IT_FOR_TRANSFER("SIFT");
+    
+    private String acronym;
+    
+    private CraftsmanState(String acronym) 
+    {
+        this.acronym = acronym;
+    }
+    
+    public String getAcronym() {
+        return acronym;
+    }
     
     @Override
     public String toString() {
