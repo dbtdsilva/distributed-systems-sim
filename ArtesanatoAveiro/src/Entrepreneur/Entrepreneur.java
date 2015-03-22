@@ -5,10 +5,11 @@
  */
 package Entrepreneur;
 
-import Customer.Customer;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,29 +60,41 @@ public class Entrepreneur extends Thread {
         } while(!endOpEntrep());
 
     }
-    public void prepareToWork() {
-        
-    }
-    public int addressACustomer() {
-        return 0;
-    }
-    public void serviceCustomer(int id) {
-        
-    }
-    public void sayGoodByeToCustomer(int id) {
-     
-    }
     public char appraiseSit() {
         return 't';
     }
+    public void prepareToWork() {
+        state = EntrepreneurState.WAITING_FOR_NEXT_TASK;
+        // saveState()..
+    }
+    public int addressACustomer() {
+        state = EntrepreneurState.ATTENDING_A_CUSTOMER;
+        int id = shop.addressACustomer();
+        // saveState()
+        return id;
+    }
+    public void serviceCustomer(int id) {
+        try {
+            Thread.sleep((long) (Math.random() * 100));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void sayGoodByeToCustomer(int id) {
+        state = EntrepreneurState.WAITING_FOR_NEXT_TASK;
+        shop.sayGoodByeToCustomer(id);
+        // saveState()..
+    }
     public void closeTheDoor() {
-        
+        shop.closeTheDoor();
     }
     public boolean customersInTheShop() {
         return false;
     }
     public void prepareToLeave() {
-        
+        state = EntrepreneurState.CLOSING_THE_SHOP;
+        shop.prepareToLeave();
+        // saveState() ..
     }
     public void returnToShop() {
         
@@ -97,7 +110,7 @@ public class Entrepreneur extends Thread {
     }
 
     private boolean endOpEntrep() {
-        return  shop.getnCustomersInside() == 0 &&
+        return  !shop.customersInTheShop() &&
                 shop.getnProductsStock() == 0 &&
                 !shop.isReqPrimeMaterials() &&
                 !shop.isReqFetchProducts() &&

@@ -48,27 +48,26 @@ public class ArtesanatoAveiro {
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
             craftsmen.add(new Craftsman(i, ws));
         
+        System.out.println("Número de clientes: " + customers.size());
+        System.out.println("Número de artesões: " + craftsmen.size());
+        entr.start();
         for (Customer c : customers)
             c.start();
         for (Craftsman c : craftsmen)
             c.start();
-        entr.start();
-        
-        for (Customer c : customers) { 
-            try { 
-                c.join ();
-            } catch (InterruptedException e) {}
-            System.out.println("O cliente " + c.getId() + " terminou.");
-        }
-        System.out.println();
         
         for (Craftsman c : craftsmen) { 
             try { 
                 c.join ();
             } catch (InterruptedException e) {}
-            System.out.println("O artesão " + c.getId() + " terminou.");
+            System.out.println("O artesão " + c.id + " terminou.");
         }
-        
+        for (Customer c : customers) { 
+            try { 
+                c.join ();
+            } catch (InterruptedException e) {}
+            System.out.println("O cliente " + c.id + " terminou.");
+        }
         try {
             entr.join();
         } catch (InterruptedException e) {}
