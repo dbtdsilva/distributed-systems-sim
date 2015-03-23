@@ -22,13 +22,10 @@ public class ArtesanatoAveiro {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        GeneralRepo gr = new GeneralRepo("logging.txt");
+    public static void main(String[] args) { 
+        GeneralRepository gr = new GeneralRepository("logging.txt", ProbConst.nCustomers, ProbConst.nCraftsmen);
         Shop shop = new Shop(gr);
-        Warehouse wh = new Warehouse(ProbConst.nPrimeMaterials);
-        
+        Warehouse wh = new Warehouse(gr, ProbConst.nPrimeMaterials);
         
         /* precisa do shop por causa do telefone */
         Workshop ws = new Workshop(gr,

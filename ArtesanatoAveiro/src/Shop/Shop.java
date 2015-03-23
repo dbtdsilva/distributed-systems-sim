@@ -6,7 +6,7 @@
 package Shop;
 
 import Customer.Customer;
-import Exec.GeneralRepo;
+import Exec.GeneralRepository;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -24,9 +24,9 @@ public class Shop {
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     
-    private GeneralRepo generalRepo;
+    private GeneralRepository generalRepo;
     
-    public Shop(GeneralRepo gr) {
+    public Shop(GeneralRepository gr) {
         this.generalRepo = gr;
         this.nProductsStock = 0;
         this.doorState = ShopDoorState.CLOSED;

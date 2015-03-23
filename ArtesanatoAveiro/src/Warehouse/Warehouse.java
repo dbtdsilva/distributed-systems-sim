@@ -5,15 +5,19 @@
  */
 package Warehouse;
 
+import Exec.GeneralRepository;
+
 /**
  *
  * @author diogosilva
  */
 public class Warehouse {
+    private GeneralRepository gr;
     private int nCurrentPrimeMaterials;
     private final int nInitialPrimeMaterials;
     
-    public Warehouse(int nPrimeMaterials) {
+    public Warehouse(GeneralRepository rep, int nPrimeMaterials) {
+        this.gr = rep;
         this.nInitialPrimeMaterials = nPrimeMaterials;
         this.nCurrentPrimeMaterials = this.nInitialPrimeMaterials;
     }

@@ -5,7 +5,7 @@
  */
 package Workshop;
 
-import Exec.GeneralRepo;
+import Exec.GeneralRepository;
 import Shop.Shop;
 
 /**
@@ -22,10 +22,10 @@ public class Workshop {
     public final int MAX_ProductsStored;
     public final int MIN_PrimeMaterials;
     
-    private GeneralRepo generalRepo;
+    private GeneralRepository generalRepo;
     private Shop shop;
             
-    public Workshop(GeneralRepo gr, Shop shop, int maxProducts, int minPM, 
+    public Workshop(GeneralRepository gr, Shop shop, int maxProducts, int minPM, 
                         int primeMaterialsPerProduct) {
         this.nProductsStored = 0;
         this.nCurrentPrimeMaterials = 0;
