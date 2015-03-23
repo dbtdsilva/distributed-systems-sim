@@ -59,4 +59,8 @@ public class Workshop {
     public int getnTotalPrimeMaterialsSupplied() {
         return nTotalPrimeMaterialsSupplied;
     }
+    
+    public boolean collectingMaterials() {
+        return false;
+    }
 }

@@ -5,7 +5,6 @@
  */
 package Craftsman;
 
-import Customer.CustomerState;
 import Workshop.Workshop;
 
 /**
@@ -26,7 +25,7 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         do {
-            if (!collectingMaterials()) {
+            if (!ws.collectingMaterials()) {
                 primeMaterialsNeeded();
                 backToWork();
             } else {
@@ -39,9 +38,7 @@ public class Craftsman extends Thread {
             }
         } while (!endOperCraft());
     }
-    public boolean collectingMaterials() {
-        return false;
-    }
+    
     public void primeMaterialsNeeded() {
         
     }

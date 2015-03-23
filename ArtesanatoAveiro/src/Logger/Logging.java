@@ -73,6 +73,11 @@ public class Logging {
         
         log = new File(filename);
         
+        for(int i = 0; i < nCraftsmen; i++)
+            craftsmen.put(i, CraftsmanState.FETCHING_PRIME_MATERIALS);
+        for(int i = 0; i < nCustomers; i++)
+            customers.put(i, CustomerState.CARRYING_OUT_DAILY_CHORES);
+        
         InitWriting();
     }
     
