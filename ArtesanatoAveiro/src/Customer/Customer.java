@@ -5,6 +5,7 @@
  */
 package Customer;
 
+import Exec.GeneralRepository;
 import Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +19,17 @@ public class Customer extends Thread {
     public int id;
     
     private final Shop shop;
+    private GeneralRepository rep;
     
-    public Customer(int id, Shop shop) {
+    public Customer(int id, GeneralRepository rep, Shop shop) {
         this.id = id;
+        this.rep = rep;
         this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     @Override
     public void run() {
+        //rep.log.UpdateCustomerState(id, state);
         do {
             livingNormalLife();
             goShopping();
@@ -51,7 +55,7 @@ public class Customer extends Thread {
     }
     public void goShopping() {
         state = CustomerState.CHECKING_SHOP_DOOR_OPEN;
-        // saveState?
+        //saveState()
     }
     public boolean isDoorOpen() {
         return shop.isDoorOpen();

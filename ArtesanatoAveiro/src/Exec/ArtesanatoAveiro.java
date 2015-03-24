@@ -41,7 +41,7 @@ public class ArtesanatoAveiro {
         Entrepreneur entr = new Entrepreneur(shop, wh, ws);
         
         for (int i = 0; i < ProbConst.nCustomers; i++)
-            customers.add(new Customer(i, shop));
+            customers.add(new Customer(i, gr, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
             craftsmen.add(new Craftsman(i, ws));
         
@@ -52,6 +52,9 @@ public class ArtesanatoAveiro {
             c.start();
         for (Craftsman c : craftsmen)
             c.start();
+        
+        ShutdownHook shutdownHook = new ShutdownHook(gr);
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
         
         for (Craftsman c : craftsmen) { 
             try { 
@@ -69,5 +72,16 @@ public class ArtesanatoAveiro {
             entr.join();
         } catch (InterruptedException e) {}
         System.out.println("A dona terminou.");
+    }
+}
+
+class ShutdownHook extends Thread {
+    GeneralRepository gr;
+    ShutdownHook(GeneralRepository gr) {
+        this.gr = gr;
+    }
+    @Override
+    public void run() {
+        gr.log.EndWriting();
     }
 }
