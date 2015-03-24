@@ -21,11 +21,16 @@ public class Entrepreneur extends Thread {
     private Warehouse wh;
     private Workshop ws;
     
+    private int nProductsTransfer = 0;
+    private int nMaterialsTransfer = 0;
+    
     public Entrepreneur(Shop shop, Warehouse wh, Workshop ws) {
         state = EntrepreneurState.OPENING_THE_SHOP;
         this.shop = shop;
         this.wh = wh;
         this.ws = ws;
+        nProductsTransfer = 0;
+        nMaterialsTransfer = 0;
     }
     @Override
     public void run() {
@@ -41,11 +46,10 @@ public class Entrepreneur extends Thread {
                         serviceCustomer(id);
                         sayGoodByeToCustomer(id);
                         break;
-                    case 'E': 
+                    case 'T':
+                    case 'M':
                         closeTheDoor();
                         canGoOut = !customersInTheShop();
-                        break;
-                    default:
                         break;
                 }
             } while (!canGoOut);
@@ -57,11 +61,12 @@ public class Entrepreneur extends Thread {
                 visitSuppliers();
                 replenishStock();
             }
+            returnToShop();
         } while(!endOpEntrep());
 
     }
     public char appraiseSit() {
-        return 't';
+        return shop.appraiseSit();
     }
     public void prepareToWork() {
         state = EntrepreneurState.WAITING_FOR_NEXT_TASK;
@@ -96,19 +101,29 @@ public class Entrepreneur extends Thread {
         shop.prepareToLeave();
         // saveState() ..
     }
-    public void returnToShop() {
-        
-    }
     public void goToWorkshop() {
-        
+        nProductsTransfer = ws.goToWorkshop();
+        state = EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS;
+        // saveState;
     }
     public void visitSuppliers() {
-        
+        state = EntrepreneurState.AT_THE_SUPPLIERS;
+        nMaterialsTransfer = wh.visitSuppliers();
+        // saveState;
     }
     public void replenishStock() {
-        
+        state = EntrepreneurState.DELIVERING_PRIME_MATERIALS;
+        ws.replenishStock(nMaterialsTransfer);
+        nMaterialsTransfer = 0;
+        // saveState;
     }
-
+    public void returnToShop() {
+        shop.returnToShop(nProductsTransfer);
+        if (nProductsTransfer > 0)
+            nProductsTransfer = 0;
+        state = EntrepreneurState.OPENING_THE_SHOP;
+        // saveState?
+    }
     private boolean endOpEntrep() {
         return  !shop.customersInTheShop() &&
                 shop.getnProductsStock() == 0 &&

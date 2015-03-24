@@ -50,31 +50,28 @@ public class Workshop {
         this.shop = shop;
     }
     
-    /**
-     * Get the number of products that are currently in stock at the workshop.
-     * 
-     * @return number of stored products
-     */
-    public int getnProductsStored() {
-        return nProductsStored;
+    /******************/
+    /** ENTREPRENEUR **/
+    /******************/
+    public synchronized int goToWorkshop() {
+        int products = nProductsStored;
+        nProductsStored = 0;
+        return products;
     }
 
-    public int getnCurrentPrimeMaterials() {
-        return nCurrentPrimeMaterials;
+    public synchronized void replenishStock(int nMaterials) {
+        nTimesPrimeMaterialsFetched++;
+        nTotalPrimeMaterialsSupplied += nMaterials;
+        nCurrentPrimeMaterials += nMaterials;
+        
+        for (int i = 0; i < generalRepo.craftsmenWaiting; i++)
+            generalRepo.craftsmenWaitingMaterials.release();
+        generalRepo.craftsmenWaiting = 0;
     }
 
-    public int getnFinishedProducts() {
-        return nFinishedProducts;
-    }
-
-    public int getnTimesPrimeMaterialsFetched() {
-        return nTimesPrimeMaterialsFetched;
-    }
-
-    public int getnTotalPrimeMaterialsSupplied() {
-        return nTotalPrimeMaterialsSupplied;
-    }
-    
+    /***************/
+    /** CRAFTSMEN **/
+    /***************/
     /**
      * If there are enough materials to manufacture the product, the number of available prime materials 
      * is updated. 
@@ -101,5 +98,21 @@ public class Workshop {
 
     public void batchReadyForTransfer(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /*************/
+    /** GENERAL **/
+    /*************/
+    
+    /**
+     * Get the number of products that are currently in stock at the workshop.
+     * 
+     * @return number of stored products
+     */
+    public int getnProductsStored() {
+        return nProductsStored;
+    }
+    public int getnCurrentPrimeMaterials() {
+        return nCurrentPrimeMaterials;
     }
 }

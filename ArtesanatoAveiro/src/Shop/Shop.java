@@ -24,7 +24,7 @@ public class Shop {
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     
-    private GeneralRepository generalRepo;
+    private final GeneralRepository generalRepo;
     
     public Shop(GeneralRepository gr) {
         this.generalRepo = gr;
@@ -50,17 +50,53 @@ public class Shop {
             return false;
         return Math.random() > 0.3; // 70% probabilidade
     }
-    public synchronized void iWantThis(int id) {
-        nProductsStock -= 1;
-        waitingLine.add(id);
-        // Acordar a dona???
+    public void iWantThis(int id) {
+        synchronized (this) {
+            nProductsStock -= 1;
+            waitingLine.add(id);
+            // Acordar a dona
+            generalRepo.entrepreneurWake.release();
+        }
+        
+        // Adormecer o customer
         try {
-            wait();
+            generalRepo.customersWaiting[id].acquire();
         } catch (InterruptedException ex) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /* Entrepreneur related */
+    /**************************/
+    /** Entrepreneur related **/
+    /**************************/
+    
+    /**
+     *
+     * @return
+     */
+    public char appraiseSit() {
+        char returnChar;
+        while (true) {
+            try {
+                generalRepo.entrepreneurWake.acquire();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            synchronized(this) {
+                if (!waitingLine.isEmpty()) {
+                    returnChar = 'C';
+                    break;
+                } else if (reqPrimeMaterials) {
+                    returnChar = 'M';
+                    break;
+                } else if (reqFetchProducts) {
+                    returnChar = 'T';
+                    break;
+                }
+            }
+        }
+        return returnChar;
+    }
     public synchronized int addressACustomer() {
         if (waitingLine.size() == 0) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, 
@@ -69,7 +105,8 @@ public class Shop {
         return waitingLine.poll();
     }
     public synchronized void sayGoodByeToCustomer(int id) {
-        // Acordar o customer com este id
+        // Acordar customer com este ID
+        generalRepo.customersWaiting[id].release();
     }
     public synchronized void closeTheDoor() {
         doorState = ShopDoorState.ECLOSED;
@@ -77,10 +114,19 @@ public class Shop {
     public synchronized boolean customersInTheShop() {
         return nCustomersInside > 0;
     }
-    public void prepareToLeave() {
+    public synchronized void prepareToLeave() {
         doorState = ShopDoorState.CLOSED;
     }
+    public synchronized void returnToShop(int nProductsTransfer) {
+        if (nProductsTransfer > 0) {
+            reqFetchProducts = false;
+            nProductsStock += nProductsTransfer;
+        } else if (reqPrimeMaterials) {
+            reqPrimeMaterials = false;
+        }
+    }
     
+    // Hm
     public int getnProductsStock() {
         return nProductsStock;
     }

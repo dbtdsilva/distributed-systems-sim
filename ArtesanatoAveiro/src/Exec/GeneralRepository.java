@@ -17,16 +17,17 @@ public class GeneralRepository {
     
     public Semaphore entrepreneurWake;
     public Semaphore customersWaiting[];
-    public Semaphore craftsmenWaitingMaterials[];
+    public Semaphore craftsmenWaitingMaterials;
+    public int craftsmenWaiting = 0;
     
     GeneralRepository(String loggerName, int nCustomers, int nCraftsmen) {
         log = new Logging(loggerName, nCustomers, nCraftsmen);
+        craftsmenWaiting = 0;
+        
         entrepreneurWake = new Semaphore(1);
         customersWaiting = new Semaphore[nCustomers];
         for (int i = 0; i < nCustomers; i++)
-            craftsmenWaitingMaterials[i] = new Semaphore(1);
-        craftsmenWaitingMaterials = new Semaphore[nCraftsmen];
-        for (int i = 0; i < nCraftsmen; i++)
-            craftsmenWaitingMaterials[i] = new Semaphore(1);
+            customersWaiting[i] = new Semaphore(1);
+        craftsmenWaitingMaterials = new Semaphore(1);
     }
 }

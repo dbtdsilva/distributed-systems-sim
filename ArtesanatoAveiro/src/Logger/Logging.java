@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +21,9 @@ import java.util.logging.Logger;
  */
 public class Logging {
     /* File where the log will be saved */
-    private File log;
+    private final File log;
     /* Name for the file where we want to save the log */
-    private String filename;
+    private final String filename;
     
     private PrintWriter pw;
     
@@ -51,7 +52,6 @@ public class Logging {
     private int nTimesPrimeMaterialsFetched;
     private int nTotalPrimeMaterialsSupplied;
     private int nFinishedProducts;
-    
 
     /**
      * Initializes the logger file.
@@ -62,6 +62,11 @@ public class Logging {
      */
     public Logging(String loggerName, int nCustomers, int nCraftsmen)
     {
+        craftsmen = new HashMap<>();
+        customers = new HashMap<>();
+        nBoughtGoods = new HashMap<>();
+        nManufacturedProds = new HashMap<>();
+        
         if(loggerName.length() == 0)
         {
             Date today = Calendar.getInstance().getTime();
@@ -72,11 +77,16 @@ public class Logging {
             this.filename = loggerName;
         
         log = new File(filename);
-        
-        for(int i = 0; i < nCraftsmen; i++)
+        shopDoorState = ShopDoorState.CLOSED;
+        entrepState = EntrepreneurState.OPENING_THE_SHOP;
+        for(int i = 0; i < nCraftsmen; i++) {
+            nManufacturedProds.put(i, 0);
             craftsmen.put(i, CraftsmanState.FETCHING_PRIME_MATERIALS);
-        for(int i = 0; i < nCustomers; i++)
+        }
+        for(int i = 0; i < nCustomers; i++) {
             customers.put(i, CustomerState.CARRYING_OUT_DAILY_CHORES);
+            nBoughtGoods.put(i, 0);
+        }
         
         InitWriting();
     }
@@ -84,17 +94,17 @@ public class Logging {
     /**
      * Adds a line to the logger with the simulation information updated.
      */
-    private synchronized void WriteLine()
+    public synchronized void WriteLine()
     {
-        pw.printf("  %-4s   ", entrepState.getAcronym());
+        pw.printf("  %4s   ", entrepState.getAcronym());
         
         for(int i = 0; i < customers.size(); i++)
-            pw.printf("%-4s %-2d ", customers.get(i), nBoughtGoods.get(i));
+            pw.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
 
         pw.printf(" ");
         
         for(int i = 0; i < craftsmen.size(); i++)
-            pw.printf("%-4s %-2d ", craftsmen.get(i), nManufacturedProds.get(i));
+            pw.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
         
         char r;
         if(reqFetchProds)
@@ -108,7 +118,7 @@ public class Logging {
         else
             t = 'F';
         
-        pw.printf(" %-4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), nCustomerIn, nGoodsInDisplay, r, t);
+        pw.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), nCustomerIn, nGoodsInDisplay, r, t);
         pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
         pw.println();
     }
@@ -121,13 +131,13 @@ public class Logging {
         try {
             pw = new PrintWriter(log);
             
-            StringBuilder sb = new StringBuilder("ENTREPRE ");
+            StringBuilder sb = new StringBuilder("ENTREPRE");
             StringBuilder sb2 = new StringBuilder("  Stat  ");
             
             for(int i = 0; i < customers.size(); i++)
             {
-                sb.append(" CUST_").append(i);
-                sb2.append("Stat BP ");
+                sb.append("  CUST_").append(i);
+                sb2.append(" Stat BP");
             }
             
             sb.append("  ");
@@ -144,7 +154,7 @@ public class Logging {
             
             pw.println(sb.toString());
             pw.println(sb2.toString());
-            
+            WriteLine();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -182,7 +192,9 @@ public class Logging {
         {
             int prods = nManufacturedProds.get(id);
             prods++;
-            nManufacturedProds.replace(id, prods);
+            //nManufacturedProds.remove(id);
+            //nManufacturedProds.replace(id, prods);
+            nManufacturedProds.put(id, prods);
         }
         else
         {
@@ -199,14 +211,15 @@ public class Logging {
      */
     public synchronized void UpdateCraftsmanState(int id, CraftsmanState cs)
     {
-        if(craftsmen.containsKey(id))
+        /*if(craftsmen.containsKey(id))
         {
             craftsmen.replace(id, cs);
         }
         else
         {
             craftsmen.put(id, cs);
-        }
+        }*/
+        craftsmen.put(id, cs);
         WriteLine();
     }
     
@@ -218,14 +231,15 @@ public class Logging {
      */
     public synchronized void UpdateCustomerState(int id, CustomerState cs)
     {
-        if(customers.containsKey(id))
+        /*if(customers.containsKey(id))
         {
             customers.replace(id, cs);
         }
         else
         {
             customers.put(id, cs);
-        }
+        }*/
+        customers.put(id, cs);
         WriteLine();
     }
     
@@ -240,7 +254,8 @@ public class Logging {
         {
             int prods = this.nBoughtGoods.get(id);
             prods++;
-            this.nBoughtGoods.replace(id, prods);
+            //this.nBoughtGoods.replace(id, prods);
+            this.nBoughtGoods.put(id, prods);
         }
         else
         {
