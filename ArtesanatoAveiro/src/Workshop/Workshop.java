@@ -10,7 +10,8 @@ import Shop.Shop;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337 
+ * @author Tânia Alves, 60340
  */
 public class Workshop {
     private int nProductsStored;
@@ -25,6 +26,15 @@ public class Workshop {
     private GeneralRepository generalRepo;
     private Shop shop;
             
+    /**
+     * Initializes the workshop class with the required information.
+     * 
+     * @param gr The general repository where the semaphores are stored along with some other useful global variables.
+     * @param shop The shop that is created in the simulation.
+     * @param maxProducts Maximum number of products that can be stored in the workshop.
+     * @param minPM Minimum number of prime materials that the workshop can have until the craftsmen notify the entrepreneur.
+     * @param primeMaterialsPerProduct Number of prime materials that takes to manufacture a product.
+     */
     public Workshop(GeneralRepository gr, Shop shop, int maxProducts, int minPM, 
                         int primeMaterialsPerProduct) {
         this.nProductsStored = 0;
@@ -40,6 +50,11 @@ public class Workshop {
         this.shop = shop;
     }
     
+    /**
+     * Get the number of products that are currently in stock at the workshop.
+     * 
+     * @return number of stored products
+     */
     public int getnProductsStored() {
         return nProductsStored;
     }
@@ -60,7 +75,31 @@ public class Workshop {
         return nTotalPrimeMaterialsSupplied;
     }
     
+    /**
+     * If there are enough materials to manufacture the product, the number of available prime materials 
+     * is updated. 
+     * However, if the prime materials aren't enough, the function returns false.
+     * 
+     * @return true if there are enough prime materials to manufacture a product or false if there aren't.
+     */
     public boolean collectingMaterials() {
-        return false;
+        if(nCurrentPrimeMaterials < primeMaterialsPerProduct)
+            return false;
+        
+        nCurrentPrimeMaterials -= primeMaterialsPerProduct;
+        return true;
+    }
+
+    /**
+     * If there are not enough prime materials, the craftsman tells the entrepreneur to fetch more prime materials.
+     * 
+     * @param id The craftsman's identifier.
+     */
+    public void primeMaterialsNeeded(int id) {
+        //Notify entrepreneur
+    }
+
+    public void batchReadyForTransfer(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
