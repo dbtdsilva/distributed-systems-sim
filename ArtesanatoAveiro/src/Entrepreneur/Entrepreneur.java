@@ -70,12 +70,12 @@ public class Entrepreneur extends Thread {
     }
     public void prepareToWork() {
         state = EntrepreneurState.WAITING_FOR_NEXT_TASK;
-        // saveState()..
+        //rep.log.WriteEntreperneur(state);
     }
     public int addressACustomer() {
         state = EntrepreneurState.ATTENDING_A_CUSTOMER;
         int id = shop.addressACustomer();
-        // saveState()
+        //rep.log.WriteEntreperneur(state);
         return id;
     }
     public void serviceCustomer(int id) {
@@ -88,7 +88,7 @@ public class Entrepreneur extends Thread {
     public void sayGoodByeToCustomer(int id) {
         state = EntrepreneurState.WAITING_FOR_NEXT_TASK;
         shop.sayGoodByeToCustomer(id);
-        // saveState()..
+        //rep.log.WriteEntreperneur(state);
     }
     public void closeTheDoor() {
         shop.closeTheDoor();
@@ -99,30 +99,30 @@ public class Entrepreneur extends Thread {
     public void prepareToLeave() {
         state = EntrepreneurState.CLOSING_THE_SHOP;
         shop.prepareToLeave();
-        // saveState() ..
+        //rep.log.WriteEntreperneur(state);
     }
     public void goToWorkshop() {
         nProductsTransfer = ws.goToWorkshop();
         state = EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS;
-        // saveState;
+        //rep.log.WriteEntreperneur(state);
     }
     public void visitSuppliers() {
         state = EntrepreneurState.AT_THE_SUPPLIERS;
         nMaterialsTransfer = wh.visitSuppliers();
-        // saveState;
+        //rep.log.WriteEntreperneur(state);
     }
     public void replenishStock() {
         state = EntrepreneurState.DELIVERING_PRIME_MATERIALS;
         ws.replenishStock(nMaterialsTransfer);
         nMaterialsTransfer = 0;
-        // saveState;
+        //rep.log.WriteEntreperneur(state);
     }
     public void returnToShop() {
         shop.returnToShop(nProductsTransfer);
         if (nProductsTransfer > 0)
             nProductsTransfer = 0;
         state = EntrepreneurState.OPENING_THE_SHOP;
-        // saveState?
+        //rep.log.WriteEntreperneur(state);
     }
     private boolean endOpEntrep() {
         return  !shop.customersInTheShop() &&

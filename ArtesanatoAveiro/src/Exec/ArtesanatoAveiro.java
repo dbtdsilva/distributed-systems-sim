@@ -41,7 +41,7 @@ public class ArtesanatoAveiro {
         Entrepreneur entr = new Entrepreneur(shop, wh, ws);
         
         for (int i = 0; i < ProbConst.nCustomers; i++)
-            customers.add(new Customer(i, gr, shop));
+            customers.add(new Customer(i, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
             craftsmen.add(new Craftsman(i, ws));
         

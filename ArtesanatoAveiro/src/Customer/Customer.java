@@ -5,7 +5,6 @@
  */
 package Customer;
 
-import Exec.GeneralRepository;
 import Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,17 +18,14 @@ public class Customer extends Thread {
     public int id;
     
     private final Shop shop;
-    private GeneralRepository rep;
     
-    public Customer(int id, GeneralRepository rep, Shop shop) {
+    public Customer(int id, Shop shop) {
         this.id = id;
-        this.rep = rep;
         this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     @Override
     public void run() {
-        //rep.log.UpdateCustomerState(id, state);
         do {
             livingNormalLife();
             goShopping();
@@ -55,7 +51,7 @@ public class Customer extends Thread {
     }
     public void goShopping() {
         state = CustomerState.CHECKING_SHOP_DOOR_OPEN;
-        //saveState()
+        //rep.log.UpdateCustomerState(id, state);
     }
     public boolean isDoorOpen() {
         return shop.isDoorOpen();
@@ -63,24 +59,24 @@ public class Customer extends Thread {
     public void enterShop() {
         state = CustomerState.APPRAISING_OFFER_IN_DISPLAY;
         shop.enterShop();
-        // saveState?
+        //rep.log.UpdateCustomerState(id, state);
     }
     public boolean perusingAround() {
         return shop.perusingAround();
     }
     public void iWantThis() {
         state = CustomerState.BUYING_SOME_GOODS;
-        // saveState?
+        //rep.log.UpdateCustomerState(id, state);
         shop.iWantThis(id);
     }
     public void exitShop() {
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
         shop.exitShop();
-        // saveState?
+        //rep.log.UpdateCustomerState(id, state);
     }
     public void tryAgainLater() {
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
-        // saveState?
+        //rep.log.UpdateCustomerState(id, state);
         try {
             Thread.sleep((int) (Math.random() * 100));
         } catch (InterruptedException ex) {
@@ -88,7 +84,7 @@ public class Customer extends Thread {
         }
     }
     private boolean endOpCustomer() {
-        // WIP
         return shop.getnProductsStock() == 0;
+        // TO DO
     }
 }
