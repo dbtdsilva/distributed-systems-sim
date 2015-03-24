@@ -250,7 +250,7 @@ public class Logging {
      */
     public synchronized void CustomersBoughtGoods(int id)
     {
-        if(this.nBoughtGoods.containsKey(new Integer(id)))
+        if(this.nBoughtGoods.containsKey(id))
         {
             int prods = this.nBoughtGoods.get(id);
             prods++;

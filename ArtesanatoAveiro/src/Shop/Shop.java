@@ -136,4 +136,12 @@ public class Shop {
     public boolean isReqPrimeMaterials() {
         return reqPrimeMaterials;
     }
+    public synchronized void RequestFetchProducts()
+    {
+        this.reqFetchProducts = true;
+    }
+    public synchronized void RequestPrimeMaterials()
+    {
+        this.reqPrimeMaterials = true;
+    }
 }
