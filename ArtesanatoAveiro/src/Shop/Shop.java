@@ -20,7 +20,7 @@ public class Shop {
     private int nCustomersInside;
     private int nProductsStock;
     private ShopDoorState doorState;
-    private Queue<Integer> waitingLine;
+    private final Queue<Integer> waitingLine;
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     
