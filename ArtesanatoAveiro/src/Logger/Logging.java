@@ -41,7 +41,7 @@ public class Logging {
     
     //Shop information
     private int nCustomerIn;
-    private ShopDoorState shopDoorState;
+    private ShopState shopDoorState;
     private int nGoodsInDisplay;
     private boolean reqFetchProds;
     private boolean reqPrimeMaterials;
@@ -77,7 +77,7 @@ public class Logging {
             this.filename = loggerName;
         
         log = new File(filename);
-        shopDoorState = ShopDoorState.CLOSED;
+        shopDoorState = ShopState.CLOSED;
         entrepState = EntrepreneurState.OPENING_THE_SHOP;
         for(int i = 0; i < nCraftsmen; i++) {
             nManufacturedProds.put(i, 0);
@@ -275,7 +275,7 @@ public class Logging {
      * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
      * 
      */
-    public synchronized void WriteShop(ShopDoorState s, int nCustomerIn, int nGoodsInDisplay,
+    public synchronized void WriteShop(ShopState s, int nCustomerIn, int nGoodsInDisplay,
                                     boolean reqFetchProds, boolean reqPrimeMaterials)
     {
         this.shopDoorState = s;

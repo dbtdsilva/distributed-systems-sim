@@ -15,7 +15,7 @@ public enum CraftsmanState {
     PRODUCING_A_NEW_PIECE("PANP"),
     STORING_IT_FOR_TRANSFER("SIFT");
     
-    private String acronym;
+    private final String acronym;
     
     private CraftsmanState(String acronym) 
     {

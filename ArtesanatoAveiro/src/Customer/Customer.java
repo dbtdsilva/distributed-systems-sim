@@ -24,25 +24,26 @@ public class Customer extends Thread {
         this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
+    public void setState(CustomerState state) {
+        this.state = state;
+    }
     @Override
     public void run() {
         do {
             livingNormalLife();
-            goShopping();
+            shop.goShopping(id);
         
-            if(isDoorOpen())
-            {
-                enterShop();
-                if (perusingAround())
-                    iWantThis();
-                exitShop();
+            if(shop.isDoorOpen()) {
+                shop.enterShop();
+                if (shop.perusingAround())
+                    shop.iWantThis(id);
+                shop.exitShop(id);
             }
             else
                 tryAgainLater();
         } while (!endOpCustomer());
     }
     public void livingNormalLife() {
-        // state = CustomerState.CARRYING_OUT_DAILY_CHORES;
         try {
             Thread.sleep((int) (Math.random() * 100));
         } catch (InterruptedException ex) {
@@ -74,15 +75,20 @@ public class Customer extends Thread {
         shop.exitShop();
         //rep.log.UpdateCustomerState(id, state);
     }
+    
+    
+    
     public void tryAgainLater() {
-        state = CustomerState.CARRYING_OUT_DAILY_CHORES;
-        //rep.log.UpdateCustomerState(id, state);
+        shop.tryAgainLater(id);
+        
         try {
             Thread.sleep((int) (Math.random() * 100));
         } catch (InterruptedException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
     private boolean endOpCustomer() {
         return shop.getnProductsStock() == 0;
         // TO DO

@@ -8,6 +8,7 @@ package Exec;
 import Craftsman.Craftsman;
 import Customer.Customer;
 import Entrepreneur.Entrepreneur;
+import Logger.Logging;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
@@ -23,12 +24,12 @@ public class ArtesanatoAveiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        GeneralRepository gr = new GeneralRepository("logging.txt", ProbConst.nCustomers, ProbConst.nCraftsmen);
-        Shop shop = new Shop(gr);
-        Warehouse wh = new Warehouse(gr, ProbConst.nPrimeMaterials);
+        Logging log = new Logging("logging.txt", ProbConst.nCustomers, ProbConst.nCraftsmen);
+        Shop shop = new Shop(log);
+        Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
         
         /* precisa do shop por causa do telefone */
-        Workshop ws = new Workshop(gr,
+        Workshop ws = new Workshop(log,
                                 shop,
                                 ProbConst.MAXproductsInWorkshop, 
                                 ProbConst.minPM, 
@@ -76,12 +77,12 @@ public class ArtesanatoAveiro {
 }
 
 class ShutdownHook extends Thread {
-    GeneralRepository gr;
-    ShutdownHook(GeneralRepository gr) {
-        this.gr = gr;
+    Logging log;
+    ShutdownHook(Logging log) {
+        this.log = log;
     }
     @Override
     public void run() {
-        gr.log.EndWriting();
+        log.EndWriting();
     }
 }

@@ -5,7 +5,6 @@
  */
 package Workshop;
 
-import Exec.GeneralRepository;
 import Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -5,7 +5,6 @@
  */
 package Warehouse;
 
-import Exec.GeneralRepository;
 import Exec.ProbConst;
 
 /**

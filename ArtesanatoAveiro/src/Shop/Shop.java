@@ -6,7 +6,8 @@
 package Shop;
 
 import Customer.Customer;
-import Exec.GeneralRepository;
+import Customer.CustomerState;
+import Logger.Logging;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -19,30 +20,34 @@ import java.util.logging.Logger;
 public class Shop {
     private int nCustomersInside;
     private int nProductsStock;
-    private ShopDoorState doorState;
+    private ShopState shopState;
     private final Queue<Integer> waitingLine;
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     
-    private final GeneralRepository generalRepo;
+    private final Logging log;
     
-    public Shop(GeneralRepository gr) {
-        this.generalRepo = gr;
+    public Shop(Logging log) {
+        this.log = log;
         this.nProductsStock = 0;
-        this.doorState = ShopDoorState.CLOSED;
+        this.shopState = ShopState.CLOSED;
         this.nCustomersInside = 0;
         this.waitingLine = new LinkedList<>();
         this.reqFetchProducts = false;
         this.reqPrimeMaterials = false;
     }
     /* Customer related */
+    public synchronized void goShopping(int id) {
+        ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
+    }
     public synchronized boolean isDoorOpen() {
-        return doorState == ShopDoorState.OPEN;
+        return shopState == ShopState.OPEN;
     }
     public synchronized void enterShop() {
         nCustomersInside += 1;
     }
-    public synchronized void exitShop() {
+    public synchronized void exitShop(int id) {
         nCustomersInside -= 1;
     }
     public synchronized boolean perusingAround() {
@@ -55,15 +60,12 @@ public class Shop {
             nProductsStock -= 1;
             waitingLine.add(id);
             // Acordar a dona
-            generalRepo.entrepreneurWake.release();
         }
-        
         // Adormecer o customer
-        try {
-            generalRepo.customersWaiting[id].acquire();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
+    public synchronized void tryAgainLater(int id) {
+        ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
+        log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
     }
     /**************************/
     /** Entrepreneur related **/
@@ -106,16 +108,15 @@ public class Shop {
     }
     public synchronized void sayGoodByeToCustomer(int id) {
         // Acordar customer com este ID
-        generalRepo.customersWaiting[id].release();
     }
     public synchronized void closeTheDoor() {
-        doorState = ShopDoorState.ECLOSED;
+        shopState = ShopState.ECLOSED;
     }
     public synchronized boolean customersInTheShop() {
         return nCustomersInside > 0;
     }
     public synchronized void prepareToLeave() {
-        doorState = ShopDoorState.CLOSED;
+        shopState = ShopState.CLOSED;
     }
     public synchronized void returnToShop(int nProductsTransfer) {
         if (nProductsTransfer > 0) {

@@ -9,14 +9,14 @@ package Shop;
  *
  * @author diogosilva
  */
-public enum ShopDoorState {
+public enum ShopState {
     CLOSED("CLS"), 
     ECLOSED("ECLS"),
     OPEN("OPEN");
     
     private String acronym;
     
-    private ShopDoorState(String acronym) 
+    private ShopState(String acronym) 
     {
         this.acronym = acronym;
     }
