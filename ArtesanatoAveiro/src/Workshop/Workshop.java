@@ -39,28 +39,39 @@ public class Workshop {
         this.generalRepo = gr;
         this.shop = shop;
     }
+    /******************/
+    /** ENTREPRENEUR **/
+    /******************/
+    public synchronized int goToWorkshop() {
+        int products = nProductsStored;
+        nProductsStored = 0;
+        return products;
+    }
+
+    public synchronized void replenishStock(int nMaterials) {
+        nTimesPrimeMaterialsFetched++;
+        nTotalPrimeMaterialsSupplied += nMaterials;
+        nCurrentPrimeMaterials += nMaterials;
+        
+        for (int i = 0; i < generalRepo.craftsmenWaiting; i++)
+            generalRepo.craftsmenWaitingMaterials.release();
+        generalRepo.craftsmenWaiting = 0;
+    }
     
+    /***************/
+    /** CRAFTSMEN **/
+    /***************/
+    public boolean collectingMaterials() {
+        return false;
+    }
+    
+    /*************/
+    /** GENERAL **/
+    /*************/
     public int getnProductsStored() {
         return nProductsStored;
     }
-
     public int getnCurrentPrimeMaterials() {
         return nCurrentPrimeMaterials;
-    }
-
-    public int getnFinishedProducts() {
-        return nFinishedProducts;
-    }
-
-    public int getnTimesPrimeMaterialsFetched() {
-        return nTimesPrimeMaterialsFetched;
-    }
-
-    public int getnTotalPrimeMaterialsSupplied() {
-        return nTotalPrimeMaterialsSupplied;
-    }
-    
-    public boolean collectingMaterials() {
-        return false;
     }
 }

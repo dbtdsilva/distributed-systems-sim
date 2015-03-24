@@ -6,6 +6,7 @@
 package Warehouse;
 
 import Exec.GeneralRepository;
+import Exec.ProbConst;
 
 /**
  *
@@ -22,7 +23,15 @@ public class Warehouse {
         this.nCurrentPrimeMaterials = this.nInitialPrimeMaterials;
     }
     
-    public int getnCurrentPrimeMaterials() {
-        return nCurrentPrimeMaterials;
+    /******************/
+    /** ENTREPRENEUR **/
+    /******************/
+    public synchronized int visitSuppliers() {
+        int productsLeft = nCurrentPrimeMaterials / ProbConst.primeMaterialsPerProduct;
+        return (int) ((Math.random()+1) * (productsLeft % 5) * ProbConst.primeMaterialsPerProduct);
     }
+    
+    public synchronized int getnCurrentPrimeMaterials() {
+        return nCurrentPrimeMaterials;
+    }  
 }
