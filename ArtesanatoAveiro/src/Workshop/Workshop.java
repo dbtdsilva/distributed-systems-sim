@@ -7,6 +7,8 @@ package Workshop;
 
 import Exec.GeneralRepository;
 import Shop.Shop;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -90,14 +92,40 @@ public class Workshop {
     /**
      * If there are not enough prime materials, the craftsman tells the entrepreneur to fetch more prime materials.
      * 
-     * @param id The craftsman's identifier.
      */
-    public void primeMaterialsNeeded(int id) {
-        //Notify entrepreneur
+    public void primeMaterialsNeeded() {
+        synchronized(this)
+        {
+            shop.RequestPrimeMaterials();
+            generalRepo.entrepreneurWake.release();
+        }
+        
+        try {
+            generalRepo.craftsmenWaitingMaterials.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void batchReadyForTransfer(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * 
+     * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
+    */
+    public void batchReadyForTransfer() {
+        synchronized(this)
+        {
+            shop.RequestFetchProducts();
+            generalRepo.entrepreneurWake.release();
+        }
+    }
+    
+    /**
+     * 
+     * After the craftsman finishes the piece and stores it in the workshop.
+     */
+    public synchronized void storePiece() {
+        nFinishedProducts++;
+        nProductsStored++;
     }
     
     /*************/
@@ -107,12 +135,26 @@ public class Workshop {
     /**
      * Get the number of products that are currently in stock at the workshop.
      * 
-     * @return number of stored products
+     * @return Number of stored products.
      */
-    public int getnProductsStored() {
+    public synchronized int getnProductsStored() {
         return nProductsStored;
     }
-    public int getnCurrentPrimeMaterials() {
+    
+    /**
+     * Get the current number of prime materials available in the workshop.
+     * 
+     * @return Number of current prime materials.
+     */
+    public synchronized int getnCurrentPrimeMaterials() {
         return nCurrentPrimeMaterials;
+    }
+
+    /**
+     * Checks if there are any prime materials being transfered.
+     * @return True if there are prime materials on the move; false, otherwise.
+     */
+    public synchronized boolean isAnyTransferOccuring() {
+        return !shop.isReqPrimeMaterials();
     }
 }

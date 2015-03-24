@@ -6,6 +6,8 @@
 package Craftsman;
 
 import Workshop.Workshop;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,7 +16,8 @@ import Workshop.Workshop;
  */
 public class Craftsman extends Thread {
     private CraftsmanState state;
-    private Workshop ws;
+    private int nFinishedProducts;
+    private final Workshop ws;
     public int id;
     
     /**
@@ -27,6 +30,7 @@ public class Craftsman extends Thread {
         this.id = id;
         this.ws = ws;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
+        nFinishedProducts = 0;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class Craftsman extends Thread {
     public void primeMaterialsNeeded() {
         state = CraftsmanState.CONTACTING_ENTREPRENEUR;
         //Write craftsman state
-        ws.primeMaterialsNeeded(id);
+        ws.primeMaterialsNeeded();
     }
     
     /**
@@ -93,14 +97,18 @@ public class Craftsman extends Thread {
     public void batchReadyForTransfer() {
         state = CraftsmanState.CONTACTING_ENTREPRENEUR;
         //Write craftsman state
-        ws.batchReadyForTransfer(id);
+        ws.batchReadyForTransfer();
     }
     
     /**
      * The craftsman is working on the next piece.
      */
     public void shappingItUp() {
-        //Calculate random time for the craftsman to sleep
+        try {
+            Thread.sleep((long) (Math.random() * 100));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Craftsman.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -109,6 +117,9 @@ public class Craftsman extends Thread {
      */
     public void goToStore() {
         state = CraftsmanState.STORING_IT_FOR_TRANSFER;
+        //Write craftman's state
+        nFinishedProducts++;
+        ws.storePiece();
     }
 
     /**
@@ -117,6 +128,6 @@ public class Craftsman extends Thread {
      * @return Returns false if the craftsman can continue its work; returns false if otherwise.
      */
     private boolean endOperCraft() {
-        return false;
+        return (ws.getnCurrentPrimeMaterials() == 0 && ws.isAnyTransferOccuring());
     }
 }
