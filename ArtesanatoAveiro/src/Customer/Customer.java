@@ -24,9 +24,7 @@ public class Customer extends Thread {
         this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
-    public void setState(CustomerState state) {
-        this.state = state;
-    }
+    
     @Override
     public void run() {
         do {
@@ -34,15 +32,20 @@ public class Customer extends Thread {
             shop.goShopping(id);
         
             if(shop.isDoorOpen()) {
-                shop.enterShop();
+                shop.enterShop(id);
                 if (shop.perusingAround())
                     shop.iWantThis(id);
                 shop.exitShop(id);
             }
             else
-                tryAgainLater();
+                shop.tryAgainLater(id);
         } while (!endOpCustomer());
     }
+    
+    public void setState(CustomerState state) {
+        this.state = state;
+    }
+        
     public void livingNormalLife() {
         try {
             Thread.sleep((int) (Math.random() * 100));
@@ -50,44 +53,6 @@ public class Customer extends Thread {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void goShopping() {
-        state = CustomerState.CHECKING_SHOP_DOOR_OPEN;
-        //rep.log.UpdateCustomerState(id, state);
-    }
-    public boolean isDoorOpen() {
-        return shop.isDoorOpen();
-    }
-    public void enterShop() {
-        state = CustomerState.APPRAISING_OFFER_IN_DISPLAY;
-        shop.enterShop();
-        //rep.log.UpdateCustomerState(id, state);
-    }
-    public boolean perusingAround() {
-        return shop.perusingAround();
-    }
-    public void iWantThis() {
-        state = CustomerState.BUYING_SOME_GOODS;
-        //rep.log.UpdateCustomerState(id, state);
-        shop.iWantThis(id);
-    }
-    public void exitShop() {
-        state = CustomerState.CARRYING_OUT_DAILY_CHORES;
-        shop.exitShop();
-        //rep.log.UpdateCustomerState(id, state);
-    }
-    
-    
-    
-    public void tryAgainLater() {
-        shop.tryAgainLater(id);
-        
-        try {
-            Thread.sleep((int) (Math.random() * 100));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     
     private boolean endOpCustomer() {
         return shop.getnProductsStock() == 0;

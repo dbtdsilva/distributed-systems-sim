@@ -188,18 +188,11 @@ public class Logging {
      */
     public synchronized void CraftsmanFinishedProduct(int id)
     {
-        if(nManufacturedProds.containsKey(id))
-        {
-            int prods = nManufacturedProds.get(id);
-            prods++;
-            //nManufacturedProds.remove(id);
-            //nManufacturedProds.replace(id, prods);
-            nManufacturedProds.put(id, prods);
-        }
-        else
-        {
-            nManufacturedProds.put(id, 1);
-        }
+        int prods = nManufacturedProds.get(id);
+        prods++;
+        //nManufacturedProds.remove(id);
+        //nManufacturedProds.replace(id, prods);
+        nManufacturedProds.put(id, prods);
         WriteLine();
     }
     
@@ -211,14 +204,6 @@ public class Logging {
      */
     public synchronized void UpdateCraftsmanState(int id, CraftsmanState cs)
     {
-        /*if(craftsmen.containsKey(id))
-        {
-            craftsmen.replace(id, cs);
-        }
-        else
-        {
-            craftsmen.put(id, cs);
-        }*/
         craftsmen.put(id, cs);
         WriteLine();
     }
@@ -231,14 +216,6 @@ public class Logging {
      */
     public synchronized void UpdateCustomerState(int id, CustomerState cs)
     {
-        /*if(customers.containsKey(id))
-        {
-            customers.replace(id, cs);
-        }
-        else
-        {
-            customers.put(id, cs);
-        }*/
         customers.put(id, cs);
         WriteLine();
     }
@@ -250,22 +227,13 @@ public class Logging {
      */
     public synchronized void CustomersBoughtGoods(int id)
     {
-        if(this.nBoughtGoods.containsKey(id))
-        {
-            int prods = this.nBoughtGoods.get(id);
-            prods++;
-            //this.nBoughtGoods.replace(id, prods);
-            this.nBoughtGoods.put(id, prods);
-        }
-        else
-        {
-            this.nBoughtGoods.put(id, 1);
-        }
+        int prods = this.nBoughtGoods.get(id);
+        prods++;
+        this.nBoughtGoods.put(id, prods);
         WriteLine();
     }
     
-    
-     /**
+    /**
      * Writes the state of the shop in the logger file.
      * 
      * @param s The shop's current state

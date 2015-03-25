@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Entrepreneur;
 
 import Shop.Shop;
@@ -13,7 +8,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alve, 60340
  */
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
@@ -32,6 +28,7 @@ public class Entrepreneur extends Thread {
         nProductsTransfer = 0;
         nMaterialsTransfer = 0;
     }
+    
     @Override
     public void run() {
         do {
@@ -56,10 +53,10 @@ public class Entrepreneur extends Thread {
             
             prepareToLeave();
             if (sit == 'T') {
-                goToWorkshop();
+                nProductsTransfer = ws.goToWorkshop();
             } else if (sit == 'M') {
                 visitSuppliers();
-                replenishStock();
+                ws.replenishStock(nMaterialsTransfer);
             }
             returnToShop();
         } while(!endOpEntrep());
@@ -101,22 +98,12 @@ public class Entrepreneur extends Thread {
         shop.prepareToLeave();
         //rep.log.WriteEntreperneur(state);
     }
-    public void goToWorkshop() {
-        nProductsTransfer = ws.goToWorkshop();
-        state = EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS;
-        //rep.log.WriteEntreperneur(state);
-    }
     public void visitSuppliers() {
         state = EntrepreneurState.AT_THE_SUPPLIERS;
         nMaterialsTransfer = wh.visitSuppliers();
         //rep.log.WriteEntreperneur(state);
     }
-    public void replenishStock() {
-        state = EntrepreneurState.DELIVERING_PRIME_MATERIALS;
-        ws.replenishStock(nMaterialsTransfer);
-        nMaterialsTransfer = 0;
-        //rep.log.WriteEntreperneur(state);
-    }
+    
     public void returnToShop() {
         shop.returnToShop(nProductsTransfer);
         if (nProductsTransfer > 0)
@@ -132,5 +119,13 @@ public class Entrepreneur extends Thread {
                 wh.getnCurrentPrimeMaterials() == 0 &&
                 ws.getnCurrentPrimeMaterials() < ws.primeMaterialsPerProduct &&
                 ws.getnProductsStored() == 0;
+    }
+
+    public void setState(EntrepreneurState state) {
+        this.state = state;
+    }
+    
+    public void setNMaterialsTransfer() {
+        nMaterialsTransfer = 0;
     }
 }

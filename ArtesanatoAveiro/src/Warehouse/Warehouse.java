@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Warehouse;
 
 import Exec.ProbConst;
+import Logger.Logging;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alve, 60340
  */
 public class Warehouse {
-    private GeneralRepository gr;
+    private Logging log;
     private int nCurrentPrimeMaterials;
     private final int nInitialPrimeMaterials;
     
-    public Warehouse(GeneralRepository rep, int nPrimeMaterials) {
-        this.gr = rep;
+    public Warehouse(Logging log, int nPrimeMaterials) {
+        this.log = log;
         this.nInitialPrimeMaterials = nPrimeMaterials;
         this.nCurrentPrimeMaterials = this.nInitialPrimeMaterials;
     }
