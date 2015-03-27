@@ -28,30 +28,33 @@ public class Logging {
     private PrintWriter pw;
     
     /* Auxiliar variables */
-    //Entrepeneur information
+    // Entrepeneur information
     private EntrepreneurState entrepState;
     
-    //Customer information
-    private Map<Integer, CustomerState> customers;
-    private Map<Integer, Integer> nBoughtGoods;
+    // Customer information
+    private final Map<Integer, CustomerState> customers;
+    private final Map<Integer, Integer> nBoughtGoods;
     
-    //Craftsmen information
-    private Map<Integer, CraftsmanState> craftsmen;
-    private Map<Integer, Integer> nManufacturedProds;
+    // Craftsmen information
+    private final Map<Integer, CraftsmanState> craftsmen;
+    private final Map<Integer, Integer> nManufacturedProds;
     
-    //Shop information
+    // Shop information
     private int nCustomerIn;
     private ShopState shopDoorState;
     private int nGoodsInDisplay;
     private boolean reqFetchProds;
     private boolean reqPrimeMaterials;
     
-    //Workshop information
+    // Workshop information
     private int nCurrentPrimeMaterials;
     private int nProductsStored;
     private int nTimesPrimeMaterialsFetched;
     private int nTotalPrimeMaterialsSupplied;
     private int nFinishedProducts;
+    
+    // Warehouse information
+    private int primeMaterialsInWarehouse;
 
     /**
      * Initializes the logger file.
@@ -59,9 +62,26 @@ public class Logging {
      * @param loggerName Name to be given to the logger to be created. If the string is null, it creates a pre-defined string with today's date
      * @param nCustomers Number of customers present in the simulation
      * @param nCraftsmen Number of crafstmen present in the simulation
+     * @param primeMaterials Number of prime materials present in the simulation
      */
-    public Logging(String loggerName, int nCustomers, int nCraftsmen)
+    public Logging(String loggerName, 
+            int nCustomers, 
+            int nCraftsmen,
+            int primeMaterials)
     {
+        primeMaterialsInWarehouse = primeMaterials;
+                
+        nCustomerIn = 0;
+        nGoodsInDisplay = 0;
+        reqFetchProds = false;
+        reqPrimeMaterials = false;
+        
+        nCurrentPrimeMaterials = 0;
+        nProductsStored = 0;
+        nTimesPrimeMaterialsFetched = 0;
+        nTotalPrimeMaterialsSupplied = 0;
+        nFinishedProducts = 0;
+        
         craftsmen = new HashMap<>();
         customers = new HashMap<>();
         nBoughtGoods = new HashMap<>();
@@ -95,7 +115,7 @@ public class Logging {
      * Adds a line to the logger with the simulation information updated.
      */
     public synchronized void WriteLine()
-    {
+    {        
         pw.printf("  %4s   ", entrepState.getAcronym());
         
         for(int i = 0; i < customers.size(); i++)
@@ -118,9 +138,12 @@ public class Logging {
         else
             t = 'F';
         
-        pw.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), nCustomerIn, nGoodsInDisplay, r, t);
-        pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
-        pw.println();
+        pw.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
+                nCustomerIn, nGoodsInDisplay, r, t);
+        pw.printf("%2d  %2d  %2d   %2d   %2d    %3d", nCurrentPrimeMaterials, 
+                nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
+                nFinishedProducts, primeMaterialsInWarehouse);
+        pw.println(" > "+Thread.currentThread().getName());
     }
     
     /**
@@ -149,8 +172,8 @@ public class Logging {
                 sb2.append("Stat PP ");
             }
             
-            sb.append("          SHOP                 WORKSHOP       ");
-            sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP");
+            sb.append ("          SHOP                 WORKSHOP        WAREHOUSE");
+            sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP    APM");
             
             pw.println(sb.toString());
             pw.println(sb2.toString());
@@ -175,7 +198,7 @@ public class Logging {
      * 
      * @param es The entrepeneur's current state
     */
-    public synchronized void WriteEntreperneur(EntrepreneurState es)
+    public synchronized void UpdateEntreperneurState(EntrepreneurState es)
     {
         this.entrepState = es;
         WriteLine();
@@ -274,6 +297,12 @@ public class Logging {
         this.nFinishedProducts = nFinishedProducts;
         WriteLine();
     }
-    
-    
+    /**
+     * 
+     * @param primeMaterials 
+     */
+    public synchronized void WriteWarehouse(int primeMaterials) {
+        this.primeMaterialsInWarehouse = primeMaterials;
+        WriteLine();
+    }
 }

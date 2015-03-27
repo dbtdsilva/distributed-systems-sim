@@ -6,6 +6,8 @@ import Entrepreneur.Entrepreneur;
 import Entrepreneur.EntrepreneurState;
 import Logger.Logging;
 import Shop.Shop;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,34 +51,39 @@ public class Workshop {
         this.shop = shop;
     }
     
-    /******************/
-    /** ENTREPRENEUR **/
-    /******************/
+        /******************/
+        /** ENTREPRENEUR **/
+        /******************/
+    /**
+     * asdsad
+     * @return asd
+     */
     public synchronized int goToWorkshop() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
-        log.WriteEntreperneur(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        log.UpdateEntreperneurState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         
         int products = nProductsStored;
         nProductsStored = 0;
         return products;
     }
-
     public synchronized void replenishStock(int nMaterials) {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
-        log.WriteEntreperneur(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        log.UpdateEntreperneurState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         
         nTimesPrimeMaterialsFetched++;
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
-        //Wake up craftsmen
+        notifyAll();    // Wake up craftsmen
+        ((Entrepreneur) Thread.currentThread()).resetNMaterialsTransfer();
         
-        ((Entrepreneur) Thread.currentThread()).setNMaterialsTransfer();
+        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, 
+                nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
     }
 
-    /***************/
-    /** CRAFTSMEN **/
-    /***************/
+        /***************/
+        /** CRAFTSMEN **/
+        /***************/
     /**
      * The craftsman is preparing to manufacture a product.
      * If there are enough materials to manufacture the product, the number of available prime materials 
@@ -86,17 +93,15 @@ public class Workshop {
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
-    public boolean collectingMaterials(int id) {
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
-        log.UpdateCraftsmanState(id, CraftsmanState.FETCHING_PRIME_MATERIALS);
-        
+    public synchronized boolean collectingMaterials(int id) {
         if(nCurrentPrimeMaterials < primeMaterialsPerProduct)
             return false;
         
         nCurrentPrimeMaterials -= primeMaterialsPerProduct;
+        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
+                            nTotalPrimeMaterialsSupplied, nFinishedProducts);
         return true;
     }
-
     /**
      * If there are not enough prime materials, the craftsman tells the entrepreneur to fetch more prime materials.
      * The crafstman found that there are not enough materials at the workshop, and so, it will notify the entreperneur, 
@@ -108,10 +113,12 @@ public class Workshop {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
         
-        //Notify entrepreneur
-        //Sleep the craftsman
+        try {
+            wait();     // Sleep the craftsman
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
     /**
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
      * 
@@ -124,7 +131,6 @@ public class Workshop {
         shop.RequestFetchProducts();
         //Wake the entrepreneur to transport finished products
     }
-    
     /**
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
@@ -140,7 +146,6 @@ public class Workshop {
         ((Craftsman) Thread.currentThread()).updateFinishedProducts();
         log.CraftsmanFinishedProduct(id);
     }
-    
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
      * 
@@ -149,8 +154,7 @@ public class Workshop {
     public synchronized void backToWork(int id) {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
         log.UpdateCraftsmanState(id, CraftsmanState.FETCHING_PRIME_MATERIALS);
-    }
-    
+    } 
     /**
      * The craftsman has the prime materials that he needs, and will now start producing another piece.
      * 
@@ -159,12 +163,11 @@ public class Workshop {
     public synchronized void prepareToProduce(int id) {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.PRODUCING_A_NEW_PIECE);
         log.UpdateCraftsmanState(id, CraftsmanState.PRODUCING_A_NEW_PIECE);
-    }
+    } 
     
-    /*************/
-    /** GENERAL **/
-    /*************/
-    
+        /*************/
+        /** GENERAL **/
+        /*************/
     /**
      * Get the number of products that are currently in stock at the workshop.
      * 
@@ -173,7 +176,6 @@ public class Workshop {
     public synchronized int getnProductsStored() {
         return nProductsStored;
     }
-    
     /**
      * Get the current number of prime materials available in the workshop.
      * 
@@ -182,7 +184,6 @@ public class Workshop {
     public synchronized int getnCurrentPrimeMaterials() {
         return nCurrentPrimeMaterials;
     }
-
     /**
      * Checks if there are any prime materials being transfered.
      * @return True if there are prime materials on the move; false, otherwise.

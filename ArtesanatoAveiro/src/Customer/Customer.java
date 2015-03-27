@@ -20,6 +20,7 @@ public class Customer extends Thread {
     private final Shop shop;
     
     public Customer(int id, Shop shop) {
+        this.setName("Customer "+id);
         this.id = id;
         this.shop = shop;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
@@ -55,7 +56,7 @@ public class Customer extends Thread {
     }
     
     private boolean endOpCustomer() {
-        return shop.getnProductsStock() == 0;
+        return false;
         // TO DO
     }
 }

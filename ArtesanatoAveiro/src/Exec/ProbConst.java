@@ -10,7 +10,7 @@ package Exec;
  */
 public class ProbConst {
     public final static int primeMaterialsPerProduct = 3;
-    public final static int nPrimeMaterials = 100 * primeMaterialsPerProduct;
+    public final static int nPrimeMaterials = 30 * primeMaterialsPerProduct;
     public final static int nCraftsmen = 3;
     public final static int nCustomers = 3;
     public final static int MAXproductsInWorkshop = 5;

@@ -24,7 +24,10 @@ public class ArtesanatoAveiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        Logging log = new Logging("logging.txt", ProbConst.nCustomers, ProbConst.nCraftsmen);
+        Logging log = new Logging("logging.txt", 
+                ProbConst.nCustomers, 
+                ProbConst.nCraftsmen,
+                ProbConst.nPrimeMaterials);
         Shop shop = new Shop(log);
         Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
         
@@ -44,7 +47,7 @@ public class ArtesanatoAveiro {
         for (int i = 0; i < ProbConst.nCustomers; i++)
             customers.add(new Customer(i, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
-            craftsmen.add(new Craftsman(i, ws));
+            craftsmen.add(new Craftsman(i, shop, ws));
         
         System.out.println("Número de clientes: " + customers.size());
         System.out.println("Número de artesões: " + craftsmen.size());
@@ -54,7 +57,7 @@ public class ArtesanatoAveiro {
         for (Craftsman c : craftsmen)
             c.start();
         
-        ShutdownHook shutdownHook = new ShutdownHook(gr);
+        ShutdownHook shutdownHook = new ShutdownHook(log);
         Runtime.getRuntime().addShutdownHook(shutdownHook);
         
         for (Craftsman c : craftsmen) { 

@@ -1,5 +1,7 @@
 package Warehouse;
 
+import Entrepreneur.Entrepreneur;
+import Entrepreneur.EntrepreneurState;
 import Exec.ProbConst;
 import Logger.Logging;
 
@@ -22,9 +24,18 @@ public class Warehouse {
     /******************/
     /** ENTREPRENEUR **/
     /******************/
+    
+    /**
+     *
+     * @return
+     */
     public synchronized int visitSuppliers() {
-        int productsLeft = nCurrentPrimeMaterials / ProbConst.primeMaterialsPerProduct;
-        return (int) ((Math.random()+1) * (productsLeft % 5) * ProbConst.primeMaterialsPerProduct);
+        nCurrentPrimeMaterials -= 30;
+        log.WriteWarehouse(nCurrentPrimeMaterials);
+        
+        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
+        log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
+        return 30;
     }
     
     public synchronized int getnCurrentPrimeMaterials() {

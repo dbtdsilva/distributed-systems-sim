@@ -1,5 +1,6 @@
 package Craftsman;
 
+import Shop.Shop;
 import Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,15 +15,19 @@ public class Craftsman extends Thread {
     private CraftsmanState state;
     private int nFinishedProducts;
     private final Workshop ws;
+    private final Shop shop;
     public int id;
     
     /**
      * Initiliazes the craftsman class with the required information.
      * 
      * @param id The craftsman identifier.
+     * @param shop
      * @param ws The simulation workshop where the craftsman will work.
      */
-    public Craftsman(int id, Workshop ws) {
+    public Craftsman(int id, Shop shop, Workshop ws) {
+        this.setName("Craftsman "+id);
+        this.shop = shop;
         this.id = id;
         this.ws = ws;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
@@ -33,7 +38,7 @@ public class Craftsman extends Thread {
     public void run() {
         do {
             if (!ws.collectingMaterials(id)) {
-                ws.primeMaterialsNeeded(id);
+                primeMaterialsNeeded();
                 ws.backToWork(id);
             } else {
                 ws.prepareToProduce(id);
@@ -54,7 +59,14 @@ public class Craftsman extends Thread {
     public void setState(CraftsmanState state) {
         this.state = state;
     }
-    
+    /**
+     * 
+     * @param id 
+     */
+    private void primeMaterialsNeeded() {
+        shop.primeMaterialsNeeded();        // Used to wake up Entrepreneur
+        ws.primeMaterialsNeeded(id);        // Used to sleep craftman
+    }
     /**
      * The craftsman is working on the next piece.
      */
