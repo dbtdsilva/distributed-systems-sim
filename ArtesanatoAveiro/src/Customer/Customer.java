@@ -41,6 +41,7 @@ public class Customer extends Thread {
             else
                 shop.tryAgainLater(id);
         } while (!endOpCustomer());
+        System.out.println("Cliente "+id+" acabou execução!");
     }
     
     public void setState(CustomerState state) {

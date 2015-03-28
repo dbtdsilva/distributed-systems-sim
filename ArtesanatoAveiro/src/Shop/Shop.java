@@ -148,6 +148,9 @@ public class Shop {
     }  
     public synchronized void prepareToLeave() {
         shopState = ShopState.CLOSED;
+        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
+        log.UpdateEntreperneurState(EntrepreneurState.CLOSING_THE_SHOP);
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }  
     public synchronized void returnToShop(int nProductsTransfer) {
         if (nProductsTransfer > 0) {
@@ -176,6 +179,22 @@ public class Shop {
         notifyAll();
         log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
+    /**
+     * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
+     * 
+     * @param id The craftsman identifier.
+    */
+    public synchronized void batchReadyForTransfer(int id) {
+        if (reqFetchProducts)
+            return;
+        
+        reqFetchProducts = true;
+        notifyAll();
+        
+        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+    }
         /*************/
         /** GENERAL **/
         /*************/
@@ -187,11 +206,5 @@ public class Shop {
     }
     public boolean isReqPrimeMaterials() {
         return reqPrimeMaterials;
-    }
-    public synchronized void RequestFetchProducts() {
-        this.reqFetchProducts = true;
-    }  
-    public synchronized void RequestPrimeMaterials() {
-        this.reqPrimeMaterials = true;
     }
 }

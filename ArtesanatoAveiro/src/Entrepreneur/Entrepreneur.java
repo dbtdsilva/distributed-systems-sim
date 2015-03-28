@@ -47,13 +47,13 @@ public class Entrepreneur extends Thread {
                         break;
                     case 'T':
                     case 'M':
-                        closeTheDoor();
-                        canGoOut = !customersInTheShop();
+                        shop.closeTheDoor();
+                        canGoOut = !shop.customersInTheShop();
                         break;
                 }
             } while (!canGoOut);
             
-            prepareToLeave();
+            shop.prepareToLeave();
             if (sit == 'T') {
                 nProductsTransfer = ws.goToWorkshop();
             } else if (sit == 'M') {
@@ -62,6 +62,7 @@ public class Entrepreneur extends Thread {
             }
             shop.returnToShop(nProductsTransfer);
         } while(!endOpEntrep());
+        System.out.println("Dona acabou execução!");
     }
     public void serviceCustomer(int id) {
         try {
@@ -69,17 +70,6 @@ public class Entrepreneur extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public void closeTheDoor() {
-        shop.closeTheDoor();
-    }
-    public boolean customersInTheShop() {
-        return false;
-    }
-    public void prepareToLeave() {
-        state = EntrepreneurState.CLOSING_THE_SHOP;
-        shop.prepareToLeave();
-        //rep.log.WriteEntreperneur(state);
     }
     
     private boolean endOpEntrep() {

@@ -1,6 +1,7 @@
 package Craftsman;
 
 import Shop.Shop;
+import Warehouse.Warehouse;
 import Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ public class Craftsman extends Thread {
     private int nFinishedProducts;
     private final Workshop ws;
     private final Shop shop;
+    private final Warehouse wh;
     public int id;
     
     /**
@@ -25,11 +27,12 @@ public class Craftsman extends Thread {
      * @param shop
      * @param ws The simulation workshop where the craftsman will work.
      */
-    public Craftsman(int id, Shop shop, Workshop ws) {
+    public Craftsman(int id, Shop shop, Workshop ws, Warehouse wh) {
         this.setName("Craftsman "+id);
         this.shop = shop;
         this.id = id;
         this.ws = ws;
+        this.wh = wh;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
         nFinishedProducts = 0;
     }
@@ -45,10 +48,11 @@ public class Craftsman extends Thread {
                 shappingItUp();
                 ws.goToStore(id);
                 if (ws.getnProductsStored() >= ws.MAX_ProductsStored)
-                    ws.batchReadyForTransfer(id);
+                    shop.batchReadyForTransfer(id);
                 ws.backToWork(id);
             }
         } while (!endOperCraft());
+        System.out.println("Artesão "+id+" acabou execução!");
     }
     
     /**
@@ -93,6 +97,7 @@ public class Craftsman extends Thread {
      * @return Returns false if the craftsman can continue its work; returns false if otherwise.
      */
     private boolean endOperCraft() {
-        return (ws.getnCurrentPrimeMaterials() == 0 && ws.isAnyTransferOccuring());
+        return (ws.getnCurrentPrimeMaterials() == 0 && 
+                wh.getnCurrentPrimeMaterials() == 0);
     }
 }

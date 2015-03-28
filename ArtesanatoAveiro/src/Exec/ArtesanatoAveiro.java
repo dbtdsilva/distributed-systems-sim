@@ -47,7 +47,7 @@ public class ArtesanatoAveiro {
         for (int i = 0; i < ProbConst.nCustomers; i++)
             customers.add(new Customer(i, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
-            craftsmen.add(new Craftsman(i, shop, ws));
+            craftsmen.add(new Craftsman(i, shop, ws, wh));
         
         System.out.println("Número de clientes: " + customers.size());
         System.out.println("Número de artesões: " + craftsmen.size());
@@ -60,6 +60,11 @@ public class ArtesanatoAveiro {
         ShutdownHook shutdownHook = new ShutdownHook(log);
         Runtime.getRuntime().addShutdownHook(shutdownHook);
         
+        
+        try {
+            entr.join();
+        } catch (InterruptedException e) {}
+        System.out.println("A dona terminou.");
         for (Craftsman c : craftsmen) { 
             try { 
                 c.join ();
@@ -72,10 +77,6 @@ public class ArtesanatoAveiro {
             } catch (InterruptedException e) {}
             System.out.println("O cliente " + c.id + " terminou.");
         }
-        try {
-            entr.join();
-        } catch (InterruptedException e) {}
-        System.out.println("A dona terminou.");
     }
 }
 

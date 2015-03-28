@@ -38,6 +38,8 @@ public class Workshop {
      */
     public Workshop(Logging log, Shop shop, int maxProducts, int minPM, 
                         int primeMaterialsPerProduct) {
+        if (minPM < primeMaterialsPerProduct)
+            System.err.println("Minimum number of prime materials is lesser than prime materials per product");
         this.nProductsStored = 0;
         this.nCurrentPrimeMaterials = 0;
         this.nFinishedProducts = 0;
@@ -94,7 +96,7 @@ public class Workshop {
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
     public synchronized boolean collectingMaterials(int id) {
-        if(nCurrentPrimeMaterials < primeMaterialsPerProduct)
+        if(nCurrentPrimeMaterials < MIN_PrimeMaterials)
             return false;
         
         nCurrentPrimeMaterials -= primeMaterialsPerProduct;
@@ -119,18 +121,7 @@ public class Workshop {
             Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /**
-     * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
-     * 
-     * @param id The craftsman identifier.
-    */
-    public synchronized void batchReadyForTransfer(int id) {
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
-        log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
-        //Call the shop
-        shop.RequestFetchProducts();
-        //Wake the entrepreneur to transport finished products
-    }
+   
     /**
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
@@ -145,6 +136,8 @@ public class Workshop {
         
         ((Craftsman) Thread.currentThread()).updateFinishedProducts();
         log.CraftsmanFinishedProduct(id);
+        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched,
+                nTotalPrimeMaterialsSupplied, nFinishedProducts);
     }
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
