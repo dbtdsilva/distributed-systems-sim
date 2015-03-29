@@ -21,7 +21,7 @@ public class ArtesanatoAveiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        Logging log = new Logging("logging.txt", 
+        Logging log = new Logging("", 
                 ProbConst.nCustomers, 
                 ProbConst.nCraftsmen,
                 ProbConst.nPrimeMaterials);
