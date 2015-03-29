@@ -7,7 +7,6 @@ import Customer.CustomerState;
 import Entrepreneur.Entrepreneur;
 import Entrepreneur.EntrepreneurState;
 import Logger.Logging;
-import Workshop.Workshop;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Diogo Silva, 60337
- * @author Tânia Alve, 60340
+ * @author Tânia Alves, 60340
  */
 
 public class Shop {
@@ -43,10 +42,6 @@ public class Shop {
         /** CUSTOMER **/
         /**************/  
     
-    /**
-     * 
-     * @param id
-     **/
     public synchronized void goShopping(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
         log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
@@ -67,6 +62,9 @@ public class Shop {
         log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
+        
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials);
     }
     public synchronized boolean perusingAround() {
         if (nProductsStock == 0)
@@ -103,18 +101,16 @@ public class Shop {
     public synchronized void prepareToWork() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        
+        this.shopState = ShopState.OPEN;
+        log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
     public synchronized char appraiseSit() {
         char returnChar;
         while (true) {
-            try {
-                wait();     // Entrepreneur needs to wait for the next tasks
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
             if (!waitingLine.isEmpty()) {
                 returnChar = 'C';
+                break;
             } else if (reqPrimeMaterials) {
                 returnChar = 'M';
                 break;
@@ -122,16 +118,24 @@ public class Shop {
                 returnChar = 'T';
                 break;
             }
+            
+            try {
+                wait();     // Entrepreneur needs to wait for the next tasks
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return returnChar;
     }
     public synchronized int addressACustomer() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER);
+        
         if (waitingLine.size() == 0) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, 
                 new Exception("Address a customer without nobody to address"));
         }
+        
         return waitingLine.poll();
     }
     public synchronized void sayGoodByeToCustomer(int id) {
@@ -142,6 +146,7 @@ public class Shop {
     }
     public synchronized void closeTheDoor() {
         shopState = ShopState.ECLOSED;
+        log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
     public synchronized boolean customersInTheShop() {
         return nCustomersInside > 0;
@@ -163,13 +168,16 @@ public class Shop {
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
+        
+        this.shopState = ShopState.OPEN;
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials);
+        
     }
     
-        /**************/
-        /** CRAFTMAN **/
-        /**************/ 
+        /***************/
+        /** CRAFTSMAN **/
+        /***************/ 
     
     public synchronized void primeMaterialsNeeded() {
         if (reqPrimeMaterials)

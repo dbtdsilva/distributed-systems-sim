@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Diogo Silva, 60337
- * @author Tânia Alve, 60340
+ * @author Tânia Alves, 60340
  */
 
 public class Craftsman extends Thread {
@@ -40,15 +40,21 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         do {
+            System.out.println("Collecting PM (" + id + ")");
             if (!ws.collectingMaterials(id)) {
+                System.out.println("Asking for PM (" + id + ")");
                 primeMaterialsNeeded();
                 ws.backToWork(id);
+                System.out.println("Back to work (" + id + ")");
             } else {
                 ws.prepareToProduce(id);
+                System.out.println("Producing (" + id + ")");
                 shappingItUp();
                 ws.goToStore(id);
+                System.out.println("Product stored (" + id + ")");
                 if (ws.getnProductsStored() >= ws.MAX_ProductsStored)
                     shop.batchReadyForTransfer(id);
+                System.out.println("Going again back to work (" + id + ")");
                 ws.backToWork(id);
             }
         } while (!endOperCraft());

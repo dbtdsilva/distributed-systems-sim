@@ -55,13 +55,15 @@ public class Logging {
     
     // Warehouse information
     private int primeMaterialsInWarehouse;
-
+    
+    private boolean console = true;
+    
     /**
      * Initializes the logger file.
      * 
      * @param loggerName Name to be given to the logger to be created. If the string is null, it creates a pre-defined string with today's date
      * @param nCustomers Number of customers present in the simulation
-     * @param nCraftsmen Number of crafstmen present in the simulation
+     * @param nCraftsmen Number of craftsmen present in the simulation
      * @param primeMaterials Number of prime materials present in the simulation
      */
     public Logging(String loggerName, 
@@ -117,15 +119,27 @@ public class Logging {
     public synchronized void WriteLine()
     {        
         pw.printf("  %4s   ", entrepState.getAcronym());
+        if(console)
+            System.out.printf("  %4s   ", entrepState.getAcronym());
         
-        for(int i = 0; i < customers.size(); i++)
+        for(int i = 0; i < customers.size(); i++) {
             pw.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
-
+        
+            if(console)
+                System.out.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
+        }
+            
         pw.printf(" ");
+        if(console)
+            System.out.printf(" ");
         
-        for(int i = 0; i < craftsmen.size(); i++)
+        for(int i = 0; i < craftsmen.size(); i++) {
             pw.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
-        
+            
+            if(console)
+                System.out.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
+        }
+            
         char r;
         if(reqFetchProds)
             r = 'T';
@@ -144,6 +158,16 @@ public class Logging {
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
                 nFinishedProducts, primeMaterialsInWarehouse);
         pw.println(" > "+Thread.currentThread().getName());
+        
+        
+        if(console) {
+            System.out.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
+                nCustomerIn, nGoodsInDisplay, r, t);
+            System.out.printf("%2d  %2d  %2d   %2d   %2d    %3d", nCurrentPrimeMaterials, 
+                nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
+                nFinishedProducts, primeMaterialsInWarehouse);
+            System.out.println(" > "+Thread.currentThread().getName());
+        }
     }
     
     /**
@@ -177,6 +201,10 @@ public class Logging {
             
             pw.println(sb.toString());
             pw.println(sb2.toString());
+            if(console) {
+                System.out.println(sb);
+                System.out.println(sb2);
+            }
             WriteLine();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,6 +219,9 @@ public class Logging {
         pw.println("SIMULATION ENDED!");
         pw.flush();
         pw.close();
+        if(console) {
+            System.out.println("SIMULATION ENDED!");
+        }
     }
     
     /**
@@ -304,5 +335,9 @@ public class Logging {
     public synchronized void WriteWarehouse(int primeMaterials) {
         this.primeMaterialsInWarehouse = primeMaterials;
         WriteLine();
+    }
+    
+    public void setConsole() {
+        console = true;
     }
 }

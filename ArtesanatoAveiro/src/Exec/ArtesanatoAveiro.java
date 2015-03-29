@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Exec;
 
 import Craftsman.Craftsman;
@@ -16,8 +11,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
+
 public class ArtesanatoAveiro {
 
     /**
@@ -28,6 +25,7 @@ public class ArtesanatoAveiro {
                 ProbConst.nCustomers, 
                 ProbConst.nCraftsmen,
                 ProbConst.nPrimeMaterials);
+        log.setConsole();
         Shop shop = new Shop(log);
         Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
         
@@ -57,6 +55,9 @@ public class ArtesanatoAveiro {
         for (Craftsman c : craftsmen)
             c.start();
         
+        DebugHelper hack = new DebugHelper();
+        hack.start();
+        
         ShutdownHook shutdownHook = new ShutdownHook(log);
         Runtime.getRuntime().addShutdownHook(shutdownHook);
         
@@ -77,6 +78,22 @@ public class ArtesanatoAveiro {
             } catch (InterruptedException e) {}
             System.out.println("O cliente " + c.id + " terminou.");
         }
+        
+        hack.interrupt();
+    }
+}
+
+class DebugHelper extends Thread {
+    @Override
+    public void run() {
+        while(true) {
+            System.out.print("");
+            unfreeze();
+        }
+    }
+    
+    private synchronized void unfreeze() {
+        notifyAll();
     }
 }
 

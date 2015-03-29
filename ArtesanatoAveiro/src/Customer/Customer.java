@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Customer;
 
 import Shop.Shop;
@@ -11,8 +6,10 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
+
 public class Customer extends Thread {
     private CustomerState state;
     public int id;
@@ -30,9 +27,12 @@ public class Customer extends Thread {
     public void run() {
         do {
             livingNormalLife();
+            System.out.println("living normal life.");
             shop.goShopping(id);
+            System.out.println("going shopping.");
         
             if(shop.isDoorOpen()) {
+                System.out.println("door is open.");
                 shop.enterShop(id);
                 if (shop.perusingAround())
                     shop.iWantThis(id);

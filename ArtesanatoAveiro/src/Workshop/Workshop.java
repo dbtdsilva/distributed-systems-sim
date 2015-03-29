@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * @author Diogo Silva, 60337 
  * @author Tânia Alves, 60340
  */
+
 public class Workshop {
     private int nProductsStored;
     private int nCurrentPrimeMaterials;
@@ -66,6 +67,7 @@ public class Workshop {
         
         int products = nProductsStored;
         nProductsStored = 0;
+        //WRITE STATE
         return products;
     }
     public synchronized void replenishStock(int nMaterials) {

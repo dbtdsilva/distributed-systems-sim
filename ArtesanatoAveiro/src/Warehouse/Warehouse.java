@@ -8,7 +8,7 @@ import Logger.Logging;
 /**
  *
  * @author Diogo Silva, 60337
- * @author Tânia Alve, 60340
+ * @author Tânia Alves, 60340
  */
 public class Warehouse {
     private Logging log;

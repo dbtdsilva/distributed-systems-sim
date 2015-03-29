@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Shop;
 
 /**
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
+
 public enum ShopState {
     CLOSED("CLS"), 
     ECLOSED("ECLS"),
