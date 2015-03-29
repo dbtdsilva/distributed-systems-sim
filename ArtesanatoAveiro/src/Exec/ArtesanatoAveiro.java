@@ -20,16 +20,20 @@ public class ArtesanatoAveiro {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) { 
-        Logging log = new Logging("logging.txt", 
+    public static void main(String[] args) {
+        String logname = "logging.txt";
+        if (args.length > 0)
+            logname = "logs/logging"+args[0]+".txt";
+        Logging log = new Logging(logname, 
                 ProbConst.nCustomers, 
                 ProbConst.nCraftsmen,
                 ProbConst.nPrimeMaterials);
-        log.setConsole();
+        ShutdownHook shutdownHook = new ShutdownHook(log);
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
+        //log.setConsole();
         Shop shop = new Shop(log);
         Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
         
-        /* precisa do shop por causa do telefone */
         Workshop ws = new Workshop(log,
                                 shop,
                                 ProbConst.MAXproductsInWorkshop, 
@@ -39,7 +43,6 @@ public class ArtesanatoAveiro {
         ArrayList<Customer> customers = new ArrayList<>(ProbConst.nCustomers);
         ArrayList<Craftsman> craftsmen = new ArrayList<>(ProbConst.nCraftsmen);
 
-            /* 3 repositorios */
         Entrepreneur entr = new Entrepreneur(shop, wh, ws);
         
         for (int i = 0; i < ProbConst.nCustomers; i++)
@@ -55,27 +58,19 @@ public class ArtesanatoAveiro {
         for (Craftsman c : craftsmen)
             c.start();
 
-        ShutdownHook shutdownHook = new ShutdownHook(log);
-        Runtime.getRuntime().addShutdownHook(shutdownHook);
-        
-        
-        try {
-            entr.join();
-        } catch (InterruptedException e) {}
-        System.out.println("A dona terminou.");
         for (Craftsman c : craftsmen) { 
             try { 
                 c.join ();
             } catch (InterruptedException e) {}
-            System.out.println("O artesão " + c.id + " terminou.");
         }
         for (Customer c : customers) { 
             try { 
                 c.join ();
             } catch (InterruptedException e) {}
-            System.out.println("O cliente " + c.id + " terminou.");
         }
-        
+        try {
+            entr.join();
+        } catch (InterruptedException e) {}
     }
 }
 

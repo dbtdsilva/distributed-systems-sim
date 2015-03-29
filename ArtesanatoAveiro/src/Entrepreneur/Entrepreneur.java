@@ -18,9 +18,11 @@ public class Entrepreneur extends Thread {
     private final Shop shop;
     private final Warehouse wh;
     private final Workshop ws;
-    
+     
     private int nProductsTransfer = 0;
     private int nMaterialsTransfer = 0;
+    
+    public enum returnType{PrimeMaterials, ProductsTransfer};
     
     public Entrepreneur(Shop shop, Warehouse wh, Workshop ws) {
         this.setName("Entrepreneur");
@@ -37,16 +39,16 @@ public class Entrepreneur extends Thread {
     public void run() {
         do {
             boolean canGoOut = false;
-            char sit = 'X';
-            prepareToWork();
+            char sit;
             
+            shop.prepareToWork();
             do {
-                if(shop.getnProductsStock() == 0 && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
-                && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct
-                && (!shop.customersInTheShop() || !shop.anyWaitingCustomer()))
-                {
+                if (shop.getnProductsStock() == 0 
+                        && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
+                        && ws.getnProductsStored() == 0
+                        && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct
+                        && !shop.isReqFetchProducts() && !shop.isReqPrimeMaterials()) {
                     shop.setOutOfBusiness();
-                    break;
                 }
                 
                 sit = shop.appraiseSit();
@@ -58,6 +60,7 @@ public class Entrepreneur extends Thread {
                         break;
                     case 'T':
                     case 'M':
+                    case 'E':
                         shop.closeTheDoor();
                         canGoOut = !shop.customersInTheShop();
                         break;
@@ -65,13 +68,14 @@ public class Entrepreneur extends Thread {
             } while (!canGoOut);
             
             shop.prepareToLeave();
-            if (sit == 'T') {
-                nProductsTransfer = ws.goToWorkshop();
-            } else if (sit == 'M') {
-                nMaterialsTransfer = wh.visitSuppliers();
-                ws.replenishStock(nMaterialsTransfer);
+            if (sit == 'T') {           /* Transfer products */
+                ws.goToWorkshop();
+                shop.returnToShop(returnType.ProductsTransfer);
+            } else if (sit == 'M') {    /* Materials needed */
+                wh.visitSuppliers();
+                ws.replenishStock();
+                shop.returnToShop(returnType.PrimeMaterials);
             }
-            shop.returnToShop(nProductsTransfer);
         } while(!endOpEntrep());
         System.out.println("Dona acabou execução!");
     }
@@ -84,34 +88,31 @@ public class Entrepreneur extends Thread {
     }
     
     private boolean endOpEntrep() {
-        return  shop.getnProductsStock() == 0 &&
+        return shop.isOutOfBusiness()
+                        && !shop.customersInTheShop();
+        /*return  shop.getnProductsStock() == 0 &&
                 !shop.isReqPrimeMaterials() &&
                 !shop.isReqFetchProducts() &&
-                wh.getnCurrentPrimeMaterials() == 0 &&
+                wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct &&
                 ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct &&
                 ws.getnProductsStored() == 0 &&
-                !shop.customersInTheShop();
+                !shop.customersInTheShop();*/
     }
 
     public void setState(EntrepreneurState state) {
         this.state = state;
     }
     
-    public void resetNMaterialsTransfer() {
-        nMaterialsTransfer = 0;
+    public void setProductsTransfer(int val) {
+        nProductsTransfer = val;
     }
-
-    public void productsTransferedToShop() {
-        nProductsTransfer = 0;
+    public void setNMaterialsTranfer(int val) {
+        nMaterialsTransfer = val;
     }
-
-    private void prepareToWork() {
-        if(shop.getnProductsStock() == 0 && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
-                && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct)
-        {
-            shop.setOutOfBusiness();
-        }
-        else
-            shop.prepareToWork();
+    public int getProductsTransfer() {
+        return nProductsTransfer;
+    }
+    public int getNMaterialsTranfer() {
+        return nMaterialsTransfer;
     }
 }

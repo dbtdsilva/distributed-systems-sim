@@ -56,7 +56,7 @@ public class Logging {
     // Warehouse information
     private int primeMaterialsInWarehouse;
     
-    private boolean console = true;
+    private boolean console;
     
     /**
      * Initializes the logger file.
@@ -71,6 +71,8 @@ public class Logging {
             int nCraftsmen,
             int primeMaterials)
     {
+        console = false;
+        
         primeMaterialsInWarehouse = primeMaterials;
                 
         nCustomerIn = 0;
@@ -119,24 +121,24 @@ public class Logging {
     public synchronized void WriteLine()
     {        
         pw.printf("  %4s   ", entrepState.getAcronym());
-        if(console)
+        if (console)
             System.out.printf("  %4s   ", entrepState.getAcronym());
         
         for(int i = 0; i < customers.size(); i++) {
             pw.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
         
-            if(console)
+            if (console)
                 System.out.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
         }
             
         pw.printf(" ");
-        if(console)
+        if (console)
             System.out.printf(" ");
         
         for(int i = 0; i < craftsmen.size(); i++) {
             pw.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
             
-            if(console)
+            if (console)
                 System.out.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
         }
             
@@ -160,7 +162,7 @@ public class Logging {
         pw.println(" > "+Thread.currentThread().getName());
         
         
-        if(console) {
+        if (console) {
             System.out.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
                 nCustomerIn, nGoodsInDisplay, r, t);
             System.out.printf("%2d  %2d  %2d   %2d   %2d    %3d", nCurrentPrimeMaterials, 
@@ -201,7 +203,7 @@ public class Logging {
             
             pw.println(sb.toString());
             pw.println(sb2.toString());
-            if(console) {
+            if (console) {
                 System.out.println(sb);
                 System.out.println(sb2);
             }
@@ -214,12 +216,12 @@ public class Logging {
     /**
      * Writes the end of the logger file.
      */
-    public void EndWriting()
+    public synchronized void EndWriting()
     {
         pw.println("SIMULATION ENDED!");
         pw.flush();
         pw.close();
-        if(console) {
+        if (console) {
             System.out.println("SIMULATION ENDED!");
         }
     }

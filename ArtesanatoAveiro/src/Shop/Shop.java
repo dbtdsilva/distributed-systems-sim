@@ -5,6 +5,7 @@ import Craftsman.CraftsmanState;
 import Customer.Customer;
 import Customer.CustomerState;
 import Entrepreneur.Entrepreneur;
+import Entrepreneur.Entrepreneur.returnType;
 import Entrepreneur.EntrepreneurState;
 import Logger.Logging;
 import java.util.LinkedList;
@@ -26,10 +27,12 @@ public class Shop {
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
     private boolean outOfBusiness;
+    private int requestEntrepreneur;
     
     private final Logging log;
     
     public Shop(Logging log) {
+        this.requestEntrepreneur = 0;
         this.log = log;
         this.nProductsStock = 0;
         this.shopState = ShopState.CLOSED;
@@ -64,6 +67,8 @@ public class Shop {
         log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
+        requestEntrepreneur++;
+        notifyAll();        /* Telling entrepreneur */
         
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials);
@@ -71,28 +76,33 @@ public class Shop {
     public synchronized boolean perusingAround() {
         if (nProductsStock == 0)
             return false;
-        return Math.random() > 0.3; // 70% probabilidade
+        if (Math.random() > 0.3) { // 70% probabilidade
+            nProductsStock -= 1;
+            return true;
+        } else {
+            return false;
+        }
     }
     public synchronized void iWantThis(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);
         log.UpdateCustomerState(id, CustomerState.BUYING_SOME_GOODS);
         
-        nProductsStock -= 1;
         waitingLine.add(id);
         
         log.CustomersBoughtGoods(id);
-        
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials);
+        
+        requestEntrepreneur++;
         notifyAll();    // Wake up entrepreneur
         
-        do {
+        while (waitingLine.contains(id)) {
             try {
                 wait(); // Sleep customer
             } catch (InterruptedException ex) {
                 Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } while (waitingLine.contains(id));
+        }
     }
     public synchronized void tryAgainLater(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
@@ -113,6 +123,14 @@ public class Shop {
     public synchronized char appraiseSit() {
         char returnChar;
         while (true) {
+            while (requestEntrepreneur == 0 && !outOfBusiness) {
+                try {
+                    wait();     // Entrepreneur needs to wait for the next tasks
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            requestEntrepreneur--;
             if (!waitingLine.isEmpty()) {
                 returnChar = 'C';
                 break;
@@ -122,12 +140,9 @@ public class Shop {
             } else if (reqFetchProducts) {
                 returnChar = 'T';
                 break;
-            }
-            
-            try {
-                wait();     // Entrepreneur needs to wait for the next tasks
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+            } else if (outOfBusiness) {
+                returnChar = 'E';
+                break;
             }
         }
         return returnChar;
@@ -162,20 +177,19 @@ public class Shop {
         log.UpdateEntreperneurState(EntrepreneurState.CLOSING_THE_SHOP);
         log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }  
-    public synchronized void returnToShop(int nProductsTransfer) {
-        if (nProductsTransfer > 0) {
+    public synchronized void returnToShop(returnType returnType) {
+        if (reqFetchProducts && returnType == returnType.ProductsTransfer) {
             reqFetchProducts = false;
-            nProductsStock += nProductsTransfer;
-            ((Entrepreneur) Thread.currentThread()).productsTransferedToShop();
-        } else if (reqPrimeMaterials) {
+            nProductsStock += ((Entrepreneur) Thread.currentThread()).getProductsTransfer();
+            ((Entrepreneur) Thread.currentThread()).setProductsTransfer(0);
+        } else if (reqPrimeMaterials && returnType == returnType.PrimeMaterials) {
             reqPrimeMaterials = false;
         }
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
         
-        if(!isOutOfBusiness())
-            this.shopState = ShopState.OPEN;
+        this.shopState = ShopState.OPEN;
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials);
         
@@ -185,13 +199,16 @@ public class Shop {
         /** CRAFTSMAN **/
         /***************/ 
     
-    public synchronized void primeMaterialsNeeded() {
+    public synchronized boolean primeMaterialsNeeded() {
         if (reqPrimeMaterials)
-            return;
+            return false;
         
         reqPrimeMaterials = true;
+        requestEntrepreneur++;
         notifyAll();
+        
         log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        return true;
     }
     /**
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
@@ -203,6 +220,7 @@ public class Shop {
             return;
         
         reqFetchProducts = true;
+        requestEntrepreneur++;
         notifyAll();
         
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
@@ -212,27 +230,19 @@ public class Shop {
         /*************/
         /** GENERAL **/
         /*************/
-    public int getnProductsStock() {
+    public synchronized int getnProductsStock() {
         return nProductsStock;
     }
-    public boolean isReqFetchProducts() {
+    public synchronized boolean isReqFetchProducts() {
         return reqFetchProducts;
     }
-    public boolean isReqPrimeMaterials() {
+    public synchronized boolean isReqPrimeMaterials() {
         return reqPrimeMaterials;
     }
-
-    public void setOutOfBusiness()
-    {
+    public synchronized void setOutOfBusiness() {
         this.outOfBusiness = true;
-        shopState = ShopState.CLOSED;
-        
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
-    public boolean isOutOfBusiness() {
+    public synchronized boolean isOutOfBusiness() {
         return outOfBusiness;
-    }
-    public boolean anyWaitingCustomer(){
-        return !waitingLine.isEmpty();
     }
 }

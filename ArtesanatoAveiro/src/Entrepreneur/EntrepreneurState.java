@@ -15,7 +15,7 @@ public enum EntrepreneurState {
     AT_THE_SUPPLIERS("ATS"),
     DELIVERING_PRIME_MATERIALS("DPM");
     
-    private String acronym;
+    private final String acronym;
     
     private EntrepreneurState(String acronym) 
     {

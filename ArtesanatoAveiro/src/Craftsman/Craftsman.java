@@ -26,6 +26,7 @@ public class Craftsman extends Thread {
      * @param id The craftsman identifier.
      * @param shop
      * @param ws The simulation workshop where the craftsman will work.
+     * @param wh
      */
     public Craftsman(int id, Shop shop, Workshop ws, Warehouse wh) {
         this.setName("Craftsman "+id);
@@ -40,21 +41,15 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         do {
-            System.out.println("Collecting PM (" + id + ")");
             if (!ws.collectingMaterials(id)) {
-                System.out.println("Asking for PM (" + id + ")");
                 primeMaterialsNeeded();
                 ws.backToWork(id);
-                System.out.println("Back to work (" + id + ")");
             } else {
                 ws.prepareToProduce(id);
-                System.out.println("Producing (" + id + ")");
                 shappingItUp();
                 ws.goToStore(id);
-                System.out.println("Product stored (" + id + ")");
                 if (ws.getnProductsStored() >= ws.MAX_ProductsStored)
                     shop.batchReadyForTransfer(id);
-                System.out.println("Going again back to work (" + id + ")");
                 ws.backToWork(id);
             }
         } while (!endOperCraft());
@@ -74,18 +69,18 @@ public class Craftsman extends Thread {
      * @param id 
      */
     private void primeMaterialsNeeded() {
-        shop.primeMaterialsNeeded();        // Used to wake up Entrepreneur
-        ws.primeMaterialsNeeded(id);        // Used to sleep craftman
+        boolean contacted = shop.primeMaterialsNeeded();   // Used to wake up Entrepreneur
+        ws.primeMaterialsNeeded(id, contacted);            // Used to sleep craftman
     }
     /**
      * The craftsman is working on the next piece.
      */
     public void shappingItUp() {
-        try {
+        /*try {
             Thread.sleep((long) (Math.random() * 100));
         } catch (InterruptedException ex) {
             Logger.getLogger(Craftsman.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     
     /**
@@ -104,6 +99,7 @@ public class Craftsman extends Thread {
      */
     private boolean endOperCraft() {
         return (ws.getnCurrentPrimeMaterials() == 0 && 
-                wh.getnCurrentPrimeMaterials() == 0);
+                wh.getnCurrentPrimeMaterials() == 0 &&
+                !shop.isReqPrimeMaterials());
     }
 }

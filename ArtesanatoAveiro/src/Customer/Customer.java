@@ -37,7 +37,7 @@ public class Customer extends Thread {
                 }
                 shop.exitShop(id);
             }
-            else    {
+            else {
                 shop.tryAgainLater(id);
             }
         } while (!endOpCustomer());
@@ -57,6 +57,6 @@ public class Customer extends Thread {
     }
     
     private boolean endOpCustomer() {
-        return shop.isOutOfBusiness() && shop.getnProductsStock() == 0 && !shop.isDoorOpen();
+        return shop.isOutOfBusiness();
     }
 }

@@ -20,7 +20,9 @@ public class Workshop {
     private int nCurrentPrimeMaterials;
     private int nFinishedProducts;
     private int nTimesPrimeMaterialsFetched;
-    private int nTotalPrimeMaterialsSupplied;
+    private int nTotalPrimeMaterialsSupplied;    
+    private boolean waitingEntrepreneur;
+
     public final int primeMaterialsPerProduct;
     public final int MAX_ProductsStored;
     public final int MIN_PrimeMaterials;
@@ -49,6 +51,7 @@ public class Workshop {
         this.MAX_ProductsStored = maxProducts;
         this.MIN_PrimeMaterials = minPM;
         this.primeMaterialsPerProduct = primeMaterialsPerProduct;
+        this.waitingEntrepreneur = false;
         
         this.log = log;
         this.shop = shop;
@@ -61,25 +64,28 @@ public class Workshop {
      * asdsad
      * @return asd
      */
-    public synchronized int goToWorkshop() {
+    public synchronized void goToWorkshop() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         log.UpdateEntreperneurState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         
-        int products = nProductsStored;
+        ((Entrepreneur) Thread.currentThread()).setProductsTransfer(nProductsStored);
         nProductsStored = 0;
-        //WRITE STATE
-        return products;
+        
+        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
     }
-    public synchronized void replenishStock(int nMaterials) {
+    public synchronized void replenishStock() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         log.UpdateEntreperneurState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         
+        int nMaterials = ((Entrepreneur) Thread.currentThread()).getNMaterialsTranfer();
         nTimesPrimeMaterialsFetched++;
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
+        waitingEntrepreneur = false;
         notifyAll();    // Wake up craftsmen
-        ((Entrepreneur) Thread.currentThread()).resetNMaterialsTransfer();
+        
+        ((Entrepreneur) Thread.currentThread()).setNMaterialsTranfer(0);
         
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, 
                 nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
@@ -113,14 +119,19 @@ public class Workshop {
      * 
      * @param id The craftsman identifier.
      */
-    public synchronized void primeMaterialsNeeded(int id) {
+    public synchronized void primeMaterialsNeeded(int id, boolean contacted) {
+        if (contacted) {
+            waitingEntrepreneur = true;
+        }
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
         
-        try {
-            wait();     // Sleep the craftsman
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+        if (waitingEntrepreneur) {
+            try {
+                wait();     // Sleep the craftsman
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
    
@@ -178,12 +189,5 @@ public class Workshop {
      */
     public synchronized int getnCurrentPrimeMaterials() {
         return nCurrentPrimeMaterials;
-    }
-    /**
-     * Checks if there are any prime materials being transfered.
-     * @return True if there are prime materials on the move; false, otherwise.
-     */
-    public synchronized boolean isAnyTransferOccuring() {
-        return !shop.isReqPrimeMaterials();
     }
 }

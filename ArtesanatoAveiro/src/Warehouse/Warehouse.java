@@ -24,29 +24,24 @@ public class Warehouse {
     /******************/
     /** ENTREPRENEUR **/
     /******************/
-    
-    /**
-     *
-     * @return
-     */
-    public synchronized int visitSuppliers() {
-        int n = 0;
-        if(nCurrentPrimeMaterials < ProbConst.nPrimeMaterialToTransfer)
+
+    public synchronized void visitSuppliers() {
+        int n;
+        if (nCurrentPrimeMaterials < ProbConst.nPrimeMaterialToTransfer)
         {
             n = nCurrentPrimeMaterials;
             nCurrentPrimeMaterials = 0;
-            return n;
         }
-        else    {
+        else
+        {
             n = ProbConst.nPrimeMaterialToTransfer;
             nCurrentPrimeMaterials -= ProbConst.nPrimeMaterialToTransfer;   
         }
         
         log.WriteWarehouse(nCurrentPrimeMaterials);
-        
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
         log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
-        return n;
+        ((Entrepreneur) Thread.currentThread()).setNMaterialsTranfer(n);
     }
     
     public synchronized int getnCurrentPrimeMaterials() {
