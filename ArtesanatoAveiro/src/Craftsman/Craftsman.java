@@ -76,11 +76,11 @@ public class Craftsman extends Thread {
      * The craftsman is working on the next piece.
      */
     public void shappingItUp() {
-        /*try {
+        try {
             Thread.sleep((long) (Math.random() * 100));
         } catch (InterruptedException ex) {
             Logger.getLogger(Craftsman.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
     
     /**

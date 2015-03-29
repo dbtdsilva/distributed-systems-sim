@@ -130,6 +130,7 @@ public class Shop {
                     Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
             requestEntrepreneur--;
             if (!waitingLine.isEmpty()) {
                 returnChar = 'C';
