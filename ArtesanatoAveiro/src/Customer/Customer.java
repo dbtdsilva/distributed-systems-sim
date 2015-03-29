@@ -27,19 +27,19 @@ public class Customer extends Thread {
     public void run() {
         do {
             livingNormalLife();
-            System.out.println("living normal life.");
             shop.goShopping(id);
-            System.out.println("going shopping.");
         
             if(shop.isDoorOpen()) {
-                System.out.println("door is open.");
                 shop.enterShop(id);
                 if (shop.perusingAround())
+                {
                     shop.iWantThis(id);
+                }
                 shop.exitShop(id);
             }
-            else
+            else    {
                 shop.tryAgainLater(id);
+            }
         } while (!endOpCustomer());
         System.out.println("Cliente "+id+" acabou execução!");
     }
@@ -57,7 +57,6 @@ public class Customer extends Thread {
     }
     
     private boolean endOpCustomer() {
-        return false;
-        // TO DO
+        return shop.isOutOfBusiness() && shop.getnProductsStock() == 0 && !shop.isDoorOpen();
     }
 }

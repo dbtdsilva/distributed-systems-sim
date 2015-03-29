@@ -25,6 +25,7 @@ public class Shop {
     private final Queue<Integer> waitingLine;
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
+    private boolean outOfBusiness;
     
     private final Logging log;
     
@@ -36,6 +37,7 @@ public class Shop {
         this.waitingLine = new LinkedList<>();
         this.reqFetchProducts = false;
         this.reqPrimeMaterials = false;
+        this.outOfBusiness = false;
     }
     
         /**************/
@@ -78,17 +80,19 @@ public class Shop {
         nProductsStock -= 1;
         waitingLine.add(id);
         
+        log.CustomersBoughtGoods(id);
+        
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials);
         notifyAll();    // Wake up entrepreneur
         
-        while (waitingLine.contains(id)) {
+        do {
             try {
                 wait(); // Sleep customer
             } catch (InterruptedException ex) {
                 Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        } while (waitingLine.contains(id));
     }
     public synchronized void tryAgainLater(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
@@ -102,8 +106,9 @@ public class Shop {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         
-        this.shopState = ShopState.OPEN;
-        log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        shopState = ShopState.OPEN;
+        
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
     public synchronized char appraiseSit() {
         char returnChar;
@@ -169,7 +174,8 @@ public class Shop {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
         
-        this.shopState = ShopState.OPEN;
+        if(!isOutOfBusiness())
+            this.shopState = ShopState.OPEN;
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials);
         
@@ -214,5 +220,19 @@ public class Shop {
     }
     public boolean isReqPrimeMaterials() {
         return reqPrimeMaterials;
+    }
+
+    public void setOutOfBusiness()
+    {
+        this.outOfBusiness = true;
+        shopState = ShopState.CLOSED;
+        
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+    }
+    public boolean isOutOfBusiness() {
+        return outOfBusiness;
+    }
+    public boolean anyWaitingCustomer(){
+        return !waitingLine.isEmpty();
     }
 }

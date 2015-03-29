@@ -30,12 +30,23 @@ public class Warehouse {
      * @return
      */
     public synchronized int visitSuppliers() {
-        nCurrentPrimeMaterials -= 30;
+        int n = 0;
+        if(nCurrentPrimeMaterials < ProbConst.nPrimeMaterialToTransfer)
+        {
+            n = nCurrentPrimeMaterials;
+            nCurrentPrimeMaterials = 0;
+            return n;
+        }
+        else    {
+            n = ProbConst.nPrimeMaterialToTransfer;
+            nCurrentPrimeMaterials -= ProbConst.nPrimeMaterialToTransfer;   
+        }
+        
         log.WriteWarehouse(nCurrentPrimeMaterials);
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
         log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
-        return 30;
+        return n;
     }
     
     public synchronized int getnCurrentPrimeMaterials() {

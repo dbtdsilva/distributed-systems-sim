@@ -1,5 +1,6 @@
 package Entrepreneur;
 
+import Exec.ProbConst;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
@@ -36,9 +37,18 @@ public class Entrepreneur extends Thread {
     public void run() {
         do {
             boolean canGoOut = false;
-            char sit;
-            shop.prepareToWork();
+            char sit = 'X';
+            prepareToWork();
+            
             do {
+                if(shop.getnProductsStock() == 0 && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
+                && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct
+                && (!shop.customersInTheShop() || !shop.anyWaitingCustomer()))
+                {
+                    shop.setOutOfBusiness();
+                    break;
+                }
+                
                 sit = shop.appraiseSit();
                 switch (sit) {
                     case 'C': 
@@ -74,13 +84,13 @@ public class Entrepreneur extends Thread {
     }
     
     private boolean endOpEntrep() {
-        return  !shop.customersInTheShop() &&
-                shop.getnProductsStock() == 0 &&
+        return  shop.getnProductsStock() == 0 &&
                 !shop.isReqPrimeMaterials() &&
                 !shop.isReqFetchProducts() &&
                 wh.getnCurrentPrimeMaterials() == 0 &&
-                ws.getnCurrentPrimeMaterials() < ws.primeMaterialsPerProduct &&
-                ws.getnProductsStored() == 0;
+                ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct &&
+                ws.getnProductsStored() == 0 &&
+                !shop.customersInTheShop();
     }
 
     public void setState(EntrepreneurState state) {
@@ -93,5 +103,15 @@ public class Entrepreneur extends Thread {
 
     public void productsTransferedToShop() {
         nProductsTransfer = 0;
+    }
+
+    private void prepareToWork() {
+        if(shop.getnProductsStock() == 0 && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
+                && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct)
+        {
+            shop.setOutOfBusiness();
+        }
+        else
+            shop.prepareToWork();
     }
 }

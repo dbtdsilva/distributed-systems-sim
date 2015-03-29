@@ -1,1192 +1,190 @@
-ENTREPRE  CUST_0  CRAFT_0           SHOP                 WORKSHOP        WAREHOUSE
-  Stat   Stat BP  Stat PP   Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP    APM
-   OTS   CODC  0   FPM  0    CLS   0   0  F   F      0   0   0    0    0     30 > main
-  WFNT   CODC  0   FPM  0    CLS   0   0  F   F      0   0   0    0    0     30 > Entrepreneur
-  WFNT   CODC  0   FPM  0   OPEN   0   0  F   F      0   0   0    0    0     30 > Entrepreneur
-  WFNT   CODC  0   FPM  0   OPEN   0   0  F   T      0   0   0    0    0     30 > Craftsman 0
-  WFNT   CODC  0    CE  0   OPEN   0   0  F   T      0   0   0    0    0     30 > Craftsman 0
-  WFNT   CODC  0    CE  0   ECLS   0   0  F   T      0   0   0    0    0     30 > Entrepreneur
-   CTS   CODC  0    CE  0   ECLS   0   0  F   T      0   0   0    0    0     30 > Entrepreneur
-   CTS   CODC  0    CE  0    CLS   0   0  F   T      0   0   0    0    0     30 > Entrepreneur
-   CTS   CODC  0    CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
-   ATS   CODC  0    CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
-   ATS   CSDO  0    CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Customer 0
-   ATS   CODC  0    CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Customer 0
-   DPM   CODC  0    CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
-   DPM   CODC  0    CE  0    CLS   0   0  F   T     30   0   1   30    0      0 > Entrepreneur
-   OTS   CODC  0    CE  0    CLS   0   0  F   T     30   0   1   30    0      0 > Entrepreneur
-   OTS   CODC  0    CE  0   OPEN   0   0  F   F     30   0   1   30    0      0 > Entrepreneur
-   OTS   CODC  0   FPM  0   OPEN   0   0  F   F     30   0   1   30    0      0 > Craftsman 0
-   OTS   CODC  0   FPM  0   OPEN   0   0  F   F     27   0   1   30    0      0 > Craftsman 0
-   OTS   CODC  0  PANP  0   OPEN   0   0  F   F     27   0   1   30    0      0 > Craftsman 0
-  WFNT   CODC  0  PANP  0   OPEN   0   0  F   F     27   0   1   30    0      0 > Entrepreneur
-  WFNT   CODC  0  PANP  0   OPEN   0   0  F   F     27   0   1   30    0      0 > Entrepreneur
-  WFNT   CODC  0  SIFT  0   OPEN   0   0  F   F     27   0   1   30    0      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  1   OPEN   0   0  F   F     27   0   1   30    0      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  1   OPEN   0   0  F   F     27   1   1   30    1      0 > Craftsman 0
-  WFNT   CODC  0   FPM  1   OPEN   0   0  F   F     27   1   1   30    1      0 > Craftsman 0
-  WFNT   CODC  0   FPM  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Craftsman 0
-  WFNT   CODC  0  PANP  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Craftsman 0
-  WFNT   CSDO  0  PANP  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Customer 0
-  WFNT   AOID  0  PANP  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Customer 0
-  WFNT   AOID  0  PANP  1   OPEN   1   0  F   F     24   1   1   30    1      0 > Customer 0
-  WFNT   CODC  0  PANP  1   OPEN   1   0  F   F     24   1   1   30    1      0 > Customer 0
-  WFNT   CODC  0  PANP  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Customer 0
-  WFNT   CODC  0  SIFT  1   OPEN   0   0  F   F     24   1   1   30    1      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  2   OPEN   0   0  F   F     24   1   1   30    1      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  2   OPEN   0   0  F   F     24   2   1   30    2      0 > Craftsman 0
-  WFNT   CODC  0   FPM  2   OPEN   0   0  F   F     24   2   1   30    2      0 > Craftsman 0
-  WFNT   CODC  0   FPM  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Craftsman 0
-  WFNT   CODC  0  PANP  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Craftsman 0
-  WFNT   CSDO  0  PANP  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Customer 0
-  WFNT   AOID  0  PANP  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Customer 0
-  WFNT   AOID  0  PANP  2   OPEN   1   0  F   F     21   2   1   30    2      0 > Customer 0
-  WFNT   CODC  0  PANP  2   OPEN   1   0  F   F     21   2   1   30    2      0 > Customer 0
-  WFNT   CODC  0  PANP  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Customer 0
-  WFNT   CODC  0  SIFT  2   OPEN   0   0  F   F     21   2   1   30    2      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  3   OPEN   0   0  F   F     21   2   1   30    2      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  3   OPEN   0   0  F   F     21   3   1   30    3      0 > Craftsman 0
-  WFNT   CODC  0   FPM  3   OPEN   0   0  F   F     21   3   1   30    3      0 > Craftsman 0
-  WFNT   CODC  0   FPM  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Craftsman 0
-  WFNT   CODC  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Craftsman 0
-  WFNT   CSDO  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CSDO  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CSDO  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   AOID  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   1   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  PANP  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Customer 0
-  WFNT   CODC  0  SIFT  3   OPEN   0   0  F   F     18   3   1   30    3      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  4   OPEN   0   0  F   F     18   3   1   30    3      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  4   OPEN   0   0  F   F     18   4   1   30    4      0 > Craftsman 0
-  WFNT   CODC  0   FPM  4   OPEN   0   0  F   F     18   4   1   30    4      0 > Craftsman 0
-  WFNT   CODC  0   FPM  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Craftsman 0
-  WFNT   CODC  0  PANP  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Craftsman 0
-  WFNT   CSDO  0  PANP  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Customer 0
-  WFNT   AOID  0  PANP  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Customer 0
-  WFNT   AOID  0  PANP  4   OPEN   1   0  F   F     15   4   1   30    4      0 > Customer 0
-  WFNT   CODC  0  PANP  4   OPEN   1   0  F   F     15   4   1   30    4      0 > Customer 0
-  WFNT   CODC  0  PANP  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Customer 0
-  WFNT   CODC  0  SIFT  4   OPEN   0   0  F   F     15   4   1   30    4      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  5   OPEN   0   0  F   F     15   4   1   30    4      0 > Craftsman 0
-  WFNT   CODC  0  SIFT  5   OPEN   0   0  F   F     15   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0    CE  5   OPEN   0   0  F   F     15   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0    CE  5   OPEN   0   0  T   F     15   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0   FPM  5   OPEN   0   0  T   F     15   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0   FPM  5   OPEN   0   0  T   F     12   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0  PANP  5   OPEN   0   0  T   F     12   5   1   30    5      0 > Craftsman 0
-  WFNT   CODC  0  PANP  5   ECLS   0   0  T   F     12   5   1   30    5      0 > Entrepreneur
-   CTS   CODC  0  PANP  5   ECLS   0   0  T   F     12   5   1   30    5      0 > Entrepreneur
-   CTS   CODC  0  PANP  5    CLS   0   0  T   F     12   5   1   30    5      0 > Entrepreneur
-  CABP   CODC  0  PANP  5    CLS   0   0  T   F     12   5   1   30    5      0 > Entrepreneur
-   OTS   CODC  0  PANP  5    CLS   0   0  T   F     12   5   1   30    5      0 > Entrepreneur
-   OTS   CODC  0  PANP  5   OPEN   0   5  F   F     12   5   1   30    5      0 > Entrepreneur
-  WFNT   CODC  0  PANP  5   OPEN   0   5  F   F     12   5   1   30    5      0 > Entrepreneur
-  WFNT   CODC  0  PANP  5   OPEN   0   5  F   F     12   5   1   30    5      0 > Entrepreneur
-  WFNT   CSDO  0  PANP  5   OPEN   0   5  F   F     12   5   1   30    5      0 > Customer 0
-  WFNT   AOID  0  PANP  5   OPEN   0   5  F   F     12   5   1   30    5      0 > Customer 0
-  WFNT   AOID  0  PANP  5   OPEN   1   5  F   F     12   5   1   30    5      0 > Customer 0
-  WFNT    BSG  0  PANP  5   OPEN   1   5  F   F     12   5   1   30    5      0 > Customer 0
-  WFNT    BSG  0  PANP  5   OPEN   1   4  F   F     12   5   1   30    5      0 > Customer 0
-   AAC    BSG  0  PANP  5   OPEN   1   4  F   F     12   5   1   30    5      0 > Entrepreneur
-   AAC    BSG  0  SIFT  5   OPEN   1   4  F   F     12   5   1   30    5      0 > Craftsman 0
-   AAC    BSG  0  SIFT  6   OPEN   1   4  F   F     12   5   1   30    5      0 > Craftsman 0
-   AAC    BSG  0  SIFT  6   OPEN   1   4  F   F     12   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0   FPM  6   OPEN   1   4  F   F     12   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0   FPM  6   OPEN   1   4  F   F      9   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0  PANP  6   OPEN   1   4  F   F      9   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0  SIFT  6   OPEN   1   4  F   F      9   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0  SIFT  7   OPEN   1   4  F   F      9   1   1   30    6      0 > Craftsman 0
-   AAC    BSG  0  SIFT  7   OPEN   1   4  F   F      9   2   1   30    7      0 > Craftsman 0
-   AAC    BSG  0   FPM  7   OPEN   1   4  F   F      9   2   1   30    7      0 > Craftsman 0
-   AAC    BSG  0   FPM  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Craftsman 0
-   AAC    BSG  0  PANP  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Craftsman 0
-  WFNT    BSG  0  PANP  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Entrepreneur
-  WFNT   CODC  0  PANP  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   CODC  0  PANP  7   OPEN   0   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   CSDO  0  PANP  7   OPEN   0   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   AOID  0  PANP  7   OPEN   0   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   AOID  0  PANP  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT    BSG  0  PANP  7   OPEN   1   4  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT    BSG  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Customer 0
-   AAC    BSG  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Entrepreneur
-  WFNT    BSG  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Entrepreneur
-  WFNT   CODC  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   CODC  0  PANP  7   OPEN   0   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   CSDO  0  PANP  7   OPEN   0   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   AOID  0  PANP  7   OPEN   0   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT   AOID  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT    BSG  0  PANP  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Customer 0
-  WFNT    BSG  0  SIFT  7   OPEN   1   3  F   F      6   2   1   30    7      0 > Craftsman 0
-  WFNT    BSG  0  SIFT  8   OPEN   1   3  F   F      6   2   1   30    7      0 > Craftsman 0
-  WFNT    BSG  0  SIFT  8   OPEN   1   3  F   F      6   3   1   30    8      0 > Craftsman 0
-  WFNT    BSG  0   FPM  8   OPEN   1   3  F   F      6   3   1   30    8      0 > Craftsman 0
-  WFNT    BSG  0   FPM  8   OPEN   1   3  F   F      3   3   1   30    8      0 > Craftsman 0
-  WFNT    BSG  0  PANP  8   OPEN   1   3  F   F      3   3   1   30    8      0 > Craftsman 0
-  WFNT    BSG  0  PANP  8   OPEN   1   2  F   F      3   3   1   30    8      0 > Customer 0
-   AAC    BSG  0  PANP  8   OPEN   1   2  F   F      3   3   1   30    8      0 > Entrepreneur
-   AAC    BSG  0  SIFT  8   OPEN   1   2  F   F      3   3   1   30    8      0 > Craftsman 0
-   AAC    BSG  0  SIFT  9   OPEN   1   2  F   F      3   3   1   30    8      0 > Craftsman 0
-   AAC    BSG  0  SIFT  9   OPEN   1   2  F   F      3   4   1   30    9      0 > Craftsman 0
-   AAC    BSG  0   FPM  9   OPEN   1   2  F   F      3   4   1   30    9      0 > Craftsman 0
-   AAC    BSG  0   FPM  9   OPEN   1   2  F   F      0   4   1   30    9      0 > Craftsman 0
-   AAC    BSG  0  PANP  9   OPEN   1   2  F   F      0   4   1   30    9      0 > Craftsman 0
-  WFNT    BSG  0  PANP  9   OPEN   1   2  F   F      0   4   1   30    9      0 > Entrepreneur
-  WFNT   CODC  0  PANP  9   OPEN   1   2  F   F      0   4   1   30    9      0 > Customer 0
-  WFNT   CODC  0  PANP  9   OPEN   0   2  F   F      0   4   1   30    9      0 > Customer 0
-  WFNT   CODC  0  SIFT  9   OPEN   0   2  F   F      0   4   1   30    9      0 > Craftsman 0
-  WFNT   CODC  0  SIFT 10   OPEN   0   2  F   F      0   4   1   30    9      0 > Craftsman 0
-  WFNT   CODC  0  SIFT 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Craftsman 0
-  WFNT   CODC  0    CE 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Craftsman 0
-  WFNT   CODC  0    CE 10   OPEN   0   2  T   F      0   5   1   30   10      0 > Craftsman 0
-  WFNT   CODC  0   FPM 10   OPEN   0   2  T   F      0   5   1   30   10      0 > Craftsman 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   2  T   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   2  T   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   2  T   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   2  T   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   2  T   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   ECLS   0   2  T   F      0   5   1   30   10      0 > Entrepreneur
-   CTS   CODC  0   FPM 10   ECLS   0   2  T   F      0   5   1   30   10      0 > Entrepreneur
-   CTS   CODC  0   FPM 10    CLS   0   2  T   F      0   5   1   30   10      0 > Entrepreneur
-  CABP   CODC  0   FPM 10    CLS   0   2  T   F      0   5   1   30   10      0 > Entrepreneur
-   OTS   CODC  0   FPM 10    CLS   0   2  T   F      0   5   1   30   10      0 > Entrepreneur
-   OTS   CODC  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CSDO  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   7  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   6  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   5  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   4  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   3  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   2  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   1  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT    BSG  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-   AAC    BSG  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT    BSG  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Entrepreneur
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CSDO  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   AOID  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   1   0  F   F      0   5   1   30   10      0 > Customer 0
-  WFNT   CODC  0   FPM 10   OPEN   0   0  F   F      0   5   1   30   10      0 > Customer 0
+ENTREPRE  CUST_0  CUST_1  CUST_2  CRAFT_0 CRAFT_1 CRAFT_2           SHOP                 WORKSHOP        WAREHOUSE
+  Stat   Stat BP Stat BP Stat BP  Stat PP Stat PP Stat PP   Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP    APM
+   OTS   CODC  0 CODC  0 CODC  0   FPM  0  FPM  0  FPM  0    CLS   0   0  F   F      0   0   0    0    0     15 > main
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  0  FPM  0  FPM  0    CLS   0   0  F   F      0   0   0    0    0     15 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  0  FPM  0  FPM  0   OPEN   0   0  F   F      0   0   0    0    0     15 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  0  FPM  0  FPM  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  0  FPM  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Craftsman 2
+  WFNT   CODC  0 CSDO  0 CODC  0   FPM  0  FPM  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Customer 1
+  WFNT   CODC  0 CSDO  0 CSDO  0   FPM  0  FPM  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Customer 2
+  WFNT   CODC  0 CSDO  0 AOID  0   FPM  0  FPM  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Customer 2
+  WFNT   CODC  0 CSDO  0 AOID  0   FPM  0  FPM  0   CE  0   OPEN   1   0  F   T      0   0   0    0    0     15 > Customer 2
+  WFNT   CODC  0 CSDO  0 AOID  0    CE  0  FPM  0   CE  0   OPEN   1   0  F   T      0   0   0    0    0     15 > Craftsman 0
+  WFNT   CODC  0 CSDO  0 CODC  0    CE  0  FPM  0   CE  0   OPEN   1   0  F   T      0   0   0    0    0     15 > Customer 2
+  WFNT   CODC  0 CSDO  0 CODC  0    CE  0  FPM  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Customer 2
+  WFNT   CODC  0 CSDO  0 CODC  0    CE  0   CE  0   CE  0   OPEN   0   0  F   T      0   0   0    0    0     15 > Craftsman 1
+  WFNT   CODC  0 CSDO  0 CODC  0    CE  0   CE  0   CE  0   ECLS   0   0  F   T      0   0   0    0    0     15 > Entrepreneur
+   CTS   CODC  0 CSDO  0 CODC  0    CE  0   CE  0   CE  0   ECLS   0   0  F   T      0   0   0    0    0     15 > Entrepreneur
+   CTS   CODC  0 CSDO  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T      0   0   0    0    0     15 > Entrepreneur
+   CTS   CODC  0 CODC  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T      0   0   0    0    0     15 > Customer 1
+   CTS   CODC  0 CODC  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
+   ATS   CODC  0 CODC  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
+   DPM   CODC  0 CODC  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T      0   0   0    0    0      0 > Entrepreneur
+   DPM   CODC  0 CODC  0 CODC  0    CE  0   CE  0   CE  0    CLS   0   0  F   T     15   0   1   15    0      0 > Entrepreneur
+   DPM   CODC  0 CODC  0 CODC  0    CE  0  FPM  0   CE  0    CLS   0   0  F   T     15   0   1   15    0      0 > Craftsman 1
+   DPM   CODC  0 CODC  0 CODC  0    CE  0  FPM  0   CE  0    CLS   0   0  F   T     12   0   1   15    0      0 > Craftsman 1
+   DPM   CODC  0 CODC  0 CODC  0    CE  0 PANP  0   CE  0    CLS   0   0  F   T     12   0   1   15    0      0 > Craftsman 1
+   DPM   CODC  0 CODC  0 CODC  0    CE  0 PANP  0  FPM  0    CLS   0   0  F   T     12   0   1   15    0      0 > Craftsman 2
+   DPM   CODC  0 CODC  0 CODC  0    CE  0 PANP  0  FPM  0    CLS   0   0  F   T      9   0   1   15    0      0 > Craftsman 2
+   DPM   CODC  0 CODC  0 CODC  0    CE  0 PANP  0 PANP  0    CLS   0   0  F   T      9   0   1   15    0      0 > Craftsman 2
+   DPM   CODC  0 CODC  0 CODC  0   FPM  0 PANP  0 PANP  0    CLS   0   0  F   T      9   0   1   15    0      0 > Craftsman 0
+   DPM   CODC  0 CODC  0 CODC  0   FPM  0 PANP  0 PANP  0    CLS   0   0  F   T      6   0   1   15    0      0 > Craftsman 0
+   DPM   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0    CLS   0   0  F   T      6   0   1   15    0      0 > Craftsman 0
+   OTS   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0    CLS   0   0  F   T      6   0   1   15    0      0 > Entrepreneur
+   OTS   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Entrepreneur
+   OTS   CSDO  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 0
+   OTS   AOID  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 0
+   OTS   AOID  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   1   0  F   F      6   0   1   15    0      0 > Customer 0
+   OTS   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   1   0  F   F      6   0   1   15    0      0 > Customer 0
+   OTS   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 0
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CSDO  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 2
+  WFNT   CODC  0 CODC  0 AOID  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 2
+  WFNT   CODC  0 CODC  0 AOID  0  PANP  0 PANP  0 PANP  0   OPEN   1   0  F   F      6   0   1   15    0      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   1   0  F   F      6   0   1   15    0      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 SIFT  0 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 SIFT  1 PANP  0   OPEN   0   0  F   F      6   0   1   15    0      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 SIFT  1 PANP  0   OPEN   0   0  F   F      6   1   1   15    1      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0  FPM  1 PANP  0   OPEN   0   0  F   F      6   1   1   15    1      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0  FPM  1 PANP  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Craftsman 1
+  WFNT   CODC  0 CSDO  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   1   0  F   F      3   1   1   15    1      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   1   0  F   F      3   1   1   15    1      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 SIFT  0   OPEN   0   0  F   F      3   1   1   15    1      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 SIFT  1   OPEN   0   0  F   F      3   1   1   15    1      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 SIFT  1   OPEN   0   0  F   F      3   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1  FPM  1   OPEN   0   0  F   F      3   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1  FPM  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CSDO  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   1   0  F   F      0   2   1   15    2      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   1   0  F   F      0   2   1   15    2      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 PANP  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Customer 1
+  WFNT   CODC  0 CODC  0 CSDO  0  PANP  0 PANP  1 PANP  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CSDO  0  PANP  0 PANP  1 SIFT  1   OPEN   0   0  F   F      0   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CSDO  0  PANP  0 PANP  1 SIFT  2   OPEN   0   0  F   F      0   2   1   15    2      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CSDO  0  PANP  0 PANP  1 SIFT  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 AOID  0  PANP  0 PANP  1 SIFT  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Customer 2
+  WFNT   CODC  0 CODC  0 AOID  0  PANP  0 PANP  1 SIFT  2   OPEN   1   0  F   F      0   3   1   15    3      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 SIFT  2   OPEN   1   0  F   F      0   3   1   15    3      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1 SIFT  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0  PANP  0 PANP  1  FPM  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Craftsman 2
+  WFNT   CODC  0 CODC  0 CODC  0  SIFT  0 PANP  1  FPM  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Craftsman 0
+  WFNT   CODC  0 CODC  0 CODC  0  SIFT  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   3   1   15    3      0 > Craftsman 0
+  WFNT   CODC  0 CODC  0 CODC  0  SIFT  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Craftsman 0
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Craftsman 0
+  WFNT   CODC  0 CODC  0 CSDO  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 2
+  WFNT   CODC  0 CODC  0 AOID  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 2
+  WFNT   CODC  0 CODC  0 AOID  0   FPM  1 PANP  1  FPM  2   OPEN   1   0  F   F      0   4   1   15    4      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   1   0  F   F      0   4   1   15    4      0 > Customer 2
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 2
+  WFNT   CSDO  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 0
+  WFNT   AOID  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 0
+  WFNT   AOID  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   1   0  F   F      0   4   1   15    4      0 > Customer 0
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   1   0  F   F      0   4   1   15    4      0 > Customer 0
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 PANP  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Customer 0
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 SIFT  1  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 SIFT  2  FPM  2   OPEN   0   0  F   F      0   4   1   15    4      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1 SIFT  2  FPM  2   OPEN   0   0  F   F      0   5   1   15    5      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1   CE  2  FPM  2   OPEN   0   0  F   F      0   5   1   15    5      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1   CE  2  FPM  2   OPEN   0   0  T   F      0   5   1   15    5      0 > Craftsman 1
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1   CE  2  FPM  2   ECLS   0   0  T   F      0   5   1   15    5      0 > Entrepreneur
+   CTS   CODC  0 CODC  0 CODC  0   FPM  1   CE  2  FPM  2   ECLS   0   0  T   F      0   5   1   15    5      0 > Entrepreneur
+   CTS   CODC  0 CODC  0 CODC  0   FPM  1   CE  2  FPM  2    CLS   0   0  T   F      0   5   1   15    5      0 > Entrepreneur
+   CTS   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2    CLS   0   0  T   F      0   5   1   15    5      0 > Craftsman 1
+  CABP   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2    CLS   0   0  T   F      0   5   1   15    5      0 > Entrepreneur
+   OTS   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2    CLS   0   0  T   F      0   5   1   15    5      0 > Entrepreneur
+   OTS   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   5  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   5  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0 CODC  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   5  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0 CSDO  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   5  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   5  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   5  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  0 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   5  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   5  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Customer 1
+   AAC   CODC  0  BSG  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0  BSG  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0 CODC  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CODC  1 CODC  0   FPM  1  FPM  2  FPM  2   OPEN   0   4  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CODC  1 CSDO  0   FPM  1  FPM  2  FPM  2   OPEN   0   4  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1 AOID  0   FPM  1  FPM  2  FPM  2   OPEN   0   4  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1 AOID  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1  BSG  0   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   4  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 2
+   AAC   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Entrepreneur
+   AAC   CSDO  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   2   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   2   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   CSDO  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   2   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   2   3  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 0
+  WFNT   CODC  0 CODC  1  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0 CODC  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CSDO  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CODC  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CODC  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CSDO  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   0   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 AOID  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  1 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  2 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   3  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0  BSG  2 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   2  F   F      0   5   1   15    5      0 > Customer 1
+   AAC   CODC  0  BSG  2 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   2  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0  BSG  2 CODC  1   FPM  1  FPM  2  FPM  2   OPEN   1   2  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  0  BSG  2 CSDO  1   FPM  1  FPM  2  FPM  2   OPEN   1   2  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0  BSG  2 AOID  1   FPM  1  FPM  2  FPM  2   OPEN   1   2  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0  BSG  2 AOID  1   FPM  1  FPM  2  FPM  2   OPEN   2   2  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0  BSG  2  BSG  1   FPM  1  FPM  2  FPM  2   OPEN   2   2  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0  BSG  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   2  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0  BSG  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   1  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT   CODC  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   1  F   F      0   5   1   15    5      0 > Customer 1
+  WFNT   CODC  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   1   1  F   F      0   5   1   15    5      0 > Customer 1
+   AAC   CODC  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   1   1  F   F      0   5   1   15    5      0 > Entrepreneur
+   AAC   CSDO  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   1   1  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   1   1  F   F      0   5   1   15    5      0 > Customer 0
+   AAC   AOID  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   1  F   F      0   5   1   15    5      0 > Customer 0
+   AAC    BSG  0 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   1  F   F      0   5   1   15    5      0 > Customer 0
+   AAC    BSG  1 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   1  F   F      0   5   1   15    5      0 > Customer 0
+   AAC    BSG  1 CODC  2  BSG  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 0
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CSDO  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 1
+   AAC    BSG  1 AOID  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 1
+   AAC    BSG  1 AOID  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 1
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 1
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 1
+   AAC    BSG  1 CODC  2 CSDO  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CODC  2 AOID  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CODC  2 AOID  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   2   0  F   F      0   5   1   15    5      0 > Customer 2
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 2
+  WFNT    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   AAC    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT    BSG  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Entrepreneur
+  WFNT   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2   OPEN   1   0  F   F      0   5   1   15    5      0 > Customer 0
+  WFNT   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Customer 0
+  WFNT   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   1   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   CTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   1   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   CTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   OTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   OTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Entrepreneur
+   OTS   CODC  1 CSDO  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Customer 1
+   OTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Customer 1
+   OTS   CODC  1 CODC  2 CSDO  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Customer 2
+   OTS   CODC  1 CODC  2 CODC  2   FPM  1  FPM  2  FPM  2    CLS   0   0  F   F      0   5   1   15    5      0 > Customer 2
 SIMULATION ENDED!

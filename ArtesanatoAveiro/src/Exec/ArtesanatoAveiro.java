@@ -54,10 +54,7 @@ public class ArtesanatoAveiro {
             c.start();
         for (Craftsman c : craftsmen)
             c.start();
-        
-        DebugHelper hack = new DebugHelper();
-        hack.start();
-        
+
         ShutdownHook shutdownHook = new ShutdownHook(log);
         Runtime.getRuntime().addShutdownHook(shutdownHook);
         
@@ -79,21 +76,6 @@ public class ArtesanatoAveiro {
             System.out.println("O cliente " + c.id + " terminou.");
         }
         
-        hack.interrupt();
-    }
-}
-
-class DebugHelper extends Thread {
-    @Override
-    public void run() {
-        while(true) {
-            System.out.print("");
-            unfreeze();
-        }
-    }
-    
-    private synchronized void unfreeze() {
-        notifyAll();
     }
 }
 
