@@ -7,7 +7,10 @@ import Logger.Logging;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,10 +24,13 @@ public class ArtesanatoAveiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) { 
-        Logging log = new Logging("", 
-                ProbConst.nCustomers, 
-                ProbConst.nCraftsmen,
-                ProbConst.nPrimeMaterials);
+        Logging log;
+        try {
+            log = new Logging("", 
+                    ProbConst.nCustomers,
+                    ProbConst.nCraftsmen,
+                    ProbConst.nPrimeMaterials);
+        
         log.setConsole();
         Shop shop = new Shop(log);
         Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
@@ -75,7 +81,9 @@ public class ArtesanatoAveiro {
             } catch (InterruptedException e) {}
             System.out.println("O cliente " + c.id + " terminou.");
         }
-        
+        } catch (IOException ex) {
+            Logger.getLogger(ArtesanatoAveiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 
