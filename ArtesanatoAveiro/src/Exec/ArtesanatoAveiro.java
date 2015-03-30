@@ -23,7 +23,7 @@ public class ArtesanatoAveiro {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String logname = "";
         if (args.length > 0)
             logname = "logs/logging"+args[0]+".txt";
@@ -71,15 +71,9 @@ public class ArtesanatoAveiro {
                 c.join ();
             } catch (InterruptedException e) {}
         }
-<<<<<<< HEAD
         try {
             entr.join();
         } catch (InterruptedException e) {}
-=======
-        } catch (IOException ex) {
-            Logger.getLogger(ArtesanatoAveiro.class.getName()).log(Level.SEVERE, null, ex);
-        }
->>>>>>> 06724bf1a30bcf8f467370134154b73cc11ad924
     }
 }
 
