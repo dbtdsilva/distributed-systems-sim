@@ -381,7 +381,7 @@ public class Logging {
      * @return Returns false if the entrepreneur can continue its work; returns 
      * false if otherwise.
      */
-    public boolean endOpEntrep() {
+    public synchronized boolean endOpEntrep() {
         return nGoodsInDisplay == 0 &&
                 nProductsStored == 0 &&
                 nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
