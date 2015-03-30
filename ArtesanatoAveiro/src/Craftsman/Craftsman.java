@@ -2,7 +2,6 @@ package Craftsman;
 
 import Logger.Logging;
 import Shop.Shop;
-import Warehouse.Warehouse;
 import Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
