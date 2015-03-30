@@ -65,37 +65,42 @@ public class Workshop {
     
     /**
      * Entrepreneur goes to the Workshop to fetch the products in there.
+     * 
+     * @return 
      */
-    public synchronized void goToWorkshop() {
+    public synchronized int goToWorkshop() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         log.UpdateEntreperneurState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         
-        ((Entrepreneur) Thread.currentThread()).setProductsTransfer(nProductsStored);
+        int n = nProductsStored;
         nProductsStored = 0;
         
-        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
+        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, 
+                nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
+        return n;
     }
     /**
      * Entrepreneur goes to the Workshop and returns that prime materials that
      * she fetched from the Warehouse.
      * If nobody is waiting for her, it means that Entrepreneur arrived before
      * the Craftsman to the Workshop and he will not need to wait.
+     * 
+     * @param nMaterials
      */
-    public synchronized void replenishStock() {
+    public synchronized void replenishStock(int nMaterials) {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         log.UpdateEntreperneurState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         
-        int nMaterials = ((Entrepreneur) Thread.currentThread()).getNMaterialsTranfer();
         nTimesPrimeMaterialsFetched++;
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
-        if (!waitingEntrepreneur)
+        /*if (!waitingEntrepreneur)
             entArrivedBefCraftsmen = true;
-        waitingEntrepreneur = false;
-        notifyAll();    // Wake up craftsmen
+        waitingEntrepreneur = false;*/
+        shop.resetRequestPrimeMaterials();
         
-        ((Entrepreneur) Thread.currentThread()).setNMaterialsTranfer(0);
+        notifyAll();    // Wake up craftsmen
         
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, 
                 nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
@@ -130,23 +135,20 @@ public class Workshop {
      * 
      * @param id The craftsman identifier.
      */
-    public synchronized void primeMaterialsNeeded(int id, boolean contacted) {
-        if (contacted) {
-            if (!entArrivedBefCraftsmen)
-                waitingEntrepreneur = true;
-            else
-                entArrivedBefCraftsmen = false;
-        }
+    public synchronized void primeMaterialsNeeded(int id) {
+        if (!shop.isReqPrimeMaterials())
+            shop.primeMaterialsNeeded();
+            
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
         
-        if (waitingEntrepreneur) {
+        //if (waitingEntrepreneur) {
             try {
                 wait();     // Sleep the craftsman
             } catch (InterruptedException ex) {
                 Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        //}
     }
    
     /**
@@ -161,7 +163,6 @@ public class Workshop {
         nFinishedProducts++;
         nProductsStored++;
         
-        ((Craftsman) Thread.currentThread()).updateFinishedProducts();
         log.CraftsmanFinishedProduct(id);
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched,
                 nTotalPrimeMaterialsSupplied, nFinishedProducts);

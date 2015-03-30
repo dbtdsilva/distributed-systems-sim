@@ -1,6 +1,6 @@
 package Entrepreneur;
 
-import Exec.ProbConst;
+import Logger.Logging;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
@@ -18,34 +18,25 @@ public class Entrepreneur extends Thread {
     private final Shop shop;
     private final Warehouse wh;
     private final Workshop ws;
-     
-    private int nProductsTransfer = 0;
-    private int nMaterialsTransfer = 0;
-    
-    /**
-     * Enumerate used to represent the type of return when Entrepreneur is 
-     * requested by the Craftsmen, she needs to know what she have done in case
-     * of being request to do both operations at the same time.
-     */
-    public enum returnType{PrimeMaterials, ProductsTransfer};
+    private final Logging log;
     
     /**
      * Initiliazes the entrepreneur class with the required information.
      * 
+     * @param log The general repository
      * @param shop The simulation shop where the entrepreneur will work.
      * @param wh The simulation warehouse where the entrepeneur fetchs prime 
      * materials when requested by the Craftsmen.
      * @param ws The simulation workshop where the craftsmen are located.
      */
-    public Entrepreneur(Shop shop, Warehouse wh, Workshop ws) {
+    public Entrepreneur(Logging log, Shop shop, Warehouse wh, Workshop ws) {
         this.setName("Entrepreneur");
         
         state = EntrepreneurState.OPENING_THE_SHOP;
         this.shop = shop;
         this.wh = wh;
         this.ws = ws;
-        nProductsTransfer = 0;
-        nMaterialsTransfer = 0;
+        this.log = log;
     }
     /**
      * This function represents the life cycle of Entrepreneur.
@@ -58,13 +49,13 @@ public class Entrepreneur extends Thread {
             
             shop.prepareToWork();
             do {
-                if (shop.getnProductsStock() == 0 
+                /*if (shop.getnProductsStock() == 0 
                         && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
                         && ws.getnProductsStored() == 0
-                        && wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct
+                        && wh.getNTimesSupplied() == ProbConst.nMaxSupplies
                         && !shop.isReqFetchProducts() && !shop.isReqPrimeMaterials()) {
                     shop.setOutOfBusiness();
-                }
+                }*/
                 
                 sit = shop.appraiseSit();
                 switch (sit) {
@@ -84,14 +75,15 @@ public class Entrepreneur extends Thread {
             
             shop.prepareToLeave();
             if (sit == 'T') {           /* Transfer products */
-                ws.goToWorkshop();
-                shop.returnToShop(returnType.ProductsTransfer);
+                int nProducts = ws.goToWorkshop();
+                shop.returnToShop(nProducts);
             } else if (sit == 'M') {    /* Materials needed */
-                wh.visitSuppliers();
-                ws.replenishStock();
-                shop.returnToShop(returnType.PrimeMaterials);
+                int nMaterials = wh.visitSuppliers();
+                ws.replenishStock(nMaterials);
+                shop.returnToShop(0);
             }
-        } while(!endOpEntrep());
+        } while(!log.endOpEntrep());
+        
         System.out.println("Dona acabou execução!");
     }
     /**
@@ -99,7 +91,7 @@ public class Entrepreneur extends Thread {
      * 
      * @param id the customerIdentifier
      */
-    public void serviceCustomer(int id) {
+    private void serviceCustomer(int id) {
         try {
             Thread.sleep((long) (Math.random() * 100));
         } catch (InterruptedException ex) {
@@ -121,48 +113,5 @@ public class Entrepreneur extends Thread {
      */
     public EntrepreneurState getCurrentState() {
         return state;
-    }
-    /**
-     * Sets the number of products being transfered from the workshop to the shop.
-     * 
-     * @param nProducts the number of products being transfered
-     */
-    public void setProductsTransfer(int nProducts) {
-        nProductsTransfer = nProducts;
-    }
-    /**
-     * Sets the number of prime materials being transfered from the warehouse
-     * to the workshop.
-     * 
-     * @param nPrimeMaterials the number of prime materials being transfered 
-     */
-    public void setNMaterialsTranfer(int nPrimeMaterials) {
-        nMaterialsTransfer = nPrimeMaterials;
-    }
-    /**
-     * Gets the number of products being transfered from the workshop to the shop.
-     * 
-     * @return number of products being transfered.
-     */
-    public int getProductsTransfer() {
-        return nProductsTransfer;
-    }
-    /**
-     * Gets the number of prime materials being transfered from the warehouse to
-     * the workshop.
-     * 
-     * @return number of prime materials being transfered.
-     */
-    public int getNMaterialsTranfer() {
-        return nMaterialsTransfer;
-    }
-    /**
-     * Checks if the entrepeneur no longer has conditions to continue its work.
-     * 
-     * @return Returns false if the entrepreneur can continue its work; returns 
-     * false if otherwise.
-     */
-    private boolean endOpEntrep() {
-        return shop.isOutOfBusiness() & !shop.customersInTheShop();
     }
 }

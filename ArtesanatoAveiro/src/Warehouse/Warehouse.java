@@ -13,13 +13,25 @@ import Logger.Logging;
  */
 public class Warehouse {
     private Logging log;
-    private int nCurrentPrimeMaterials;
+    private int nTimesSupplied;
     private final int nInitialPrimeMaterials;
+    private final int nTimesPMSupplied[];
     
     public Warehouse(Logging log, int nPrimeMaterials) {
         this.log = log;
+        this.nTimesSupplied = 0;
         this.nInitialPrimeMaterials = nPrimeMaterials;
-        this.nCurrentPrimeMaterials = this.nInitialPrimeMaterials;
+        
+        int nPMMin = ProbConst.nCraftsmen * ProbConst.primeMaterialsPerProduct;
+        
+        nTimesPMSupplied = new int[ProbConst.nMaxSupplies];
+        for (int i = 0; i < ProbConst.nMaxSupplies; i++) {
+            nTimesPMSupplied[i] = (int) (Math.random() * nPMMin * 3);
+        }
+        
+        if (nTimesPMSupplied[ProbConst.nMaxSupplies-1] < nPMMin)
+            nTimesPMSupplied[ProbConst.nMaxSupplies-1] += nPMMin;
+            
     }
     
     /******************/
@@ -31,31 +43,16 @@ public class Warehouse {
      * craftsman.
      * She will fetch a maximum of nPrimeMaterialsToTransfer.
      */
-    public synchronized void visitSuppliers() {
-        int n;
-        if (nCurrentPrimeMaterials < ProbConst.nPrimeMaterialToTransfer)
-        {
-            n = nCurrentPrimeMaterials;
-            nCurrentPrimeMaterials = 0;
-        }
-        else
-        {
-            n = ProbConst.nPrimeMaterialToTransfer;
-            nCurrentPrimeMaterials -= ProbConst.nPrimeMaterialToTransfer;   
-        }
+    public synchronized int visitSuppliers() {
+        int n = nTimesPMSupplied[nTimesSupplied];
+        nTimesSupplied++;
         
-        log.WriteWarehouse(nCurrentPrimeMaterials);
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
         log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
-        ((Entrepreneur) Thread.currentThread()).setNMaterialsTranfer(n);
+        return n;
     }
-    
-    /**
-     * This function returns the total number of prime materials in the Warehouse.
-     * 
-     * @return the number of prime materials in the Warehouse.
-     */
-    public synchronized int getnCurrentPrimeMaterials() {
-        return nCurrentPrimeMaterials;
-    }  
+
+    public synchronized int getNTimesSupplied() {
+        return nTimesSupplied;
+    }
 }

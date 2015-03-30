@@ -1,5 +1,6 @@
 package Customer;
 
+import Logger.Logging;
 import Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,17 +15,20 @@ public class Customer extends Thread {
     private CustomerState state;
     private final int id;
     private final Shop shop;
+    private final Logging log;
     
     /**
      * Initiliazes the customer class with the required information.
      * 
      * @param id The customer identifier.
+     * @param log The general repository
      * @param shop The simulation shop where the customer will buy products.
      */
-    public Customer(int id, Shop shop) {
+    public Customer(int id, Logging log, Shop shop) {
         this.setName("Customer "+id);
         this.id = id;
         this.shop = shop;
+        this.log = log;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     /**
@@ -32,22 +36,21 @@ public class Customer extends Thread {
      */
     @Override
     public void run() {
+        int nProducts;
         do {
             livingNormalLife();
             shop.goShopping(id);
         
             if(shop.isDoorOpen()) {
                 shop.enterShop(id);
-                if (shop.perusingAround())
-                {
-                    shop.iWantThis(id);
-                }
+                if ((nProducts = shop.perusingAround()) != 0)
+                    shop.iWantThis(id, nProducts);
                 shop.exitShop(id);
             }
             else {
                 shop.tryAgainLater(id);
             }
-        } while (!endOpCustomer());
+        } while (!log.endOpCustomer());
         System.out.println("Cliente "+id+" acabou execução!");
     }
     
@@ -76,13 +79,5 @@ public class Customer extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    /**
-     * Checks if the customer no longer has conditions to continue.
-     * 
-     * @return Returns false if the customer can continue; returns false if otherwise.
-     */
-    private boolean endOpCustomer() {
-        return shop.isOutOfBusiness();
     }
 }

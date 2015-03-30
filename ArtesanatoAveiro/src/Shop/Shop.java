@@ -5,7 +5,6 @@ import Craftsman.CraftsmanState;
 import Customer.Customer;
 import Customer.CustomerState;
 import Entrepreneur.Entrepreneur;
-import Entrepreneur.Entrepreneur.returnType;
 import Entrepreneur.EntrepreneurState;
 import Logger.Logging;
 import java.util.LinkedList;
@@ -27,7 +26,6 @@ public class Shop {
     private final Queue<Integer> waitingLine;
     private boolean reqFetchProducts;
     private boolean reqPrimeMaterials;
-    private boolean outOfBusiness;
     private int requestEntrepreneur;
     
     private final Logging log;
@@ -41,7 +39,6 @@ public class Shop {
         this.waitingLine = new LinkedList<>();
         this.reqFetchProducts = false;
         this.reqPrimeMaterials = false;
-        this.outOfBusiness = false;
     }
     
         /**************/
@@ -99,19 +96,20 @@ public class Shop {
                 reqFetchProducts, reqPrimeMaterials);
     }
     /**
-     * The customer searchs for a products inside the Shop.
+     * The customer searchs for products inside the Shop.
      * 
-     * @return If there's no products, returns false. If there's products, it will return
-     * true 70% of the cases.
+     * @return number of products that customer is going to buy (Between 0 and 2)
      */
-    public synchronized boolean perusingAround() {
-        if (nProductsStock == 0)
-            return false;
-        if (Math.random() > 0.3) { // 70% probabilidade
+    public synchronized int perusingAround() {
+        double val = Math.random();
+        if (val > 0.7 && nProductsStock >= 2) {
+            nProductsStock -= 2;
+            return 2;
+        } else if (val > 0.3 && nProductsStock >= 1) {
             nProductsStock -= 1;
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
     }
     /**
@@ -120,13 +118,13 @@ public class Shop {
      * 
      * @param id customer identifier
      */
-    public synchronized void iWantThis(int id) {
+    public synchronized void iWantThis(int id, int nProducts) {
         ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);
         log.UpdateCustomerState(id, CustomerState.BUYING_SOME_GOODS);
         
         waitingLine.add(id);
         
-        log.CustomersBoughtGoods(id);
+        log.CustomersBoughtGoods(id, nProducts);
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials);
         
@@ -177,7 +175,7 @@ public class Shop {
     public synchronized char appraiseSit() {
         char returnChar;
         while (true) {
-            while (requestEntrepreneur == 0 && !outOfBusiness) {
+            while (requestEntrepreneur == 0) {
                 try {
                     wait();     // Entrepreneur needs to wait for the next tasks
                 } catch (InterruptedException ex) {
@@ -195,7 +193,7 @@ public class Shop {
             } else if (reqFetchProducts) {
                 returnChar = 'T';
                 break;
-            } else if (outOfBusiness) {
+            } else if (log.endOpEntrep()) {
                 returnChar = 'E';
                 break;
             }
@@ -262,17 +260,19 @@ public class Shop {
      * If she went to fetch products, she still have the products with her and she
      * must to put them on shop stock. After that request is done.
      * 
-     * @param returnType type of the request, fetch products or deliver prime materials.
+     * @param nProducts
      */
-    public synchronized void returnToShop(returnType returnType) {
-        if (reqFetchProducts && returnType == returnType.ProductsTransfer) {
+    public synchronized void returnToShop(int nProducts) {
+        if (nProducts > 0) {
             reqFetchProducts = false;
-            nProductsStock += ((Entrepreneur) Thread.currentThread()).getProductsTransfer();
-            ((Entrepreneur) Thread.currentThread()).setProductsTransfer(0);
-        } else if (reqPrimeMaterials && returnType == returnType.PrimeMaterials) {
-            reqPrimeMaterials = false;
+            nProductsStock += nProducts;
         }
-        
+        /*if (reqFetchProducts && returnType == returnType.ProductsTransfer) {
+            reqFetchProducts = false;
+            
+        } else if (reqPrimeMaterials && returnType == returnType.PrimeMaterials) {
+        }
+        */
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
         
@@ -353,21 +353,11 @@ public class Shop {
         return reqPrimeMaterials;
     }
     /**
-     * This function defines the Shop as out of business, it means that it doesn't
-     * have any more products to sell (and there's no more materials to produce
-     * them) and it will close soon.
-     */
-    public synchronized void setOutOfBusiness() {
-        this.outOfBusiness = true;
-    }
-    /**
-     * This function returns true if the Shop is out of business, it means that it
-     * doesn't have any more products to sell (and there's no more materials to
-     * produce them) and it will close soon.
      * 
-     * @return returns true if Shop is out of business, returns false otherwise. 
      */
-    public synchronized boolean isOutOfBusiness() {
-        return outOfBusiness;
+    public synchronized void resetRequestPrimeMaterials() {
+        reqPrimeMaterials = false;
+        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials);
     }
 }

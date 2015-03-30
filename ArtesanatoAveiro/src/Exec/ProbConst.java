@@ -37,4 +37,9 @@ public class ProbConst {
      * Warehouse.
      */
     public final static int nPrimeMaterialToTransfer = 15;
+    
+    /**
+     * The maximum number of times that prime materials have been supplied. 
+     */
+    public final static int nMaxSupplies = 10;
 }

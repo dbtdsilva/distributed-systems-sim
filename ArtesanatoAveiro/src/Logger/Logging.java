@@ -3,6 +3,7 @@ package Logger;
 import Craftsman.CraftsmanState;
 import Customer.CustomerState;
 import Entrepreneur.EntrepreneurState;
+import Exec.ProbConst;
 import Shop.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +40,7 @@ public class Logging {
     private final Map<Integer, Integer> nBoughtGoods;
     
     // Craftsmen information
+    private int nWorkingCraftsmen;
     private final Map<Integer, CraftsmanState> craftsmen;
     private final Map<Integer, Integer> nManufacturedProds;
     
@@ -55,9 +57,6 @@ public class Logging {
     private int nTimesPrimeMaterialsFetched;
     private int nTotalPrimeMaterialsSupplied;
     private int nFinishedProducts;
-    
-    // Warehouse information
-    private int primeMaterialsInWarehouse;
     
     private boolean console;
     
@@ -77,9 +76,8 @@ public class Logging {
             int primeMaterials) throws IOException
     {
         console = false;
-        
-        primeMaterialsInWarehouse = primeMaterials;
-                
+                      
+        nWorkingCraftsmen = nCraftsmen;
         nCustomerIn = 0;
         nGoodsInDisplay = 0;
         reqFetchProds = false;
@@ -161,18 +159,18 @@ public class Logging {
         
         pw.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
                 nCustomerIn, nGoodsInDisplay, r, t);
-        pw.printf("%2d  %2d  %2d   %2d   %2d    %3d", nCurrentPrimeMaterials, 
+        pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
-                nFinishedProducts, primeMaterialsInWarehouse);
+                nFinishedProducts);
         pw.println(" > "+Thread.currentThread().getName());
         
         
         if (console) {
             System.out.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
                 nCustomerIn, nGoodsInDisplay, r, t);
-            System.out.printf("%2d  %2d  %2d   %2d   %2d    %3d", nCurrentPrimeMaterials, 
+            System.out.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
-                nFinishedProducts, primeMaterialsInWarehouse);
+                nFinishedProducts);
             System.out.println(" > "+Thread.currentThread().getName());
         }
     }
@@ -285,11 +283,12 @@ public class Logging {
      * Writes the number of bought goods by the customer in the logger file.
      * 
      * @param id The customer's id
+     * @param nProducts Number of products bought
      */
-    public synchronized void CustomersBoughtGoods(int id)
+    public synchronized void CustomersBoughtGoods(int id, int nProducts)
     {
         int prods = this.nBoughtGoods.get(id);
-        prods++;
+        prods += nProducts;
         this.nBoughtGoods.put(id, prods);
         WriteLine();
     }
@@ -336,18 +335,58 @@ public class Logging {
         WriteLine();
     }
     /**
-     * Writes the state of the warehouse in the logger file.
-     * 
-     * @param primeMaterials 
-     */
-    public synchronized void WriteWarehouse(int primeMaterials) {
-        this.primeMaterialsInWarehouse = primeMaterials;
-        WriteLine();
-    }
-    /**
      * Activates the logger to the standard output.
      */
     public void setConsole() {
         console = true;
+    }
+
+    public synchronized int getNumberWorkingCraftsmen() {
+        return nWorkingCraftsmen;
+    }
+
+    /**
+     * Checks if the craftsman no longer has conditions to continue its work.
+     * 
+     * @return Returns false if the craftsman can continue its work; returns 
+     * false if otherwise.
+     */
+    public synchronized boolean endOperCraft() {
+        if (nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies && 
+                nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
+                !reqPrimeMaterials) {                
+            if (nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct * nWorkingCraftsmen) {
+                nWorkingCraftsmen--;
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Checks if the customer no longer has conditions to continue.
+     * 
+     * @return Returns false if the customer can continue; returns 
+     * false if otherwise.
+     */
+    public synchronized boolean endOpCustomer() {
+        return nGoodsInDisplay == 0 &&
+                nProductsStored == 0 &&
+                nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
+                nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
+                !reqFetchProds && !reqPrimeMaterials;
+    }
+    /**
+     * Checks if the Entrepreneur no longer has conditions to continue its work.
+     * 
+     * @return Returns false if the entrepreneur can continue its work; returns 
+     * false if otherwise.
+     */
+    public boolean endOpEntrep() {
+        return nGoodsInDisplay == 0 &&
+                nProductsStored == 0 &&
+                nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
+                nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
+                !reqFetchProds && !reqPrimeMaterials && 
+                nCustomerIn == 0;
     }
 }

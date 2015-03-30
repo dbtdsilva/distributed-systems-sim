@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * TODO:
+ *      endCraftOper()
+ *      appraiseSit -> End situation -> Out of business
+ */
+
+/**
  * This is the class where main function is located, it is reponsible for
  * launching all the threads
  * 
@@ -50,12 +56,12 @@ public class ArtesanatoAveiro {
         ArrayList<Customer> customers = new ArrayList<>(ProbConst.nCustomers);
         ArrayList<Craftsman> craftsmen = new ArrayList<>(ProbConst.nCraftsmen);
 
-        Entrepreneur entr = new Entrepreneur(shop, wh, ws);
+        Entrepreneur entr = new Entrepreneur(log, shop, wh, ws);
         
         for (int i = 0; i < ProbConst.nCustomers; i++)
-            customers.add(new Customer(i, shop));
+            customers.add(new Customer(i, log, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
-            craftsmen.add(new Craftsman(i, shop, ws, wh));
+            craftsmen.add(new Craftsman(i, log, shop, ws, wh));
         
         System.out.println("Número de clientes: " + customers.size());
         System.out.println("Número de artesões: " + craftsmen.size());
