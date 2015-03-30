@@ -10,11 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * The monitor that represents the Workshop.
+ * 
  * @author Diogo Silva, 60337 
  * @author Tânia Alves, 60340
  */
-
 public class Workshop {
     private int nProductsStored;
     private int nCurrentPrimeMaterials;
@@ -62,9 +62,9 @@ public class Workshop {
         /******************/
         /** ENTREPRENEUR **/
         /******************/
+    
     /**
-     * asdsad
-     * @return asd
+     * Entrepreneur goes to the Workshop to fetch the products in there.
      */
     public synchronized void goToWorkshop() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
@@ -75,6 +75,12 @@ public class Workshop {
         
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
     }
+    /**
+     * Entrepreneur goes to the Workshop and returns that prime materials that
+     * she fetched from the Warehouse.
+     * If nobody is waiting for her, it means that Entrepreneur arrived before
+     * the Craftsman to the Workshop and he will not need to wait.
+     */
     public synchronized void replenishStock() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         log.UpdateEntreperneurState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
@@ -98,6 +104,7 @@ public class Workshop {
         /***************/
         /** CRAFTSMEN **/
         /***************/
+    
     /**
      * The craftsman is preparing to manufacture a product.
      * If there are enough materials to manufacture the product, the number of available prime materials 
@@ -181,6 +188,7 @@ public class Workshop {
         /*************/
         /** GENERAL **/
         /*************/
+    
     /**
      * Get the number of products that are currently in stock at the workshop.
      * 

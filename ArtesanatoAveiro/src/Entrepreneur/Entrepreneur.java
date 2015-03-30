@@ -8,11 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class is used to represent the entity Entrepreneur
+ * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
     private final Shop shop;
@@ -22,8 +22,21 @@ public class Entrepreneur extends Thread {
     private int nProductsTransfer = 0;
     private int nMaterialsTransfer = 0;
     
+    /**
+     * Enumerate used to represent the type of return when Entrepreneur is 
+     * requested by the Craftsmen, she needs to know what she have done in case
+     * of being request to do both operations at the same time.
+     */
     public enum returnType{PrimeMaterials, ProductsTransfer};
     
+    /**
+     * Initiliazes the entrepreneur class with the required information.
+     * 
+     * @param shop The simulation shop where the entrepreneur will work.
+     * @param wh The simulation warehouse where the entrepeneur fetchs prime 
+     * materials when requested by the Craftsmen.
+     * @param ws The simulation workshop where the craftsmen are located.
+     */
     public Entrepreneur(Shop shop, Warehouse wh, Workshop ws) {
         this.setName("Entrepreneur");
         
@@ -34,7 +47,9 @@ public class Entrepreneur extends Thread {
         nProductsTransfer = 0;
         nMaterialsTransfer = 0;
     }
-    
+    /**
+     * This function represents the life cycle of Entrepreneur.
+     */
     @Override
     public void run() {
         do {
@@ -79,6 +94,11 @@ public class Entrepreneur extends Thread {
         } while(!endOpEntrep());
         System.out.println("Dona acabou execução!");
     }
+    /**
+     * The entrepreneur services a customer.
+     * 
+     * @param id the customerIdentifier
+     */
     public void serviceCustomer(int id) {
         try {
             Thread.sleep((long) (Math.random() * 100));
@@ -86,33 +106,63 @@ public class Entrepreneur extends Thread {
             Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private boolean endOpEntrep() {
-        return shop.isOutOfBusiness()
-                        && !shop.customersInTheShop();
-        /*return  shop.getnProductsStock() == 0 &&
-                !shop.isReqPrimeMaterials() &&
-                !shop.isReqFetchProducts() &&
-                wh.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct &&
-                ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct &&
-                ws.getnProductsStored() == 0 &&
-                !shop.customersInTheShop();*/
-    }
-
+    /**
+     * Updates the state of the entrepreneur.
+     * 
+     * @param state The new state of the entrepreneur.
+     */
     public void setState(EntrepreneurState state) {
         this.state = state;
     }
-    
-    public void setProductsTransfer(int val) {
-        nProductsTransfer = val;
+    /**
+     * Gets the current state of the entrepreneur.
+     * 
+     * @return The state of the entrepreneur.
+     */
+    public EntrepreneurState getCurrentState() {
+        return state;
     }
-    public void setNMaterialsTranfer(int val) {
-        nMaterialsTransfer = val;
+    /**
+     * Sets the number of products being transfered from the workshop to the shop.
+     * 
+     * @param nProducts the number of products being transfered
+     */
+    public void setProductsTransfer(int nProducts) {
+        nProductsTransfer = nProducts;
     }
+    /**
+     * Sets the number of prime materials being transfered from the warehouse
+     * to the workshop.
+     * 
+     * @param nPrimeMaterials the number of prime materials being transfered 
+     */
+    public void setNMaterialsTranfer(int nPrimeMaterials) {
+        nMaterialsTransfer = nPrimeMaterials;
+    }
+    /**
+     * Gets the number of products being transfered from the workshop to the shop.
+     * 
+     * @return number of products being transfered.
+     */
     public int getProductsTransfer() {
         return nProductsTransfer;
     }
+    /**
+     * Gets the number of prime materials being transfered from the warehouse to
+     * the workshop.
+     * 
+     * @return number of prime materials being transfered.
+     */
     public int getNMaterialsTranfer() {
         return nMaterialsTransfer;
+    }
+    /**
+     * Checks if the entrepeneur no longer has conditions to continue its work.
+     * 
+     * @return Returns false if the entrepreneur can continue its work; returns 
+     * false if otherwise.
+     */
+    private boolean endOpEntrep() {
+        return shop.isOutOfBusiness() & !shop.customersInTheShop();
     }
 }

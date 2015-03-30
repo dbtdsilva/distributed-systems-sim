@@ -9,11 +9,11 @@ import Warehouse.Warehouse;
 import Workshop.Workshop;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ * This is the class where main function is located, it is reponsible for
+ * launching all the threads
+ * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
@@ -21,7 +21,11 @@ import java.util.logging.Logger;
 public class ArtesanatoAveiro {
 
     /**
+     * This is the main function that's going to be called to simulate 
+     * "Artesenato de Aveiro"
+     * 
      * @param args the command line arguments
+     * @throws java.io.IOException is thrown when fails to write/open the file
      */
     public static void main(String[] args) throws IOException {
         String logname = "";

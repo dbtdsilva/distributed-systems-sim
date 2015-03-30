@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This class is responsible for generate all the logging information.
+ * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
@@ -62,10 +64,12 @@ public class Logging {
     /**
      * Initializes the logger file.
      * 
-     * @param loggerName Name to be given to the logger to be created. If the string is null, it creates a pre-defined string with today's date
+     * @param loggerName Name to be given to the logger to be created. 
+     * If the string is null, it creates a pre-defined string with today's date
      * @param nCustomers Number of customers present in the simulation
      * @param nCraftsmen Number of craftsmen present in the simulation
      * @param primeMaterials Number of prime materials present in the simulation
+     * @throws java.io.IOException is thrown when fails to write/open the file
      */
     public Logging(String loggerName, 
             int nCustomers, 
@@ -332,6 +336,7 @@ public class Logging {
         WriteLine();
     }
     /**
+     * Writes the state of the warehouse in the logger file.
      * 
      * @param primeMaterials 
      */
@@ -339,7 +344,9 @@ public class Logging {
         this.primeMaterialsInWarehouse = primeMaterials;
         WriteLine();
     }
-    
+    /**
+     * Activates the logger to the standard output.
+     */
     public void setConsole() {
         console = true;
     }
