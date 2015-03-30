@@ -22,6 +22,7 @@ public class Workshop {
     private int nTimesPrimeMaterialsFetched;
     private int nTotalPrimeMaterialsSupplied;    
     private boolean waitingEntrepreneur;
+    private boolean entArrivedBefCraftsmen;
 
     public final int primeMaterialsPerProduct;
     public final int MAX_ProductsStored;
@@ -52,6 +53,7 @@ public class Workshop {
         this.MIN_PrimeMaterials = minPM;
         this.primeMaterialsPerProduct = primeMaterialsPerProduct;
         this.waitingEntrepreneur = false;
+        this.entArrivedBefCraftsmen = false;
         
         this.log = log;
         this.shop = shop;
@@ -82,6 +84,8 @@ public class Workshop {
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
+        if (!waitingEntrepreneur)
+            entArrivedBefCraftsmen = true;
         waitingEntrepreneur = false;
         notifyAll();    // Wake up craftsmen
         
@@ -121,7 +125,10 @@ public class Workshop {
      */
     public synchronized void primeMaterialsNeeded(int id, boolean contacted) {
         if (contacted) {
-            waitingEntrepreneur = true;
+            if (!entArrivedBefCraftsmen)
+                waitingEntrepreneur = true;
+            else
+                entArrivedBefCraftsmen = false;
         }
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
