@@ -39,9 +39,9 @@ public class ArtesanatoAveiro {
         Runtime.getRuntime().addShutdownHook(shutdownHook);
         //log.setConsole();
         Shop shop = new Shop(log);
-        Warehouse wh = new Warehouse(log, ProbConst.nPrimeMaterials);
+        Warehouse warehouse = new Warehouse(log, ProbConst.nPrimeMaterials);
         
-        Workshop ws = new Workshop(log,
+        Workshop workshop = new Workshop(log,
                                 shop,
                                 ProbConst.MAXproductsInWorkshop, 
                                 ProbConst.minPM, 
@@ -50,12 +50,12 @@ public class ArtesanatoAveiro {
         ArrayList<Customer> customers = new ArrayList<>(ProbConst.nCustomers);
         ArrayList<Craftsman> craftsmen = new ArrayList<>(ProbConst.nCraftsmen);
 
-        Entrepreneur entr = new Entrepreneur(log, shop, wh, ws);
+        Entrepreneur entr = new Entrepreneur(log, shop, warehouse, workshop);
         
         for (int i = 0; i < ProbConst.nCustomers; i++)
             customers.add(new Customer(i, log, shop));
         for (int i = 0; i < ProbConst.nCraftsmen; i++)
-            craftsmen.add(new Craftsman(i, log, shop, ws, wh));
+            craftsmen.add(new Craftsman(i, log, shop, workshop));
         
         System.out.println("Número de clientes: " + customers.size());
         System.out.println("Número de artesões: " + craftsmen.size());

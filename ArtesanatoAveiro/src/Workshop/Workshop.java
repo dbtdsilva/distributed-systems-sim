@@ -20,9 +20,7 @@ public class Workshop {
     private int nCurrentPrimeMaterials;
     private int nFinishedProducts;
     private int nTimesPrimeMaterialsFetched;
-    private int nTotalPrimeMaterialsSupplied;    
-    private boolean waitingEntrepreneur;
-    private boolean entArrivedBefCraftsmen;
+    private int nTotalPrimeMaterialsSupplied;
 
     public final int primeMaterialsPerProduct;
     public final int MAX_ProductsStored;
@@ -52,8 +50,6 @@ public class Workshop {
         this.MAX_ProductsStored = maxProducts;
         this.MIN_PrimeMaterials = minPM;
         this.primeMaterialsPerProduct = primeMaterialsPerProduct;
-        this.waitingEntrepreneur = false;
-        this.entArrivedBefCraftsmen = false;
         
         this.log = log;
         this.shop = shop;

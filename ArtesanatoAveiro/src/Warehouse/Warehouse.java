@@ -13,7 +13,6 @@ import Logger.Logging;
  */
 public class Warehouse {
     private final Logging log;
-    private final int nInitialPrimeMaterials;
     
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
@@ -21,7 +20,6 @@ public class Warehouse {
     public Warehouse(Logging log, int nPrimeMaterials) {
         this.log = log;
         this.nTimesSupplied = 0;
-        this.nInitialPrimeMaterials = nPrimeMaterials;
         
         int nPMMin = ProbConst.nCraftsmen * ProbConst.primeMaterialsPerProduct;
         
@@ -41,7 +39,9 @@ public class Warehouse {
     /**
      * The entrepreneur visits the supplies to fetch prime materials for the
      * craftsman.
-     * She will fetch a maximum of nPrimeMaterialsToTransfer.
+     * She will fetch a random value of prime materials.
+     * 
+     * @return the number of prime materials fetched
      */
     public synchronized int visitSuppliers() {
         int n = nTimesPMSupplied[nTimesSupplied];

@@ -117,6 +117,7 @@ public class Shop {
      * He will wait for the entrepreneur on the waiting line.
      * 
      * @param id customer identifier
+     * @param nProducts the number of products bought
      */
     public synchronized void iWantThis(int id, int nProducts) {
         ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);

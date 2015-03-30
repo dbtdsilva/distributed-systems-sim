@@ -15,9 +15,8 @@ import java.util.logging.Logger;
  */
 public class Craftsman extends Thread {
     private CraftsmanState state;
-    private final Workshop ws;
+    private final Workshop workshop;
     private final Shop shop;
-    private final Warehouse wh;
     private final Logging log;
     private final int id;
     
@@ -28,15 +27,13 @@ public class Craftsman extends Thread {
      * @param log The general repository
      * @param shop The simulation shop where the craftsmen will request services
      *          to the Entrepreneur
-     * @param ws The simulation workshop where the craftsman will work.
-     * @param wh The simulation warehouse
+     * @param workshop The simulation workshop where the craftsman will work.
      */
-    public Craftsman(int id, Logging log, Shop shop, Workshop ws, Warehouse wh) {
+    public Craftsman(int id, Logging log, Shop shop, Workshop workshop) {
         this.setName("Craftsman "+id);
         this.shop = shop;
         this.id = id;
-        this.ws = ws;
-        this.wh = wh;
+        this.workshop = workshop;
         this.log = log;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
     }
@@ -47,21 +44,21 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         do {
-            if (!ws.collectingMaterials(id)) {
-                ws.primeMaterialsNeeded(id);
-                ws.backToWork(id);
+            if (!workshop.collectingMaterials(id)) {
+                workshop.primeMaterialsNeeded(id);
+                workshop.backToWork(id);
             } else {
-                ws.prepareToProduce(id);
+                workshop.prepareToProduce(id);
                 shappingItUp();
-                ws.goToStore(id);
-                if (ws.getnProductsStored() >= ws.MAX_ProductsStored)
+                workshop.goToStore(id);
+                if (workshop.getnProductsStored() >= workshop.MAX_ProductsStored)
                     shop.batchReadyForTransfer(id);
-                ws.backToWork(id);
+                workshop.backToWork(id);
             }
         } while (!log.endOperCraft());
         
         if (log.getNumberWorkingCraftsmen() == 0
-                && ws.getnProductsStored() != 0) {
+                && workshop.getnProductsStored() != 0) {
             shop.batchReadyForTransfer(id);
         }
         System.out.println("Artesão "+id+" acabou execução!");

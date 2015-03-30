@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
     private final Shop shop;
-    private final Warehouse wh;
-    private final Workshop ws;
+    private final Warehouse warehouse;
+    private final Workshop workshop;
     private final Logging log;
     
     /**
@@ -25,17 +25,17 @@ public class Entrepreneur extends Thread {
      * 
      * @param log The general repository
      * @param shop The simulation shop where the entrepreneur will work.
-     * @param wh The simulation warehouse where the entrepeneur fetchs prime 
+     * @param warehouse The simulation warehouse where the entrepeneur fetchs prime 
      * materials when requested by the Craftsmen.
-     * @param ws The simulation workshop where the craftsmen are located.
+     * @param workshop The simulation workshop where the craftsmen are located.
      */
-    public Entrepreneur(Logging log, Shop shop, Warehouse wh, Workshop ws) {
+    public Entrepreneur(Logging log, Shop shop, Warehouse warehouse, Workshop workshop) {
         this.setName("Entrepreneur");
         
         state = EntrepreneurState.OPENING_THE_SHOP;
         this.shop = shop;
-        this.wh = wh;
-        this.ws = ws;
+        this.warehouse = warehouse;
+        this.workshop = workshop;
         this.log = log;
     }
     /**
@@ -67,11 +67,11 @@ public class Entrepreneur extends Thread {
             
             shop.prepareToLeave();
             if (sit == 'T') {           /* Transfer products */
-                int nProducts = ws.goToWorkshop();
+                int nProducts = workshop.goToWorkshop();
                 shop.returnToShop(nProducts);
             } else if (sit == 'M') {    /* Materials needed */
-                int nMaterials = wh.visitSuppliers();
-                ws.replenishStock(nMaterials);
+                int nMaterials = warehouse.visitSuppliers();
+                workshop.replenishStock(nMaterials);
                 shop.returnToShop(0);
             }
         } while(!log.endOpEntrep());
