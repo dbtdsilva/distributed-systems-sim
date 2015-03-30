@@ -1,5 +1,6 @@
 package Logger;
 
+import Craftsman.Craftsman;
 import Craftsman.CraftsmanState;
 import Customer.CustomerState;
 import Entrepreneur.EntrepreneurState;
@@ -351,15 +352,17 @@ public class Logging {
      * @return Returns false if the craftsman can continue its work; returns 
      * false if otherwise.
      */
-    public synchronized boolean endOperCraft() {
+    public synchronized int endOperCraft() {
         if (nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
                 !reqPrimeMaterials) {                
             if (nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct * nWorkingCraftsmen) {
                 nWorkingCraftsmen--;
-                return true;
+                if (nWorkingCraftsmen == 0 && nProductsStored != 0)
+                    return 2;
+                return 1;
             }
         }
-        return false;
+        return 0;
     }
     /**
      * Checks if the customer no longer has conditions to continue.

@@ -42,6 +42,7 @@ public class Craftsman extends Thread {
      */
     @Override
     public void run() {
+        int val;
         do {
             if (!workshop.collectingMaterials(id)) {
                 workshop.primeMaterialsNeeded(id);
@@ -54,14 +55,15 @@ public class Craftsman extends Thread {
                     shop.batchReadyForTransfer(id);
                 workshop.backToWork(id);
             }
-        } while (!log.endOperCraft());
+        } while ((val = log.endOperCraft()) == 0);
         
-        if (log.getNWorkingCraftsmen() == 0 && workshop.getnProductsStored() != 0)
+        if (val == 2) 
             shop.batchReadyForTransfer(id);
+        //if (log.getNWorkingCraftsmen() == 0 && workshop.getnProductsStored() != 0)
+        //  shop.batchReadyForTransfer(id);
         
         System.out.println("Artesão "+id+" acabou execução!");
     }
-    
     /**
      * Updates the state of the craftsman.
      * 
