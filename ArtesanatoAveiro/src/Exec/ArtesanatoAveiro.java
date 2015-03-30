@@ -7,7 +7,10 @@ import Logger.Logging;
 import Shop.Shop;
 import Warehouse.Warehouse;
 import Workshop.Workshop;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,7 +24,7 @@ public class ArtesanatoAveiro {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String logname = "logging.txt";
+        String logname = "";
         if (args.length > 0)
             logname = "logs/logging"+args[0]+".txt";
         Logging log = new Logging(logname, 
@@ -68,9 +71,15 @@ public class ArtesanatoAveiro {
                 c.join ();
             } catch (InterruptedException e) {}
         }
+<<<<<<< HEAD
         try {
             entr.join();
         } catch (InterruptedException e) {}
+=======
+        } catch (IOException ex) {
+            Logger.getLogger(ArtesanatoAveiro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+>>>>>>> 06724bf1a30bcf8f467370134154b73cc11ad924
     }
 }
 

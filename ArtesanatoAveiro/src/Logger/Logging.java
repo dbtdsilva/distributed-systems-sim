@@ -1,11 +1,12 @@
 package Logger;
 
-import Craftsman.*;
-import Customer.*;
-import Entrepreneur.*;
-import Shop.*;
+import Craftsman.CraftsmanState;
+import Customer.CustomerState;
+import Entrepreneur.EntrepreneurState;
+import Shop.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -69,7 +70,7 @@ public class Logging {
     public Logging(String loggerName, 
             int nCustomers, 
             int nCraftsmen,
-            int primeMaterials)
+            int primeMaterials) throws IOException
     {
         console = false;
         
@@ -94,7 +95,7 @@ public class Logging {
         if(loggerName.length() == 0)
         {
             Date today = Calendar.getInstance().getTime();
-            SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd_hh:mm");
+            SimpleDateFormat date = new SimpleDateFormat("yyyyMMddhhmmss");
             this.filename = "Artesanato_" + date.format(today) + ".log";
         }
         else
