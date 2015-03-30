@@ -138,13 +138,11 @@ public class Workshop {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
         
-        //if (waitingEntrepreneur) {
-            try {
-                wait();     // Sleep the craftsman
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        //}
+        try {
+            wait();     // Sleep the craftsman
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
     /**
