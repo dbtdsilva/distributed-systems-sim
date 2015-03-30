@@ -341,7 +341,7 @@ public class Logging {
         console = true;
     }
 
-    public synchronized int getNumberWorkingCraftsmen() {
+    public synchronized int getNWorkingCraftsmen() {
         return nWorkingCraftsmen;
     }
 

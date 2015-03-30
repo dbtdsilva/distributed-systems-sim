@@ -149,8 +149,10 @@ public class Workshop {
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
      * @param id The craftsman identifier.
+     * 
+     * @return the number of products stored in workshop.
      */
-    public synchronized void goToStore(int id) {
+    public synchronized int goToStore(int id) {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.STORING_IT_FOR_TRANSFER);
         log.UpdateCraftsmanState(id, CraftsmanState.STORING_IT_FOR_TRANSFER);
         
@@ -160,6 +162,8 @@ public class Workshop {
         log.CraftsmanFinishedProduct(id);
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched,
                 nTotalPrimeMaterialsSupplied, nFinishedProducts);
+        
+        return nProductsStored;
     }
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.

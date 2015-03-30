@@ -49,17 +49,16 @@ public class Craftsman extends Thread {
             } else {
                 workshop.prepareToProduce(id);
                 shappingItUp();
-                workshop.goToStore(id);
-                if (workshop.getnProductsStored() >= workshop.MAX_ProductsStored)
+                int productsStored = workshop.goToStore(id);
+                if (productsStored >= workshop.MAX_ProductsStored)
                     shop.batchReadyForTransfer(id);
                 workshop.backToWork(id);
             }
         } while (!log.endOperCraft());
         
-        if (log.getNumberWorkingCraftsmen() == 0
-                && workshop.getnProductsStored() != 0) {
+        if (log.getNWorkingCraftsmen() == 0 && workshop.getnProductsStored() != 0)
             shop.batchReadyForTransfer(id);
-        }
+        
         System.out.println("Artesão "+id+" acabou execução!");
     }
     
