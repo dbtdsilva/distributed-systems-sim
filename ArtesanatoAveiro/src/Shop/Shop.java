@@ -219,7 +219,7 @@ public class Shop {
     /**
      * The entrepreneur says good bye to the customer, waking him up.
      * 
-     * @param id 
+     * @param id customer identifier
      */
     public synchronized void sayGoodByeToCustomer(int id) {
         notifyAll();    // Acordar customer com este ID
@@ -255,24 +255,17 @@ public class Shop {
     /**
      * The entrepreneur returns to the shop, she went to fetch products or to deliver
      * prime materials to the craftsman.
-     * If she went to deliver prime materials, then she already delivered everything
-     * and request is done.
      * If she went to fetch products, she still have the products with her and she
      * must to put them on shop stock. After that request is done.
      * 
-     * @param nProducts
+     * @param nProducts the number of products that she's carrying.
      */
     public synchronized void returnToShop(int nProducts) {
         if (nProducts > 0) {
             reqFetchProducts = false;
             nProductsStock += nProducts;
         }
-        /*if (reqFetchProducts && returnType == returnType.ProductsTransfer) {
-            reqFetchProducts = false;
-            
-        } else if (reqPrimeMaterials && returnType == returnType.PrimeMaterials) {
-        }
-        */
+        
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
         
@@ -290,7 +283,8 @@ public class Shop {
      * The craftsman tells the Entrepreneur that they're out of prime materials.
      * To do that he needs to wake up entrepreneur.
      * 
-     * @return 
+     * @return returns true if request has been done; returns false if it was 
+     * already done by someone before.
      */
     public synchronized boolean primeMaterialsNeeded() {
         if (reqPrimeMaterials)
@@ -325,24 +319,6 @@ public class Shop {
         /*************/
     
     /**
-     * This function returns the total number of products in the shop stock.
-     * 
-     * @return the total number of products in stock
-     */
-    public synchronized int getnProductsStock() {
-        return nProductsStock;
-    }
-    /**
-     * This function returns true if there's a request to fetch products from
-     * the Workshop.
-     * 
-     * @return returns true if Craftsman requested to fetch products; returns
-     * false otherwise.
-     */
-    public synchronized boolean isReqFetchProducts() {
-        return reqFetchProducts;
-    }
-    /**
      * This function returns true if there's a request to deliver prime materials
      * to the Workshop.
      * 
@@ -353,7 +329,8 @@ public class Shop {
         return reqPrimeMaterials;
     }
     /**
-     * 
+     * This function is used to the Entrepreneur reset the flag prime materials
+     * request.
      */
     public synchronized void resetRequestPrimeMaterials() {
         reqPrimeMaterials = false;

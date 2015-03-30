@@ -198,12 +198,4 @@ public class Workshop {
     public synchronized int getnProductsStored() {
         return nProductsStored;
     }
-    /**
-     * Get the current number of prime materials available in the workshop.
-     * 
-     * @return Number of current prime materials.
-     */
-    public synchronized int getnCurrentPrimeMaterials() {
-        return nCurrentPrimeMaterials;
-    }
 }

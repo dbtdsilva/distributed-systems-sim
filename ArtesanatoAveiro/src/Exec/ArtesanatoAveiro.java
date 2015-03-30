@@ -11,12 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * TODO:
- *      endCraftOper()
- *      appraiseSit -> End situation -> Out of business
- */
-
-/**
  * This is the class where main function is located, it is reponsible for
  * launching all the threads
  * 

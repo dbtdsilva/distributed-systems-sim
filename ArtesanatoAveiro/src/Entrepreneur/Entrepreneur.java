@@ -48,15 +48,7 @@ public class Entrepreneur extends Thread {
             char sit;
             
             shop.prepareToWork();
-            do {
-                /*if (shop.getnProductsStock() == 0 
-                        && ws.getnCurrentPrimeMaterials() < ProbConst.primeMaterialsPerProduct 
-                        && ws.getnProductsStored() == 0
-                        && wh.getNTimesSupplied() == ProbConst.nMaxSupplies
-                        && !shop.isReqFetchProducts() && !shop.isReqPrimeMaterials()) {
-                    shop.setOutOfBusiness();
-                }*/
-                
+            do {                
                 sit = shop.appraiseSit();
                 switch (sit) {
                     case 'C': 
@@ -83,20 +75,7 @@ public class Entrepreneur extends Thread {
                 shop.returnToShop(0);
             }
         } while(!log.endOpEntrep());
-        
         System.out.println("Dona acabou execução!");
-    }
-    /**
-     * The entrepreneur services a customer.
-     * 
-     * @param id the customerIdentifier
-     */
-    private void serviceCustomer(int id) {
-        try {
-            Thread.sleep((long) (Math.random() * 100));
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     /**
      * Updates the state of the entrepreneur.
@@ -113,5 +92,17 @@ public class Entrepreneur extends Thread {
      */
     public EntrepreneurState getCurrentState() {
         return state;
+    }
+    /**
+     * The entrepreneur services a customer.
+     * 
+     * @param id the customerIdentifier
+     */
+    private void serviceCustomer(int id) {
+        try {
+            Thread.sleep((long) (Math.random() * 100));
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

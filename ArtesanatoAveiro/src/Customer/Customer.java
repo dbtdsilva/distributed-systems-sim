@@ -73,7 +73,7 @@ public class Customer extends Thread {
     /**
      * The customer waits some time before going to the shop.
      */
-    public void livingNormalLife() {
+    private void livingNormalLife() {
         try {
             Thread.sleep((int) (Math.random() * 100));
         } catch (InterruptedException ex) {

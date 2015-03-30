@@ -12,9 +12,10 @@ import Logger.Logging;
  * @author Tânia Alves, 60340
  */
 public class Warehouse {
-    private Logging log;
-    private int nTimesSupplied;
+    private final Logging log;
     private final int nInitialPrimeMaterials;
+    
+    private int nTimesSupplied;
     private final int nTimesPMSupplied[];
     
     public Warehouse(Logging log, int nPrimeMaterials) {
@@ -31,7 +32,6 @@ public class Warehouse {
         
         if (nTimesPMSupplied[ProbConst.nMaxSupplies-1] < nPMMin)
             nTimesPMSupplied[ProbConst.nMaxSupplies-1] += nPMMin;
-            
     }
     
     /******************/
@@ -50,9 +50,5 @@ public class Warehouse {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
         log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
         return n;
-    }
-
-    public synchronized int getNTimesSupplied() {
-        return nTimesSupplied;
     }
 }
