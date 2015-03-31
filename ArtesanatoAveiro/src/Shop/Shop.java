@@ -338,4 +338,10 @@ public class Shop {
         log.WriteShop(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials);
     }
+    
+    public synchronized void resetRequestProducts() {
+        reqFetchProducts = false;
+        log.WriteShop(shopState, nCustomersInside, nProductsStock,
+                reqFetchProducts, reqPrimeMaterials);
+    }
 }

@@ -4,6 +4,7 @@ import Craftsman.Craftsman;
 import Craftsman.CraftsmanState;
 import Entrepreneur.Entrepreneur;
 import Entrepreneur.EntrepreneurState;
+import Exec.ProbConst;
 import Logger.Logging;
 import Shop.Shop;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ public class Workshop {
     private int nFinishedProducts;
     private int nTimesPrimeMaterialsFetched;
     private int nTotalPrimeMaterialsSupplied;
+    private boolean waitingEntrepreneur;
 
     public final int primeMaterialsPerProduct;
     public final int MAX_ProductsStored;
@@ -91,9 +93,7 @@ public class Workshop {
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
-        /*if (!waitingEntrepreneur)
-            entArrivedBefCraftsmen = true;
-        waitingEntrepreneur = false;*/
+        waitingEntrepreneur = false;
         shop.resetRequestPrimeMaterials();
         
         notifyAll();    // Wake up craftsmen
@@ -116,13 +116,26 @@ public class Workshop {
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
     public synchronized boolean collectingMaterials(int id) {
-        if(nCurrentPrimeMaterials < MIN_PrimeMaterials)
-            return false;
         
-        nCurrentPrimeMaterials -= primeMaterialsPerProduct;
-        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
+        while (true) {
+            if (waitingEntrepreneur) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            if (nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
+                    nTimesPrimeMaterialsFetched != ProbConst.nMaxSupplies) {
+                waitingEntrepreneur = true;
+                return false;
+            }
+            nCurrentPrimeMaterials -= primeMaterialsPerProduct;
+            log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
                             nTotalPrimeMaterialsSupplied, nFinishedProducts);
-        return true;
+            return true;
+        }
     }
     /**
      * If there are not enough prime materials, the craftsman tells the entrepreneur to fetch more prime materials.

@@ -24,12 +24,12 @@ public class Warehouse {
         int nPMMin = ProbConst.nCraftsmen * ProbConst.primeMaterialsPerProduct;
         
         nTimesPMSupplied = new int[ProbConst.nMaxSupplies];
-        for (int i = 0; i < ProbConst.nMaxSupplies; i++) {
+        for (int i = 0; i < nTimesPMSupplied.length; i++) {
             nTimesPMSupplied[i] = (int) (Math.random() * nPMMin * 3);
         }
         
-        if (nTimesPMSupplied[ProbConst.nMaxSupplies-1] < nPMMin)
-            nTimesPMSupplied[ProbConst.nMaxSupplies-1] += nPMMin;
+        if (nTimesPMSupplied[nTimesPMSupplied.length-1] < nPMMin)
+            nTimesPMSupplied[nTimesPMSupplied.length-1] += nPMMin;
     }
     
     /******************/

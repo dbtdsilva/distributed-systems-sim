@@ -353,11 +353,10 @@ public class Logging {
      * false if otherwise.
      */
     public synchronized int endOperCraft() {
-        if (nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
-                !reqPrimeMaterials) {                
+        if (nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies) {                
             if (nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct * nWorkingCraftsmen) {
                 nWorkingCraftsmen--;
-                if (nWorkingCraftsmen == 0 && nProductsStored != 0)
+                if (nWorkingCraftsmen == 0 && nProductsStored != 0 && !reqFetchProds)
                     return 2;
                 return 1;
             }
