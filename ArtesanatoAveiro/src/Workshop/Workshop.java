@@ -52,6 +52,7 @@ public class Workshop {
         this.MAX_ProductsStored = maxProducts;
         this.MIN_PrimeMaterials = minPM;
         this.primeMaterialsPerProduct = primeMaterialsPerProduct;
+        this.waitingEntrepreneur = false;
         
         this.log = log;
         this.shop = shop;
