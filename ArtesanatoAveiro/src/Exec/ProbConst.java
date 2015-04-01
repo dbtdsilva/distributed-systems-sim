@@ -32,11 +32,6 @@ public class ProbConst {
      * the Entrepreneur.
      */
     public final static int minPM = 3;
-    /**
-     * The number of prime materials transfered when Entrepreneur goes to the
-     * Warehouse.
-     */
-    public final static int nPrimeMaterialToTransfer = 15;
     
     /**
      * The maximum number of times that prime materials have been supplied. 
