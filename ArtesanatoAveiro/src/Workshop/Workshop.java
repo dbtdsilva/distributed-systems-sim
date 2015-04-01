@@ -74,6 +74,8 @@ public class Workshop {
         int n = nProductsStored;
         nProductsStored = 0;
         
+        shop.resetRequestProducts();
+        
         log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, 
                 nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts);
         return n;

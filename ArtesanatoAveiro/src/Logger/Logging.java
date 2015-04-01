@@ -370,8 +370,12 @@ public class Logging {
      * false if otherwise.
      */
     public synchronized boolean endOpCustomer() {
+        int totalProductsBought = 0;
+        for (int val : nBoughtGoods.values())
+            totalProductsBought += val;
         return nGoodsInDisplay == 0 &&
                 nProductsStored == 0 &&
+                nFinishedProducts == totalProductsBought &&
                 nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
                 nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
                 !reqFetchProds && !reqPrimeMaterials;

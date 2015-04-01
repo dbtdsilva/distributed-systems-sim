@@ -59,8 +59,6 @@ public class Craftsman extends Thread {
         
         if (val == 2) 
             shop.batchReadyForTransfer(id);
-        //if (log.getNWorkingCraftsmen() == 0 && workshop.getnProductsStored() != 0)
-        //  shop.batchReadyForTransfer(id);
         
         System.out.println("Artesão "+id+" acabou execução!");
     }

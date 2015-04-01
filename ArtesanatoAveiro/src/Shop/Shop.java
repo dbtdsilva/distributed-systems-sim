@@ -262,8 +262,7 @@ public class Shop {
      * @param nProducts the number of products that she's carrying.
      */
     public synchronized void returnToShop(int nProducts) {
-        if (nProducts > 0) {
-            reqFetchProducts = false;
+        if (nProducts >= 0) {
             nProductsStock += nProducts;
         }
         

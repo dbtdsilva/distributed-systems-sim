@@ -72,7 +72,7 @@ public class Entrepreneur extends Thread {
             } else if (sit == 'M') {    /* Materials needed */
                 int nMaterials = warehouse.visitSuppliers();
                 workshop.replenishStock(nMaterials);
-                shop.returnToShop(0);
+                shop.returnToShop(-1);
             }
         } while(!log.endOpEntrep());
         System.out.println("Dona acabou execução!");
