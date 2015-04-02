@@ -30,6 +30,11 @@ public class Shop {
     
     private final Logging log;
     
+    /**
+     * Initializes the shop class with the required information.
+     * 
+     * @param log The general repository
+     */
     public Shop(Logging log) {
         this.requestEntrepreneur = 0;
         this.log = log;
@@ -52,7 +57,7 @@ public class Shop {
      */
     public synchronized void goShopping(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
-        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -70,11 +75,13 @@ public class Shop {
      */
     public synchronized void enterShop(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
-        log.UpdateCustomerState(id, CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         
         nCustomersInside += 1;
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials);
+        
+        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+                    reqFetchProducts, reqPrimeMaterials, 
+                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    id, 0);
     }
     /**
      * The customer exits the shop, notifying the Entrepreneur that he left. He
@@ -86,14 +93,15 @@ public class Shop {
      */
     public synchronized void exitShop(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
         requestEntrepreneur++;
         notifyAll();        /* Telling entrepreneur */
         
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials);
+        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+                    reqFetchProducts, reqPrimeMaterials, 
+                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    id, 0);
     }
     /**
      * The customer searchs for products inside the Shop.
@@ -105,7 +113,7 @@ public class Shop {
         if (val > 0.7 && nProductsStock >= 2) {
             nProductsStock -= 2;
             return 2;
-        } else if (val > 0.3 && nProductsStock >= 1) {
+        } else if (val > 0.2 && nProductsStock >= 1) {
             nProductsStock -= 1;
             return 1;
         } else {
@@ -120,14 +128,13 @@ public class Shop {
      * @param nProducts the number of products bought
      */
     public synchronized void iWantThis(int id, int nProducts) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);
-        log.UpdateCustomerState(id, CustomerState.BUYING_SOME_GOODS);
-        
+        ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
         waitingLine.add(id);
         
-        log.CustomersBoughtGoods(id, nProducts);
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
-                    reqFetchProducts, reqPrimeMaterials);
+        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+                    reqFetchProducts, reqPrimeMaterials, 
+                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    id, nProducts);
         
         requestEntrepreneur++;
         notifyAll();    // Wake up entrepreneur
@@ -147,7 +154,7 @@ public class Shop {
      */
     public synchronized void tryAgainLater(int id) {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
+        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
     }
   
         /******************/
@@ -163,7 +170,9 @@ public class Shop {
         
         shopState = ShopState.OPEN;
         
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        log.WriteShopAndEntrepreneurStat(this.shopState, nCustomersInside, 
+                nProductsStock, reqFetchProducts, reqPrimeMaterials, 
+                ((Entrepreneur) Thread.currentThread()).getCurrentState());
     }
     /**
      * The entrepreneur will wait until someone request her services.
@@ -226,7 +235,7 @@ public class Shop {
         notifyAll();    // Acordar customer com este ID
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
-        log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
     }
     /**
      * The entrepreneur signals that she will close the shop.
@@ -250,8 +259,10 @@ public class Shop {
     public synchronized void prepareToLeave() {
         shopState = ShopState.CLOSED;
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
-        log.UpdateEntreperneurState(EntrepreneurState.CLOSING_THE_SHOP);
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        
+        log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials, 
+                ((Entrepreneur) Thread.currentThread()).getCurrentState());
     }  
     /**
      * The entrepreneur returns to the shop, she went to fetch products or to deliver
@@ -267,12 +278,11 @@ public class Shop {
         }
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
-        log.UpdateEntreperneurState(EntrepreneurState.OPENING_THE_SHOP);
-        
         this.shopState = ShopState.OPEN;
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials);
         
+        log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials, 
+                ((Entrepreneur) Thread.currentThread()).getCurrentState());
     }
     
         /***************/
@@ -283,18 +293,24 @@ public class Shop {
      * The craftsman tells the Entrepreneur that they're out of prime materials.
      * To do that he needs to wake up entrepreneur.
      * 
+     * @param id the craftsman identifier
      * @return returns true if request has been done; returns false if it was 
      * already done by someone before.
      */
-    public synchronized boolean primeMaterialsNeeded() {
+    public synchronized boolean primeMaterialsNeeded(int id) {
         if (reqPrimeMaterials)
             return false;
         
         reqPrimeMaterials = true;
         requestEntrepreneur++;
+        
         notifyAll();
         
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        
+        log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials, 
+                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
         return true;
     }
     /**
@@ -311,36 +327,28 @@ public class Shop {
         notifyAll();
         
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
-        log.UpdateCraftsmanState(id, CraftsmanState.CONTACTING_ENTREPRENEUR);
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        
+        log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
+                reqFetchProducts, reqPrimeMaterials, 
+                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
     }
         /*************/
         /** GENERAL **/
         /*************/
     
     /**
-     * This function returns true if there's a request to deliver prime materials
-     * to the Workshop.
-     * 
-     * @return returns true if Craftsman request to deliver prime materials to the
-     * Workshop; returns false otherwise.
-     */
-    public synchronized boolean isReqPrimeMaterials() {
-        return reqPrimeMaterials;
-    }
-    /**
      * This function is used to the Entrepreneur reset the flag prime materials
      * request.
      */
     public synchronized void resetRequestPrimeMaterials() {
         reqPrimeMaterials = false;
-        log.WriteShop(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials);
+        log.UpdatePrimeMaterialsRequest(reqPrimeMaterials);
     }
-    
+    /**
+     * This function is used to the Entrepreneur reset the flag requestProducts.
+     */
     public synchronized void resetRequestProducts() {
         reqFetchProducts = false;
-        log.WriteShop(shopState, nCustomersInside, nProductsStock,
-                reqFetchProducts, reqPrimeMaterials);
+        log.UpdateFetchProductsRequest(reqFetchProducts);
     }
 }

@@ -17,15 +17,20 @@ public class Warehouse {
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
     
-    public Warehouse(Logging log, int nPrimeMaterials) {
+    /**
+     * Initializes the warehouse class with the required information.
+     * 
+     * @param log The general repository
+     */
+    public Warehouse(Logging log) {
         this.log = log;
         this.nTimesSupplied = 0;
         
         int nPMMin = ProbConst.nCraftsmen * ProbConst.primeMaterialsPerProduct;
         
-        nTimesPMSupplied = new int[ProbConst.nMaxSupplies];
+        nTimesPMSupplied = new int[ProbConst.MAXSupplies];
         for (int i = 0; i < nTimesPMSupplied.length; i++) {
-            nTimesPMSupplied[i] = (int) (Math.random() * nPMMin * 3);
+            nTimesPMSupplied[i] = (int) (Math.random() * nPMMin * 3 + 1);
         }
         
         if (nTimesPMSupplied[nTimesPMSupplied.length-1] < nPMMin)
@@ -48,7 +53,7 @@ public class Warehouse {
         nTimesSupplied++;
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
-        log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
+        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
         return n;
     }
 }

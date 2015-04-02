@@ -1,5 +1,6 @@
 package Craftsman;
 
+import Exec.ProbConst;
 import Logger.Logging;
 import Shop.Shop;
 import Workshop.Workshop;
@@ -45,13 +46,13 @@ public class Craftsman extends Thread {
         int val;
         do {
             if (!workshop.collectingMaterials(id)) {
-                workshop.primeMaterialsNeeded(id);
+                shop.primeMaterialsNeeded(id);
                 workshop.backToWork(id);
             } else {
                 workshop.prepareToProduce(id);
                 shappingItUp();
                 int productsStored = workshop.goToStore(id);
-                if (productsStored >= workshop.MAX_ProductsStored)
+                if (productsStored >= ProbConst.MAXproductsInWorkshop)
                     shop.batchReadyForTransfer(id);
                 workshop.backToWork(id);
             }

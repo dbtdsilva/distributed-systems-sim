@@ -163,7 +163,7 @@ public class Logging {
         pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
                 nFinishedProducts);
-        pw.println(" > "+Thread.currentThread().getName());
+        pw.println(" | "+Thread.currentThread().getName());
         
         
         if (console) {
@@ -172,7 +172,7 @@ public class Logging {
             System.out.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
                 nFinishedProducts);
-            System.out.println(" > "+Thread.currentThread().getName());
+            System.out.println(" | "+Thread.currentThread().getName());
         }
     }
     
@@ -202,8 +202,8 @@ public class Logging {
                 sb2.append("Stat PP ");
             }
             
-            sb.append ("          SHOP                 WORKSHOP        WAREHOUSE");
-            sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP    APM");
+            sb.append ("          SHOP                 WORKSHOP       ");
+            sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP");
             
             pw.println(sb.toString());
             pw.println(sb2.toString());
@@ -250,8 +250,6 @@ public class Logging {
     {
         int prods = nManufacturedProds.get(id);
         prods++;
-        //nManufacturedProds.remove(id);
-        //nManufacturedProds.replace(id, prods);
         nManufacturedProds.put(id, prods);
         WriteLine();
     }
@@ -281,19 +279,21 @@ public class Logging {
     }
     
     /**
-     * Writes the number of bought goods by the customer in the logger file.
+     * Update prime materials request. (Doesn't write)
      * 
-     * @param id The customer's id
-     * @param nProducts Number of products bought
+     * @param reqPrimeMaterials The current request status
      */
-    public synchronized void CustomersBoughtGoods(int id, int nProducts)
-    {
-        int prods = this.nBoughtGoods.get(id);
-        prods += nProducts;
-        this.nBoughtGoods.put(id, prods);
-        WriteLine();
+    public synchronized void UpdatePrimeMaterialsRequest(boolean reqPrimeMaterials) {
+        this.reqPrimeMaterials = reqPrimeMaterials;
     }
-    
+    /**
+     * Update prime materials request. (Doesn't write)
+     * 
+     * @param reqFetchProds The current request status
+     */
+    public synchronized void UpdateFetchProductsRequest(boolean reqFetchProds) {
+        this.reqFetchProds = reqFetchProds;
+    }
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -312,9 +312,86 @@ public class Logging {
         this.nGoodsInDisplay = nGoodsInDisplay;
         this.reqFetchProds = reqFetchProds;
         this.reqPrimeMaterials = reqPrimeMaterials;
+        
         WriteLine();
     }
-    
+    /**
+     * Writes the state of the shop in the logger file.
+     * 
+     * @param s The shop's current state
+     * @param nCustomerIn Number of customer's in the shop
+     * @param nGoodsInDisplay Number of products in display at the shop
+     * @param reqFetchProds A phone call was made to the shop requesting the transfer of finished products
+     * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
+     * @param state The entrepreneur state
+     */
+    public synchronized void WriteShopAndEntrepreneurStat(ShopState s, int nCustomerIn, 
+                                int nGoodsInDisplay, boolean reqFetchProds, 
+                                boolean reqPrimeMaterials, EntrepreneurState state) {
+        this.entrepState = state;
+        this.shopDoorState = s;
+        this.nCustomerIn = nCustomerIn;
+        this.nGoodsInDisplay = nGoodsInDisplay;
+        this.reqFetchProds = reqFetchProds;
+        this.reqPrimeMaterials = reqPrimeMaterials;
+        
+        WriteLine();
+    }
+    /**
+     * Writes the state of the shop in the logger file.
+     * 
+     * @param s The shop's current state
+     * @param nCustomerIn Number of customer's in the shop
+     * @param nGoodsInDisplay Number of products in display at the shop
+     * @param reqFetchProds A phone call was made to the shop requesting the transfer of finished products
+     * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
+     * @param state The craftsman state
+     * @param idCraft The craftsman identifier
+     */
+    public synchronized void WriteShopAndCraftsmanStat(ShopState s, int nCustomerIn, 
+                                int nGoodsInDisplay, boolean reqFetchProds, 
+                                boolean reqPrimeMaterials, CraftsmanState state,
+                                int idCraft) {
+        craftsmen.put(idCraft, state);
+        this.shopDoorState = s;
+        this.nCustomerIn = nCustomerIn;
+        this.nGoodsInDisplay = nGoodsInDisplay;
+        this.reqFetchProds = reqFetchProds;
+        this.reqPrimeMaterials = reqPrimeMaterials;
+        
+        WriteLine();
+    }
+    /**
+     * Writes the state of the shop in the logger file.
+     * 
+     * @param s The shop's current state
+     * @param nCustomerIn Number of customer's in the shop
+     * @param nGoodsInDisplay Number of products in display at the shop
+     * @param reqFetchProds A phone call was made to the shop requesting the transfer of finished products
+     * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
+     * @param state The customer state
+     * @param idCust The customer identifier
+     * @param nBoughtGoods The number of products bought
+     * 
+     */
+    public synchronized void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
+                                int nGoodsInDisplay, boolean reqFetchProds, 
+                                boolean reqPrimeMaterials, CustomerState state,
+                                int idCust, int nBoughtGoods) {
+        if (nBoughtGoods > 0) {
+            int prods = this.nBoughtGoods.get(idCust);
+            prods += nBoughtGoods;
+            this.nBoughtGoods.put(idCust, prods);
+        }
+        customers.put(idCust, state);
+        this.shopDoorState = s;
+        this.nCustomerIn = nCustomerIn;
+        this.nGoodsInDisplay = nGoodsInDisplay;
+        this.reqFetchProds = reqFetchProds;
+        this.reqPrimeMaterials = reqPrimeMaterials;
+        
+        WriteLine();
+    }
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -325,7 +402,8 @@ public class Logging {
      * @param nFinishedProducts Total number of products that have already been manufactured
      * 
      */
-    public synchronized void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, int nTimesPrimeMaterialsFetched,
+    public synchronized void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, 
+                                        int nTimesPrimeMaterialsFetched,
                                         int nTotalPrimeMaterialsSupplied, int nFinishedProducts)
     {
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
@@ -336,16 +414,68 @@ public class Logging {
         WriteLine();
     }
     /**
+     * Writes the state of the workshop in the logger file.
+     * 
+     * @param nCurrentPrimeMaterials Amount of prime materials present in the workshop
+     * @param nProductsStored Number of finished products present at the workshop
+     * @param nTimesPrimeMaterialsFetched Number of times that a supply of prime materials was delivered to the workshop
+     * @param nTotalPrimeMaterialsSupplied Total amount of prime materials that have already been supplied
+     * @param nFinishedProducts Total number of products that have already been manufactured
+     * @param state The craftsman state
+     * @param idCraft The craftsman identifier
+     * @param finishedProduct This field indicates if he did finish a product or not
+     * 
+     */
+    public synchronized void WriteWorkshopAndCraftsmanStat(int nCurrentPrimeMaterials, 
+                    int nProductsStored, int nTimesPrimeMaterialsFetched,
+                    int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
+                    CraftsmanState state, int idCraft, boolean finishedProduct) {
+        this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
+        this.nProductsStored = nProductsStored;
+        this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
+        this.nTotalPrimeMaterialsSupplied = nTotalPrimeMaterialsSupplied;
+        this.nFinishedProducts = nFinishedProducts;
+        
+        if (finishedProduct) {
+            int prods = nManufacturedProds.get(idCraft);
+            prods++;
+            nManufacturedProds.put(idCraft, prods);
+        }
+        
+        WriteLine();
+    }
+    /**
+     * Writes the state of the workshop in the logger file.
+     * 
+     * @param nCurrentPrimeMaterials Amount of prime materials present in the workshop
+     * @param nProductsStored Number of finished products present at the workshop
+     * @param nTimesPrimeMaterialsFetched Number of times that a supply of prime materials was delivered to the workshop
+     * @param nTotalPrimeMaterialsSupplied Total amount of prime materials that have already been supplied
+     * @param nFinishedProducts Total number of products that have already been manufactured
+     * @param state The entrepreneur state
+     * 
+     */
+    public synchronized void WriteWorkshopAndEntrepreneurStat(int nCurrentPrimeMaterials, 
+                    int nProductsStored, int nTimesPrimeMaterialsFetched,
+                    int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
+                    EntrepreneurState state) {
+        this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
+        this.nProductsStored = nProductsStored;
+        this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
+        this.nTotalPrimeMaterialsSupplied = nTotalPrimeMaterialsSupplied;
+        this.nFinishedProducts = nFinishedProducts;
+        
+        this.entrepState = state;
+        
+        WriteLine();
+    }
+    
+    /**
      * Activates the logger to the standard output.
      */
     public void setConsole() {
         console = true;
     }
-
-    public synchronized int getNWorkingCraftsmen() {
-        return nWorkingCraftsmen;
-    }
-
     /**
      * Checks if the craftsman no longer has conditions to continue its work.
      * 
@@ -353,7 +483,7 @@ public class Logging {
      * false if otherwise.
      */
     public synchronized int endOperCraft() {
-        if (nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies) {                
+        if (nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies) {                
             if (nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct * nWorkingCraftsmen) {
                 nWorkingCraftsmen--;
                 if (nWorkingCraftsmen == 0 && nProductsStored != 0 && !reqFetchProds)
@@ -377,7 +507,9 @@ public class Logging {
                 nProductsStored == 0 &&
                 nFinishedProducts == totalProductsBought &&
                 nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
-                nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
+                nTotalPrimeMaterialsSupplied - nCurrentPrimeMaterials == 
+                        totalProductsBought * ProbConst.primeMaterialsPerProduct &&
+                nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies &&
                 !reqFetchProds && !reqPrimeMaterials;
     }
     /**
@@ -387,11 +519,46 @@ public class Logging {
      * false if otherwise.
      */
     public synchronized boolean endOpEntrep() {
+        int totalProductsBought = 0;
+        for (int val : nBoughtGoods.values())
+            totalProductsBought += val;
         return nGoodsInDisplay == 0 &&
                 nProductsStored == 0 &&
                 nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
-                nTimesPrimeMaterialsFetched == ProbConst.nMaxSupplies &&
+                nTotalPrimeMaterialsSupplied - nCurrentPrimeMaterials == 
+                        totalProductsBought * ProbConst.primeMaterialsPerProduct &&
+                nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies &&
                 !reqFetchProds && !reqPrimeMaterials && 
                 nCustomerIn == 0;
+    }
+    /**
+     * This method allows to check if the final status of the simulation is a 
+     * valid or not.
+     * 
+     * @return returns true if simulation values are consistent; returns false
+     * otherwise.
+     */
+    public synchronized boolean isConsist() {
+        /* Calculating some values to check consistency */
+        int totalProductsBought = 0;
+        for (int val : nBoughtGoods.values())
+            totalProductsBought += val;
+        int nManufacturedProducts = 0;
+        for (int val : nManufacturedProds.values())
+            nManufacturedProducts += val;
+        
+        /* Check values consistency */
+        return nFinishedProducts == totalProductsBought &&
+                nManufacturedProducts == totalProductsBought &&
+                nCurrentPrimeMaterials < ProbConst.primeMaterialsPerProduct &&
+                nTotalPrimeMaterialsSupplied - nCurrentPrimeMaterials == 
+                        totalProductsBought * ProbConst.primeMaterialsPerProduct &&
+                nCustomerIn == 0 &&
+                !reqFetchProds && 
+                !reqPrimeMaterials && 
+                nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies &&
+                nGoodsInDisplay == 0 &&
+                nProductsStored == 0 &&
+                nWorkingCraftsmen == 0;
     }
 }

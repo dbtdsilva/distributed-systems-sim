@@ -31,21 +31,25 @@ public class ArtesanatoAveiro {
         String logname = "";
         if (args.length > 0)
             logname = "logs/logging"+args[0]+".txt";
+        
         Logging log = new Logging(logname, 
                 ProbConst.nCustomers, 
                 ProbConst.nCraftsmen,
                 ProbConst.nPrimeMaterials);
+        
+        // This hook allows the simulation always close the logging file even 
+        // when the simulation is forced to close.
         ShutdownHook shutdownHook = new ShutdownHook(log);
         Runtime.getRuntime().addShutdownHook(shutdownHook);
+        
+        // Used to debug on standard output.
         //log.setConsole();
+        
         Shop shop = new Shop(log);
-        Warehouse warehouse = new Warehouse(log, ProbConst.nPrimeMaterials);
+        Warehouse warehouse = new Warehouse(log);
         
         Workshop workshop = new Workshop(log,
-                                shop,
-                                ProbConst.MAXproductsInWorkshop, 
-                                ProbConst.minPM, 
-                                ProbConst.primeMaterialsPerProduct);
+                                shop);
         
         ArrayList<Customer> customers = new ArrayList<>(ProbConst.nCustomers);
         ArrayList<Craftsman> craftsmen = new ArrayList<>(ProbConst.nCraftsmen);
@@ -59,6 +63,7 @@ public class ArtesanatoAveiro {
         
         System.out.println("Número de clientes: " + customers.size());
         System.out.println("Número de artesões: " + craftsmen.size());
+        
         entr.start();
         for (Customer c : customers)
             c.start();
@@ -78,6 +83,10 @@ public class ArtesanatoAveiro {
         try {
             entr.join();
         } catch (InterruptedException e) {}
+        
+        if (!log.isConsist()) {
+            System.out.println("Simulation values are not consistent.");
+        }
     }
 }
 

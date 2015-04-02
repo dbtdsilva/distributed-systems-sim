@@ -31,10 +31,9 @@ public class ProbConst {
      * The minimum number of prime materials in the Workshop before request to 
      * the Entrepreneur.
      */
-    public final static int minPM = 3;
-    
+    public final static int MINprimeMaterials = 3;
     /**
-     * The maximum number of times that prime materials have been supplied. 
+     * The maximum number of times that prime materials can be supplied. 
      */
-    public final static int nMaxSupplies = 10;
+    public final static int MAXSupplies = 10;
 }
