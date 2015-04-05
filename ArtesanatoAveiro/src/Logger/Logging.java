@@ -1,6 +1,5 @@
 package Logger;
 
-import Craftsman.Craftsman;
 import Craftsman.CraftsmanState;
 import Customer.CustomerState;
 import Entrepreneur.EntrepreneurState;
