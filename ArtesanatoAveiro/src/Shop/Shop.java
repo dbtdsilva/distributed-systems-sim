@@ -166,7 +166,6 @@ public class Shop {
      */
     public synchronized void prepareToWork() {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
-        log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         
         shopState = ShopState.OPEN;
         

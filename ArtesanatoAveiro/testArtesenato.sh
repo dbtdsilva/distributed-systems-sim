@@ -1,4 +1,4 @@
-for i in {0..10000}
+for i in {0..25000}
 do
 	echo 
 	printf "\t\e[1;33m Testing $i: \n\e[0m"

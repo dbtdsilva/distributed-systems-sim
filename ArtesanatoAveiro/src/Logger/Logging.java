@@ -240,20 +240,7 @@ public class Logging {
         this.entrepState = es;
         WriteLine();
     }
-    
-    /**
-     * Writes the number of finished products of the craftsman in the logger file.
-     * 
-     * @param id The craftsman's id
-     */
-    public synchronized void CraftsmanFinishedProduct(int id)
-    {
-        int prods = nManufacturedProds.get(id);
-        prods++;
-        nManufacturedProds.put(id, prods);
-        WriteLine();
-    }
-    
+        
     /**
      * Writes the state of the craftsman in the logger file.
      * 
@@ -538,7 +525,7 @@ public class Logging {
      * @return returns true if simulation values are consistent; returns false
      * otherwise.
      */
-    public synchronized boolean isConsist() {
+        public synchronized boolean isConsist() {
         /* Calculating some values to check consistency */
         int totalProductsBought = 0;
         for (int val : nBoughtGoods.values())
