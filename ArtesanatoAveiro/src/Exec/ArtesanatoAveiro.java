@@ -24,13 +24,14 @@ public class ArtesanatoAveiro {
      * This is the main function that's going to be called to simulate 
      * "Artesenato de Aveiro"
      * 
-     * @param args the command line arguments
+     * @param args the command line arguments, it accepts one argument if needed,
+     * it will introduce the string on argument 0 to the filename of the logger.
      * @throws java.io.IOException is thrown when fails to write/open the file
      */
     public static void main(String[] args) throws IOException {
         String logname = "";
         if (args.length > 0)
-            logname = "logs/logging"+args[0]+".txt";
+            logname = "logging"+args[0]+".txt";
         
         Logging log = new Logging(logname, 
                 ProbConst.nCustomers, 
