@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
     private static final long serialVersionUID = 1001L;
-    
+    private static final int ERROR_INT = Integer.MIN_VALUE;
     private MessageType type;
     
     private int id;
@@ -50,6 +50,35 @@ public class Message implements Serializable {
      ** CONSTRUCTORS **
      ******************/
     
+    /**
+     * 
+     */
+    public Message() {
+        id = ERROR_INT;
+        entrState = null;
+        custState = null;
+        craftState = null;
+        shopState = null;
+
+        filename = null;
+
+        nProducts = ERROR_INT;
+        nMaterials = ERROR_INT;
+
+        requestFetchProducts = false;
+        requestPrimeMaterials = false;
+
+        nCustomerIn = ERROR_INT;
+        nGoodsInDisplay = ERROR_INT;
+        
+        finishedProduct = false;
+        nFinishedProducts = ERROR_INT;
+        nTotalPrimeMaterialsSupplied = ERROR_INT;
+        nTimesPrimeMaterialsFetched = ERROR_INT;
+        nProductsStored = ERROR_INT;
+        nCurrentPrimeMaterials = ERROR_INT;
+        nBoughtGoods = ERROR_INT;
+    }
     /**
      * CUSTOMER
      * isDoorOpen(), endOpCustomer(), perusingAround()
