@@ -26,6 +26,7 @@ public class ShopInterface implements ServerInterface {
         
         switch (inMessage.getType()) {
             case GO_SHOPPING:
+                if (inMessage.getId())
                 break;
             case IS_DOOR_OPEN:
                 break;

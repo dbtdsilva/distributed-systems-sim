@@ -53,7 +53,7 @@ public class Message implements Serializable {
     /**
      * 
      */
-    public Message() {
+    private Message() {
         id = ERROR_INT;
         entrState = null;
         custState = null;
@@ -98,6 +98,7 @@ public class Message implements Serializable {
     
     public Message(MessageType type) 
     {
+        this();
         this.type = type;
     }
     
@@ -118,6 +119,7 @@ public class Message implements Serializable {
     
     public Message(MessageType type, int value) 
     {
+        this();
         this.type = type;
         switch(type)
         {
@@ -160,6 +162,7 @@ public class Message implements Serializable {
      */
     public Message(MessageType type, int id, int value)
     {
+        this();
         this.type = type;
         this.id = id;
         
@@ -178,18 +181,21 @@ public class Message implements Serializable {
     
     public Message(MessageType type, EntrepreneurState es)
     {
+        this();
         this.type = type;
         this.entrState = es;
     }
     
     public Message(MessageType type, CraftsmanState cs)
     {
+        this();
         this.type = type;
         this.craftState = cs;
     }
      
     public Message(MessageType type, CustomerState cs)
     {
+        this();
         this.type = type;
         this.custState = cs;
     }
@@ -197,6 +203,7 @@ public class Message implements Serializable {
     public Message(MessageType type, ShopState s, int nCustomerIn, int nGoodsInDisplay,
                                     boolean reqFetchProds, boolean reqPrimeMaterials)
     {
+        this();
         this.shopState = s;
         this.nCustomerIn = nCustomerIn;
         this.nGoodsInDisplay = nGoodsInDisplay;
@@ -210,6 +217,7 @@ public class Message implements Serializable {
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, EntrepreneurState state) 
     {
+        this();
         this.entrState = state;
         this.shopState = s;
         this.nCustomerIn = nCustomerIn;
@@ -226,7 +234,7 @@ public class Message implements Serializable {
                                 boolean reqPrimeMaterials, CraftsmanState state,
                                 int idCraft)
     {
-        
+        this();
         this.id = idCraft;
         this.craftState = state;
         this.shopState = s;
@@ -244,7 +252,7 @@ public class Message implements Serializable {
                                 boolean reqPrimeMaterials, CustomerState state,
                                 int idCust, int nBoughtGoods) 
     {
-       
+        this();
         this.nBoughtGoods = nBoughtGoods;
         this.id = idCust;
         this.custState = state;
@@ -263,6 +271,7 @@ public class Message implements Serializable {
                                         int nTimesPrimeMaterialsFetched,
                                         int nTotalPrimeMaterialsSupplied, int nFinishedProducts)
     {
+        this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
@@ -278,6 +287,7 @@ public class Message implements Serializable {
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
                     CraftsmanState state, int idCraft, boolean finishedProduct) 
     {
+        this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
@@ -294,6 +304,7 @@ public class Message implements Serializable {
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
                     EntrepreneurState state) 
     {
+        this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
