@@ -16,8 +16,9 @@ import java.io.Serializable;
  * @author diogosilva
  */
 public class Message implements Serializable {
+    public static final int ERROR_INT = Integer.MIN_VALUE;
+    
     private static final long serialVersionUID = 1001L;
-    private static final int ERROR_INT = Integer.MIN_VALUE;
     private MessageType type;
     
     private int id;

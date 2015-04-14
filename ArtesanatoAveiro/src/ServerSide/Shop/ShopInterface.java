@@ -7,6 +7,7 @@ package ServerSide.Shop;
 
 import Message.Message;
 import Message.MessageException;
+import Message.MessageType;
 import ServerSide.ServerInterface;
 
 /**
@@ -26,9 +27,17 @@ public class ShopInterface implements ServerInterface {
         
         switch (inMessage.getType()) {
             case GO_SHOPPING:
-                if (inMessage.getId())
+                if (inMessage.getId() == Message.ERROR_INT)
+                    throw new MessageException("Id do cliente inválido,", inMessage);
+                shop.goShopping(inMessage.getId());
+                outMessage = new Message(MessageType.ACK);
                 break;
             case IS_DOOR_OPEN:
+                if (shop.isDoorOpen()) {
+                    
+                } else {
+                    
+                }
                 break;
             case ENTER_SHOP:
                 break;

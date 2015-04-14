@@ -14,6 +14,8 @@ public enum MessageType {
      * Auxiliars
      */
     ACK,
+    POSITIVE,
+    NEGATIVE,
     ERROR,    
     /**
      * Craftsmen
