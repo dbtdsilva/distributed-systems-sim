@@ -1,12 +1,12 @@
-package Shop;
+package ServerSide.Shop;
 
-import Craftsman.Craftsman;
-import Craftsman.CraftsmanState;
-import Customer.Customer;
-import Customer.CustomerState;
-import Entrepreneur.Entrepreneur;
-import Entrepreneur.EntrepreneurState;
-import Logger.Logging;
+import ClientSide.Craftsman.Craftsman;
+import ClientSide.Craftsman.CraftsmanState;
+import ClientSide.Customer.Customer;
+import ClientSide.Customer.CustomerState;
+import ClientSide.Entrepreneur.Entrepreneur;
+import ClientSide.Entrepreneur.EntrepreneurState;
+import ServerSide.Logger.Logging;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;

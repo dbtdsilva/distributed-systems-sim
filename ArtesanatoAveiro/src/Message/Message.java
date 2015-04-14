@@ -5,16 +5,18 @@
  */
 package Message;
 
-import Craftsman.CraftsmanState;
-import Customer.CustomerState;
-import Entrepreneur.EntrepreneurState;
-import Shop.ShopState;
+import ClientSide.Craftsman.CraftsmanState;
+import ClientSide.Customer.CustomerState;
+import ClientSide.Entrepreneur.EntrepreneurState;
+import ServerSide.Shop.ShopState;
+import java.io.Serializable;
 
 /**
  *
  * @author diogosilva
  */
-public class Message {
+public class Message implements Serializable {
+    private static final long serialVersionUID = 1001L;
     
     private MessageType type;
     
@@ -43,6 +45,10 @@ public class Message {
     private int nFinishedProducts;
     
     private boolean finishedProduct;
+    
+    /******************
+     ** CONSTRUCTORS **
+     ******************/
     
     /**
      * CUSTOMER
@@ -268,5 +274,94 @@ public class Message {
         this.entrState = state;
         this.type = type;
         
+    }
+
+     
+    /*************
+     ** GETTERS **  
+     *************/
+    
+    /**
+     * 
+     * @return 
+     */
+    public MessageType getType() {
+        return type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public EntrepreneurState getEntrState() {
+        return entrState;
+    }
+
+    public CustomerState getCustState() {
+        return custState;
+    }
+
+    public CraftsmanState getCraftState() {
+        return craftState;
+    }
+
+    public ShopState getShopState() {
+        return shopState;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public int getnProducts() {
+        return nProducts;
+    }
+
+    public int getnMaterials() {
+        return nMaterials;
+    }
+
+    public boolean isRequestFetchProducts() {
+        return requestFetchProducts;
+    }
+
+    public boolean isRequestPrimeMaterials() {
+        return requestPrimeMaterials;
+    }
+
+    public int getnCustomerIn() {
+        return nCustomerIn;
+    }
+
+    public int getnGoodsInDisplay() {
+        return nGoodsInDisplay;
+    }
+
+    public int getnBoughtGoods() {
+        return nBoughtGoods;
+    }
+
+    public int getnCurrentPrimeMaterials() {
+        return nCurrentPrimeMaterials;
+    }
+
+    public int getnProductsStored() {
+        return nProductsStored;
+    }
+
+    public int getnTimesPrimeMaterialsFetched() {
+        return nTimesPrimeMaterialsFetched;
+    }
+
+    public int getnTotalPrimeMaterialsSupplied() {
+        return nTotalPrimeMaterialsSupplied;
+    }
+
+    public int getnFinishedProducts() {
+        return nFinishedProducts;
+    }
+
+    public boolean isFinishedProduct() {
+        return finishedProduct;
     }
 }

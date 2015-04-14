@@ -1,7 +1,7 @@
-package Customer;
+package ClientSide.Customer;
 
-import Logger.Logging;
-import Shop.Shop;
+import ServerSide.Logger.Logging;
+import ServerSide.Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

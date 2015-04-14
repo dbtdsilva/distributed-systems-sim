@@ -1,12 +1,12 @@
 package Exec;
 
-import Craftsman.Craftsman;
-import Customer.Customer;
-import Entrepreneur.Entrepreneur;
-import Logger.Logging;
-import Shop.Shop;
-import Warehouse.Warehouse;
-import Workshop.Workshop;
+import ClientSide.Craftsman.Craftsman;
+import ClientSide.Customer.Customer;
+import ClientSide.Entrepreneur.Entrepreneur;
+import ServerSide.Logger.Logging;
+import ServerSide.Shop.Shop;
+import ServerSide.Warehouse.Warehouse;
+import ServerSide.Workshop.Workshop;
 import java.io.IOException;
 import java.util.ArrayList;
 

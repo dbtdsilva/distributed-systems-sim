@@ -1,9 +1,9 @@
-package Entrepreneur;
+package ClientSide.Entrepreneur;
 
-import Logger.Logging;
-import Shop.Shop;
-import Warehouse.Warehouse;
-import Workshop.Workshop;
+import ServerSide.Logger.Logging;
+import ServerSide.Shop.Shop;
+import ServerSide.Warehouse.Warehouse;
+import ServerSide.Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

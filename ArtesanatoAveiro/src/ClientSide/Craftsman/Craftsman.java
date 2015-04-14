@@ -1,9 +1,9 @@
-package Craftsman;
+package ClientSide.Craftsman;
 
 import Exec.ProbConst;
-import Logger.Logging;
-import Shop.Shop;
-import Workshop.Workshop;
+import ServerSide.Logger.Logging;
+import ServerSide.Shop.Shop;
+import ServerSide.Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

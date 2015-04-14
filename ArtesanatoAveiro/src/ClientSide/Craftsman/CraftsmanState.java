@@ -1,20 +1,19 @@
-package Customer;
+package ClientSide.Craftsman;
 
 /**
- * This enumerate represents the state of entity Customer
+ * This enumerate represents the state of entity Craftsman
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-
-public enum CustomerState {
-    CARRYING_OUT_DAILY_CHORES("CODC"),
-    CHECKING_SHOP_DOOR_OPEN("CSDO"),
-    APPRAISING_OFFER_IN_DISPLAY("AOID"),
-    BUYING_SOME_GOODS("BSG");
+public enum CraftsmanState {
+    FETCHING_PRIME_MATERIALS("FPM"),
+    CONTACTING_ENTREPRENEUR("CE"),
+    PRODUCING_A_NEW_PIECE("PANP"),
+    STORING_IT_FOR_TRANSFER("SIFT");
     
     private final String acronym;
-    private CustomerState(String acronym) 
+    private CraftsmanState(String acronym) 
     {
         this.acronym = acronym;
     }
