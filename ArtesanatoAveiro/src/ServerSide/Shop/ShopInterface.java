@@ -5,10 +5,10 @@
  */
 package ServerSide.Shop;
 
-import Message.Message;
-import Message.MessageException;
-import Message.MessageType;
-import ServerSide.ServerInterface;
+import Communication.Message.Message;
+import Communication.Message.MessageException;
+import Communication.Message.MessageType;
+import Communication.Proxy.ServerInterface;
 
 /**
  *
@@ -34,9 +34,9 @@ public class ShopInterface implements ServerInterface {
                 break;
             case IS_DOOR_OPEN:
                 if (shop.isDoorOpen()) {
-                    
+                    outMessage = new Message(MessageType.POSITIVE);
                 } else {
-                    
+                    outMessage = new Message(MessageType.NEGATIVE);
                 }
                 break;
             case ENTER_SHOP:

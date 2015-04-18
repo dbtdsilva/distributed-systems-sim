@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ServerSide;
+package Communication.Proxy;
 
-import Message.Message;
-import Message.MessageException;
+import Communication.Message.Message;
+import Communication.Message.MessageException;
 
 /**
  *

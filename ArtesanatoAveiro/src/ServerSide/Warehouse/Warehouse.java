@@ -11,19 +11,14 @@ import ServerSide.Logger.Logging;
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public class Warehouse {
-    private final Logging log;
-    
+public class Warehouse {    
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
     
     /**
      * Initializes the warehouse class with the required information.
-     * 
-     * @param log The general repository
      */
-    public Warehouse(Logging log) {
-        this.log = log;
+    public Warehouse() {
         this.nTimesSupplied = 0;
         
         int nPMMin = ProbConst.nCraftsmen * ProbConst.primeMaterialsPerProduct;

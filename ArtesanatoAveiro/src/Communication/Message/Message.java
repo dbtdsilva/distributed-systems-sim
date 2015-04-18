@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Message;
+package Communication.Message;
 
 import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Customer.CustomerState;
@@ -124,6 +124,7 @@ public class Message implements Serializable {
         this.type = type;
         switch(type)
         {
+            case ACK:
             case ENTER_SHOP:
             case EXIT_SHOP:
             case GO_SHOPPING:
@@ -144,7 +145,6 @@ public class Message implements Serializable {
             case RETURN_TO_SHOP:
                 this.nProducts = value;
                 break;
-                
             default:
                 this.type = MessageType.ERROR;
                 System.err.println("WRONG MESSAGE TYPE!");
@@ -180,25 +180,52 @@ public class Message implements Serializable {
         }
     }
     
-    public Message(MessageType type, EntrepreneurState es)
-    {
+    public Message(MessageType type, boolean requestFetchProducts) {
         this();
         this.type = type;
-        this.entrState = es;
+        this.requestFetchProducts = requestFetchProducts;
     }
     
-    public Message(MessageType type, CraftsmanState cs)
+    public Message(MessageType type, CraftsmanState craftState, int nProducts) {
+        this();
+        this.type = type;
+        this.nProducts = nProducts;
+        this.craftState = craftState;
+    }
+    
+    public Message(MessageType type, CustomerState custState, int nProducts) {
+        this();
+        this.type = type;
+        this.nProducts = nProducts;
+        this.custState = custState;
+    }
+    
+    public Message(MessageType type, EntrepreneurState entrState, int nMaterials) {
+        this();
+        this.type = type;
+        this.nMaterials = nMaterials;
+        this.entrState = entrState;
+    }
+    
+    public Message(MessageType type, EntrepreneurState entrState)
     {
         this();
         this.type = type;
-        this.craftState = cs;
+        this.entrState = entrState;
+    }
+    
+    public Message(MessageType type, CraftsmanState craftState)
+    {
+        this();
+        this.type = type;
+        this.craftState = craftState;
     }
      
-    public Message(MessageType type, CustomerState cs)
+    public Message(MessageType type, CustomerState custState)
     {
         this();
         this.type = type;
-        this.custState = cs;
+        this.custState = custState;
     }
     
     public Message(MessageType type, ShopState s, int nCustomerIn, int nGoodsInDisplay,

@@ -1,7 +1,5 @@
 package ClientSide.Customer;
 
-import ServerSide.Logger.Logging;
-import ServerSide.Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,21 +12,15 @@ import java.util.logging.Logger;
 public class Customer extends Thread {
     private CustomerState state;
     private final int id;
-    private final Shop shop;
-    private final Logging log;
     
     /**
      * Initiliazes the customer class with the required information.
      * 
      * @param id The customer identifier.
-     * @param log The general repository
-     * @param shop The simulation shop where the customer will buy products.
      */
-    public Customer(int id, Logging log, Shop shop) {
+    public Customer(int id) {
         this.setName("Customer "+id);
         this.id = id;
-        this.shop = shop;
-        this.log = log;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     /**
@@ -39,18 +31,18 @@ public class Customer extends Thread {
         int nProducts;
         do {
             livingNormalLife();
-            shop.goShopping(id);
+            goShopping(id);
         
-            if(shop.isDoorOpen()) {
-                shop.enterShop(id);
-                if ((nProducts = shop.perusingAround()) != 0)
-                    shop.iWantThis(id, nProducts);
-                shop.exitShop(id);
+            if(isDoorOpen()) {
+                enterShop(id);
+                if ((nProducts = perusingAround()) != 0)
+                    iWantThis(id, nProducts);
+                exitShop(id);
             }
             else {
-                shop.tryAgainLater(id);
+                tryAgainLater(id);
             }
-        } while (!log.endOpCustomer());
+        } while (!endOpCustomer());
         System.out.println("Cliente "+id+" acabou execução!");
     }
     
@@ -79,5 +71,37 @@ public class Customer extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void goShopping(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean isDoorOpen() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void enterShop(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int perusingAround() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void iWantThis(int id, int nProducts) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void exitShop(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void tryAgainLater(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean endOpCustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

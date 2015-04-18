@@ -28,16 +28,13 @@ public class Shop {
     private boolean reqPrimeMaterials;
     private int requestEntrepreneur;
     
-    private final Logging log;
-    
     /**
      * Initializes the shop class with the required information.
      * 
      * @param log The general repository
      */
-    public Shop(Logging log) {
+    public Shop() {
         this.requestEntrepreneur = 0;
-        this.log = log;
         this.nProductsStock = 0;
         this.shopState = ShopState.CLOSED;
         this.nCustomersInside = 0;

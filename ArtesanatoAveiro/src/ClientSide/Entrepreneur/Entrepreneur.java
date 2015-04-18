@@ -1,9 +1,5 @@
 package ClientSide.Entrepreneur;
 
-import ServerSide.Logger.Logging;
-import ServerSide.Shop.Shop;
-import ServerSide.Warehouse.Warehouse;
-import ServerSide.Workshop.Workshop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,28 +11,14 @@ import java.util.logging.Logger;
  */
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
-    private final Shop shop;
-    private final Warehouse warehouse;
-    private final Workshop workshop;
-    private final Logging log;
     
     /**
      * Initiliazes the entrepreneur class with the required information.
-     * 
-     * @param log The general repository
-     * @param shop The simulation shop where the entrepreneur will work.
-     * @param warehouse The simulation warehouse where the entrepeneur fetchs prime 
-     * materials when requested by the Craftsmen.
-     * @param workshop The simulation workshop where the craftsmen are located.
      */
-    public Entrepreneur(Logging log, Shop shop, Warehouse warehouse, Workshop workshop) {
+    public Entrepreneur() {
         this.setName("Entrepreneur");
         
         state = EntrepreneurState.OPENING_THE_SHOP;
-        this.shop = shop;
-        this.warehouse = warehouse;
-        this.workshop = workshop;
-        this.log = log;
     }
     /**
      * This function represents the life cycle of Entrepreneur.
@@ -47,34 +29,34 @@ public class Entrepreneur extends Thread {
             boolean canGoOut = false;
             char sit;
             
-            shop.prepareToWork();
+            prepareToWork();
             do {                
-                sit = shop.appraiseSit();
+                sit = appraiseSit();
                 switch (sit) {
                     case 'C': 
-                        int id = shop.addressACustomer();
+                        int id = addressACustomer();
                         serviceCustomer(id);
-                        shop.sayGoodByeToCustomer(id);
+                        sayGoodByeToCustomer(id);
                         break;
                     case 'T':
                     case 'M':
                     case 'E':
-                        shop.closeTheDoor();
-                        canGoOut = !shop.customersInTheShop();
+                        closeTheDoor();
+                        canGoOut = !customersInTheShop();
                         break;
                 }
             } while (!canGoOut);
             
-            shop.prepareToLeave();
+            prepareToLeave();
             if (sit == 'T') {           /* Transfer products */
-                int nProducts = workshop.goToWorkshop();
-                shop.returnToShop(nProducts);
+                int nProducts = goToWorkshop();
+                returnToShop(nProducts);
             } else if (sit == 'M') {    /* Materials needed */
-                int nMaterials = warehouse.visitSuppliers();
-                workshop.replenishStock(nMaterials);
-                shop.returnToShop(-1);
+                int nMaterials = visitSuppliers();
+                replenishStock(nMaterials);
+                returnToShop(-1);
             }
-        } while(!log.endOpEntrep());
+        } while(!endOpEntrep());
         System.out.println("Dona acabou execução!");
     }
     /**
@@ -104,5 +86,53 @@ public class Entrepreneur extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void prepareToWork() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private char appraiseSit() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int addressACustomer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void sayGoodByeToCustomer(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void closeTheDoor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean customersInTheShop() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void prepareToLeave() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int goToWorkshop() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void returnToShop(int nProducts) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private int visitSuppliers() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void replenishStock(int nMaterials) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private boolean endOpEntrep() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,7 +1,7 @@
 
 import ClientSide.Craftsman.CraftsmanState;
-import Message.Message;
-import Message.MessageType;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

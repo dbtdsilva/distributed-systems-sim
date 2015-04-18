@@ -24,25 +24,16 @@ public class Workshop {
     private int nTotalPrimeMaterialsSupplied;
     private boolean waitingEntrepreneur;
     
-    private final Logging log;
-    private final Shop shop;
-            
     /**
      * Initializes the workshop class with the required information.
-     * 
-     * @param log The general repository where the semaphores are stored along with some other useful global variables.
-     * @param shop The shop that is created in the simulation.
      */
-    public Workshop(Logging log, Shop shop) {
+    public Workshop() {
         this.nProductsStored = 0;
         this.nCurrentPrimeMaterials = 0;
         this.nFinishedProducts = 0;
         this.nTimesPrimeMaterialsFetched = 0;
         this.nTotalPrimeMaterialsSupplied = 0;
         this.waitingEntrepreneur = false;
-        
-        this.log = log;
-        this.shop = shop;
     }
     
         /******************/

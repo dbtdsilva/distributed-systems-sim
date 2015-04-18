@@ -1,13 +1,15 @@
 package ServerSide.Workshop;
 
-import Message.Message;
-import Message.MessageException;
+import Communication.Message.Message;
+import Communication.Message.MessageException;
+import Communication.Message.MessageType;
+import Communication.Proxy.ServerInterface;
 
 /**
  *
  * @author guesswho
  */
-public class WorkshopInterface implements ServerSide.ServerInterface{
+public class WorkshopInterface implements ServerInterface {
 
     private Workshop ws;
     
@@ -42,7 +44,7 @@ public class WorkshopInterface implements ServerSide.ServerInterface{
                 } 
                 else   {
                     boolean mats = ws.collectingMaterials(inMessage.getId());
-                    outMessage = new Message();
+                    outMessage = new Message(MessageType.ACK); /**/
                 }
                 break;
             

@@ -1,4 +1,4 @@
-package Message;
+package Communication.Message;
 
 /**
  * Este tipo de dados define uma excepção que é lançada se a mensagem for
