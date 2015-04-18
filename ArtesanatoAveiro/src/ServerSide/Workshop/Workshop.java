@@ -55,7 +55,7 @@ public class Workshop {
      * @return 
      */
     public synchronized int goToWorkshop() {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         
         int n = nProductsStored;
         nProductsStored = 0;
@@ -66,6 +66,7 @@ public class Workshop {
                     nFinishedProducts, ((Entrepreneur) Thread.currentThread()).getCurrentState());
         return n;
     }
+    
     /**
      * Entrepreneur goes to the Workshop and returns that prime materials that
      * she fetched from the Warehouse.
@@ -125,6 +126,7 @@ public class Workshop {
                             nTotalPrimeMaterialsSupplied, nFinishedProducts);
         return true;
     }   
+    
     /**
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
@@ -143,6 +145,7 @@ public class Workshop {
                 ((Craftsman) Thread.currentThread()).getCurrentState(), id, true);
         return nProductsStored;
     }
+    
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
      * 
@@ -152,6 +155,7 @@ public class Workshop {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
         log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
     } 
+    
     /**
      * The craftsman has the prime materials that he needs, and will now start producing another piece.
      * 
