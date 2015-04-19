@@ -293,9 +293,9 @@ public class Shop {
      * @return returns true if request has been done; returns false if it was 
      * already done by someone before.
      */
-    public synchronized boolean primeMaterialsNeeded(int id) {
+    public synchronized void primeMaterialsNeeded(int id) {
         if (reqPrimeMaterials)
-            return false;
+            return;
         
         reqPrimeMaterials = true;
         requestEntrepreneur++;
@@ -307,7 +307,6 @@ public class Shop {
         log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
                 ((Craftsman) Thread.currentThread()).getCurrentState(), id);
-        return true;
     }
     /**
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.

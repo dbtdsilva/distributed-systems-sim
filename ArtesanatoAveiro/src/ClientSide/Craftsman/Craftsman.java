@@ -3,6 +3,7 @@ package ClientSide.Craftsman;
 import Communication.ClientComm;
 import Communication.CommConst;
 import Communication.Message.Message;
+import static Communication.Message.Message.ERROR_INT;
 import Communication.Message.MessageType;
 import Exec.ProbConst;
 import java.util.logging.Level;
@@ -91,7 +92,7 @@ public class Craftsman extends Thread {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
 
-        while (!con.open()) // aguarda ligação
+        while (!con.open())
         {
             try {
                 sleep((long) (10));
@@ -103,37 +104,221 @@ public class Craftsman extends Thread {
         
         inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+        
+        if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+        return type == MessageType.POSITIVE;
+    }
+
+    private void primeMaterialsNeeded(int id) {
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.PRIME_MATERIALS_NEEDED, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+       
+        if (type != MessageType.ACK) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+    }
+
+    private void backToWork(int id) {
+        ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.BACK_TO_WORK, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+    }
+
+    private void prepareToProduce(int id) {
+        ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.PREPARE_TO_PRODUCE, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+    }
+
+    private int goToStore(int id) {
+        ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.GO_TO_STORE, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null || inMessage.getnProductsStored()== ERROR_INT) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+        
+        return inMessage.getnProductsStored();
+    }
+
+    private void batchReadyForTransfer(int id) {
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.BATCH_READY_FOR_TRANSFER, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        CraftsmanState stat = inMessage.getCraftState();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        if (stat == null) {
+            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        con.close();
+        
+        this.state = stat;
+    }
+
+    private int endOperCraft() {
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.BATCH_READY_FOR_TRANSFER, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
         if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
             System.out.println(inMessage.toString());
             System.exit(1);
         }
         con.close();
-
-        return type == MessageType.POSITIVE;
-    }
-
-    private void primeMaterialsNeeded(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void backToWork(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void prepareToProduce(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private int goToStore(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void batchReadyForTransfer(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private int endOperCraft() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (type == MessageType.POSITIVE) {
+            if (inMessage.isRequestFetchProducts())
+                return 2;
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
