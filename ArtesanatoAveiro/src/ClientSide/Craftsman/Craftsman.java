@@ -104,21 +104,12 @@ public class Craftsman extends Thread {
         
         inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
-        CraftsmanState stat = inMessage.getCraftState();
         
         if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
             System.out.println(inMessage.toString());
             System.exit(1);
         }
-        if (stat == null) {
-            System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
-            System.exit(1);
-        }
-        con.close();
-        
-        this.state = stat;
         return type == MessageType.POSITIVE;
     }
 

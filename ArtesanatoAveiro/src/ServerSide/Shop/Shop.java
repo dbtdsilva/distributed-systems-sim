@@ -53,8 +53,8 @@ public class Shop {
      * @param id customer identifier
      */
     public synchronized void goShopping(int id) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
-        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
+        //((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -71,13 +71,12 @@ public class Shop {
      * @param id customer identifier
      */
     public synchronized void enterShop(int id) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
-        
+        //((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         nCustomersInside += 1;
         
         log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    CustomerState.APPRAISING_OFFER_IN_DISPLAY,
                     id, 0);
     }
     /**
@@ -89,15 +88,14 @@ public class Shop {
      * @param id customer identifier 
      */
     public synchronized void exitShop(int id) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        
+        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         nCustomersInside -= 1;
         requestEntrepreneur++;
         notifyAll();        /* Telling entrepreneur */
         
         log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    CustomerState.CARRYING_OUT_DAILY_CHORES,
                     id, 0);
     }
     /**
@@ -290,8 +288,6 @@ public class Shop {
      * To do that he needs to wake up entrepreneur.
      * 
      * @param id the craftsman identifier
-     * @return returns true if request has been done; returns false if it was 
-     * already done by someone before.
      */
     public synchronized void primeMaterialsNeeded(int id) {
         if (reqPrimeMaterials)

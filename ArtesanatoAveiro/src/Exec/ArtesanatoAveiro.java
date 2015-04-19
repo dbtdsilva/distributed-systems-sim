@@ -45,7 +45,7 @@ public class ArtesanatoAveiro {
         // Used to debug on standard output.
         //log.setConsole();
         
-        Shop shop = new Shop(log);
+        /*Shop shop = new Shop(log);
         Warehouse warehouse = new Warehouse(log);
         
         Workshop workshop = new Workshop(log,
@@ -86,7 +86,7 @@ public class ArtesanatoAveiro {
         
         if (!log.isConsist()) {
             System.out.println("Simulation values are not consistent.");
-        }
+        }*/
     }
 }
 

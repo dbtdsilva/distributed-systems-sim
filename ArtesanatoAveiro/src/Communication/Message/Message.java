@@ -17,6 +17,7 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
     public static final int ERROR_INT = Integer.MIN_VALUE;
+    public static final char ERROR_CHAR = 0xFFFE;
     
     private static final long serialVersionUID = 1001L;
     private MessageType type;
@@ -29,8 +30,10 @@ public class Message implements Serializable {
     
     private String filename;
     
+    private char nextTask;
     private int nProducts;
     private int nMaterials;
+    private int custId_nMaterials;
     
     private boolean requestFetchProducts;
     private boolean requestPrimeMaterials;
@@ -56,6 +59,7 @@ public class Message implements Serializable {
      */
     private Message() {
         id = ERROR_INT;
+        nextTask = ERROR_CHAR;
         entrState = null;
         custState = null;
         craftState = null;
@@ -65,6 +69,7 @@ public class Message implements Serializable {
 
         nProducts = ERROR_INT;
         nMaterials = ERROR_INT;
+        custId_nMaterials = ERROR_INT;
 
         requestFetchProducts = false;
         requestPrimeMaterials = false;
@@ -186,6 +191,12 @@ public class Message implements Serializable {
         this.requestFetchProducts = requestFetchProducts;
     }
     
+    public Message(MessageType type, char nextTask) {
+        this();
+        this.type = type;
+        this.nextTask = nextTask;
+    }
+    
     public Message(MessageType type, CraftsmanState craftState, int nProducts) {
         this();
         this.type = type;
@@ -200,11 +211,22 @@ public class Message implements Serializable {
         this.custState = custState;
     }
     
-    public Message(MessageType type, EntrepreneurState entrState, int nMaterials) {
+    public Message(MessageType type, EntrepreneurState entrState, int custId_nMaterials) {
         this();
         this.type = type;
-        this.nMaterials = nMaterials;
         this.entrState = entrState;
+        
+        switch(type)
+        {
+            case ACK:
+                this.custId_nMaterials = custId_nMaterials;
+                break;
+
+            default:
+                this.type = MessageType.ERROR;
+                System.err.println("WRONG MESSAGE TYPE!");
+                break;
+        }
     }
     
     public Message(MessageType type, EntrepreneurState entrState)
@@ -431,5 +453,11 @@ public class Message implements Serializable {
 
     public boolean isFinishedProduct() {
         return finishedProduct;
+    }
+    public int getCustId_nMaterials() {
+        return custId_nMaterials;
+    }
+    public char getNextTask() {
+        return nextTask;
     }
 }
