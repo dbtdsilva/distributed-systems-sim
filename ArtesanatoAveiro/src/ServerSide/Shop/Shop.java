@@ -6,7 +6,11 @@ import ClientSide.Customer.Customer;
 import ClientSide.Customer.CustomerState;
 import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
-import ServerSide.Logger.Logging;
+import Communication.ClientComm;
+import Communication.CommConst;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
+import static java.lang.Thread.sleep;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -31,7 +35,6 @@ public class Shop {
     /**
      * Initializes the shop class with the required information.
      * 
-     * @param log The general repository
      */
     public Shop() {
         this.requestEntrepreneur = 0;
@@ -54,7 +57,28 @@ public class Shop {
      */
     public synchronized void goShopping(int id) {
         //((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
-        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        //log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_CUST_STATE, 
+                CustomerState.CHECKING_SHOP_DOOR_OPEN, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -74,10 +98,32 @@ public class Shop {
         //((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         nCustomersInside += 1;
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
-                    reqFetchProducts, reqPrimeMaterials, 
-                    CustomerState.APPRAISING_OFFER_IN_DISPLAY,
-                    id, 0);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_SHOP_CUST_STATE, 
+                shopState, nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, CustomerState.APPRAISING_OFFER_IN_DISPLAY, id,
+                0);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        //            reqFetchProducts, reqPrimeMaterials, 
+        //            CustomerState.APPRAISING_OFFER_IN_DISPLAY,
+        //            id, 0);
     }
     /**
      * The customer exits the shop, notifying the Entrepreneur that he left. He
@@ -93,10 +139,31 @@ public class Shop {
         requestEntrepreneur++;
         notifyAll();        /* Telling entrepreneur */
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
-                    reqFetchProducts, reqPrimeMaterials, 
-                    CustomerState.CARRYING_OUT_DAILY_CHORES,
-                    id, 0);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP_CUST_STATE, 
+                shopState, nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, CustomerState.CARRYING_OUT_DAILY_CHORES, id,
+                0);
+        con.writeObject(outMessage);
+        
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        
+        //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        //            reqFetchProducts, reqPrimeMaterials, 
+        //            CustomerState.CARRYING_OUT_DAILY_CHORES,
+        //            id, 0);
     }
     /**
      * The customer searchs for products inside the Shop.
@@ -123,13 +190,34 @@ public class Shop {
      * @param nProducts the number of products bought
      */
     public synchronized void iWantThis(int id, int nProducts) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
+        //((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
         waitingLine.add(id);
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
-                    reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
-                    id, nProducts);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_SHOP_CUST_STATE, 
+                shopState, nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, CustomerState.BUYING_SOME_GOODS, id,
+                nProducts);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        //            reqFetchProducts, reqPrimeMaterials, 
+        //            ((Customer) Thread.currentThread()).getCurrentState(),
+        //            id, nProducts);
         
         requestEntrepreneur++;
         notifyAll();    // Wake up entrepreneur
@@ -148,8 +236,29 @@ public class Shop {
      * @param id customer identifier
      */
     public synchronized void tryAgainLater(int id) {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
+        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
+        //log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
+        
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_CUST_STATE, 
+                CustomerState.CARRYING_OUT_DAILY_CHORES, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
   
         /******************/
@@ -160,13 +269,34 @@ public class Shop {
      * Entrepreneur is preparing to work, she will open the shop.
      */
     public synchronized void prepareToWork() {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
-        
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         shopState = ShopState.OPEN;
         
-        log.WriteShopAndEntrepreneurStat(this.shopState, nCustomersInside, 
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_SHOP_ENTR_STATE, shopState, nCustomersInside, 
                 nProductsStock, reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+                EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        
+        //log.WriteShopAndEntrepreneurStat(this.shopState, nCustomersInside, 
+        //        nProductsStock, reqFetchProducts, reqPrimeMaterials, 
+        //        ((Entrepreneur) Thread.currentThread()).getCurrentState());
     }
     /**
      * The entrepreneur will wait until someone request her services.
@@ -187,6 +317,25 @@ public class Shop {
                 }
             }
             
+            /* Calculating endOperResult */
+            ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+            while (!con.open())
+            {
+                try {
+                    sleep((long) (10));
+                } catch (InterruptedException e) {
+                }
+            }
+            Message outMessage = new Message(MessageType.END_OPER_ENTREPRENEUR);
+            con.writeObject(outMessage);
+            Message inMessage = (Message) con.readObject();
+            MessageType type = inMessage.getType();
+            if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
+                System.out.println("Tipo inválido!");
+                System.exit(1);
+            }
+            
+            boolean endOpEntr = MessageType.POSITIVE == type;
             requestEntrepreneur--;
             if (!waitingLine.isEmpty()) {
                 returnChar = 'C';
@@ -197,7 +346,7 @@ public class Shop {
             } else if (reqFetchProducts) {
                 returnChar = 'T';
                 break;
-            } else if (log.endOpEntrep()) {
+            } else if (endOpEntr) {
                 returnChar = 'E';
                 break;
             }
@@ -210,8 +359,25 @@ public class Shop {
      * @return the customer identifier
      */
     public synchronized int addressACustomer() {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
-        log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
+        //log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.ATTENDING_A_CUSTOMER);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        
         
         if (waitingLine.size() == 0) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, 
@@ -228,15 +394,49 @@ public class Shop {
     public synchronized void sayGoodByeToCustomer(int id) {
         notifyAll();    // Acordar customer com este ID
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
-        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        //log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     /**
      * The entrepreneur signals that she will close the shop.
      */
     public synchronized void closeTheDoor() {
         shopState = ShopState.ECLOSED;
-        log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        
+        //log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP, shopState, nCustomersInside, 
+                nProductsStock, reqFetchProducts, reqPrimeMaterials);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     /**
      * This function returns true if there's customers inside the shop.
@@ -252,11 +452,29 @@ public class Shop {
      */
     public synchronized void prepareToLeave() {
         shopState = ShopState.CLOSED;
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
         
-        log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
+        //log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
+        //        reqFetchProducts, reqPrimeMaterials, 
+        //        ((Entrepreneur) Thread.currentThread()).getCurrentState());
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP_ENTR_STATE, shopState, 
+                nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, EntrepreneurState.CLOSING_THE_SHOP);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }  
     /**
      * The entrepreneur returns to the shop, she went to fetch products or to deliver
@@ -271,12 +489,30 @@ public class Shop {
             nProductsStock += nProducts;
         }
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         this.shopState = ShopState.OPEN;
         
-        log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
+        //log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
+        //        reqFetchProducts, reqPrimeMaterials, 
+        //        ((Entrepreneur) Thread.currentThread()).getCurrentState());
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP_ENTR_STATE, shopState, 
+                nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, EntrepreneurState.OPENING_THE_SHOP);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     
         /***************/
@@ -298,11 +534,28 @@ public class Shop {
         
         notifyAll();
         
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
-        
-        log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials, 
-                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        //log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
+        //        reqFetchProducts, reqPrimeMaterials, 
+        //        ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP_CRAFT_STATE, shopState, 
+                nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, CraftsmanState.CONTACTING_ENTREPRENEUR, id);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     /**
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
@@ -317,11 +570,28 @@ public class Shop {
         requestEntrepreneur++;
         notifyAll();
         
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
-        
-        log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
-                reqFetchProducts, reqPrimeMaterials, 
-                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        //log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
+        //        reqFetchProducts, reqPrimeMaterials, 
+        //        ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.WRITE_SHOP_CRAFT_STATE, shopState, 
+                nCustomersInside, nProductsStock, reqFetchProducts, 
+                reqPrimeMaterials, CraftsmanState.CONTACTING_ENTREPRENEUR, id);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
         /*************/
         /** GENERAL **/
@@ -333,13 +603,45 @@ public class Shop {
      */
     public synchronized void resetRequestPrimeMaterials() {
         reqPrimeMaterials = false;
-        log.UpdatePrimeMaterialsRequest(reqPrimeMaterials);
+        //log.UpdatePrimeMaterialsRequest(reqPrimeMaterials);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.UPDATE_REQ_PRODUCTS, reqPrimeMaterials);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
     /**
      * This function is used to the Entrepreneur reset the flag requestProducts.
      */
     public synchronized void resetRequestProducts() {
         reqFetchProducts = false;
-        log.UpdateFetchProductsRequest(reqFetchProducts);
+        //log.UpdateFetchProductsRequest(reqFetchProducts);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        Message outMessage = new Message(MessageType.UPDATE_REQ_PMATERIALS, reqFetchProducts);
+        con.writeObject(outMessage);
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
     }
 }

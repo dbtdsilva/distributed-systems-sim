@@ -196,12 +196,30 @@ public class Message implements Serializable {
         this.type = type;
         this.nextTask = nextTask;
     }
-    
-    public Message(MessageType type, CraftsmanState craftState, int nProducts) {
+    /**
+     * GOTOSTORE->RESPOSTA e WRITE_CUST_STAT
+     * 
+     * @param type
+     * @param craftState
+     * @param value 
+     */
+    public Message(MessageType type, CraftsmanState craftState, int value) {
         this();
         this.type = type;
-        this.nProducts = nProducts;
         this.craftState = craftState;
+        
+        switch (type) {
+            case ACK:
+                this.nProducts = value;
+                break;
+            case WRITE_CUST_STATE:
+                this.id = value;
+                break;
+            default:
+                this.type = MessageType.ERROR;
+                System.err.println("WRONG MESSAGE TYPE!");
+                break;
+        }
     }
     
     public Message(MessageType type, CustomerState custState, int nProducts) {
