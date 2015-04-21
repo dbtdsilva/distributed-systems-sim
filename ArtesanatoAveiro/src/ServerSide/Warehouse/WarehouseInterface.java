@@ -5,8 +5,10 @@
  */
 package ServerSide.Warehouse;
 
+import ClientSide.Entrepreneur.EntrepreneurState;
 import Communication.Message.Message;
 import Communication.Message.MessageException;
+import Communication.Message.MessageType;
 import Communication.Proxy.ServerInterface;
 
 /**
@@ -25,6 +27,8 @@ public class WarehouseInterface implements ServerInterface {
         
         switch (inMessage.getType()) {
             case VISIT_SUPPLIERS:
+                int n = wh.visitSuppliers();
+                outMessage = new Message(MessageType.ACK, EntrepreneurState.AT_THE_SUPPLIERS, n);
                 break;
             default:
                 break;

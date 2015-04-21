@@ -1,5 +1,7 @@
 package ServerSide.Workshop;
 
+import ClientSide.Craftsman.CraftsmanState;
+import ClientSide.Entrepreneur.EntrepreneurState;
 import Communication.Message.Message;
 import Communication.Message.MessageException;
 import Communication.Message.MessageType;
@@ -26,7 +28,8 @@ public class WorkshopInterface implements ServerInterface {
         switch(inMessage.getType())
         {
             case GO_TO_WORKSHOP:
-                //TODO
+                int prods = ws.goToWorkshop();
+                outMessage = new Message(MessageType.GO_TO_WORKSHOP, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS, prods);
                 break;
             
             case REPLENISH_STOCK:
@@ -34,7 +37,9 @@ public class WorkshopInterface implements ServerInterface {
                     throw new MessageException("Invalid argument", inMessage);
                 } 
                 else    {
-                    //TODO
+                    int mats = inMessage.getnMaterials();
+                    ws.replenishStock(mats);
+                    outMessage = new Message(MessageType.ACK, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
                 }
                 break;
             
@@ -44,7 +49,7 @@ public class WorkshopInterface implements ServerInterface {
                 } 
                 else   {
                     boolean mats = ws.collectingMaterials(inMessage.getId());
-                    outMessage = new Message(MessageType.ACK); /**/
+                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId()); /**/
                 }
                 break;
             
@@ -53,7 +58,9 @@ public class WorkshopInterface implements ServerInterface {
                     throw new MessageException("Invalid argument", inMessage);
                 } 
                 else   {
-                    //TODO
+                    int id = inMessage.getId();
+                    int nProdsStored = ws.goToStore(id);
+                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.PRODUCING_A_NEW_PIECE, id, nProdsStored);
                 }
                 break;
             
@@ -62,7 +69,8 @@ public class WorkshopInterface implements ServerInterface {
                     throw new MessageException("Invalid argument", inMessage);
                 } 
                 else   {
-                    //TODO
+                    ws.backToWork(inMessage.getId());
+                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId());
                 }
                 break;
             
@@ -71,7 +79,8 @@ public class WorkshopInterface implements ServerInterface {
                     throw new MessageException("Invalid argument", inMessage);
                 } 
                 else   {
-                    //TODO
+                    ws.prepareToProduce(inMessage.getId());
+                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.PRODUCING_A_NEW_PIECE, inMessage.getId());
                 }
                 break;
                 

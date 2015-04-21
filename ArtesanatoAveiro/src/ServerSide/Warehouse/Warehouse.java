@@ -1,9 +1,12 @@
 package ServerSide.Warehouse;
 
-import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
+import Communication.ClientComm;
+import Communication.CommConst;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
 import Exec.ProbConst;
-import ServerSide.Logger.Logging;
+import static java.lang.Thread.sleep;
 
 /**
  * The monitor that represents the Warehouse.
@@ -47,8 +50,32 @@ public class Warehouse {
         int n = nTimesPMSupplied[nTimesSupplied];
         nTimesSupplied++;
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
-        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
+        //log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_ENTR_STATE, 
+                EntrepreneurState.AT_THE_SUPPLIERS);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
         return n;
     }
 }

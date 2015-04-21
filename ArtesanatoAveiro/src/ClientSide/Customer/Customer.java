@@ -1,5 +1,10 @@
 package ClientSide.Customer;
 
+import Communication.ClientComm;
+import Communication.CommConst;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,34 +79,222 @@ public class Customer extends Thread {
     }
 
     private void goShopping(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.GO_SHOPPING, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        if (type != MessageType.ACK || cs == null) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        this.setState(cs);
     }
 
     private boolean isDoorOpen() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.IS_DOOR_OPEN);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        
+        if(type == MessageType.POSITIVE && cs != null)
+        {
+            this.setState(cs);
+            return true;
+        }
+        else if(type == MessageType.NEGATIVE && cs != null)
+        {
+            this.setState(cs);
+            return false;
+        }
+        else
+        {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        return false;
     }
 
     private void enterShop(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.ENTER_SHOP, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        if (type != MessageType.ACK || cs == null) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        this.setState(cs);
     }
 
     private int perusingAround() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.PERUSING_AROUND);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        int prods = inMessage.getnProducts();
+        
+        if (type != MessageType.ACK || prods == Message.ERROR_INT) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        
+        return prods;
     }
 
     private void iWantThis(int id, int nProducts) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.I_WANT_THIS, id, nProducts);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        
+        if (type != MessageType.ACK || cs == null) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        this.setState(cs);
     }
 
     private void exitShop(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.EXIT_SHOP, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        if (type != MessageType.ACK || cs == null) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        this.setState(cs);
     }
 
     private void tryAgainLater(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.TRY_AGAIN_LATER, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        
+        MessageType type = inMessage.getType();
+        CustomerState cs = inMessage.getCustState();
+        if (type != MessageType.ACK || cs == null) {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        this.setState(cs);
     }
 
     private boolean endOpCustomer() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.END_OPER_CUSTOMER);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();        
+        
+        MessageType type = inMessage.getType();
+        
+        if (type == MessageType.POSITIVE)
+            return true;
+        else if(type == MessageType.NEGATIVE)
+            return false;
+        else
+        {
+            System.out.println("Tipo inválido!");
+            System.exit(1);
+        }
+        return false;
     }
 }

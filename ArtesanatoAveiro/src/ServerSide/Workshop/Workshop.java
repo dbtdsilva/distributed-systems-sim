@@ -1,12 +1,13 @@
 package ServerSide.Workshop;
 
-import ClientSide.Craftsman.Craftsman;
 import ClientSide.Craftsman.CraftsmanState;
-import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
+import Communication.ClientComm;
+import Communication.CommConst;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
 import Exec.ProbConst;
-import ServerSide.Logger.Logging;
-import ServerSide.Shop.Shop;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,14 +48,49 @@ public class Workshop {
      */
     public synchronized int goToWorkshop() {
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        con.writeObject(outMessage);
         
         int n = nProductsStored;
         nProductsStored = 0;
         
-        shop.resetRequestProducts();
-        log.WriteWorkshopAndEntrepreneurStat(nCurrentPrimeMaterials, nProductsStored, 
-                    nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
-                    nFinishedProducts, ((Entrepreneur) Thread.currentThread()).getCurrentState());
+        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
+        
+        con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        outMessage = new Message(MessageType.RESET_REQ_PRODUCTS);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
         return n;
     }
     
@@ -67,20 +103,66 @@ public class Workshop {
      * @param nMaterials
      */
     public synchronized void replenishStock(int nMaterials) {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
 
         nTimesPrimeMaterialsFetched++;
         nTotalPrimeMaterialsSupplied += nMaterials;
         nCurrentPrimeMaterials += nMaterials;
         
-        shop.resetRequestPrimeMaterials();
         waitingEntrepreneur = false;
         
-        log.WriteWorkshopAndEntrepreneurStat(nCurrentPrimeMaterials, nProductsStored, 
-                    nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
-                    nFinishedProducts, ((Entrepreneur) Thread.currentThread()).getCurrentState());
-                
-        notifyAll();    // Wake up craftsmen
+        
+        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, 
+                nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
+                nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        con.writeObject(outMessage);
+        
+        con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.RESET_REQ_PMATERIALS);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
+        notifyAll();
     }
 
         /***************/
@@ -113,8 +195,30 @@ public class Workshop {
         
         nCurrentPrimeMaterials -= ProbConst.primeMaterialsPerProduct;
         
-        log.WriteWorkshop(nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_WSHOP, nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
                             nTotalPrimeMaterialsSupplied, nFinishedProducts);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
         return true;
     }   
     
@@ -126,14 +230,48 @@ public class Workshop {
      * @return the number of products stored in workshop.
      */
     public synchronized int goToStore(int id) {
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.STORING_IT_FOR_TRANSFER);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_CRAFT_STATE, CraftsmanState.STORING_IT_FOR_TRANSFER, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
         
         nFinishedProducts++;
         nProductsStored++;
         
-        log.WriteWorkshopAndCraftsmanStat(nCurrentPrimeMaterials, nProductsStored, 
-                nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts,
-                ((Craftsman) Thread.currentThread()).getCurrentState(), id, true);
+        outMessage = new Message(MessageType.WRITE_WSHOP_CRAFT_STATE,
+                nCurrentPrimeMaterials, nProductsStored, 
+                nTimesPrimeMaterialsFetched, 
+                nTotalPrimeMaterialsSupplied, nFinishedProducts, CraftsmanState.STORING_IT_FOR_TRANSFER, id, true);
+        
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
         return nProductsStored;
     }
     
@@ -143,8 +281,31 @@ public class Workshop {
      * @param id The craftsman identifier.
      */
     public synchronized void backToWork(int id) {
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
-        log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
+        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
+        //log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_CRAFT_STATE, CraftsmanState.FETCHING_PRIME_MATERIALS, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
+        
     } 
     
     /**
@@ -153,7 +314,27 @@ public class Workshop {
      * @param id The craftsman identifier.
      */
     public synchronized void prepareToProduce(int id) {
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.PRODUCING_A_NEW_PIECE);
-        log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message inMessage, outMessage;
+
+        while (!con.open())
+        {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        
+        outMessage = new Message(MessageType.WRITE_CRAFT_STATE, CraftsmanState.PRODUCING_A_NEW_PIECE, id);
+        con.writeObject(outMessage);
+        
+        inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
+        
+        if (type != MessageType.ACK) {
+            System.out.println("Tipo de mensagem inválido!");
+            System.out.println(inMessage.toString());
+            System.exit(1);
+        }
     } 
 }

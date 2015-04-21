@@ -1,10 +1,7 @@
 package ServerSide.Shop;
 
-import ClientSide.Craftsman.Craftsman;
 import ClientSide.Craftsman.CraftsmanState;
-import ClientSide.Customer.Customer;
 import ClientSide.Customer.CustomerState;
-import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
 import Communication.ClientComm;
 import Communication.CommConst;

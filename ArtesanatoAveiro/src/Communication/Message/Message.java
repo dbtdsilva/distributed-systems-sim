@@ -148,6 +148,7 @@ public class Message implements Serializable {
                 this.nMaterials = value;
                 break;
             case RETURN_TO_SHOP:
+            case GO_TO_WORKSHOP:
                 this.nProducts = value;
                 break;
             default:
@@ -214,6 +215,28 @@ public class Message implements Serializable {
                 break;
             case WRITE_CUST_STATE:
                 this.id = value;
+                break;
+            case POSITIVE:
+                this.id = value;
+                this.craftState = craftState;
+                break;
+            default:
+                this.type = MessageType.ERROR;
+                System.err.println("WRONG MESSAGE TYPE!");
+                break;
+        }
+    }
+    
+    public Message(MessageType type, CraftsmanState craftState, int id, int value) {
+        this();
+        this.type = type;
+        this.craftState = craftState;
+        this.id = id;
+        
+        switch (type) {
+            case ACK:
+            case POSITIVE:
+                this.nProductsStored = value;
                 break;
             default:
                 this.type = MessageType.ERROR;
@@ -384,7 +407,7 @@ public class Message implements Serializable {
         
     }
 
-     
+    
     /*************
      ** GETTERS **  
      *************/
