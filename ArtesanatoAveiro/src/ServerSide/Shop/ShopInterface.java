@@ -49,7 +49,7 @@ public class ShopInterface implements ServerInterface {
             case EXIT_SHOP:
                 if (inMessage.getId() == Message.ERROR_INT)
                     throw new MessageException("Id do cliente inválido,", inMessage);
-                shop.enterShop(inMessage.getId());
+                shop.exitShop(inMessage.getId());
                 outMessage = new Message(MessageType.ACK, CustomerState.CARRYING_OUT_DAILY_CHORES);
                 break;
             case PERUSING_AROUND:                

@@ -383,7 +383,7 @@ public class Entrepreneur extends Thread {
         
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
-        int mats = inMessage.getnMaterials();
+        int mats = inMessage.getCustId_nMaterials();
         
         if (type != MessageType.ACK || es == null || mats == Message.ERROR_INT)  {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
@@ -391,8 +391,8 @@ public class Entrepreneur extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
         this.setState(es);
+        con.close();
         
         return mats;
     }

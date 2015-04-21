@@ -27,12 +27,24 @@ public class LoggingExec {
         LoggingInterface logInt = new LoggingInterface(log);
         System.out.println("O serviço de Logging foi estabelecido!");
         System.out.println("O servidor esta em escuta.");
-
+        ShutdownHook shutdownHook = new ShutdownHook(log);
+        Runtime.getRuntime().addShutdownHook(shutdownHook);
         /* processamento de pedidos */
         while (true) {
             sconi = scon.accept();                         // entrada em processo de escuta
             cliProxy = new ClientProxy(sconi, logInt);     // lançamento do agente prestador do serviço
             cliProxy.start();
         }
+    }
+}
+
+class ShutdownHook extends Thread {
+    Logging log;
+    ShutdownHook(Logging log) {
+        this.log = log;
+    }
+    @Override
+    public void run() {
+        log.EndWriting();
     }
 }
