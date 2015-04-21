@@ -25,7 +25,7 @@ public class LoggingExec {
         scon.start();                                       // com o endereço público
         Logging log = new Logging("", ProbConst.nCustomers, ProbConst.nCraftsmen, ProbConst.nPrimeMaterials);
         LoggingInterface logInt = new LoggingInterface(log);
-        System.out.println("O serviço foi estabelecido!");
+        System.out.println("O serviço de Logging foi estabelecido!");
         System.out.println("O servidor esta em escuta.");
 
         /* processamento de pedidos */

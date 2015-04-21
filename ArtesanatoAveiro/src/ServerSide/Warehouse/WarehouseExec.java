@@ -19,11 +19,11 @@ public class WarehouseExec {
         ClientProxy cliProxy;                               // thread agente prestador do serviço
 
         /* estabelecimento do servico */
-        scon = new ServerComm(CommConst.shopServerPort);    // criação do canal de escuta e sua associação
+        scon = new ServerComm(CommConst.whServerPort);    // criação do canal de escuta e sua associação
         scon.start();                                       // com o endereço público
         Warehouse wh = new Warehouse();
         WarehouseInterface whInt = new WarehouseInterface(wh);
-        System.out.println("O serviço foi estabelecido!");
+        System.out.println("O serviço Warehouse foi estabelecido!");
         System.out.println("O servidor esta em escuta.");
 
         /* processamento de pedidos */

@@ -5,6 +5,7 @@ import Communication.CommConst;
 import Communication.Message.Message;
 import Communication.Message.MessageType;
 import static java.lang.Thread.sleep;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,10 +117,13 @@ public class Entrepreneur extends Thread {
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
         if (type != MessageType.ACK || es == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         this.setState(es);
+        con.close();
     }
 
     private char appraiseSit() {
@@ -142,10 +146,12 @@ public class Entrepreneur extends Thread {
         char c = inMessage.getNextTask();
         
         if (type != MessageType.ACK || c == Message.ERROR_CHAR) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        
+        con.close();
         return c;
     }
 
@@ -170,11 +176,13 @@ public class Entrepreneur extends Thread {
         int id = inMessage.getId();
         
         if (type != MessageType.ACK || es == null || id == Message.ERROR_INT) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         this.setState(es);
-        
+        con.close();
         return id;
     }
 
@@ -197,10 +205,13 @@ public class Entrepreneur extends Thread {
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
         if (type != MessageType.ACK || es == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         this.setState(es);
+        con.close();
     }
 
     private void closeTheDoor() {
@@ -222,9 +233,12 @@ public class Entrepreneur extends Thread {
         MessageType type = inMessage.getType();
         
         if (type != MessageType.ACK) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
     }
 
     private boolean customersInTheShop() {
@@ -251,9 +265,12 @@ public class Entrepreneur extends Thread {
             return false;
         else
         {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         return false;
     }
 
@@ -277,11 +294,14 @@ public class Entrepreneur extends Thread {
         EntrepreneurState es = inMessage.getEntrState();
         
         if (type != MessageType.ACK || es == null)  {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         
         this.setState(es);
+        con.close();
     }
 
     private int goToWorkshop() {
@@ -305,11 +325,14 @@ public class Entrepreneur extends Thread {
         int prods = inMessage.getnProducts();
         
         if (type != MessageType.ACK || es == null || prods == Message.ERROR_INT)  {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         
         this.setState(es);
+        con.close();
         return prods;
     }
 
@@ -333,10 +356,12 @@ public class Entrepreneur extends Thread {
         EntrepreneurState es = inMessage.getEntrState();
         
         if (type != MessageType.ACK || es == null)  {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        
+        con.close();
         this.setState(es);
     }
 
@@ -361,10 +386,12 @@ public class Entrepreneur extends Thread {
         int mats = inMessage.getnMaterials();
         
         if (type != MessageType.ACK || es == null || mats == Message.ERROR_INT)  {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        
+        con.close();
         this.setState(es);
         
         return mats;
@@ -390,10 +417,12 @@ public class Entrepreneur extends Thread {
         EntrepreneurState es = inMessage.getEntrState();
         
         if (type != MessageType.ACK || es == null)  {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        
+        con.close();
         this.setState(es);
     }
 
@@ -411,8 +440,7 @@ public class Entrepreneur extends Thread {
         outMessage = new Message(MessageType.END_OPER_ENTREPRENEUR);
         con.writeObject(outMessage);
         
-        inMessage = (Message) con.readObject();        
-        
+        inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
         
         if (type == MessageType.POSITIVE)
@@ -421,9 +449,12 @@ public class Entrepreneur extends Thread {
             return false;
         else
         {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         return false;
             
     }

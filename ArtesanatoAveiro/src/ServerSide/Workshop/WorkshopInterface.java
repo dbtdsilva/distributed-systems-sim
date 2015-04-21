@@ -49,7 +49,8 @@ public class WorkshopInterface implements ServerInterface {
                 } 
                 else   {
                     boolean mats = ws.collectingMaterials(inMessage.getId());
-                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId()); /**/
+                    outMessage = new Message(mats ? MessageType.POSITIVE : MessageType.NEGATIVE, 
+                            CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId()); /**/
                 }
                 break;
             
@@ -60,7 +61,7 @@ public class WorkshopInterface implements ServerInterface {
                 else   {
                     int id = inMessage.getId();
                     int nProdsStored = ws.goToStore(id);
-                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.PRODUCING_A_NEW_PIECE, id, nProdsStored);
+                    outMessage = new Message(MessageType.ACK, CraftsmanState.PRODUCING_A_NEW_PIECE, id, nProdsStored);
                 }
                 break;
             
@@ -70,7 +71,7 @@ public class WorkshopInterface implements ServerInterface {
                 } 
                 else   {
                     ws.backToWork(inMessage.getId());
-                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId());
+                    outMessage = new Message(MessageType.ACK, CraftsmanState.FETCHING_PRIME_MATERIALS, inMessage.getId());
                 }
                 break;
             
@@ -80,7 +81,7 @@ public class WorkshopInterface implements ServerInterface {
                 } 
                 else   {
                     ws.prepareToProduce(inMessage.getId());
-                    outMessage = new Message(MessageType.POSITIVE, CraftsmanState.PRODUCING_A_NEW_PIECE, inMessage.getId());
+                    outMessage = new Message(MessageType.ACK, CraftsmanState.PRODUCING_A_NEW_PIECE, inMessage.getId());
                 }
                 break;
                 

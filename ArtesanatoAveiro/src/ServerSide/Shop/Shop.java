@@ -76,6 +76,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -117,6 +118,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
         //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
         //            reqFetchProducts, reqPrimeMaterials, 
         //            CustomerState.APPRAISING_OFFER_IN_DISPLAY,
@@ -156,7 +158,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
-        
+        con.close();
         //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
         //            reqFetchProducts, reqPrimeMaterials, 
         //            CustomerState.CARRYING_OUT_DAILY_CHORES,
@@ -211,6 +213,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
         //log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
         //            reqFetchProducts, reqPrimeMaterials, 
         //            ((Customer) Thread.currentThread()).getCurrentState(),
@@ -256,6 +259,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
   
         /******************/
@@ -290,7 +294,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
-        
+        con.close();
         //log.WriteShopAndEntrepreneurStat(this.shopState, nCustomersInside, 
         //        nProductsStock, reqFetchProducts, reqPrimeMaterials, 
         //        ((Entrepreneur) Thread.currentThread()).getCurrentState());
@@ -327,10 +331,11 @@ public class Shop {
             con.writeObject(outMessage);
             Message inMessage = (Message) con.readObject();
             MessageType type = inMessage.getType();
-            if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
+            if (type != MessageType.POSITIVE && type != MessageType.NEGATIVE) {
                 System.out.println("Tipo inválido!");
                 System.exit(1);
             }
+            con.close();
             
             boolean endOpEntr = MessageType.POSITIVE == type;
             requestEntrepreneur--;
@@ -374,7 +379,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
-        
+        con.close();
         
         if (waitingLine.size() == 0) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, 
@@ -409,6 +414,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     /**
      * The entrepreneur signals that she will close the shop.
@@ -434,6 +440,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     /**
      * This function returns true if there's customers inside the shop.
@@ -472,6 +479,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }  
     /**
      * The entrepreneur returns to the shop, she went to fetch products or to deliver
@@ -510,6 +518,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     
         /***************/
@@ -553,6 +562,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     /**
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
@@ -589,6 +599,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
         /*************/
         /** GENERAL **/
@@ -617,6 +628,7 @@ public class Shop {
             System.out.println("Tipo inválido!");
             System.exit(1);
         }
+        con.close();
     }
     /**
      * This function is used to the Entrepreneur reset the flag requestProducts.

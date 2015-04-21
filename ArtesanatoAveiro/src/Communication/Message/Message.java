@@ -129,7 +129,6 @@ public class Message implements Serializable {
         this.type = type;
         switch(type)
         {
-            case ACK:
             case ENTER_SHOP:
             case EXIT_SHOP:
             case GO_SHOPPING:
@@ -147,13 +146,14 @@ public class Message implements Serializable {
             case REPLENISH_STOCK:
                 this.nMaterials = value;
                 break;
+            case ACK:
             case RETURN_TO_SHOP:
             case GO_TO_WORKSHOP:
                 this.nProducts = value;
                 break;
             default:
+                System.err.println(type + ", wrong message type!");
                 this.type = MessageType.ERROR;
-                System.err.println("WRONG MESSAGE TYPE!");
                 break;
         }
     }
@@ -180,8 +180,8 @@ public class Message implements Serializable {
                 break;
 
             default:
+                System.err.println(type + ", wrong message type!");
                 this.type = MessageType.ERROR;
-                System.err.println("WRONG MESSAGE TYPE!");
                 break;
         }
     }
@@ -198,7 +198,7 @@ public class Message implements Serializable {
         this.nextTask = nextTask;
     }
     /**
-     * GOTOSTORE->RESPOSTA e WRITE_CUST_STAT
+     * GOTOSTORE->RESPOSTA e WRITE_CUST_STAT, COLLECT_MATER->RESP
      * 
      * @param type
      * @param craftState
@@ -213,16 +213,17 @@ public class Message implements Serializable {
             case ACK:
                 this.nProducts = value;
                 break;
-            case WRITE_CUST_STATE:
+            case WRITE_CRAFT_STATE:
                 this.id = value;
                 break;
             case POSITIVE:
+            case NEGATIVE:
                 this.id = value;
                 this.craftState = craftState;
                 break;
             default:
+                System.err.println(type + ", wrong message type!");
                 this.type = MessageType.ERROR;
-                System.err.println("WRONG MESSAGE TYPE!");
                 break;
         }
     }
@@ -239,16 +240,34 @@ public class Message implements Serializable {
                 this.nProductsStored = value;
                 break;
             default:
+                System.err.println(type + ", wrong message type!");
                 this.type = MessageType.ERROR;
-                System.err.println("WRONG MESSAGE TYPE!");
                 break;
         }
     }
-    
-    public Message(MessageType type, CustomerState custState, int nProducts) {
+    /**
+     * perusing and write cust state
+     * @param type
+     * @param custState
+     * @param value 
+     */
+    public Message(MessageType type, CustomerState custState, int value) {
         this();
         this.type = type;
-        this.nProducts = nProducts;
+        switch (type) {
+            case WRITE_CUST_STATE:
+                this.id = value;
+                break;
+            //case PERUSING_AROUND:
+            //    this.nProducts = value;
+            //    break;
+            default:
+                System.err.println(type + ", wrong message type!");
+                this.type = MessageType.ERROR;
+                break;
+                
+        }
+        //this.nProducts = nProducts;
         this.custState = custState;
     }
     
@@ -264,8 +283,8 @@ public class Message implements Serializable {
                 break;
 
             default:
+                System.err.println(type + ", wrong message type!");
                 this.type = MessageType.ERROR;
-                System.err.println("WRONG MESSAGE TYPE!");
                 break;
         }
     }
@@ -500,5 +519,10 @@ public class Message implements Serializable {
     }
     public char getNextTask() {
         return nextTask;
+    }
+    
+    @Override
+    public String toString() {
+        return this.type.toString();
     }
 }

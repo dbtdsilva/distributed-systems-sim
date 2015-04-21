@@ -6,6 +6,7 @@ import Communication.Message.Message;
 import static Communication.Message.Message.ERROR_INT;
 import Communication.Message.MessageType;
 import Exec.ProbConst;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,11 +106,13 @@ public class Craftsman extends Thread {
         inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
         
-        if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
+        if (type != MessageType.POSITIVE && type != MessageType.NEGATIVE) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         return type == MessageType.POSITIVE;
     }
 
@@ -133,12 +136,14 @@ public class Craftsman extends Thread {
        
         if (type != MessageType.ACK) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         if (stat == null) {
             System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();
@@ -166,12 +171,14 @@ public class Craftsman extends Thread {
         
         if (type != MessageType.ACK) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         if (stat == null) {
             System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();
@@ -199,12 +206,14 @@ public class Craftsman extends Thread {
         
         if (type != MessageType.ACK) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         if (stat == null) {
             System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();
@@ -232,12 +241,14 @@ public class Craftsman extends Thread {
         
         if (type != MessageType.ACK) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         if (stat == null || inMessage.getnProductsStored()== ERROR_INT) {
             System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();
@@ -267,12 +278,14 @@ public class Craftsman extends Thread {
         
         if (type != MessageType.ACK) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         if (stat == null) {
             System.out.println("Thread " + getName() + ": Parametros da mensagem errados");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();
@@ -281,7 +294,7 @@ public class Craftsman extends Thread {
     }
 
     private int endOperCraft() {
-        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
         Message inMessage, outMessage;
 
         while (!con.open())
@@ -291,15 +304,16 @@ public class Craftsman extends Thread {
             } catch (InterruptedException e) {
             }
         }
-        outMessage = new Message(MessageType.BATCH_READY_FOR_TRANSFER, id);
+        outMessage = new Message(MessageType.END_OPER_CRAFTSMAN);
         con.writeObject(outMessage);
         
         inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
         
-        if (type != MessageType.POSITIVE || type != MessageType.NEGATIVE) {
+        if (type != MessageType.POSITIVE && type != MessageType.NEGATIVE) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
-            System.out.println(inMessage.toString());
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         con.close();

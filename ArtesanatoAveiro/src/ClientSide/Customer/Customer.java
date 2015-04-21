@@ -5,6 +5,7 @@ import Communication.CommConst;
 import Communication.Message.Message;
 import Communication.Message.MessageType;
 import static java.lang.Thread.sleep;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,10 +98,13 @@ public class Customer extends Thread {
         MessageType type = inMessage.getType();
         CustomerState cs = inMessage.getCustState();
         if (type != MessageType.ACK || cs == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         this.setState(cs);
+        con.close();
     }
 
     private boolean isDoorOpen() {
@@ -120,24 +124,15 @@ public class Customer extends Thread {
         inMessage = (Message) con.readObject();
         
         MessageType type = inMessage.getType();
-        CustomerState cs = inMessage.getCustState();
         
-        if(type == MessageType.POSITIVE && cs != null)
-        {
-            this.setState(cs);
-            return true;
-        }
-        else if(type == MessageType.NEGATIVE && cs != null)
-        {
-            this.setState(cs);
-            return false;
-        }
-        else
-        {
-            System.out.println("Tipo inválido!");
+        if (type != MessageType.POSITIVE && type != MessageType.NEGATIVE) {
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        return false;
+        con.close();
+        return type == MessageType.POSITIVE;
     }
 
     private void enterShop(int id) {
@@ -159,10 +154,13 @@ public class Customer extends Thread {
         MessageType type = inMessage.getType();
         CustomerState cs = inMessage.getCustState();
         if (type != MessageType.ACK || cs == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
         this.setState(cs);
+        con.close();
     }
 
     private int perusingAround() {
@@ -185,10 +183,12 @@ public class Customer extends Thread {
         int prods = inMessage.getnProducts();
         
         if (type != MessageType.ACK || prods == Message.ERROR_INT) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        
+        con.close();
         return prods;
     }
 
@@ -212,9 +212,12 @@ public class Customer extends Thread {
         CustomerState cs = inMessage.getCustState();
         
         if (type != MessageType.ACK || cs == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         this.setState(cs);
     }
 
@@ -237,9 +240,12 @@ public class Customer extends Thread {
         MessageType type = inMessage.getType();
         CustomerState cs = inMessage.getCustState();
         if (type != MessageType.ACK || cs == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         this.setState(cs);
     }
 
@@ -262,9 +268,12 @@ public class Customer extends Thread {
         MessageType type = inMessage.getType();
         CustomerState cs = inMessage.getCustState();
         if (type != MessageType.ACK || cs == null) {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         this.setState(cs);
     }
 
@@ -292,9 +301,12 @@ public class Customer extends Thread {
             return false;
         else
         {
-            System.out.println("Tipo inválido!");
+            System.out.println("Thread " + getName() + ": Tipo inválido!");
+            System.out.println("Message:"+ inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
+        con.close();
         return false;
     }
 }

@@ -23,7 +23,7 @@ public class WorkshopExec {
         scon.start();                                       // com o endereço público
         Workshop ws = new Workshop();
         WorkshopInterface wsInt = new WorkshopInterface(ws);
-        System.out.println("O serviço foi estabelecido!");
+        System.out.println("O serviço Workshop foi estabelecido!");
         System.out.println("O servidor esta em escuta.");
 
         /* processamento de pedidos */

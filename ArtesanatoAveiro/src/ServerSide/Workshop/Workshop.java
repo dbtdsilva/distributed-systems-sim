@@ -48,24 +48,12 @@ public class Workshop {
      */
     public synchronized int goToWorkshop() {
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
-        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
-        Message inMessage, outMessage;
-
-        while (!con.open())
-        {
-            try {
-                sleep((long) (10));
-            } catch (InterruptedException e) {
-            }
-        }
-        
-        outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
-        con.writeObject(outMessage);
-        
         int n = nProductsStored;
         nProductsStored = 0;
         
-        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        Message inMessage, outMessage;
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        outMessage = new Message(MessageType.RESET_REQ_PRODUCTS);
         con.writeObject(outMessage);
         
         inMessage = (Message) con.readObject();
@@ -76,21 +64,26 @@ public class Workshop {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
         
-        
-        con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
-        outMessage = new Message(MessageType.RESET_REQ_PRODUCTS);
+        con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        while (!con.open()) {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         con.writeObject(outMessage);
         
         inMessage = (Message) con.readObject();
         type = inMessage.getType();
-        
         if (type != MessageType.ACK) {
             System.out.println("Tipo de mensagem inválido!");
             System.out.println(inMessage.toString());
             System.exit(1);
         }
-        
+        con.close();
         return n;
     }
     
@@ -104,10 +97,13 @@ public class Workshop {
      */
     public synchronized void replenishStock(int nMaterials) {
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        nTimesPrimeMaterialsFetched++;
+        nTotalPrimeMaterialsSupplied += nMaterials;
+        nCurrentPrimeMaterials += nMaterials;
         
-        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
-        Message inMessage, outMessage;
-
+        waitingEntrepreneur = false;
+        
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         while (!con.open())
         {
             try {
@@ -116,10 +112,10 @@ public class Workshop {
             }
         }
         
-        outMessage = new Message(MessageType.WRITE_ENTR_STATE, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
+        Message outMessage = new Message(MessageType.RESET_REQ_PMATERIALS);
         con.writeObject(outMessage);
         
-        inMessage = (Message) con.readObject();
+        Message inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
         
         if (type != MessageType.ACK) {
@@ -127,21 +123,9 @@ public class Workshop {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
-
-        nTimesPrimeMaterialsFetched++;
-        nTotalPrimeMaterialsSupplied += nMaterials;
-        nCurrentPrimeMaterials += nMaterials;
+        con.close();
         
-        waitingEntrepreneur = false;
-        
-        
-        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, 
-                nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
-                nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
-        con.writeObject(outMessage);
-        
-        con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
-        
+        con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
         while (!con.open())
         {
             try {
@@ -150,17 +134,11 @@ public class Workshop {
             }
         }
         
-        outMessage = new Message(MessageType.RESET_REQ_PMATERIALS);
+        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, 
+                nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, 
+                nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.DELIVERING_PRIME_MATERIALS);
         con.writeObject(outMessage);
-        
-        inMessage = (Message) con.readObject();
-        type = inMessage.getType();
-        
-        if (type != MessageType.ACK) {
-            System.out.println("Tipo de mensagem inválido!");
-            System.out.println(inMessage.toString());
-            System.exit(1);
-        }
+        con.close();
         
         notifyAll();
     }
@@ -218,6 +196,7 @@ public class Workshop {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
         
         return true;
     }   
@@ -230,47 +209,25 @@ public class Workshop {
      * @return the number of products stored in workshop.
      */
     public synchronized int goToStore(int id) {
-        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
-        Message inMessage, outMessage;
-
-        while (!con.open())
-        {
-            try {
-                sleep((long) (10));
-            } catch (InterruptedException e) {
-            }
-        }
-        
-        outMessage = new Message(MessageType.WRITE_CRAFT_STATE, CraftsmanState.STORING_IT_FOR_TRANSFER, id);
-        con.writeObject(outMessage);
-        
-        inMessage = (Message) con.readObject();
-        MessageType type = inMessage.getType();
-        
-        if (type != MessageType.ACK) {
-            System.out.println("Tipo de mensagem inválido!");
-            System.out.println(inMessage.toString());
-            System.exit(1);
-        }
-        
         nFinishedProducts++;
         nProductsStored++;
         
-        outMessage = new Message(MessageType.WRITE_WSHOP_CRAFT_STATE,
+        ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
+        Message outMessage = new Message(MessageType.WRITE_WSHOP_CRAFT_STATE,
                 nCurrentPrimeMaterials, nProductsStored, 
                 nTimesPrimeMaterialsFetched, 
                 nTotalPrimeMaterialsSupplied, nFinishedProducts, CraftsmanState.STORING_IT_FOR_TRANSFER, id, true);
         
         con.writeObject(outMessage);
         
-        inMessage = (Message) con.readObject();
-        type = inMessage.getType();
-        
+        Message inMessage = (Message) con.readObject();
+        MessageType type = inMessage.getType();
         if (type != MessageType.ACK) {
             System.out.println("Tipo de mensagem inválido!");
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
         
         return nProductsStored;
     }
@@ -305,6 +262,7 @@ public class Workshop {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
         
     } 
     
@@ -336,5 +294,6 @@ public class Workshop {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
     } 
 }

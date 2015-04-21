@@ -75,6 +75,7 @@ public class Warehouse {
             System.out.println(inMessage.toString());
             System.exit(1);
         }
+        con.close();
         
         return n;
     }
