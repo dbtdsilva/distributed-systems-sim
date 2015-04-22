@@ -29,7 +29,7 @@ public class WorkshopInterface implements ServerInterface {
         {
             case GO_TO_WORKSHOP:
                 int prods = ws.goToWorkshop();
-                outMessage = new Message(MessageType.GO_TO_WORKSHOP, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS, prods);
+                outMessage = new Message(MessageType.ACK, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS, prods);
                 break;
             
             case REPLENISH_STOCK:

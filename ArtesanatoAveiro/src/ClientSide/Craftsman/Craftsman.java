@@ -146,9 +146,8 @@ public class Craftsman extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
-        
         this.state = stat;
+        con.close();
     }
 
     private void backToWork(int id) {
@@ -181,9 +180,8 @@ public class Craftsman extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
-        
         this.state = stat;
+        con.close();
     }
 
     private void prepareToProduce(int id) {
@@ -216,9 +214,8 @@ public class Craftsman extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
-        
         this.state = stat;
+        con.close();
     }
 
     private int goToStore(int id) {
@@ -251,9 +248,8 @@ public class Craftsman extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
-        
         this.state = stat;
+        con.close();
         
         return inMessage.getnProductsStored();
     }
@@ -288,9 +284,8 @@ public class Craftsman extends Thread {
             System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
             System.exit(1);
         }
-        con.close();
-        
         this.state = stat;
+        con.close();
     }
 
     private int endOperCraft() {

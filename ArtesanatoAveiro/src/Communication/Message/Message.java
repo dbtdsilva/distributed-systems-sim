@@ -33,7 +33,7 @@ public class Message implements Serializable {
     private char nextTask;
     private int nProducts;
     private int nMaterials;
-    private int custId_nMaterials;
+    private int returnEntr;
     
     private boolean requestFetchProducts;
     private boolean requestPrimeMaterials;
@@ -69,7 +69,7 @@ public class Message implements Serializable {
 
         nProducts = ERROR_INT;
         nMaterials = ERROR_INT;
-        custId_nMaterials = ERROR_INT;
+        returnEntr = ERROR_INT;
 
         requestFetchProducts = false;
         requestPrimeMaterials = false;
@@ -271,7 +271,7 @@ public class Message implements Serializable {
         this.custState = custState;
     }
     
-    public Message(MessageType type, EntrepreneurState entrState, int custId_nMaterials) {
+    public Message(MessageType type, EntrepreneurState entrState, int returnEntr) {
         this();
         this.type = type;
         this.entrState = entrState;
@@ -279,7 +279,7 @@ public class Message implements Serializable {
         switch(type)
         {
             case ACK:
-                this.custId_nMaterials = custId_nMaterials;
+                this.returnEntr = returnEntr;
                 break;
 
             default:
@@ -403,10 +403,11 @@ public class Message implements Serializable {
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
         this.nTotalPrimeMaterialsSupplied = nTotalPrimeMaterialsSupplied;
         this.nFinishedProducts = nFinishedProducts;
-        
+        this.id = idCraft;
+        this.craftState = state;
+        this.finishedProduct = finishedProduct;
         
         this.type = type;
-        
     }
     
      public Message(MessageType type, int nCurrentPrimeMaterials, 
@@ -514,8 +515,8 @@ public class Message implements Serializable {
     public boolean isFinishedProduct() {
         return finishedProduct;
     }
-    public int getCustId_nMaterials() {
-        return custId_nMaterials;
+    public int getReturnEntr() {
+        return returnEntr;
     }
     public char getNextTask() {
         return nextTask;

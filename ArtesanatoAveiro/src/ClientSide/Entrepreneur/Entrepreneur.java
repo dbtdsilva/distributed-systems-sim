@@ -173,7 +173,7 @@ public class Entrepreneur extends Thread {
         
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
-        int id = inMessage.getId();
+        int id = inMessage.getReturnEntr();
         
         if (type != MessageType.ACK || es == null || id == Message.ERROR_INT) {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
@@ -322,7 +322,7 @@ public class Entrepreneur extends Thread {
         
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
-        int prods = inMessage.getnProducts();
+        int prods = inMessage.getReturnEntr();
         
         if (type != MessageType.ACK || es == null || prods == Message.ERROR_INT)  {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
@@ -383,7 +383,7 @@ public class Entrepreneur extends Thread {
         
         MessageType type = inMessage.getType();
         EntrepreneurState es = inMessage.getEntrState();
-        int mats = inMessage.getCustId_nMaterials();
+        int mats = inMessage.getReturnEntr();
         
         if (type != MessageType.ACK || es == null || mats == Message.ERROR_INT)  {
             System.out.println("Thread " + getName() + ": Tipo inválido!");
