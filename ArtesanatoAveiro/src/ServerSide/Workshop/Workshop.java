@@ -79,7 +79,9 @@ public class Workshop {
             } catch (InterruptedException e) {
             }
         }
-        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, nCurrentPrimeMaterials, nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, nFinishedProducts, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
+        outMessage = new Message(MessageType.WRITE_WSHOP_ENTR_STATE, nCurrentPrimeMaterials, 
+                nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
+                nFinishedProducts, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         con.writeObject(outMessage);
         
         inMessage = (Message) con.readObject();

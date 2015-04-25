@@ -620,7 +620,7 @@ public class Shop {
             } catch (InterruptedException e) {
             }
         }
-        Message outMessage = new Message(MessageType.UPDATE_REQ_PRODUCTS, reqPrimeMaterials);
+        Message outMessage = new Message(MessageType.UPDATE_REQ_PMATERIALS, reqPrimeMaterials);
         con.writeObject(outMessage);
         Message inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();
@@ -644,7 +644,7 @@ public class Shop {
             } catch (InterruptedException e) {
             }
         }
-        Message outMessage = new Message(MessageType.UPDATE_REQ_PMATERIALS, reqFetchProducts);
+        Message outMessage = new Message(MessageType.UPDATE_REQ_PRODUCTS, reqFetchProducts);
         con.writeObject(outMessage);
         Message inMessage = (Message) con.readObject();
         MessageType type = inMessage.getType();

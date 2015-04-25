@@ -23,8 +23,8 @@ public class WarehouseExec {
         scon.start();                                       // com o endereço público
         Warehouse wh = new Warehouse();
         WarehouseInterface whInt = new WarehouseInterface(wh);
-        System.out.println("O serviço Warehouse foi estabelecido!");
-        System.out.println("O servidor esta em escuta.");
+        System.out.println("Warehouse service has started!");
+        System.out.println("Server is listening.");
 
         /* processamento de pedidos */
         while (true) {

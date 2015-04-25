@@ -26,6 +26,9 @@ public class WarehouseInterface implements ServerInterface {
         Message outMessage = null;
         
         switch (inMessage.getType()) {
+            case TERMINATE:
+                outMessage = new Message(MessageType.ACK);
+                break;
             case VISIT_SUPPLIERS:
                 int n = wh.visitSuppliers();
                 outMessage = new Message(MessageType.ACK, EntrepreneurState.AT_THE_SUPPLIERS, n);

@@ -24,8 +24,8 @@ public class ShopExec {
         scon.start();                                       // com o endereço público
         Shop shop = new Shop();
         ShopInterface shopInt = new ShopInterface(shop);
-        System.out.println("O serviço Shop foi estabelecido!");
-        System.out.println("O servidor esta em escuta.");
+        System.out.println("Shop service has started!");
+        System.out.println("Server is listening.");
 
         /* processamento de pedidos */
         while (true) {

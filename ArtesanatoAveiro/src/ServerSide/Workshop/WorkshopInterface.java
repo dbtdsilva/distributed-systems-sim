@@ -27,6 +27,9 @@ public class WorkshopInterface implements ServerInterface {
         
         switch(inMessage.getType())
         {
+            case TERMINATE:
+                outMessage = new Message(MessageType.ACK);
+                break;
             case GO_TO_WORKSHOP:
                 int prods = ws.goToWorkshop();
                 outMessage = new Message(MessageType.ACK, EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS, prods);

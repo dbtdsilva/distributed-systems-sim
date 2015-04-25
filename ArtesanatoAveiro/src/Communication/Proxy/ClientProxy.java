@@ -7,6 +7,7 @@ package Communication.Proxy;
 
 import Communication.Message.Message;
 import Communication.Message.MessageException;
+import Communication.Message.MessageType;
 import Communication.ServerComm;
 
 /**
@@ -78,6 +79,11 @@ public class ClientProxy extends Thread {
         }
         sconi.writeObject(outMessage);                                // enviar resposta ao cliente
         sconi.close();                                                // fechar canal de comunicação
+        
+        if (inMessage.getType() == MessageType.TERMINATE) {
+            System.out.println("Terminated service.");
+            System.exit(0);
+        }
     }
 
     /**

@@ -29,6 +29,9 @@ public class ShopInterface implements ServerInterface {
         Message outMessage = null;
         
         switch (inMessage.getType()) {
+            case TERMINATE:
+                outMessage = new Message(MessageType.ACK);
+                break;
             case GO_SHOPPING:
                 if (inMessage.getId() == Message.ERROR_INT)
                     throw new MessageException("Id do cliente inválido,", inMessage);
@@ -126,7 +129,7 @@ public class ShopInterface implements ServerInterface {
                 outMessage = new Message(MessageType.ACK);
                 break;
             case RESET_REQ_PRODUCTS:
-                shop.resetRequestPrimeMaterials();
+                shop.resetRequestProducts();
                 outMessage = new Message(MessageType.ACK);
                 break;
             default:

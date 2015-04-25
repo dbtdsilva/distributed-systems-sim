@@ -23,28 +23,17 @@ public class LoggingExec {
         /* estabelecimento do servico */
         scon = new ServerComm(CommConst.loggServerPort);    // criação do canal de escuta e sua associação
         scon.start();                                       // com o endereço público
-        Logging log = new Logging("", ProbConst.nCustomers, ProbConst.nCraftsmen, ProbConst.nPrimeMaterials);
+        Logging log = new Logging("", ProbConst.nCustomers, 
+                ProbConst.nCraftsmen, ProbConst.nPrimeMaterials);
         LoggingInterface logInt = new LoggingInterface(log);
-        System.out.println("O serviço de Logging foi estabelecido!");
-        System.out.println("O servidor esta em escuta.");
-        ShutdownHook shutdownHook = new ShutdownHook(log);
-        Runtime.getRuntime().addShutdownHook(shutdownHook);
+        System.out.println("Logging service has started!");
+        System.out.println("Server is listening.");
+        
         /* processamento de pedidos */
         while (true) {
             sconi = scon.accept();                         // entrada em processo de escuta
             cliProxy = new ClientProxy(sconi, logInt);     // lançamento do agente prestador do serviço
             cliProxy.start();
         }
-    }
-}
-
-class ShutdownHook extends Thread {
-    Logging log;
-    ShutdownHook(Logging log) {
-        this.log = log;
-    }
-    @Override
-    public void run() {
-        log.EndWriting();
     }
 }
