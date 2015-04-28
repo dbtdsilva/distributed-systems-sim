@@ -8,7 +8,7 @@ package ServerSide.Logger;
 import Communication.CommConst;
 import Communication.Proxy.ClientProxy;
 import Communication.ServerComm;
-import Exec.ProbConst;
+import Communication.ProbConst;
 import java.io.IOException;
 
 /**

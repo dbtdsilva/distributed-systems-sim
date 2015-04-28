@@ -1,4 +1,4 @@
-package Exec;
+package Communication;
 
 /**
  * This class contains all the constants.

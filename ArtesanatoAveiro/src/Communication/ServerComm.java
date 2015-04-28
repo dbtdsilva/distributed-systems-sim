@@ -130,7 +130,7 @@ public class ServerComm {
 
             System.exit(1);
         }
-
+        
         try {
             scon.in = new ObjectInputStream(scon.commSocket.getInputStream());
         } catch (IOException e) {

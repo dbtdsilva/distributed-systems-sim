@@ -5,7 +5,7 @@ import Communication.CommConst;
 import Communication.Message.Message;
 import static Communication.Message.Message.ERROR_INT;
 import Communication.Message.MessageType;
-import Exec.ProbConst;
+import Communication.ProbConst;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +57,7 @@ public class Craftsman extends Thread {
             batchReadyForTransfer(id);
         }
 
-        System.out.println("Artesão " + id + " acabou execução!");
+        System.out.println("Craftsman " + id + " ended execution!");
     }
 
     /**

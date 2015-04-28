@@ -18,6 +18,7 @@ public enum MessageType {
     NEGATIVE,
     ERROR,
     TERMINATE,
+    TERMINATED,
     /**
      * Craftsmen
      */

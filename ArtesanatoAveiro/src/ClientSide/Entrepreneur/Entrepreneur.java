@@ -64,7 +64,8 @@ public class Entrepreneur extends Thread {
                 returnToShop(-1);
             }
         } while(!endOpEntrep());
-        System.out.println("Dona acabou execução!");
+        
+        System.out.println("Entrepreneur ended execution!");
     }
     
     /**
@@ -97,7 +98,7 @@ public class Entrepreneur extends Thread {
             Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void prepareToWork() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;

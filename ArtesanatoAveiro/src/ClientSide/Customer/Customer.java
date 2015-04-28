@@ -49,7 +49,8 @@ public class Customer extends Thread {
                 tryAgainLater(id);
             }
         } while (!endOpCustomer());
-        System.out.println("Cliente "+id+" acabou execução!");
+        
+        System.out.println("Customer "+id+" ended execution!");
     }
     
     /**
@@ -68,6 +69,7 @@ public class Customer extends Thread {
     public CustomerState getCurrentState() {
         return state;
     }
+    
     /**
      * The customer waits some time before going to the shop.
      */

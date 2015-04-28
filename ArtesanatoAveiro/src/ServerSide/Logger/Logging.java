@@ -3,13 +3,19 @@ package ServerSide.Logger;
 import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Customer.CustomerState;
 import ClientSide.Entrepreneur.EntrepreneurState;
-import Exec.ProbConst;
+import Communication.ClientComm;
+import Communication.CommConst;
+import Communication.Message.Message;
+import Communication.Message.MessageType;
+import Communication.ProbConst;
 import ServerSide.Shop.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,6 +38,7 @@ public class Logging {
     private PrintWriter pw;
     
     /* Auxiliar variables */
+    private int nClientsRunning;
     // Entrepeneur information
     private EntrepreneurState entrepState;
     
@@ -76,7 +83,9 @@ public class Logging {
             int primeMaterials) throws IOException
     {
         console = false;
-                      
+        
+        nClientsRunning = nCustomers + nCraftsmen + 1;
+        
         nWorkingCraftsmen = nCraftsmen;
         nCustomerIn = 0;
         nGoodsInDisplay = 0;
@@ -116,6 +125,65 @@ public class Logging {
         }
         
         InitWriting();
+    }
+
+    public synchronized boolean clientsTerminated() {
+        nClientsRunning--;
+        return nClientsRunning == 0;
+    }
+    
+    public synchronized void terminateServers() {
+        Message inMessage, outMessage;
+        ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
+        while (!con.open()) {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.TERMINATE);
+        con.writeObject(outMessage);
+        inMessage = (Message) con.readObject();
+        if (inMessage.getType() != MessageType.ACK) {
+            System.out.println("Tipo Inválido. Message:" + inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
+            System.exit(1);
+        }
+        con.close();
+        
+        con = new ClientComm(CommConst.whServerName, CommConst.whServerPort);
+        while (!con.open()) {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.TERMINATE);
+        con.writeObject(outMessage);
+        inMessage = (Message) con.readObject();
+        if (inMessage.getType() != MessageType.ACK) {
+            System.out.println("Tipo Inválido. Message:" + inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
+            System.exit(1);
+        }
+        con.close();
+        
+        con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
+        while (!con.open()) {
+            try {
+                sleep((long) (10));
+            } catch (InterruptedException e) {
+            }
+        }
+        outMessage = new Message(MessageType.TERMINATE);
+        con.writeObject(outMessage);
+        inMessage = (Message) con.readObject();
+        if (inMessage.getType() != MessageType.ACK) {
+            System.out.println("Tipo Inválido. Message:" + inMessage.toString());
+            System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
+            System.exit(1);
+        }
+        con.close();
     }
     
     /**

@@ -29,6 +29,8 @@ public class LoggingInterface implements ServerInterface {
         switch (inMessage.getType()) {
             case TERMINATE:
                 outMessage = new Message(MessageType.ACK);
+                if (log.clientsTerminated()) 
+                    log.terminateServers();
                 break;
             case END_OPER_CUSTOMER:
                 if (log.endOpCustomer())

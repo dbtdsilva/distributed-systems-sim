@@ -5,7 +5,7 @@ import Communication.ClientComm;
 import Communication.CommConst;
 import Communication.Message.Message;
 import Communication.Message.MessageType;
-import Exec.ProbConst;
+import Communication.ProbConst;
 import static java.lang.Thread.sleep;
 
 /**
