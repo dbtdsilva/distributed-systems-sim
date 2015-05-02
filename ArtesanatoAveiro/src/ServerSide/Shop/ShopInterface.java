@@ -12,6 +12,8 @@ import Communication.Message.Message;
 import Communication.Message.MessageException;
 import Communication.Message.MessageType;
 import Communication.Proxy.ServerInterface;
+import Communication.ServerComm;
+import java.net.SocketException;
 
 /**
  *
@@ -19,18 +21,21 @@ import Communication.Proxy.ServerInterface;
  */
 public class ShopInterface implements ServerInterface {
     private final Shop shop;
+    private boolean serviceEnded;
     
     public ShopInterface(Shop shop) {
         this.shop = shop;
+        this.serviceEnded = false;
     }
 
     @Override
-    public Message processAndReply(Message inMessage) throws MessageException {
+    public Message processAndReply(Message inMessage, ServerComm scon) throws MessageException, SocketException {
         Message outMessage = null;
         
         switch (inMessage.getType()) {
             case TERMINATE:
                 outMessage = new Message(MessageType.ACK);
+                this.serviceEnded = true;
                 break;
             case GO_SHOPPING:
                 if (inMessage.getId() == Message.ERROR_INT)
@@ -137,5 +142,10 @@ public class ShopInterface implements ServerInterface {
                 break;
         }
         return outMessage;
+    }
+
+    @Override
+    public boolean serviceEnded() {
+        return serviceEnded;
     }
 }

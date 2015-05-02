@@ -8,6 +8,8 @@ package ServerSide.Shop;
 import Communication.CommConst;
 import Communication.Proxy.ClientProxy;
 import Communication.ServerComm;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 /**
  *
@@ -15,7 +17,7 @@ import Communication.ServerComm;
  */
 public class ShopExec {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocketException {
         ServerComm scon, sconi;                             // canais de comunicação
         ClientProxy cliProxy;                               // thread agente prestador do serviço
 
@@ -29,9 +31,14 @@ public class ShopExec {
 
         /* processamento de pedidos */
         while (true) {
-            sconi = scon.accept();                         // entrada em processo de escuta
-            cliProxy = new ClientProxy(sconi, shopInt);    // lançamento do agente prestador do serviço
-            cliProxy.start();
+            //scon.setTimeout(500);
+            try {
+                sconi = scon.accept();                         // entrada em processo de escuta
+                cliProxy = new ClientProxy(scon, sconi, shopInt);    // lançamento do agente prestador do serviço
+                cliProxy.start();
+            } catch (SocketTimeoutException ex) {
+                System.exit(0);
+            }
         }
     }
 }

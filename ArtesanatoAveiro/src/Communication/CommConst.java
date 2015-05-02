@@ -29,6 +29,8 @@ public class CommConst {
     public final static int wsServerPort = 22442;
     public final static String whServerName = "127.0.0.1";
     public final static int whServerPort = 22443;
+    
+    public final static int socketTimeout = 500;
 
     // client l040101-ws09.ua.pt
 }

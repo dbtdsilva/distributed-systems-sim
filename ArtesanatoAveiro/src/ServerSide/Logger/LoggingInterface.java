@@ -10,6 +10,8 @@ import static Communication.Message.Message.ERROR_INT;
 import Communication.Message.MessageException;
 import Communication.Message.MessageType;
 import Communication.Proxy.ServerInterface;
+import Communication.ServerComm;
+import java.net.SocketException;
 
 /**
  *
@@ -17,20 +19,26 @@ import Communication.Proxy.ServerInterface;
  */
 public class LoggingInterface implements ServerInterface {
     private final Logging log;
+    public boolean serviceEnded;
     
     public LoggingInterface(Logging log) {
         this.log = log;
+        this.serviceEnded = false;
     }
 
     @Override
-    public Message processAndReply(Message inMessage) throws MessageException {
+    public Message processAndReply(Message inMessage, ServerComm scon) throws MessageException, SocketException {
         Message outMessage = null;
         
         switch (inMessage.getType()) {
             case TERMINATE:
                 outMessage = new Message(MessageType.ACK);
-                if (log.clientsTerminated()) 
+                if (log.clientsTerminated()) {
                     log.terminateServers();
+                    System.out.println("Terminating servers...");
+                    serviceEnded = true;
+                }
+                
                 break;
             case END_OPER_CUSTOMER:
                 if (log.endOpCustomer())
@@ -186,5 +194,10 @@ public class LoggingInterface implements ServerInterface {
                 break;
         }
         return outMessage;
+    }
+    
+    @Override
+    public boolean serviceEnded() {
+        return serviceEnded;
     }
 }

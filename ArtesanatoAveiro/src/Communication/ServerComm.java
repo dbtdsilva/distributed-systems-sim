@@ -1,7 +1,15 @@
 package Communication;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.BindException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 /**
  * Este tipo de dados implementa o canal de comunicação, lado do servidor, para
@@ -113,18 +121,22 @@ public class ServerComm {
      *
      * @return canal de comunicação
      */
-    public ServerComm accept() {
+    public ServerComm accept() throws SocketTimeoutException {
         ServerComm scon;                                      // canal de comunicação
 
         scon = new ServerComm(serverPortNumb, listeningSocket);
         try {
-            scon.commSocket = listeningSocket.accept();
+            scon.commSocket = listeningSocket.accept();   
+            
         } catch (SocketException e) {
             System.out.println(Thread.currentThread().getName()
                     + " - foi fechado o socket de escuta durante o processo de escuta!");
 
             System.exit(1);
+        } catch(SocketTimeoutException e) {
+            throw e;
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println(Thread.currentThread().getName()
                     + " - não foi possível abrir um canal de comunicação para um pedido pendente!");
 
@@ -240,4 +252,5 @@ public class ServerComm {
             System.exit(1);
         }
     }
+    
 }

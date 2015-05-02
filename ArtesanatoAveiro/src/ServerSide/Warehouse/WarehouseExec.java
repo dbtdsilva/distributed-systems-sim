@@ -8,6 +8,9 @@ package ServerSide.Warehouse;
 import Communication.CommConst;
 import Communication.Proxy.ClientProxy;
 import Communication.ServerComm;
+import java.net.SocketTimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,9 +31,13 @@ public class WarehouseExec {
 
         /* processamento de pedidos */
         while (true) {
-            sconi = scon.accept();                     // entrada em processo de escuta
-            cliProxy = new ClientProxy(sconi, whInt);  // lançamento do agente prestador do serviço
-            cliProxy.start();
+            try {
+                sconi = scon.accept();                     // entrada em processo de escuta
+                cliProxy = new ClientProxy(scon, sconi, whInt);  // lançamento do agente prestador do serviço
+                cliProxy.start();
+            } catch (SocketTimeoutException ex) {
+                Logger.getLogger(WarehouseExec.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

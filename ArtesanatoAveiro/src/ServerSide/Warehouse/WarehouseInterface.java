@@ -10,24 +10,30 @@ import Communication.Message.Message;
 import Communication.Message.MessageException;
 import Communication.Message.MessageType;
 import Communication.Proxy.ServerInterface;
+import Communication.ServerComm;
+import java.net.SocketException;
 
 /**
  *
  * @author diogosilva
  */
 public class WarehouseInterface implements ServerInterface {
-    Warehouse wh;
+    private final Warehouse wh;
+    private boolean serviceEnded;
+    
     public WarehouseInterface(Warehouse wh) {
         this.wh = wh;
+        this.serviceEnded = false;
     }
     
     @Override
-    public Message processAndReply(Message inMessage) throws MessageException {
+    public Message processAndReply(Message inMessage, ServerComm scon) throws MessageException, SocketException {
         Message outMessage = null;
         
         switch (inMessage.getType()) {
             case TERMINATE:
                 outMessage = new Message(MessageType.ACK);
+                serviceEnded = true;
                 break;
             case VISIT_SUPPLIERS:
                 int n = wh.visitSuppliers();
@@ -37,5 +43,10 @@ public class WarehouseInterface implements ServerInterface {
                 break;
         }
         return outMessage;
+    }
+
+    @Override
+    public boolean serviceEnded() {
+        return serviceEnded;
     }
 }

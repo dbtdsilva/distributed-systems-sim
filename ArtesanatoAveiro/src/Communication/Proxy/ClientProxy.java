@@ -8,6 +8,9 @@ package Communication.Proxy;
 import Communication.Message.Message;
 import Communication.Message.MessageException;
 import Communication.ServerComm;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +47,7 @@ public class ClientProxy extends Thread {
      * @serialField bShopInter
      */
     private final ServerInterface sInterface;
+    private final ServerComm scon;
 
     /**
      * Instanciação do interface à barbearia.
@@ -51,11 +55,12 @@ public class ClientProxy extends Thread {
      * @param sconi canal de comunicação
      * @param sInterface interface à barbearia
      */
-    public ClientProxy(ServerComm sconi, ServerInterface sInterface) {
+    public ClientProxy(ServerComm scon, ServerComm sconi, ServerInterface sInterface) {
         super("Proxy_" + getProxyId());
 
         this.sconi = sconi;
         this.sInterface = sInterface;
+        this.scon = scon;
     }
 
     /**
@@ -69,15 +74,23 @@ public class ClientProxy extends Thread {
         inMessage = (Message) sconi.readObject();                     // ler pedido do cliente
         try 
         {
-            outMessage = sInterface.processAndReply(inMessage);         // processá-lo
+            outMessage = sInterface.processAndReply(inMessage, scon);         // processá-lo
         } catch (MessageException e) 
         {
             System.out.println("Thread " + getName() + ": " + e.getMessage() + "!");
             System.out.println(e.getMessageVal().toString());
             System.exit(1);
+        } catch (SocketException ex) {
+            Logger.getLogger(ClientProxy.class.getName()).log(Level.SEVERE, null, ex);
         }
         sconi.writeObject(outMessage);                                // enviar resposta ao cliente
         sconi.close();                                                // fechar canal de comunicação
+        
+        if(sInterface.serviceEnded())
+        {
+            System.out.println("Closing service ... Done!");
+            System.exit(0);
+        }
     }
 
     /**

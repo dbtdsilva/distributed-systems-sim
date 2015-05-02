@@ -6,9 +6,9 @@
 package ServerSide.Logger;
 
 import Communication.CommConst;
+import Communication.ProbConst;
 import Communication.Proxy.ClientProxy;
 import Communication.ServerComm;
-import Communication.ProbConst;
 import java.io.IOException;
 
 /**
@@ -32,7 +32,7 @@ public class LoggingExec {
         /* processamento de pedidos */
         while (true) {
             sconi = scon.accept();                         // entrada em processo de escuta
-            cliProxy = new ClientProxy(sconi, logInt);     // lançamento do agente prestador do serviço
+            cliProxy = new ClientProxy(scon, sconi, logInt);     // lançamento do agente prestador do serviço
             cliProxy.start();
         }
     }

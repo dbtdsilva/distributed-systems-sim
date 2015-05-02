@@ -84,7 +84,7 @@ public class Logging {
     {
         console = false;
         
-        nClientsRunning = nCustomers + nCraftsmen + 1;
+        nClientsRunning = 3;
         
         nWorkingCraftsmen = nCraftsmen;
         nCustomerIn = 0;

@@ -6,6 +6,8 @@ import Communication.Message.Message;
 import Communication.Message.MessageException;
 import Communication.Message.MessageType;
 import Communication.Proxy.ServerInterface;
+import Communication.ServerComm;
+import java.net.SocketException;
 
 /**
  *
@@ -14,14 +16,16 @@ import Communication.Proxy.ServerInterface;
 public class WorkshopInterface implements ServerInterface {
 
     private Workshop ws;
+    private boolean serviceEnded;
     
     public WorkshopInterface(Workshop ws)
     {
         this.ws = ws;
+        this.serviceEnded = false;
     }
     
     @Override
-    public Message processAndReply(Message inMessage) throws MessageException {
+    public Message processAndReply(Message inMessage, ServerComm scon) throws MessageException, SocketException {
         
         Message outMessage = null;
         
@@ -29,6 +33,7 @@ public class WorkshopInterface implements ServerInterface {
         {
             case TERMINATE:
                 outMessage = new Message(MessageType.ACK);
+                serviceEnded = true;
                 break;
             case GO_TO_WORKSHOP:
                 int prods = ws.goToWorkshop();
@@ -93,6 +98,11 @@ public class WorkshopInterface implements ServerInterface {
         }
         
         return outMessage;
+    }
+
+    @Override
+    public boolean serviceEnded() {
+        return serviceEnded;
     }
     
 }
