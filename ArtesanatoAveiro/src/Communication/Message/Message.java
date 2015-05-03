@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Communication.Message;
 
 import ClientSide.Craftsman.CraftsmanState;
@@ -11,43 +6,143 @@ import ClientSide.Entrepreneur.EntrepreneurState;
 import ServerSide.Shop.ShopState;
 import java.io.Serializable;
 
+
 /**
+ * This file defines the message class.
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class Message implements Serializable {
+    
+    /**
+     * Variable that defines the integer value for an error.
+     */
     public static final int ERROR_INT = Integer.MIN_VALUE;
+    
+    /**
+     * Variable that defines the character value for an error.
+     */
     public static final char ERROR_CHAR = 0xFFFE;
     
+    /**
+     * Variable that defines the serial version identifier.
+     */
     private static final long serialVersionUID = 1001L;
+    
+    /**
+     * Variable that defines the type of the current message.
+     */
     private MessageType type;
     
+    /**
+     * Variable that defines the identifier, if the message requires one.
+     */
     private int id;
+    
+    /**
+     * Variable that holds the Entrepreneur state, in case the message requires it.
+     */
     private EntrepreneurState entrState;
+    
+    /**
+     * Variable that holds the Customer state, in case the message requires it.
+     */
     private CustomerState custState;
+    
+    /**
+     * Variable that holds the Craftsman state, in case the message requires it.
+     */
     private CraftsmanState craftState;
+    
+    /**
+     * Variable that holds the Shop state, in case the message requires it.
+     */
     private ShopState shopState;
     
+    /**
+     * Variable that holds the logging file name, in case the message requires it.
+     */
     private String filename;
     
+    /**
+     * Variable that holds the Entrepreneur's next task, in case the message requires it.
+     */
     private char nextTask;
+    
+    /**
+     * Variable that holds the number of products, in case the message requires it.
+     */
     private int nProducts;
+    
+    /**
+     * Variable that holds the number of materials, in case the message requires it.
+     */
     private int nMaterials;
+    
+    /**
+     * FIX_ME!!
+     */
     private int returnEntr;
     
+    /**
+     * Variable that holds the information related to the products requests, in case the message requires it.
+     */
     private boolean requestFetchProducts;
+    
+    /**
+     * Variable that holds the information related to the prime materials requests, in case the message requires it.
+     */
     private boolean requestPrimeMaterials;
     
+    /**
+     * Variable that holds the information about the number of customers in the shop, in case the message requires it.
+     */
     private int nCustomerIn;
+    
+    /**
+     * Variable that holds the information about the number of goods in display at the shop, in case the message requires it.
+     */
     private int nGoodsInDisplay;
+    
+    /**
+     * Variable that holds the information about the number of goods that a costumer bought at the shop, in case the message requires it.
+     */
     private int nBoughtGoods;
     
+    /**
+     * Variable that holds the information about the current number of prime materials present at the workshop,
+     * in case the message requires it.
+     */
     private int nCurrentPrimeMaterials;
+    
+    /**
+     * Variable that holds the information about the current number of finished products present at the workshop,
+     * in case the message requires it.
+     */
     private int nProductsStored;
+    
+    /**
+     * Statistic variable that holds the information about the number of times that prime materials were supplied
+     * to the workshop, in case the message requires it.
+     */
     private int nTimesPrimeMaterialsFetched;
+    
+    /**
+     * Statistic variable that holds the information about the total number of prime materials supplied
+     * to the workshop, in case the message requires it.
+     */
     private int nTotalPrimeMaterialsSupplied;
+    
+    /**
+     * Statistic variable that holds the information about the number of a Craftsman finished products,
+     * in case the message requires it.
+     */
     private int nFinishedProducts;
     
+    /**
+     * FIX_ME!!
+     */
     private boolean finishedProduct;
     
     /******************
@@ -55,7 +150,7 @@ public class Message implements Serializable {
      ******************/
     
     /**
-     * 
+     * Empty constructor for the message that initializes the default values for the previous variables.
      */
     private Message() {
         id = ERROR_INT;
@@ -85,46 +180,67 @@ public class Message implements Serializable {
         nCurrentPrimeMaterials = ERROR_INT;
         nBoughtGoods = ERROR_INT;
     }
-    /**
-     * CUSTOMER
-     * isDoorOpen(), endOpCustomer(), perusingAround()
-     * 
-     * CRAFSTMAN:
-     * endOpCraftsman()
-     * 
-     * ENTR:
-     * prepareToWork(), appraiseSit(), addressACustomer(), closeTheDoor(), customerInTheShop()
-     * prepareToLeave(), goToWorkshop(), visitSuppliers(), endOpEntrepreneur()
-     * 
-     * WORKSHOP:
-     * resetReqPrimeMaterials(), resetReqProducts()
-     * 
-     * @param type 
-     */
     
-    public Message(MessageType type) 
-    {
+    /**
+     * Constructor for the message that initializes with the type of the message.
+     * This is used in:
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#collectingMaterials(int) collectingMaterials}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#endOperCraft() endOperCraft}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.CraftsmanExec#main(String[]) CraftsmanExecMain}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#isDoorOpen() isDoorOpen}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#perusingAround() perusingAround}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#endOperCust() endOperCust}</ul>
+     *  <ul>{@link #ClientSide.Customer.CustomerExec#main(String[]) CustomerExecMain}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#prepareToWork() prepareToWork}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#appraiseSit() appraiseSit}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#addressACustomer() addressACustomer}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#closeTheDoor() closeTheDoor}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#customersInTheShop() customersInTheShop}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#prepareToLeave() prepareToLeave}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#goToWorkshop() goToWorkshop}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#visitSuppliers() visitSuppliers}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#endOperEntrep() endOperEntrep}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.EntrepreneurExec#main(String[]) EntrepreneurExecMain}</ul>
+     *  <ul>{@link #ServerSide.Logger.Logging#terminateServers() terminateServers}</ul>
+     *  <ul>{@link #ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Warehouse.Warehouse#visitSuppliers() visitSuppliers}</ul>
+     *  <ul>{@link #ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Workshop.Workshop#goToWorkshop() goToWorkshop}</ul>
+     *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * @param type
+     */
+    public Message(MessageType type) {
         this();
         this.type = type;
     }
     
     /**
-     * CUSTOMER:
-     * goShopping(), enterShop(), exitShop(), tryAgainLater()
-     * 
-     * CRAFTSMAN:
-     * collectingMaterials(), primeMaterialsNEeded(), backToWork(), 
-     * prepareToProduce(), goToStore(), batchReadyForTransfer()
-     * 
-     * ENTR:
-     * sayGoodByeToCustomer(), returnToShop(), replesnishStock()
-     * 
+     * Constructor for the message that initializes with the type of the message and an integer.
+     * This is used in:
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#backToWork(int) backToWork}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#prepareToProduce(int) prepareToProduce}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#goToStore(int) goToStore}</ul>
+     *  <ul>{@link #ClientSide.Craftsman.Craftsman#batchReadyForTransfer(int) batchReadyForTransfer}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#goShopping(int) goShopping}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#enterShop(int) enterShop}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#exitShop(int) exitShop}</ul>
+     *  <ul>{@link #ClientSide.Customer.Customer#tryAgainLater(int) tryAgainLater}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#sayGoodByeToCustomer(int) syaGoodByeToCustomer}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#returnToShop(int) returnToShop}</ul>
+     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#replenishStock(int) replenishStock}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#appraiseSit() appraiseSit}</ul>
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     
+     
      * @param type
      * @param value 
      */
-    
-    public Message(MessageType type, int value) 
-    {
+    public Message(MessageType type, int value) {
         this();
         this.type = type;
         switch(type)
@@ -159,16 +275,16 @@ public class Message implements Serializable {
     }
     
     /**
-     * CUSTOMER:
-     * iWantThis()
+     * Constructor for the message that initializes with the type of the message, an id, and a value.
+     * This is used in:
+     *  <ul>{@link #ClientSide.Customer.Customer#iWantThis(int, int) iWantThis}</ul>
      * 
      * 
      * @param type
      * @param id
      * @param value 
      */
-    public Message(MessageType type, int id, int value)
-    {
+    public Message(MessageType type, int id, int value) {
         this();
         this.type = type;
         this.id = id;
@@ -186,20 +302,36 @@ public class Message implements Serializable {
         }
     }
     
+    /**
+     * 
+     *  <ul>{@link #ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#resetRequestPrimeMaterials() resetRequestPrimeMaterials}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#resetRequestProducts() resetRequestProducts}</ul>
+     * 
+     * @param type
+     * @param requestFetchProducts 
+     */
     public Message(MessageType type, boolean requestFetchProducts) {
         this();
         this.type = type;
         this.requestFetchProducts = requestFetchProducts;
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * @param type
+     * @param nextTask 
+     */
     public Message(MessageType type, char nextTask) {
         this();
         this.type = type;
         this.nextTask = nextTask;
     }
+    
     /**
-     * GOTOSTORE->RESPOSTA e WRITE_CUST_STAT, COLLECT_MATER->RESP
-     * 
+     *  <ul>{@link #ServerSide.Workshop.Workshop#backToWork(int) backToWork}</ul>
+     *  <ul>{@link #ServerSide.Workshop.Workshop#prepareToProduce(int) prepareToProduce}</ul>
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      * @param type
      * @param craftState
      * @param value 
@@ -228,6 +360,14 @@ public class Message implements Serializable {
         }
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * 
+     * @param type
+     * @param craftState
+     * @param id
+     * @param value 
+     */
     public Message(MessageType type, CraftsmanState craftState, int id, int value) {
         this();
         this.type = type;
@@ -245,8 +385,13 @@ public class Message implements Serializable {
                 break;
         }
     }
+    
     /**
-     * perusing and write cust state
+     *  <ul>{@link #ServerSide.Shop.Shop#goShopping(int) goShopping}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#tryAgainLater(int) tryAgainLater}</ul>
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     
+     * 
      * @param type
      * @param custState
      * @param value 
@@ -271,6 +416,14 @@ public class Message implements Serializable {
         this.custState = custState;
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * @param type
+     * @param entrState
+     * @param returnEntr 
+     */
     public Message(MessageType type, EntrepreneurState entrState, int returnEntr) {
         this();
         this.type = type;
@@ -289,30 +442,50 @@ public class Message implements Serializable {
         }
     }
     
-    public Message(MessageType type, EntrepreneurState entrState)
-    {
+    /**
+     *  <ul>{@link #ServerSide.Shop.Shop#addressACustomer() addressACustomer}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#sayGoodByeToCustomer(int) sayGoodByeToCustomer}</ul>
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * @param type
+     * @param entrState
+     */
+    public Message(MessageType type, EntrepreneurState entrState) {
         this();
         this.type = type;
         this.entrState = entrState;
     }
     
-    public Message(MessageType type, CraftsmanState craftState)
-    {
+    /**
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * @param type
+     * @param craftState 
+     */
+    public Message(MessageType type, CraftsmanState craftState) {
         this();
         this.type = type;
         this.craftState = craftState;
     }
      
-    public Message(MessageType type, CustomerState custState)
-    {
+    public Message(MessageType type, CustomerState custState) {
         this();
         this.type = type;
         this.custState = custState;
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Shop.Shop#closeTheDoor() closeTheDoor}</ul>
+     * 
+     * 
+     * @param type
+     * @param s
+     * @param nCustomerIn
+     * @param nGoodsInDisplay
+     * @param reqFetchProds
+     * @param reqPrimeMaterials 
+     */
     public Message(MessageType type, ShopState s, int nCustomerIn, int nGoodsInDisplay,
-                                    boolean reqFetchProds, boolean reqPrimeMaterials)
-    {
+                                    boolean reqFetchProds, boolean reqPrimeMaterials) {
         this();
         this.shopState = s;
         this.nCustomerIn = nCustomerIn;
@@ -323,10 +496,22 @@ public class Message implements Serializable {
         this.type = type;
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Shop.Shop#prepareToWork() prepareToWork}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#prepareToLeave() prepareToLeave}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#returnToShop(int) returnToShop}</ul>
+     
+     * @param type
+     * @param s
+     * @param nCustomerIn
+     * @param nGoodsInDisplay
+     * @param reqFetchProds
+     * @param reqPrimeMaterials
+     * @param state 
+     */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
-                                boolean reqPrimeMaterials, EntrepreneurState state) 
-    {
+                                boolean reqPrimeMaterials, EntrepreneurState state) {
         this();
         this.entrState = state;
         this.shopState = s;
@@ -339,11 +524,24 @@ public class Message implements Serializable {
         
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Shop.Shop#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#batchReadyForTransfer(int) batchReadyForTransfer}</ul>
+     * 
+     * 
+     * @param type
+     * @param s
+     * @param nCustomerIn
+     * @param nGoodsInDisplay
+     * @param reqFetchProds
+     * @param reqPrimeMaterials
+     * @param state
+     * @param idCraft 
+     */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CraftsmanState state,
-                                int idCraft)
-    {
+                                int idCraft) {
         this();
         this.id = idCraft;
         this.craftState = state;
@@ -357,11 +555,25 @@ public class Message implements Serializable {
         
     }
     
+    /**
+     * 
+     *  <ul>{@link #ServerSide.Shop.Shop#enterShop(int) enterShop}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#exitShop(int) exitShop}</ul>
+     *  <ul>{@link #ServerSide.Shop.Shop#iWantThis(int, int) iWantThis}</ul>
+     * @param type
+     * @param s
+     * @param nCustomerIn
+     * @param nGoodsInDisplay
+     * @param reqFetchProds
+     * @param reqPrimeMaterials
+     * @param state
+     * @param idCust
+     * @param nBoughtGoods 
+     */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CustomerState state,
-                                int idCust, int nBoughtGoods) 
-    {
+                                int idCust, int nBoughtGoods) {
         this();
         this.nBoughtGoods = nBoughtGoods;
         this.id = idCust;
@@ -377,10 +589,19 @@ public class Message implements Serializable {
         
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Workshop.Workshop#collectingMaterials(int) collectingMaterials}</ul>
+     * 
+     * @param type
+     * @param nCurrentPrimeMaterials
+     * @param nProductsStored
+     * @param nTimesPrimeMaterialsFetched
+     * @param nTotalPrimeMaterialsSupplied
+     * @param nFinishedProducts 
+     */
     public Message(MessageType type, int nCurrentPrimeMaterials, int nProductsStored, 
                                         int nTimesPrimeMaterialsFetched,
-                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts)
-    {
+                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts) {
         this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
@@ -392,11 +613,23 @@ public class Message implements Serializable {
         
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Workshop.Workshop#goToStore(int) goToStore}</ul>
+     * 
+     * @param type
+     * @param nCurrentPrimeMaterials
+     * @param nProductsStored
+     * @param nTimesPrimeMaterialsFetched
+     * @param nTotalPrimeMaterialsSupplied
+     * @param nFinishedProducts
+     * @param state
+     * @param idCraft
+     * @param finishedProduct 
+     */
     public Message(MessageType type, int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    CraftsmanState state, int idCraft, boolean finishedProduct) 
-    {
+                    CraftsmanState state, int idCraft, boolean finishedProduct) {
         this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
@@ -410,11 +643,22 @@ public class Message implements Serializable {
         this.type = type;
     }
     
+    /**
+     *  <ul>{@link #ServerSide.Workshop.Workshop#goToWorkshop() goToWorkshop}</ul>
+     *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
+     * 
+     * @param type
+     * @param nCurrentPrimeMaterials
+     * @param nProductsStored
+     * @param nTimesPrimeMaterialsFetched
+     * @param nTotalPrimeMaterialsSupplied
+     * @param nFinishedProducts
+     * @param state 
+     */
      public Message(MessageType type, int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    EntrepreneurState state) 
-    {
+                    EntrepreneurState state) {
         this();
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
@@ -432,10 +676,7 @@ public class Message implements Serializable {
      ** GETTERS **  
      *************/
     
-    /**
-     * 
-     * @return 
-     */
+    
     public MessageType getType() {
         return type;
     }

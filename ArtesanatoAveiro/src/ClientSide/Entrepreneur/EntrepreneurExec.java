@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ClientSide.Entrepreneur;
 
 import Communication.ClientComm;
@@ -13,8 +8,10 @@ import static java.lang.Thread.sleep;
 import java.util.Arrays;
 
 /**
+ * This file defines the main method to run the Entrepreneur entity.
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class EntrepreneurExec {
     public static void main(String[] args) {

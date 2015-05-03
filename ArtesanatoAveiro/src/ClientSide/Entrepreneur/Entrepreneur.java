@@ -99,6 +99,9 @@ public class Entrepreneur extends Thread {
         }
     }
     
+    /**
+     * Entrepreneur is preparing to work, she will open the shop.
+     */
     private void prepareToWork() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -127,6 +130,14 @@ public class Entrepreneur extends Thread {
         con.close();
     }
 
+    /**
+     * The entrepreneur will wait until someone request her services.
+     * 
+     * @return  'C', if customers waiting for service;
+     *          'M', if craftsman requested for prime materials;
+     *          'T', if craftsman requested to fetch the products in the Workshop;
+     *          'E', if the shop is out of business.
+     */
     private char appraiseSit() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -156,6 +167,11 @@ public class Entrepreneur extends Thread {
         return c;
     }
 
+    /**
+     * The Entrepreneur address the first customer in the waiting line.
+     * 
+     * @return the customer identifier
+     */
     private int addressACustomer() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -187,6 +203,11 @@ public class Entrepreneur extends Thread {
         return id;
     }
 
+    /**
+     * The entrepreneur says good bye to the customer, waking him up.
+     * 
+     * @param id customer identifier
+     */
     private void sayGoodByeToCustomer(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -215,6 +236,9 @@ public class Entrepreneur extends Thread {
         con.close();
     }
 
+    /**
+     * The entrepreneur signals that she will close the shop.
+     */
     private void closeTheDoor() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -242,6 +266,11 @@ public class Entrepreneur extends Thread {
         con.close();
     }
 
+    /**
+     * This function returns true if there's customers inside the shop.
+     * 
+     * @return returns true if customers inside the shop; returns false otherwise.
+     */
     private boolean customersInTheShop() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -275,6 +304,10 @@ public class Entrepreneur extends Thread {
         return false;
     }
 
+    /**
+     * The entrepreneur prepares to leave the shop.
+     * At this point the shop is considered as closed.
+     */
     private void prepareToLeave() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -305,6 +338,12 @@ public class Entrepreneur extends Thread {
         con.close();
     }
 
+    /**
+     * Entrepreneur goes to the Workshop to fetch the products in there.
+     * 
+     * @return the number of products that Entrepreneur is going to deliver to 
+     * the shop
+     */
     private int goToWorkshop() {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -337,6 +376,14 @@ public class Entrepreneur extends Thread {
         return prods;
     }
 
+    /**
+     * The entrepreneur returns to the shop, she went to fetch products or to deliver
+     * prime materials to the craftsman.
+     * If she went to fetch products, she still have the products with her and she
+     * must to put them on shop stock. After that request is done.
+     * 
+     * @param nProducts the number of products that she's carrying.
+     */
     private void returnToShop(int nProducts) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -366,6 +413,13 @@ public class Entrepreneur extends Thread {
         this.setState(es);
     }
 
+    /**
+     * The entrepreneur visits the supplies to fetch prime materials for the
+     * craftsman.
+     * She will fetch a random value of prime materials.
+     * 
+     * @return the number of prime materials fetched
+     */
     private int visitSuppliers() {
         ClientComm con = new ClientComm(CommConst.whServerName, CommConst.whServerPort);
         Message inMessage, outMessage;
@@ -398,6 +452,14 @@ public class Entrepreneur extends Thread {
         return mats;
     }
 
+    /**
+     * Entrepreneur goes to the Workshop and returns that prime materials that
+     * she fetched from the Warehouse.
+     * If nobody is waiting for her, it means that Entrepreneur arrived before
+     * the Craftsman to the Workshop and he will not need to wait.
+     * 
+     * @param nMaterials number of prime materials
+     */
     private void replenishStock(int nMaterials) {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -427,6 +489,12 @@ public class Entrepreneur extends Thread {
         this.setState(es);
     }
 
+    /**
+     * Checks if the Entrepreneur no longer has conditions to continue its work.
+     * 
+     * @return Returns false if the entrepreneur can continue its work; returns 
+     * false if otherwise.
+     */
     private boolean endOpEntrep() {
         ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
         Message inMessage, outMessage;

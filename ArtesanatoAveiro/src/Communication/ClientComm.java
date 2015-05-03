@@ -1,18 +1,29 @@
 package Communication;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ConnectException;
+import java.net.InetSocketAddress;
+import java.net.NoRouteToHostException;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 /**
- * Este tipo de dados implementa o canal de comunicação, lado do cliente, para
- * uma comunicação baseada em passagem de mensagens sobre sockets usando o
- * protocolo TCP. A transferência de dados é baseada em objectos, um objecto de
- * cada vez.
+ * This call implements the communication channel, on the client side, 
+ * for a message based communication over sockets using the TCP protocol.
+ * Data transfer is based in objects, one object at a time.
+ * 
+ * @author Prof.Rui Borges
  */
 public class ClientComm {
 
     /**
-     * Socket de comunicação
+     * Communication socket.
      *
      * @serialField commSocket
      */
@@ -20,39 +31,38 @@ public class ClientComm {
     private Socket commSocket = null;
 
     /**
-     * Nome do sistema computacional onde está localizado o servidor
+     * Name of the system where the server is running.
      *
      * @serialField serverHostName
      */
     private String serverHostName = null;
 
     /**
-     * Número do port de escuta do servidor
+     * Server's listening port number .
      *
      * @serialField serverPortNumb
      */
     private int serverPortNumb;
 
     /**
-     * Stream de entrada do canal de comunicação
+     * Communication channel input stream.
      *
      * @serialField in
      */
     private ObjectInputStream in = null;
 
     /**
-     * Stream de saída do canal de comunicação
+     * Communication channel output stream.
      *
      * @serialField out
      */
     private ObjectOutputStream out = null;
 
     /**
-     * Instanciação de um canal de comunicação.
+     * Communication channel instantiation.
      *
-     * @param hostName nome do sistema computacional onde está localizado o
-     * servidor
-     * @param portNumb número do port de escuta do servidor
+     * @param hostName name of the system where the server is located
+     * @param portNumb server's listening port number
      */
     public ClientComm(String hostName, int portNumb) {
         serverHostName = hostName;
@@ -60,12 +70,11 @@ public class ClientComm {
     }
 
     /**
-     * Abertura do canal de comunicação. Instanciação de um socket de
-     * comunicação e sua associação ao endereço do servidor. Abertura dos
-     * streams de entrada e de saída do socket.
-     *
-     * @return <li>true, se o canal de comunicação foi aberto
-     * <li>false, em caso contrário
+     * Communication channel opening. Instantiation of a communication socket
+     * and association with the server's address.
+     * Opening of both socket input and output streams.
+     * @return <li>true, if the communication channel was open
+     * <li>false, otherwise
      */
     public boolean open() {
         boolean success = true;
@@ -130,8 +139,8 @@ public class ClientComm {
     }
 
     /**
-     * Fecho do canal de comunicação. Fecho dos streams de entrada e de saída do
-     * socket. Fecho do socket de comunicação.
+     * Communication channel closing. Socket input and output streams closing.
+     * Communication socket closing.
      */
     public void close() {
         try {
@@ -160,9 +169,9 @@ public class ClientComm {
     }
 
     /**
-     * Leitura de um objecto do canal de comunicação.
+     * Communication channel object reading.
      *
-     * @return objecto lido
+     * @return read object
      */
     public Object readObject() {
         Object fromServer = null;                            // objecto
@@ -187,9 +196,9 @@ public class ClientComm {
     }
 
     /**
-     * Escrita de um objecto no canal de comunicação.
+     * Communication channel object writing.
      *
-     * @param toServer objecto a ser escrito
+     * @param toServer object to be written.
      */
     public void writeObject(Object toServer) {
         try {

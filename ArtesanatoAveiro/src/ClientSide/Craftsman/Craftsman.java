@@ -11,14 +11,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This class is used to represent the entity Craftsman
+ * This class defines the methods for the Craftsman thread.
  *
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
 public class Craftsman extends Thread {
 
+    /**
+     * Stores the information about this Craftsman's state.
+     *
+     * @serialField state
+     */
     private CraftsmanState state;
+    
+    /**
+     * Stores the information about this Craftsman's identifier.
+     *
+     * @serialField id
+     */
     private final int id;
 
     /**
@@ -89,6 +100,15 @@ public class Craftsman extends Thread {
         }
     }
 
+    /**
+     * The craftsman is preparing to manufacture a product.
+     * If there are enough materials to manufacture the product, the number of available prime materials 
+     * is updated. 
+     * However, if the prime materials aren't enough, the function returns false.
+     * 
+     * @param id The craftsman identifier.
+     * @return true if there are enough prime materials to manufacture a product or false if there aren't.
+     */
     private boolean collectingMaterials(int id) {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -116,6 +136,14 @@ public class Craftsman extends Thread {
         return type == MessageType.POSITIVE;
     }
 
+    /**
+     * The craftsman tells the Entrepreneur that they're out of prime materials.
+     * To do that he needs to wake up entrepreneur.
+     * 
+     * @param id the craftsman identifier
+     * @return returns true if request has been done; returns false if it was 
+     * already done by someone before.
+     */
     private void primeMaterialsNeeded(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -150,6 +178,11 @@ public class Craftsman extends Thread {
         con.close();
     }
 
+    /**
+     * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
+     * 
+     * @param id The craftsman identifier.
+     */
     private void backToWork(int id) {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -184,6 +217,11 @@ public class Craftsman extends Thread {
         con.close();
     }
 
+    /**
+     * The craftsman has the prime materials that he needs, and will now start producing another piece.
+     * 
+     * @param id The craftsman identifier.
+     */
     private void prepareToProduce(int id) {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -218,6 +256,13 @@ public class Craftsman extends Thread {
         con.close();
     }
 
+    /**
+     * 
+     * After the craftsman finishes the piece and stores it in the workshop.
+     * @param id The craftsman identifier.
+     * 
+     * @return the number of products stored in workshop.
+     */
     private int goToStore(int id) {
         ClientComm con = new ClientComm(CommConst.wsServerName, CommConst.wsServerPort);
         Message inMessage, outMessage;
@@ -254,6 +299,11 @@ public class Craftsman extends Thread {
         return inMessage.getnProductsStored();
     }
 
+    /**
+     * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
+     * 
+     * @param id The craftsman identifier.
+    */
     private void batchReadyForTransfer(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -288,6 +338,13 @@ public class Craftsman extends Thread {
         con.close();
     }
 
+    /**
+     * Checks if the craftsman no longer has conditions to continue its work.
+     * 
+     * @return Returns 0 if the Craftsman cannot end its operation. 1 if the Craftsman can end its operation without doing anything else.
+     * 2 if the Craftsman can end the operation but has to ask the Entrepreneur for a transfer of finished products.
+     * 
+     */
     private int endOperCraft() {
         ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
         Message inMessage, outMessage;

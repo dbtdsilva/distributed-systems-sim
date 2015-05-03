@@ -13,7 +13,17 @@ public enum CustomerState {
     APPRAISING_OFFER_IN_DISPLAY("AOID"),
     BUYING_SOME_GOODS("BSG");
     
+    /**
+     * Auxiliar variable that allows to transform the state into an acronym.
+     *
+     * @serialField acronym
+     */
     private final String acronym;
+    
+    /**
+     * Allows to transform the state into an acronym.
+     * @param acronym 
+     */
     private CustomerState(String acronym) 
     {
         this.acronym = acronym;

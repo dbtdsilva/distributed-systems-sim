@@ -12,9 +12,18 @@ public enum CraftsmanState {
     PRODUCING_A_NEW_PIECE("PANP"),
     STORING_IT_FOR_TRANSFER("SIFT");
     
+    /**
+     * Auxiliar variable that allows to transform the state into an acronym.
+     *
+     * @serialField acronym
+     */
     private final String acronym;
-    private CraftsmanState(String acronym) 
-    {
+    
+    /**
+     * Allows to transform the state into an acronym.
+     * @param acronym 
+     */
+    private CraftsmanState(String acronym) {
         this.acronym = acronym;
     }
     

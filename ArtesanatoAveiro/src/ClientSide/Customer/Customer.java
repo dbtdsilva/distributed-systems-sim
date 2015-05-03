@@ -10,13 +10,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This class is used to represent the entity Craftsman
+ * This class is used to represent the Customer entity.
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
 public class Customer extends Thread {
+    /**
+     * Stores the information about this Customer's state.
+     *
+     * @serialField state
+     */
     private CustomerState state;
+    
+    /**
+     * Stores the information about this Customer's identifier.
+     *
+     * @serialField id
+     */
     private final int id;
     
     /**
@@ -29,6 +40,7 @@ public class Customer extends Thread {
         this.id = id;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
+    
     /**
      * This function represents the life cycle of Customer.
      */
@@ -61,6 +73,7 @@ public class Customer extends Thread {
     public void setState(CustomerState state) {
         this.state = state;
     }
+   
     /**
      * Gets the current state of the customer.
      * 
@@ -81,6 +94,11 @@ public class Customer extends Thread {
         }
     }
 
+    /**
+     * The customer goes to the Shopping.
+     * 
+     * @param id customer identifier
+     */
     private void goShopping(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -109,6 +127,11 @@ public class Customer extends Thread {
         con.close();
     }
 
+    /**
+     * This function allows the customer to check if the door is open or not.
+     * 
+     * @return returns true if the shop is open; returns false if otherwise.
+     */
     private boolean isDoorOpen() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -137,6 +160,12 @@ public class Customer extends Thread {
         return type == MessageType.POSITIVE;
     }
 
+    /**
+     * The customers enters in the shop. He updates his state and the number of
+     * customers inside the shop.
+     * 
+     * @param id customer identifier
+     */
     private void enterShop(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -165,6 +194,11 @@ public class Customer extends Thread {
         con.close();
     }
 
+    /**
+     * The customer searchs for products inside the Shop.
+     * 
+     * @return number of products that customer is going to buy (Between 0 and 2)
+     */
     private int perusingAround() {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -194,6 +228,13 @@ public class Customer extends Thread {
         return prods;
     }
 
+    /**
+     * The customer requests the entrepreneur that he wants to buy a product. 
+     * He will wait for the entrepreneur on the waiting line.
+     * 
+     * @param id customer identifier
+     * @param nProducts the number of products bought
+     */
     private void iWantThis(int id, int nProducts) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -223,6 +264,14 @@ public class Customer extends Thread {
         this.setState(cs);
     }
 
+    /**
+     * The customer exits the shop, notifying the Entrepreneur that he left. He
+     * need to update the number of customers inside the shop and update his state.
+     * He will also notify the Entrepreneur to wake up, she might need to leave
+     * the shop.
+     * 
+     * @param id customer identifier 
+     */
     private void exitShop(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -251,6 +300,11 @@ public class Customer extends Thread {
         this.setState(cs);
     }
 
+    /**
+     * The customer will try to enter the shop later.
+     * 
+     * @param id customer identifier
+     */
     private void tryAgainLater(int id) {
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
         Message inMessage, outMessage;
@@ -279,6 +333,12 @@ public class Customer extends Thread {
         this.setState(cs);
     }
 
+    /**
+     * Checks if the customer no longer has conditions to continue.
+     * 
+     * @return Returns false if the customer can continue; returns 
+     * false if otherwise.
+     */
     private boolean endOpCustomer() {
         ClientComm con = new ClientComm(CommConst.loggServerName, CommConst.loggServerPort);
         Message inMessage, outMessage;
