@@ -130,7 +130,7 @@ public enum MessageType {
      */
     VISIT_SUPPLIERS,
     /**
-     * Message used when the Entrepreneur went to get more finished products to the shop.
+     * Message used when the Entrepreneur went to get more prime materials to the workshop.
      */
     REPLENISH_STOCK,
     /**
