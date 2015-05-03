@@ -7,8 +7,17 @@ package ServerSide.Shop;
  * @author Tânia Alves, 60340
  */
 public enum ShopState {
+    /**
+     * The Shop is closed.
+     */
     CLOSED("CLS"), 
+    /**
+     * The Shop is open, however, the door remains closed.
+     */
     ECLOSED("ECLS"),
+    /**
+     * The Shop is open for business.
+     */
     OPEN("OPEN");
     
     private final String acronym;

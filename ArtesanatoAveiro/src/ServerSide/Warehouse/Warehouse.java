@@ -9,13 +9,21 @@ import Communication.ProbConst;
 import static java.lang.Thread.sleep;
 
 /**
- * The monitor that represents the Warehouse.
+ * The class that represents the Warehouse.
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public class Warehouse {    
+public class Warehouse {   
+    /**
+     * Counter for the number of times that the Entrepreneur came to get supply.
+     */
     private int nTimesSupplied;
+    
+    /**
+     * Array that translates to the number of prime materials fetched at each time the Entrepreneur
+     * visits the suppliers.
+     */
     private final int nTimesPMSupplied[];
     
     /**

@@ -182,7 +182,7 @@ public class Message implements Serializable {
     }
     
     /**
-     * Constructor for the message that initializes with the type of the message.
+     * Constructor for the message (1st form).
      * This is used in:
      *  <ul>{@link #ClientSide.Craftsman.Craftsman#collectingMaterials(int) collectingMaterials}</ul>
      *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
@@ -211,7 +211,8 @@ public class Message implements Serializable {
      *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
+     * 
+     * @param type Message type for the created message.
      */
     public Message(MessageType type) {
         this();
@@ -219,7 +220,7 @@ public class Message implements Serializable {
     }
     
     /**
-     * Constructor for the message that initializes with the type of the message and an integer.
+     * Constructor for the message (2nd form).
      * This is used in:
      *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
      *  <ul>{@link #ClientSide.Craftsman.Craftsman#backToWork(int) backToWork}</ul>
@@ -237,8 +238,8 @@ public class Message implements Serializable {
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      
      
-     * @param type
-     * @param value 
+     * @param type Message type for the created message.
+     * @param value Possible value for the message.
      */
     public Message(MessageType type, int value) {
         this();
@@ -275,14 +276,13 @@ public class Message implements Serializable {
     }
     
     /**
-     * Constructor for the message that initializes with the type of the message, an id, and a value.
+     * Constructor for the message (3rd form).
      * This is used in:
      *  <ul>{@link #ClientSide.Customer.Customer#iWantThis(int, int) iWantThis}</ul>
      * 
-     * 
-     * @param type
-     * @param id
-     * @param value 
+     * @param type Message type for the created message.
+     * @param id Entity identifier for the message.
+     * @param value Possible value for the message.
      */
     public Message(MessageType type, int id, int value) {
         this();
@@ -303,24 +303,29 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (4th form).
+     * This is used in:
      * 
      *  <ul>{@link #ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#resetRequestPrimeMaterials() resetRequestPrimeMaterials}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#resetRequestProducts() resetRequestProducts}</ul>
      * 
-     * @param type
-     * @param requestFetchProducts 
+     * @param type Message type for the created message.
+     * @param request Boolean to reset requests.
      */
-    public Message(MessageType type, boolean requestFetchProducts) {
+    public Message(MessageType type, boolean request) {
         this();
         this.type = type;
-        this.requestFetchProducts = requestFetchProducts;
+        this.requestFetchProducts = request;
     }
     
     /**
+     * Constructor for the message (5th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
-     * @param nextTask 
+     *
+     * @param type Message type for the created message.
+     * @param nextTask Character that translates to the Entrepreneur's next task.
      */
     public Message(MessageType type, char nextTask) {
         this();
@@ -329,12 +334,15 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (6th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Workshop.Workshop#backToWork(int) backToWork}</ul>
      *  <ul>{@link #ServerSide.Workshop.Workshop#prepareToProduce(int) prepareToProduce}</ul>
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
-     * @param craftState
-     * @param value 
+     * 
+     * @param type Message type for the created message.
+     * @param craftState Craftsman state.
+     * @param value Possible value for the message.
      */
     public Message(MessageType type, CraftsmanState craftState, int value) {
         this();
@@ -361,12 +369,14 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (7th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      * 
-     * @param type
-     * @param craftState
-     * @param id
-     * @param value 
+     * @param type Message type for the created message.
+     * @param craftState Craftsman state.
+     * @param id Identifier for the Craftsman entity.
+     * @param value Possible value for the message.
      */
     public Message(MessageType type, CraftsmanState craftState, int id, int value) {
         this();
@@ -387,14 +397,17 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (8th form).
+     * This is used in:
+     * 
      *  <ul>{@link #ServerSide.Shop.Shop#goShopping(int) goShopping}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#tryAgainLater(int) tryAgainLater}</ul>
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      
      * 
-     * @param type
-     * @param custState
-     * @param value 
+     * @param type Message type for the created message.
+     * @param custState Customer state.
+     * @param value Possible value for the message.
      */
     public Message(MessageType type, CustomerState custState, int value) {
         this();
@@ -417,14 +430,17 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (9th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      *  <ul>{@link #ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
-     * @param entrState
-     * @param returnEntr 
+     *
+     * @param type Message type for the created message.
+     * @param entrState Entrepreneur state.
+     * @param value Possible return value.
      */
-    public Message(MessageType type, EntrepreneurState entrState, int returnEntr) {
+    public Message(MessageType type, EntrepreneurState entrState, int value) {
         this();
         this.type = type;
         this.entrState = entrState;
@@ -432,7 +448,7 @@ public class Message implements Serializable {
         switch(type)
         {
             case ACK:
-                this.returnEntr = returnEntr;
+                this.returnEntr = value;
                 break;
 
             default:
@@ -443,12 +459,15 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (10th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.Shop#addressACustomer() addressACustomer}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#sayGoodByeToCustomer(int) sayGoodByeToCustomer}</ul>
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
      *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
-     * @param entrState
+     * 
+     * @param type Message type for the created message.
+     * @param entrState Entrepreneur state.
      */
     public Message(MessageType type, EntrepreneurState entrState) {
         this();
@@ -457,9 +476,12 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (11th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     * @param type
-     * @param craftState 
+     * 
+     * @param type Message type for the created message.
+     * @param craftState Craftsman state.
      */
     public Message(MessageType type, CraftsmanState craftState) {
         this();
@@ -467,6 +489,14 @@ public class Message implements Serializable {
         this.craftState = craftState;
     }
      
+    /**
+     * Constructor for the message (12th form).
+     * This is used in:
+     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     * 
+     * @param type Message type for the created message.
+     * @param custState Customer state.
+     */
     public Message(MessageType type, CustomerState custState) {
         this();
         this.type = type;
@@ -474,15 +504,17 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (13th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.Shop#closeTheDoor() closeTheDoor}</ul>
      * 
      * 
-     * @param type
-     * @param s
-     * @param nCustomerIn
-     * @param nGoodsInDisplay
-     * @param reqFetchProds
-     * @param reqPrimeMaterials 
+     * @param type Message type for the created message.
+     * @param s Shop state
+     * @param nCustomerIn Number of customers in the shop.
+     * @param nGoodsInDisplay Number of goods in display at the shop.
+     * @param reqFetchProds Boolean that translates to a pending request or not.
+     * @param reqPrimeMaterials Boolean that translates to a pending request or not.
      */
     public Message(MessageType type, ShopState s, int nCustomerIn, int nGoodsInDisplay,
                                     boolean reqFetchProds, boolean reqPrimeMaterials) {
@@ -497,17 +529,19 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (14th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.Shop#prepareToWork() prepareToWork}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#prepareToLeave() prepareToLeave}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#returnToShop(int) returnToShop}</ul>
      
-     * @param type
-     * @param s
-     * @param nCustomerIn
-     * @param nGoodsInDisplay
-     * @param reqFetchProds
-     * @param reqPrimeMaterials
-     * @param state 
+     * @param type Message type for the created message.
+     * @param s Shop state.
+     * @param nCustomerIn Number of customers in the shop.
+     * @param nGoodsInDisplay Number of goods in display at the shop.
+     * @param reqFetchProds Boolean that translates to a pending request or not.
+     * @param reqPrimeMaterials Boolean that translates to a pending request or not.
+     * @param state Entrepreneur state.
      */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
@@ -525,18 +559,20 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (15th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.Shop#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#batchReadyForTransfer(int) batchReadyForTransfer}</ul>
      * 
      * 
-     * @param type
-     * @param s
-     * @param nCustomerIn
-     * @param nGoodsInDisplay
-     * @param reqFetchProds
-     * @param reqPrimeMaterials
-     * @param state
-     * @param idCraft 
+     * @param type Message type for the created message.
+     * @param s Shop state.
+     * @param nCustomerIn Number of customers in the shop.
+     * @param nGoodsInDisplay Number of goods in display.
+     * @param reqFetchProds Boolean that translates to a pending request or not.
+     * @param reqPrimeMaterials Boolean that translates to a pending request or not.
+     * @param state Craftsman state.
+     * @param idCraft Craftsman identifier.
      */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
@@ -556,19 +592,21 @@ public class Message implements Serializable {
     }
     
     /**
-     * 
+     * Constructor for the message (16th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Shop.Shop#enterShop(int) enterShop}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#exitShop(int) exitShop}</ul>
      *  <ul>{@link #ServerSide.Shop.Shop#iWantThis(int, int) iWantThis}</ul>
-     * @param type
-     * @param s
-     * @param nCustomerIn
-     * @param nGoodsInDisplay
-     * @param reqFetchProds
-     * @param reqPrimeMaterials
-     * @param state
-     * @param idCust
-     * @param nBoughtGoods 
+     * 
+     * @param type Message type for the created message.
+     * @param s Shop state.
+     * @param nCustomerIn Number of customers in the shop.
+     * @param nGoodsInDisplay Number of goods in display.
+     * @param reqFetchProds Boolean that translates to a pending request or not.
+     * @param reqPrimeMaterials Boolean that translates to a pending request or not.
+     * @param state Customer state.
+     * @param idCust Customer identifier.
+     * @param nBoughtGoods Number of the customer's bought goods.
      */
     public Message(MessageType type, ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
@@ -590,14 +628,16 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (17th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Workshop.Workshop#collectingMaterials(int) collectingMaterials}</ul>
      * 
-     * @param type
-     * @param nCurrentPrimeMaterials
-     * @param nProductsStored
-     * @param nTimesPrimeMaterialsFetched
-     * @param nTotalPrimeMaterialsSupplied
-     * @param nFinishedProducts 
+     * @param type Message type for the created message.
+     * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
+     * @param nProductsStored Number of products currently stored in the workshop.
+     * @param nTimesPrimeMaterialsFetched Number of times that the prime materials were fetched.
+     * @param nTotalPrimeMaterialsSupplied Number of the total prime materials supplied to the workshop.
+     * @param nFinishedProducts Number of finished products.
      */
     public Message(MessageType type, int nCurrentPrimeMaterials, int nProductsStored, 
                                         int nTimesPrimeMaterialsFetched,
@@ -614,17 +654,19 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (18th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Workshop.Workshop#goToStore(int) goToStore}</ul>
      * 
-     * @param type
-     * @param nCurrentPrimeMaterials
-     * @param nProductsStored
-     * @param nTimesPrimeMaterialsFetched
-     * @param nTotalPrimeMaterialsSupplied
-     * @param nFinishedProducts
-     * @param state
-     * @param idCraft
-     * @param finishedProduct 
+     * @param type Message type for the created message.
+     * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
+     * @param nProductsStored Number of products currently stored in the workshop.
+     * @param nTimesPrimeMaterialsFetched Number of times that the prime materials were fetched.
+     * @param nTotalPrimeMaterialsSupplied Number of the total prime materials supplied to the workshop.
+     * @param nFinishedProducts Number of finished products.
+     * @param state Craftsman state.
+     * @param idCraft Craftsman identifier.
+     * @param finishedProduct Tells if the product is finished or not.
      */
     public Message(MessageType type, int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
@@ -644,16 +686,18 @@ public class Message implements Serializable {
     }
     
     /**
+     * Constructor for the message (19th form).
+     * This is used in:
      *  <ul>{@link #ServerSide.Workshop.Workshop#goToWorkshop() goToWorkshop}</ul>
      *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
      * 
-     * @param type
-     * @param nCurrentPrimeMaterials
-     * @param nProductsStored
-     * @param nTimesPrimeMaterialsFetched
-     * @param nTotalPrimeMaterialsSupplied
-     * @param nFinishedProducts
-     * @param state 
+     * @param type Message type for the created message.
+     * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
+     * @param nProductsStored Number of products currently stored in the workshop.
+     * @param nTimesPrimeMaterialsFetched Number of times that the prime materials were fetched.
+     * @param nTotalPrimeMaterialsSupplied Number of the total prime materials supplied to the workshop.
+     * @param nFinishedProducts Number of finished products.
+     * @param state Entrepreneur state.
      */
      public Message(MessageType type, int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
@@ -676,93 +720,186 @@ public class Message implements Serializable {
      ** GETTERS **  
      *************/
     
-    
+    /**
+     * Get the current message type.
+     * @return Message type.
+     */
     public MessageType getType() {
         return type;
     }
 
+    /**
+     * Get the current message's id.
+     * @return Message identifier.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the information about the Entrepreneur state present in the current message.
+     * @return Entrepreneur state.
+     */
     public EntrepreneurState getEntrState() {
         return entrState;
     }
 
+    /**
+     * Get the information about the Customer state present in the current message.
+     * @return Customer state.
+     */
     public CustomerState getCustState() {
         return custState;
     }
 
+    /**
+     * Get the information about the Craftsman state present in the current message.
+     * @return Craftsman state.
+     */
     public CraftsmanState getCraftState() {
         return craftState;
     }
 
+    /**
+     * Get the information about the shop state present in the current message.
+     * @return 
+     */
     public ShopState getShopState() {
         return shopState;
     }
 
+    /**
+     * Get the logger file name.
+     * @return Logger file name.
+     */
     public String getFilename() {
         return filename;
     }
 
+    /**
+     * Get the number of products present in the message.
+     * @return Number of products.
+     */
     public int getnProducts() {
         return nProducts;
     }
 
+    /**
+     * Get the number of prime materials present in the message.
+     * @return Number of prime materials.
+     */
     public int getnMaterials() {
         return nMaterials;
     }
 
+    /**
+     * Get information about the requests.
+     * @return True if there is a request to fetch products, false otherwise.
+     */
     public boolean isRequestFetchProducts() {
         return requestFetchProducts;
     }
 
+    /**
+     * Get information about the requests.
+     * @return True if there is a request to ask for prime materials, false otherwise.
+     */
     public boolean isRequestPrimeMaterials() {
         return requestPrimeMaterials;
     }
 
+    /**
+     * Get information about customers in the shop.
+     * @return The number of customers presently in the shop.
+     */
     public int getnCustomerIn() {
         return nCustomerIn;
     }
 
+    /**
+     * Get the number of goods in display at the shop.
+     * @return The number of goods
+     */
     public int getnGoodsInDisplay() {
         return nGoodsInDisplay;
     }
 
+    /**
+     * Get the number of goods bought by a customer.
+     * @return The number of goods that a customer has bought so far.
+     */
     public int getnBoughtGoods() {
         return nBoughtGoods;
     }
 
+    /**
+     * Get the number of current prime materials present in the workshop.
+     * @return The number of prime materials in the workshop.
+     */
     public int getnCurrentPrimeMaterials() {
         return nCurrentPrimeMaterials;
     }
 
+    /**
+     * Get the number of products stored in the workshop.
+     * @return The number of products stored in the workshop.
+     */
     public int getnProductsStored() {
         return nProductsStored;
     }
 
+    /**
+     * Get the number of prime materials transfers to the workshop.
+     * @return The number of transfers of prime materials.
+     */
     public int getnTimesPrimeMaterialsFetched() {
         return nTimesPrimeMaterialsFetched;
     }
 
+     /**
+     * Get the number of prime materials supplied to the workshop.
+     * @return The number of supplies of prime materials.
+     */
     public int getnTotalPrimeMaterialsSupplied() {
         return nTotalPrimeMaterialsSupplied;
     }
 
+    /**
+     * Get the total number of finished products.
+     * @return Total number of finished products.
+     */
     public int getnFinishedProducts() {
         return nFinishedProducts;
     }
 
+    /**
+     * See if the Craftsman has a finished product.
+     * @return True if the product is finished, false otherwise.
+     */
     public boolean isFinishedProduct() {
         return finishedProduct;
     }
+    
+    /**
+     * Get value of the returnEntr variable.
+     * @return Value of the returnEntr.
+     */
     public int getReturnEntr() {
         return returnEntr;
     }
+    
+    /**
+     * Get the next task for the Entrepreneur.
+     * @return Character that translates to the next task of the Entrepreneur.
+     */
     public char getNextTask() {
         return nextTask;
     }
     
+    /**
+     * Convert the message type to a readable/writable format.
+     * @return Message type as a string.
+     */
     @Override
     public String toString() {
         return this.type.toString();

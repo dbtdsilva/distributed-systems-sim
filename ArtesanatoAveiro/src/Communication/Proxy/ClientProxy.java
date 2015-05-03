@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Communication.Proxy;
 
 import Communication.Message.Message;
@@ -13,47 +8,48 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author diogosilva
- * @author tania
+ * This data type defines the service thread for a server-client architecture.
+ * The communication is based on messages over TCP sockets.
+ * 
+ * @author Prof.Rui Borges
  */
-/**
- * Este tipo de dados define o thread agente prestador de serviço para uma
- * solução do Problema dos Barbeiros Sonolentos que implementa o modelo
- * cliente-servidor de tipo 2 (replicação do servidor) com lançamento estático
- * dos threads barbeiro. A comunicação baseia-se em passagem de mensagens sobre
- * sockets usando o protocolo TCP.
- */
+
 public class ClientProxy extends Thread {
 
     /**
-     * Contador de threads lançados
+     * Counter for the launched threads.
      *
      * @serialField nProxy
      */
-
     private static int nProxy;
 
     /**
-     * Canal de comunicação
+     * Communication channel.
      *
      * @serialField sconi
      */
     private final ServerComm sconi;
 
     /**
-     * Interface à barbearia
+     * Server interface.
      *
-     * @serialField bShopInter
+     * @serialField sInterface
      */
     private final ServerInterface sInterface;
+    
+    /**
+     * Server communication.
+     * 
+     * @serialField scon
+     */
     private final ServerComm scon;
 
     /**
-     * Instanciação do interface à barbearia.
+     * Server interface instantiations.
      *
-     * @param sconi canal de comunicação
-     * @param sInterface interface à barbearia
+     * @param scon server communication
+     * @param sconi communication channel
+     * @param sInterface server interface
      */
     public ClientProxy(ServerComm scon, ServerComm sconi, ServerInterface sInterface) {
         super("Proxy_" + getProxyId());
@@ -64,7 +60,7 @@ public class ClientProxy extends Thread {
     }
 
     /**
-     * Ciclo de vida do thread agente prestador de serviço.
+     * Agent's life cycle.
      */
     @Override
     public void run() {
@@ -94,9 +90,9 @@ public class ClientProxy extends Thread {
     }
 
     /**
-     * Geração do identificador da instanciação.
+     * Instantiation identifier generator.
      *
-     * @return identificador da instanciação
+     * @return instantiation identifier
      */
     private static int getProxyId() {
         // representação do tipo de dados ClientProxy na máquina virtual de java

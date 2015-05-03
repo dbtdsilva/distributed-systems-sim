@@ -12,7 +12,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 /**
- * This call implements the communication channel, on the client side, 
+ * This class implements the communication channel, on the server side, 
  * for a message based communication over sockets using the TCP protocol.
  * Data transfer is based in objects, one object at a time.
  * 

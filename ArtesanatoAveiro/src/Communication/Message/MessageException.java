@@ -1,24 +1,26 @@
 package Communication.Message;
 
 /**
- * Este tipo de dados define uma excepção que é lançada se a mensagem for
- * inválida.
+ * This date type defines an exception that is thrown if the message 
+ * type is invalid.
+ * 
+ * @author Prof.Rui Borges
  */
+
 public class MessageException extends Exception {
 
     /**
-     * Mensagem que originou a excepção
+     * Message that originated the exception.
      *
      * @serialField msg
      */
-
     private final Message msg;
 
     /**
-     * Instanciação de uma mensagem.
+     * Message instantiation.
      *
-     * @param errorMessage texto sinalizando a condição de erro
-     * @param msg mensagem que está na origem da excepção
+     * @param errorMessage string signaling an error situation
+     * @param msg origin message
      */
     public MessageException(String errorMessage, Message msg) {
         super(errorMessage);
@@ -26,9 +28,9 @@ public class MessageException extends Exception {
     }
 
     /**
-     * Obtenção da mensagem que originou a excepção.
+     * Get the message that originated the exception.
      *
-     * @return mensagem
+     * @return message
      */
     public Message getMessageVal() {
         return (msg);

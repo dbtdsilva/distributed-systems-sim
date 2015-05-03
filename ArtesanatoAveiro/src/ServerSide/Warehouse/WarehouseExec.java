@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ServerSide.Warehouse;
 
 import Communication.CommConst;
@@ -13,8 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This file defines the main method to run the Warehouse server.
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class WarehouseExec {
     public static void main(String [] args) {

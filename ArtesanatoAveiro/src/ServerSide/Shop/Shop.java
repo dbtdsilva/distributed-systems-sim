@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The monitor that represents the Shop.
+ * The class that represents the Shop.
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340

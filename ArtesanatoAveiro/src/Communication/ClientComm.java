@@ -14,7 +14,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 /**
- * This call implements the communication channel, on the client side, 
+ * This class implements the communication channel, on the client side, 
  * for a message based communication over sockets using the TCP protocol.
  * Data transfer is based in objects, one object at a time.
  * 

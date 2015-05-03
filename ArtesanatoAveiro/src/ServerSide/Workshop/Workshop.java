@@ -12,17 +12,40 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The monitor that represents the Workshop.
+ * The class that represents the Workshop.
  * 
  * @author Diogo Silva, 60337 
  * @author Tânia Alves, 60340
  */
 public class Workshop {
+    /**
+     * Number of finished products that are currently stored at the workshop.
+     */
     private int nProductsStored;
+    
+    /**
+     * Number of current prime materials present in the workshop.
+     */
     private int nCurrentPrimeMaterials;
+   
+    /**
+     * Total count of finished products during the simulation.
+     */
     private int nFinishedProducts;
+    
+    /**
+     * Statistical counter that keeps track of the number of times that prime materials were fetched.
+     */
     private int nTimesPrimeMaterialsFetched;
+    
+    /**
+     * Statistical counter that keeps track of the number of times that prime materials were supplied.
+     */
     private int nTotalPrimeMaterialsSupplied;
+    
+    /**
+     * Boolean variable that says if the Entrepreneur is waiting or not.
+     */
     private boolean waitingEntrepreneur;
     
     /**

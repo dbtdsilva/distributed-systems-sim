@@ -12,8 +12,10 @@ import Communication.ServerComm;
 import java.io.IOException;
 
 /**
+ * This file defines the main method to run the Logging server.
  *
- * @author diogosilva
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class LoggingExec {
     public static void main(String [] args) throws IOException {

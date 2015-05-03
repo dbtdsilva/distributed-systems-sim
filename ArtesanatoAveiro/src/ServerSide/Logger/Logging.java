@@ -30,41 +30,112 @@ import java.util.logging.Logger;
  * @author Tânia Alves, 60340
  */
 public class Logging {
-    /* File where the log will be saved */
+    /**
+     * File where the log will be saved 
+     */
     private final File log;
-    /* Name for the file where we want to save the log */
+    
+    /**
+     * Name for the file where we want to save the log 
+     */
     private final String filename;
     
+    /**
+     * Stream that allows to write the logger file.
+     */
     private PrintWriter pw;
     
-    /* Auxiliar variables */
+    /**
+     * Variables that keeps track of how many clients are still running.
+     */
     private int nClientsRunning;
-    // Entrepeneur information
+    
+    /**
+     * Entrepreneur state information.
+     */
     private EntrepreneurState entrepState;
     
-    // Customer information
+    /**
+     * Maps the customers identifiers with the customer's state.
+     */
     private final Map<Integer, CustomerState> customers;
+    
+    /**
+     * Keeps track of how many goods each customer bought so far.
+     */
     private final Map<Integer, Integer> nBoughtGoods;
     
     // Craftsmen information
+    /**
+     * Translates to the number of craftsman still operating.
+     */
     private int nWorkingCraftsmen;
+    
+    /**
+     * Maps the craftsman identifiers with the craftsman's state.
+     */
     private final Map<Integer, CraftsmanState> craftsmen;
+    
+    /**
+     * Keeps track of how many finished products each craftsman completed.
+     */
     private final Map<Integer, Integer> nManufacturedProds;
     
     // Shop information
+    /**
+     * Translates to the number of customers inside the shop.
+     */
     private int nCustomerIn;
+    
+    /**
+     * Keeps track of the shop door state.
+     */
     private ShopState shopDoorState;
+    
+    /**
+     * Keeps track of how many goods there are still in display at the shop.
+     */
     private int nGoodsInDisplay;
+    
+    /**
+     * Alerts if there is a request pending for a fetch of products.
+     */
     private boolean reqFetchProds;
+    
+    /**
+     * Alerts if there is a request pending for a prime materials.
+     */
     private boolean reqPrimeMaterials;
     
     // Workshop information
+    /**
+     * Keeps track of the current prime materials present at the workshop.
+     */
     private int nCurrentPrimeMaterials;
+    
+    /**
+     * Keeps track of the finished products stored at the workshop.
+     */
     private int nProductsStored;
+    
+    /**
+     * Statistical counter for the number of times that prime materials were fetched.
+     */
     private int nTimesPrimeMaterialsFetched;
+    
+    /**
+     * Statistical counter for the number of times that prime materials were supplied to the workshop.
+     */
     private int nTotalPrimeMaterialsSupplied;
+    
+    /**
+     * Keeps track of the total number of finished products by the craftsmen.
+     */
     private int nFinishedProducts;
     
+    /**
+     * Variable used for debugging in the early stage of the project.
+     */
     private boolean console;
     
     /**
@@ -127,11 +198,18 @@ public class Logging {
         InitWriting();
     }
 
+    /**
+     * Tells if the clients have terminated already or not.
+     * @return True if the clients have terminated their operation, false otherwise.
+     */
     public synchronized boolean clientsTerminated() {
         nClientsRunning--;
         return nClientsRunning == 0;
     }
     
+    /**
+     * Terminates the servers when the clients no longer need the services.
+     */
     public synchronized void terminateServers() {
         Message inMessage, outMessage;
         ClientComm con = new ClientComm(CommConst.shopServerName, CommConst.shopServerPort);
@@ -340,6 +418,7 @@ public class Logging {
     public synchronized void UpdatePrimeMaterialsRequest(boolean reqPrimeMaterials) {
         this.reqPrimeMaterials = reqPrimeMaterials;
     }
+    
     /**
      * Update prime materials request. (Doesn't write)
      * 
@@ -348,6 +427,7 @@ public class Logging {
     public synchronized void UpdateFetchProductsRequest(boolean reqFetchProds) {
         this.reqFetchProds = reqFetchProds;
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -359,8 +439,7 @@ public class Logging {
      * 
      */
     public synchronized void WriteShop(ShopState s, int nCustomerIn, int nGoodsInDisplay,
-                                    boolean reqFetchProds, boolean reqPrimeMaterials)
-    {
+                                    boolean reqFetchProds, boolean reqPrimeMaterials) {
         this.shopDoorState = s;
         this.nCustomerIn = nCustomerIn;
         this.nGoodsInDisplay = nGoodsInDisplay;
@@ -369,6 +448,7 @@ public class Logging {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -391,6 +471,7 @@ public class Logging {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -415,6 +496,7 @@ public class Logging {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -446,6 +528,7 @@ public class Logging {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -458,8 +541,7 @@ public class Logging {
      */
     public synchronized void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, 
                                         int nTimesPrimeMaterialsFetched,
-                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts)
-    {
+                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts) {
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
@@ -467,6 +549,7 @@ public class Logging {
         this.nFinishedProducts = nFinishedProducts;
         WriteLine();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -498,6 +581,7 @@ public class Logging {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -530,6 +614,7 @@ public class Logging {
     public void setConsole() {
         console = true;
     }
+    
     /**
      * Checks if the craftsman no longer has conditions to continue its work.
      * 
@@ -547,6 +632,7 @@ public class Logging {
         }
         return 0;
     }
+    
     /**
      * Checks if the customer no longer has conditions to continue.
      * 
@@ -566,6 +652,7 @@ public class Logging {
                 nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies &&
                 !reqFetchProds && !reqPrimeMaterials;
     }
+    
     /**
      * Checks if the Entrepreneur no longer has conditions to continue its work.
      * 
@@ -585,6 +672,7 @@ public class Logging {
                 !reqFetchProds && !reqPrimeMaterials && 
                 nCustomerIn == 0;
     }
+    
     /**
      * This method allows to check if the final status of the simulation is a 
      * valid or not.

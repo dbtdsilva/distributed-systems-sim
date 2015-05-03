@@ -8,9 +8,21 @@ package ClientSide.Customer;
  */
 
 public enum CustomerState {
+    /**
+     * The Customer is living his life normally.
+     */
     CARRYING_OUT_DAILY_CHORES("CODC"),
+    /**
+     * The Customer approached the door and is checking if the shop is open for business.
+     */
     CHECKING_SHOP_DOOR_OPEN("CSDO"),
+    /**
+     * The Customer is browsing the goods in display and checking if he wants something or not.
+     */
     APPRAISING_OFFER_IN_DISPLAY("AOID"),
+    /**
+     * The Customer has found something he likes and is now in the transaction process.
+     */
     BUYING_SOME_GOODS("BSG");
     
     /**
