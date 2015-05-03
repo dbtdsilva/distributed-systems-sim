@@ -67,7 +67,7 @@ public class Workshop {
     /**
      * Entrepreneur goes to the Workshop to fetch the products in there.
      * 
-     * @return 
+     * @return The number of finished products that the Entrepreneur is bringing back.
      */
     public synchronized int goToWorkshop() {
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
@@ -124,7 +124,7 @@ public class Workshop {
      * If nobody is waiting for her, it means that Entrepreneur arrived before
      * the Craftsman to the Workshop and he will not need to wait.
      * 
-     * @param nMaterials
+     * @param nMaterials Number of materials that the Entrepreneur is delivering.
      */
     public synchronized void replenishStock(int nMaterials) {
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);

@@ -41,7 +41,7 @@ public class WarehouseInterface implements ServerInterface {
      * @param scon Server communication.
      * @return Returns the reply to the received message.
      * @throws MessageException
-     * @throws SocketException 
+     * @throws SocketException
      */
     @Override
     public Message processAndReply(Message inMessage, ServerComm scon) throws MessageException, SocketException {

@@ -73,8 +73,8 @@ public class ClientComm {
      * Communication channel opening. Instantiation of a communication socket
      * and association with the server's address.
      * Opening of both socket input and output streams.
-     * @return <li>true, if the communication channel was open
-     * <li>false, otherwise
+     * @return true, if the communication channel was open
+     * false, otherwise
      */
     public boolean open() {
         boolean success = true;

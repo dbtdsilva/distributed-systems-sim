@@ -121,6 +121,7 @@ public class ServerComm {
      * with the client's address. Opening of the socket's input and output streams.
      *
      * @return communication channel
+     * @throws SocketTimeoutException
      */
     public ServerComm accept() throws SocketTimeoutException {
         ServerComm scon;                                      // canal de comunicação
@@ -137,7 +138,6 @@ public class ServerComm {
         } catch(SocketTimeoutException e) {
             throw e;
         } catch (IOException e) {
-            e.printStackTrace();
             System.out.println(Thread.currentThread().getName()
                     + " - não foi possível abrir um canal de comunicação para um pedido pendente!");
 

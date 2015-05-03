@@ -81,7 +81,7 @@ public class Message implements Serializable {
     private int nMaterials;
     
     /**
-     * FIX_ME!!
+     * Possible message value.
      */
     private int returnEntr;
     
@@ -141,7 +141,7 @@ public class Message implements Serializable {
     private int nFinishedProducts;
     
     /**
-     * FIX_ME!!
+     * Tells if a Craftsman has a finished product or not.
      */
     private boolean finishedProduct;
     
@@ -184,33 +184,33 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (1st form).
      * This is used in:
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#collectingMaterials(int) collectingMaterials}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#endOperCraft() endOperCraft}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.CraftsmanExec#main(String[]) CraftsmanExecMain}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#isDoorOpen() isDoorOpen}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#perusingAround() perusingAround}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#endOperCust() endOperCust}</ul>
-     *  <ul>{@link #ClientSide.Customer.CustomerExec#main(String[]) CustomerExecMain}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#prepareToWork() prepareToWork}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#appraiseSit() appraiseSit}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#addressACustomer() addressACustomer}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#closeTheDoor() closeTheDoor}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#customersInTheShop() customersInTheShop}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#prepareToLeave() prepareToLeave}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#goToWorkshop() goToWorkshop}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#visitSuppliers() visitSuppliers}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#endOperEntrep() endOperEntrep}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.EntrepreneurExec#main(String[]) EntrepreneurExecMain}</ul>
-     *  <ul>{@link #ServerSide.Logger.Logging#terminateServers() terminateServers}</ul>
-     *  <ul>{@link #ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Warehouse.Warehouse#visitSuppliers() visitSuppliers}</ul>
-     *  <ul>{@link #ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Workshop.Workshop#goToWorkshop() goToWorkshop}</ul>
-     *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ClientSide.Craftsman.Craftsman#collectingMaterials(int)
+     *  @see ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int)
+     *  @see ClientSide.Craftsman.Craftsman#endOperCraft()
+     *  @see ClientSide.Craftsman.CraftsmanExec#main(String[])
+     *  @see ClientSide.Customer.Customer#isDoorOpen()
+     *  @see ClientSide.Customer.Customer#perusingAround()
+     *  @see ClientSide.Customer.Customer#endOpCustomer()
+     *  @see ClientSide.Customer.CustomerExec#main(String[])
+     *  @see ClientSide.Entrepreneur.Entrepreneur#prepareToWork()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#appraiseSit()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#addressACustomer()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#closeTheDoor()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#customersInTheShop()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#prepareToLeave()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#goToWorkshop()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#visitSuppliers()
+     *  @see ClientSide.Entrepreneur.Entrepreneur#endOpEntrep()
+     *  @see ClientSide.Entrepreneur.EntrepreneurExec#main(String[])
+     *  @see ServerSide.Logger.Logging#terminateServers()
+     *  @see ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Warehouse.Warehouse#visitSuppliers()
+     *  @see ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Workshop.Workshop#goToWorkshop()
+     *  @see ServerSide.Workshop.Workshop#replenishStock(int)
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      */
@@ -222,20 +222,20 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (2nd form).
      * This is used in:
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#backToWork(int) backToWork}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#prepareToProduce(int) prepareToProduce}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#goToStore(int) goToStore}</ul>
-     *  <ul>{@link #ClientSide.Craftsman.Craftsman#batchReadyForTransfer(int) batchReadyForTransfer}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#goShopping(int) goShopping}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#enterShop(int) enterShop}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#exitShop(int) exitShop}</ul>
-     *  <ul>{@link #ClientSide.Customer.Customer#tryAgainLater(int) tryAgainLater}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#sayGoodByeToCustomer(int) syaGoodByeToCustomer}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#returnToShop(int) returnToShop}</ul>
-     *  <ul>{@link #ClientSide.Entrepreneur.Entrepreneur#replenishStock(int) replenishStock}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#appraiseSit() appraiseSit}</ul>
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ClientSide.Craftsman.Craftsman#primeMaterialsNeeded(int)
+     *  @see ClientSide.Craftsman.Craftsman#backToWork(int)
+     *  @see ClientSide.Craftsman.Craftsman#prepareToProduce(int)
+     *  @see ClientSide.Craftsman.Craftsman#goToStore(int)
+     *  @see ClientSide.Craftsman.Craftsman#batchReadyForTransfer(int)
+     *  @see ClientSide.Customer.Customer#goShopping(int)
+     *  @see ClientSide.Customer.Customer#enterShop(int)
+     *  @see ClientSide.Customer.Customer#exitShop(int)
+     *  @see ClientSide.Customer.Customer#tryAgainLater(int)
+     *  @see ClientSide.Entrepreneur.Entrepreneur#sayGoodByeToCustomer(int)
+     *  @see ClientSide.Entrepreneur.Entrepreneur#returnToShop(int)
+     *  @see ClientSide.Entrepreneur.Entrepreneur#replenishStock(int)
+     *  @see ServerSide.Shop.Shop#appraiseSit()
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
      
      
      * @param type Message type for the created message.
@@ -278,7 +278,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (3rd form).
      * This is used in:
-     *  <ul>{@link #ClientSide.Customer.Customer#iWantThis(int, int) iWantThis}</ul>
+     *  @see ClientSide.Customer.Customer#iWantThis(int, int)
      * 
      * @param type Message type for the created message.
      * @param id Entity identifier for the message.
@@ -306,9 +306,9 @@ public class Message implements Serializable {
      * Constructor for the message (4th form).
      * This is used in:
      * 
-     *  <ul>{@link #ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#resetRequestPrimeMaterials() resetRequestPrimeMaterials}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#resetRequestProducts() resetRequestProducts}</ul>
+     *  @see ServerSide.Logger.LoggingInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Shop.Shop#resetRequestPrimeMaterials()
+     *  @see ServerSide.Shop.Shop#resetRequestProducts()
      * 
      * @param type Message type for the created message.
      * @param request Boolean to reset requests.
@@ -322,7 +322,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (5th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
      *
      * @param type Message type for the created message.
      * @param nextTask Character that translates to the Entrepreneur's next task.
@@ -336,9 +336,9 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (6th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Workshop.Workshop#backToWork(int) backToWork}</ul>
-     *  <ul>{@link #ServerSide.Workshop.Workshop#prepareToProduce(int) prepareToProduce}</ul>
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Workshop.Workshop#backToWork(int)
+     *  @see ServerSide.Workshop.Workshop#prepareToProduce(int)
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      * @param craftState Craftsman state.
@@ -371,7 +371,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (7th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      * @param craftState Craftsman state.
@@ -400,9 +400,9 @@ public class Message implements Serializable {
      * Constructor for the message (8th form).
      * This is used in:
      * 
-     *  <ul>{@link #ServerSide.Shop.Shop#goShopping(int) goShopping}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#tryAgainLater(int) tryAgainLater}</ul>
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.Shop#goShopping(int)
+     *  @see ServerSide.Shop.Shop#tryAgainLater(int)
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
      
      * 
      * @param type Message type for the created message.
@@ -432,9 +432,9 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (9th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Warehouse.WarehouseInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
      *
      * @param type Message type for the created message.
      * @param entrState Entrepreneur state.
@@ -461,10 +461,10 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (10th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.Shop#addressACustomer() addressACustomer}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#sayGoodByeToCustomer(int) sayGoodByeToCustomer}</ul>
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
-     *  <ul>{@link #ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.Shop#addressACustomer()
+     *  @see ServerSide.Shop.Shop#sayGoodByeToCustomer(int)
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
+     *  @see ServerSide.Workshop.WorkshopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      * @param entrState Entrepreneur state.
@@ -478,7 +478,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (11th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      * @param craftState Craftsman state.
@@ -492,7 +492,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (12th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm) processAndReply}</ul>
+     *  @see ServerSide.Shop.ShopInterface#processAndReply(Message, ServerComm)
      * 
      * @param type Message type for the created message.
      * @param custState Customer state.
@@ -506,7 +506,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (13th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.Shop#closeTheDoor() closeTheDoor}</ul>
+     *  @see ServerSide.Shop.Shop#closeTheDoor()
      * 
      * 
      * @param type Message type for the created message.
@@ -531,9 +531,9 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (14th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.Shop#prepareToWork() prepareToWork}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#prepareToLeave() prepareToLeave}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#returnToShop(int) returnToShop}</ul>
+     *  @see ServerSide.Shop.Shop#prepareToWork()
+     *  @see ServerSide.Shop.Shop#prepareToLeave()
+     *  @see ServerSide.Shop.Shop#returnToShop(int)
      
      * @param type Message type for the created message.
      * @param s Shop state.
@@ -561,8 +561,8 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (15th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.Shop#primeMaterialsNeeded(int) primeMaterialsNeeded}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#batchReadyForTransfer(int) batchReadyForTransfer}</ul>
+     *  @see ServerSide.Shop.Shop#primeMaterialsNeeded(int)
+     *  @see ServerSide.Shop.Shop#batchReadyForTransfer(int)
      * 
      * 
      * @param type Message type for the created message.
@@ -594,9 +594,9 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (16th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Shop.Shop#enterShop(int) enterShop}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#exitShop(int) exitShop}</ul>
-     *  <ul>{@link #ServerSide.Shop.Shop#iWantThis(int, int) iWantThis}</ul>
+     *  @see ServerSide.Shop.Shop#enterShop(int)
+     *  @see ServerSide.Shop.Shop#exitShop(int)
+     *  @see ServerSide.Shop.Shop#iWantThis(int, int)
      * 
      * @param type Message type for the created message.
      * @param s Shop state.
@@ -630,7 +630,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (17th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Workshop.Workshop#collectingMaterials(int) collectingMaterials}</ul>
+     *  @see ServerSide.Workshop.Workshop#collectingMaterials(int)
      * 
      * @param type Message type for the created message.
      * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
@@ -656,7 +656,7 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (18th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Workshop.Workshop#goToStore(int) goToStore}</ul>
+     *  @see ServerSide.Workshop.Workshop#goToStore(int)
      * 
      * @param type Message type for the created message.
      * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
@@ -688,8 +688,8 @@ public class Message implements Serializable {
     /**
      * Constructor for the message (19th form).
      * This is used in:
-     *  <ul>{@link #ServerSide.Workshop.Workshop#goToWorkshop() goToWorkshop}</ul>
-     *  <ul>{@link #ServerSide.Workshop.Workshop#replenishStock(int) replenishStock}</ul>
+     *  @see ServerSide.Workshop.Workshop#goToWorkshop()
+     *  @see ServerSide.Workshop.Workshop#replenishStock(int)
      * 
      * @param type Message type for the created message.
      * @param nCurrentPrimeMaterials Number of the prime materials currently in the workshop.
@@ -762,7 +762,7 @@ public class Message implements Serializable {
 
     /**
      * Get the information about the shop state present in the current message.
-     * @return 
+     * @return The Shop state.
      */
     public ShopState getShopState() {
         return shopState;
