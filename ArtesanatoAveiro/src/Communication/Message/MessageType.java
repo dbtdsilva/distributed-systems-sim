@@ -29,11 +29,11 @@ public enum MessageType {
      */
     ERROR,
     /**
-     * Alerts that the simulation will end.
+     * Alerts the logger that the clients are finishing.
      */
     TERMINATE,
     /**
-     * Alerts that the simulation has ended.
+     * Alerts the servers that the simulation has ended.
      */
     TERMINATED,
     
