@@ -1,5 +1,4 @@
 /**
- * Warehouse package.
  * This package contains the files related to the Warehouse server.
  */
 
