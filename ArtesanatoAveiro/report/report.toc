@@ -1,0 +1,57 @@
+\select@language {portuguese}
+\contentsline {chapter}{\numberline {1}Descri\IeC {\c c}\IeC {\~a}o das Mensagens}{2}{chapter.1}
+\contentsline {subsubsection}{COLLECTING\_MATERIALS}{2}{section*.2}
+\contentsline {subsubsection}{PRIME\_MATERIALS\_NEEDED}{2}{section*.3}
+\contentsline {subsubsection}{BACK\_TO\_WORK}{2}{section*.4}
+\contentsline {subsubsection}{PREPARE\_TO\_PRODUCE}{2}{section*.5}
+\contentsline {subsubsection}{GO\_TO\_STORE}{3}{section*.6}
+\contentsline {subsubsection}{BATCH\_READY\_FOR\_TRANSFER}{3}{section*.7}
+\contentsline {subsubsection}{GO\_SHOPPING}{3}{section*.8}
+\contentsline {subsubsection}{IS\_DOOR\_OPEN}{3}{section*.9}
+\contentsline {subsubsection}{ENTER\_SHOP}{3}{section*.10}
+\contentsline {subsubsection}{PERUSING\_AROUND}{3}{section*.11}
+\contentsline {subsubsection}{I\_WANT\_THIS}{4}{section*.12}
+\contentsline {subsubsection}{EXIT\_SHOP}{4}{section*.13}
+\contentsline {subsubsection}{TRY\_AGAIN\_LATER}{4}{section*.14}
+\contentsline {subsubsection}{PREPARE\_TO\_WORK}{4}{section*.15}
+\contentsline {subsubsection}{APPRAISE\_SIT}{4}{section*.16}
+\contentsline {subsubsection}{ADDRESS\_A\_CUSTOMER}{4}{section*.17}
+\contentsline {subsubsection}{SAY\_GOODBYE\_TO\_CUSTOMER}{5}{section*.18}
+\contentsline {subsubsection}{CLOSE\_THE\_DOOR}{5}{section*.19}
+\contentsline {subsubsection}{CUSTOMERS\_IN\_THE\_SHOP}{5}{section*.20}
+\contentsline {subsubsection}{PREPARE\_TO\_LEAVE}{5}{section*.21}
+\contentsline {subsubsection}{GO\_TO\_WORKSHOP}{5}{section*.22}
+\contentsline {subsubsection}{RETURN\_TO\_SHOP}{5}{section*.23}
+\contentsline {subsubsection}{VISIT\_SUPPLIERS}{5}{section*.24}
+\contentsline {subsubsection}{REPLENISH\_STOCK}{6}{section*.25}
+\contentsline {subsubsection}{RESET\_REQ\_PMATERIALS}{6}{section*.26}
+\contentsline {subsubsection}{RESET\_REQ\_PRODUCTS}{6}{section*.27}
+\contentsline {subsubsection}{INIT\_WRITE}{6}{section*.28}
+\contentsline {subsubsection}{END\_WRITE}{6}{section*.29}
+\contentsline {subsubsection}{END\_OPER\_CUSTOMER}{6}{section*.30}
+\contentsline {subsubsection}{END\_OPER\_CRAFTSMAN}{7}{section*.31}
+\contentsline {subsubsection}{END\_OPER\_ENTREPRENEUR}{7}{section*.32}
+\contentsline {subsubsection}{UPDATE\_REQ\_PMATERIALS}{7}{section*.33}
+\contentsline {subsubsection}{UPDATE\_REQ\_PRODUCTS}{7}{section*.34}
+\contentsline {subsubsection}{WRITE\_ENTR\_STATE}{7}{section*.35}
+\contentsline {subsubsection}{WRITE\_CRAFT\_STATE}{8}{section*.36}
+\contentsline {subsubsection}{WRITE\_CUST\_STATE}{8}{section*.37}
+\contentsline {subsubsection}{WRITE\_SHOP}{8}{section*.38}
+\contentsline {subsubsection}{WRITE\_SHOP\_ENTR\_STATE}{8}{section*.39}
+\contentsline {subsubsection}{WRITE\_SHOP\_CRAFT\_STATE}{9}{section*.40}
+\contentsline {subsubsection}{WRITE\_SHOP\_CUST\_STATE}{9}{section*.41}
+\contentsline {subsubsection}{WRITE\_WSHOP}{9}{section*.42}
+\contentsline {subsubsection}{WRITE\_WSHOP\_CRAFT\_STATE}{10}{section*.43}
+\contentsline {subsubsection}{WRITE\_WSHOP\_ENTR\_STATE}{10}{section*.44}
+\contentsline {subsubsection}{TERMINATE}{10}{section*.45}
+\contentsline {subsubsection}{TERMINATED}{10}{section*.46}
+\contentsline {chapter}{\numberline {2}Diagrama de Interac\IeC {\c c}\IeC {\~a}o}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Servidores}{12}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Logging}{12}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Shop}{13}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Warehouse}{14}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Workshop}{15}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Clientes}{16}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Entrepreneur}{16}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Craftsman}{16}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Customer}{17}{subsection.2.2.3}
