@@ -318,7 +318,9 @@ public class Logging {
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
                 nFinishedProducts);
             System.out.println(" | "+Thread.currentThread().getName());
+            
         }
+        pw.flush();
     }
     
     /**

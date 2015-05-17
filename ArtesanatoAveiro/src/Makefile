@@ -21,9 +21,6 @@ JC = javac
 
 all:	__bin classes
 
-run:	
-	cd __bin; java Exec.ArtesanatoAveiro
-
 clean:
 	rm -r __bin/
 

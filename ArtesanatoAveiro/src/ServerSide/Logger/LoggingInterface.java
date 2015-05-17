@@ -54,6 +54,7 @@ public class LoggingInterface implements ServerInterface {
                     log.terminateServers();
                     System.out.println("Terminating servers...");
                     serviceEnded = true;
+                    log.EndWriting();
                 }
                 
                 break;
@@ -187,7 +188,7 @@ public class LoggingInterface implements ServerInterface {
                         inMessage.getnFinishedProducts(),
                         inMessage.getCraftState(),
                         inMessage.getId(),
-                        inMessage.isFinishedProduct());
+                            inMessage.isFinishedProduct());
                 outMessage = new Message(MessageType.ACK);
                 break;
             case WRITE_WSHOP_ENTR_STATE:
