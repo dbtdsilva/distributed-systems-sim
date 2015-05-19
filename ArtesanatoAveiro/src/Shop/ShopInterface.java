@@ -8,15 +8,11 @@ package Shop;
 import java.rmi.Remote;
 
 /**
- *
- * @author diogosilva
+ * 
+ * @author Diogo Silva (60337)
+ * @author Tânia Alves (60340)
  */
 public interface ShopInterface extends Remote {
-    
-        /**************/
-        /** CUSTOMER **/
-        /**************/
-    
     /**
      * The customer goes to the Shopping.
      * 
@@ -65,11 +61,6 @@ public interface ShopInterface extends Remote {
      * @param id customer identifier
      */
     public void tryAgainLater(int id);
-  
-        /******************/
-        /** ENTREPRENEUR **/
-        /******************/  
-    
     /**
      * Entrepreneur is preparing to work, she will open the shop.
      */
@@ -118,12 +109,7 @@ public interface ShopInterface extends Remote {
      * 
      * @param nProducts the number of products that she's carrying.
      */
-    public void returnToShop(int nProducts);
-    
-        /***************/
-        /** CRAFTSMAN **/
-        /***************/ 
-    
+    public void returnToShop(int nProducts);    
     /**
      * The craftsman tells the Entrepreneur that they're out of prime materials.
      * To do that he needs to wake up entrepreneur.
@@ -139,11 +125,6 @@ public interface ShopInterface extends Remote {
      * @param id The craftsman identifier.
     */
     public void batchReadyForTransfer(int id);
-    
-        /*************/
-        /** GENERAL **/
-        /*************/
-    
     /**
      * This function is used to the Entrepreneur reset the flag prime materials
      * request.

@@ -8,8 +8,9 @@ package Workshop;
 import java.rmi.Remote;
 
 /**
- *
- * @author diogosilva
+ * 
+ * @author Diogo Silva (60337)
+ * @author Tânia Alves (60340)
  */
 public interface WorkshopInterface extends Remote {
     /**
