@@ -6,7 +6,6 @@
 package VectorClock;
 
 import java.io.Serializable;
-import java.lang.Cloneable;
 import java.util.Arrays;
 
 /**
