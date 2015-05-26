@@ -1,4 +1,4 @@
-package Exec;
+package Constants;
 
 /**
  * This class contains all the constants.

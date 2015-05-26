@@ -1,12 +1,14 @@
 package ServerSide.Shop;
 
+import Interfaces.ShopInterface;
 import ClientSide.Craftsman.Craftsman;
 import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Customer.Customer;
 import ClientSide.Customer.CustomerState;
 import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
-import Logger.Logging;
+import ServerSide.Logger.Logging;
+import Interfaces.LoggingInterface;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -19,7 +21,7 @@ import java.util.logging.Logger;
  * @author Tânia Alves, 60340
  */
 
-public class Shop {
+public class Shop implements ShopInterface {
     private int nCustomersInside;
     private int nProductsStock;
     private ShopState shopState;
@@ -28,14 +30,14 @@ public class Shop {
     private boolean reqPrimeMaterials;
     private int requestEntrepreneur;
     
-    private final Logging log;
+    private final LoggingInterface log;
     
     /**
      * Initializes the shop class with the required information.
      * 
      * @param log The general repository
      */
-    public Shop(Logging log) {
+    public Shop(LoggingInterface log) {
         this.requestEntrepreneur = 0;
         this.log = log;
         this.nProductsStock = 0;

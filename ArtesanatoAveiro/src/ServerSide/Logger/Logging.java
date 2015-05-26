@@ -1,9 +1,10 @@
-package Logger;
+package ServerSide.Logger;
 
+import Interfaces.LoggingInterface;
 import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Customer.CustomerState;
 import ClientSide.Entrepreneur.EntrepreneurState;
-import Exec.ProbConst;
+import Constants.ProbConst;
 import ServerSide.Shop.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public class Logging {
+public class Logging implements LoggingInterface {
     /* File where the log will be saved */
     private final File log;
     /* Name for the file where we want to save the log */

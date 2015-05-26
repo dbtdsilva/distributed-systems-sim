@@ -1,6 +1,6 @@
 package ClientSide.Entrepreneur;
 
-import Logger.Logging;
+import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
 import ServerSide.Warehouse.Warehouse;
 import ServerSide.Workshop.Workshop;

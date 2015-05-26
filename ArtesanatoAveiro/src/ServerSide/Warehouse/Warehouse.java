@@ -2,8 +2,8 @@ package ServerSide.Warehouse;
 
 import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
-import Exec.ProbConst;
-import Logger.Logging;
+import Constants.ProbConst;
+import ServerSide.Logger.Logging;
 
 /**
  * The monitor that represents the Warehouse.

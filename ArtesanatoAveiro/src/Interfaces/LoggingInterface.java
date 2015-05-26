@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Logger;
+package Interfaces;
 
 import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Customer.CustomerState;
 import ClientSide.Entrepreneur.EntrepreneurState;
 import ServerSide.Shop.ShopState;
+import java.rmi.Remote;
 
 /**
  *
  * @author diogosilva
  */
-public interface LoggingInterface {
+public interface LoggingInterface extends Remote {
     public void WriteLine();
     /**
      * Writes the end of the logger file.
