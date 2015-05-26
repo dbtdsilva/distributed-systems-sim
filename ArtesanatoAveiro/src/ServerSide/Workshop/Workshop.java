@@ -1,12 +1,12 @@
-package Workshop;
+package ServerSide.Workshop;
 
-import Craftsman.Craftsman;
-import Craftsman.CraftsmanState;
-import Entrepreneur.Entrepreneur;
-import Entrepreneur.EntrepreneurState;
+import ClientSide.Craftsman.Craftsman;
+import ClientSide.Craftsman.CraftsmanState;
+import ClientSide.Entrepreneur.Entrepreneur;
+import ClientSide.Entrepreneur.EntrepreneurState;
 import Exec.ProbConst;
 import Logger.Logging;
-import Shop.Shop;
+import ServerSide.Shop.Shop;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

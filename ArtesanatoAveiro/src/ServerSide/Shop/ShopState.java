@@ -1,4 +1,4 @@
-package Shop;
+package ServerSide.Shop;
 
 /**
  * Enumerate used to represent the state of the Shop.

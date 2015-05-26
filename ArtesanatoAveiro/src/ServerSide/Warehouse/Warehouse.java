@@ -1,7 +1,7 @@
-package Warehouse;
+package ServerSide.Warehouse;
 
-import Entrepreneur.Entrepreneur;
-import Entrepreneur.EntrepreneurState;
+import ClientSide.Entrepreneur.Entrepreneur;
+import ClientSide.Entrepreneur.EntrepreneurState;
 import Exec.ProbConst;
 import Logger.Logging;
 

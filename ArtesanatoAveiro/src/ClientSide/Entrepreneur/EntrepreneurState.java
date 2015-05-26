@@ -1,19 +1,22 @@
-package Craftsman;
+package ClientSide.Entrepreneur;
 
 /**
- * This enumerate represents the state of entity Craftsman
+ * This enumerate represents the state of entity Entrepreneur
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public enum CraftsmanState {
-    FETCHING_PRIME_MATERIALS("FPM"),
-    CONTACTING_ENTREPRENEUR("CE"),
-    PRODUCING_A_NEW_PIECE("PANP"),
-    STORING_IT_FOR_TRANSFER("SIFT");
+public enum EntrepreneurState {
+    OPENING_THE_SHOP("OTS"),
+    WAITING_FOR_NEXT_TASK("WFNT"),
+    ATTENDING_A_CUSTOMER("AAC"),
+    CLOSING_THE_SHOP("CTS"),
+    COLLECTING_A_BATCH_OF_PRODUCTS("CABP"),
+    AT_THE_SUPPLIERS("ATS"),
+    DELIVERING_PRIME_MATERIALS("DPM");
     
     private final String acronym;
-    private CraftsmanState(String acronym) 
+    private EntrepreneurState(String acronym) 
     {
         this.acronym = acronym;
     }

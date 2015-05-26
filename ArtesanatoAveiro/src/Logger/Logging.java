@@ -1,10 +1,10 @@
 package Logger;
 
-import Craftsman.CraftsmanState;
-import Customer.CustomerState;
-import Entrepreneur.EntrepreneurState;
+import ClientSide.Craftsman.CraftsmanState;
+import ClientSide.Customer.CustomerState;
+import ClientSide.Entrepreneur.EntrepreneurState;
 import Exec.ProbConst;
-import Shop.ShopState;
+import ServerSide.Shop.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
