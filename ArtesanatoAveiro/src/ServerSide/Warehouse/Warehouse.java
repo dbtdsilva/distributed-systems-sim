@@ -3,7 +3,8 @@ package ServerSide.Warehouse;
 import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
 import Constants.ProbConst;
-import ServerSide.Logger.Logging;
+import Interfaces.LoggingInterface;
+import Interfaces.WarehouseInterface;
 
 /**
  * The monitor that represents the Warehouse.
@@ -11,8 +12,8 @@ import ServerSide.Logger.Logging;
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public class Warehouse {
-    private final Logging log;
+public class Warehouse implements WarehouseInterface {
+    private final LoggingInterface log;
     
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
@@ -22,7 +23,7 @@ public class Warehouse {
      * 
      * @param log The general repository
      */
-    public Warehouse(Logging log) {
+    public Warehouse(LoggingInterface log) {
         this.log = log;
         this.nTimesSupplied = 0;
         

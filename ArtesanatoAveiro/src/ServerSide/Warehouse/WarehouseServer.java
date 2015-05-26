@@ -1,69 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ServerSide.Shop;
+package ServerSide.Warehouse;
 
 import Constants.RegistryConst;
 import Interfaces.LoggingInterface;
-import Interfaces.ShopInterface;
+import Interfaces.WarehouseInterface;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 
 /**
  *
- * @author diogosilva
+ * @author guesswho
  */
-public class ShopServer {
-    static Scanner in = new Scanner(System.in);
+public class WarehouseServer {
+
     public static void main(String[] args) {
         /* obtenção da localização do serviço de registo RMI */
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        System.out.print("Nome do nó de processamento onde está localizado o serviço de registo? ");
-        rmiRegHostName = in.nextLine();
-        System.out.print("Número do port de escuta do serviço de registo? ");
-        rmiRegPortNumb = in.nextInt();
-        
+        rmiRegHostName = RegistryConst.hostWarehouse;
+        rmiRegPortNumb = RegistryConst.portWarehouse;
+
         /* localização por nome do objecto remoto no serviço de registos RMI */
         LoggingInterface loggingInt = null;             // interface da barbearia (objecto remoto)
 
-        try
-        { 
-            Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup (RegistryConst.logNameEntry);
-        }
-        catch (RemoteException e)
-        { 
-            System.out.println("Excepção na localização da barbearia: " + e.getMessage () + "!");
-            e.printStackTrace ();
-            System.exit (1);
-        }
-        catch (NotBoundException e)
-        { 
-            System.out.println("O logging não está registado: " + e.getMessage () + "!");
-            e.printStackTrace ();
+        try {
+            Registry registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
+            loggingInt = (LoggingInterface) registry.lookup(RegistryConst.logNameEntry);
+        } catch (RemoteException e) {
+            System.out.println("Excepção na localização da barbearia: " + e.getMessage() + "!");
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            System.out.println("O logging não está registado: " + e.getMessage() + "!");
+            e.printStackTrace();
             System.exit(1);
         }
-        
+
         /* instanciação e instalação do gestor de segurança */
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
         /* instanciação do objecto remoto que representa a barbearia e geração de um stub para ele */
-        Shop shop = null;                              // barbearia (representa o objecto remoto)
-        ShopInterface shopInterface = null;             // interface da barbearia
-        shop = new Shop(loggingInt);
+        Warehouse warehouse = null;                              // barbearia (representa o objecto remoto)
+        WarehouseInterface whInterface = null;             // interface da barbearia
+        warehouse = new Warehouse(loggingInt);
+
         try {
-            shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, 22000);
+            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, 22000);
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
             e.printStackTrace();
@@ -84,7 +72,7 @@ public class ShopServer {
         System.out.println("O registo RMI foi criado!");
 
         try {
-            registry.bind(RegistryConst.shopNameEntry, shopInterface);
+            registry.bind(RegistryConst.warehouseNameEntry, whInterface);
         } catch (RemoteException e) {
             System.out.println("Excepção no registo da loja: " + e.getMessage());
             e.printStackTrace();

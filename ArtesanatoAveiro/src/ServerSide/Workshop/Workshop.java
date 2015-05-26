@@ -5,8 +5,9 @@ import ClientSide.Craftsman.CraftsmanState;
 import ClientSide.Entrepreneur.Entrepreneur;
 import ClientSide.Entrepreneur.EntrepreneurState;
 import Constants.ProbConst;
-import ServerSide.Logger.Logging;
-import ServerSide.Shop.Shop;
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Interfaces.WorkshopInterface;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  * @author Diogo Silva, 60337 
  * @author Tânia Alves, 60340
  */
-public class Workshop {
+public class Workshop implements WorkshopInterface {
     private int nProductsStored;
     private int nCurrentPrimeMaterials;
     private int nFinishedProducts;
@@ -24,8 +25,8 @@ public class Workshop {
     private int nTotalPrimeMaterialsSupplied;
     private boolean waitingEntrepreneur;
     
-    private final Logging log;
-    private final Shop shop;
+    private final LoggingInterface log;
+    private final ShopInterface shop;
             
     /**
      * Initializes the workshop class with the required information.
@@ -33,7 +34,7 @@ public class Workshop {
      * @param log The general repository where the semaphores are stored along with some other useful global variables.
      * @param shop The shop that is created in the simulation.
      */
-    public Workshop(Logging log, Shop shop) {
+    public Workshop(LoggingInterface log, ShopInterface shop) {
         this.nProductsStored = 0;
         this.nCurrentPrimeMaterials = 0;
         this.nFinishedProducts = 0;
