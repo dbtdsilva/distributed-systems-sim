@@ -27,10 +27,8 @@ public class ShopServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        System.out.print("Nome do nó de processamento onde está localizado o serviço de registo? ");
-        rmiRegHostName = in.nextLine();
-        System.out.print("Número do port de escuta do serviço de registo? ");
-        rmiRegPortNumb = in.nextInt();
+        rmiRegHostName = RegistryConst.hostRegistry;
+        rmiRegPortNumb = RegistryConst.portRegistry;
         
         /* localização por nome do objecto remoto no serviço de registos RMI */
         LoggingInterface loggingInt = null;             // interface da barbearia (objecto remoto)
@@ -63,7 +61,7 @@ public class ShopServer {
         ShopInterface shopInterface = null;             // interface da barbearia
         shop = new Shop(loggingInt);
         try {
-            shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, 22000);
+            shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, RegistryConst.portShop);
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
             e.printStackTrace();

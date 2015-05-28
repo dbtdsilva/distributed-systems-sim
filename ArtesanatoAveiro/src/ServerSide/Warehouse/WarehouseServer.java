@@ -51,7 +51,7 @@ public class WarehouseServer {
         warehouse = new Warehouse(loggingInt);
 
         try {
-            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, RegistryConst.objectRegister);
+            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, RegistryConst.portWarehouse);
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
             e.printStackTrace();

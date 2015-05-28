@@ -70,7 +70,7 @@ public class WorkshopServer {
         workshop = new Workshop(loggingInt, shopInt);
         
         try {
-            wsInterface = (WorkshopInterface) UnicastRemoteObject.exportObject(workshop, 22000);
+            wsInterface = (WorkshopInterface) UnicastRemoteObject.exportObject(workshop, RegistryConst.portWorkshop);
         } catch (RemoteException e) {
             System.out.println("Exception thrown while exporting workshop interface: " + e.getMessage());
             e.printStackTrace();

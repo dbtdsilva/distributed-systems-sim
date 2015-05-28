@@ -47,7 +47,7 @@ public class LoggingServer {
             System.exit(1);
         }
         try {
-            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, RegistryConst.objectRegister);
+            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, RegistryConst.portLogging);
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a Logging: " + e.getMessage());
             e.printStackTrace();
