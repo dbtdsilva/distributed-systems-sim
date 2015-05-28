@@ -1,4 +1,4 @@
-package ServerSide.Shop;
+package Static.Enumerates;
 
 /**
  * Enumerate used to represent the state of the Shop.

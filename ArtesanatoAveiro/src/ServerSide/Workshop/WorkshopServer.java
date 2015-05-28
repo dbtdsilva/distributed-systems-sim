@@ -5,7 +5,7 @@
  */
 package ServerSide.Workshop;
 
-import Constants.RegistryConst;
+import Static.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WorkshopInterface;
@@ -22,8 +22,8 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class WorkshopServer {    
     public static void main(String[] args) {
-        String rmiRegHostName = RegistryConst.hostWorkshop;
-        int rmiRegPortNumb = RegistryConst.portWorkshop;
+        String rmiRegHostName = RegistryConst.hostRegistry;
+        int rmiRegPortNumb = RegistryConst.portRegistry;
         
         LoggingInterface loggingInt = null;             
         ShopInterface shopInt = null;

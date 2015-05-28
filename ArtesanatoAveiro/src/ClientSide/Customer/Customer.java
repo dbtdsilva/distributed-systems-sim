@@ -1,7 +1,9 @@
 package ClientSide.Customer;
 
+import Static.Enumerates.CustomerState;
 import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,21 +39,25 @@ public class Customer extends Thread {
     @Override
     public void run() {
         int nProducts;
-        do {
-            livingNormalLife();
-            shop.goShopping(id);
-        
-            if(shop.isDoorOpen()) {
-                shop.enterShop(id);
-                if ((nProducts = shop.perusingAround()) != 0)
-                    shop.iWantThis(id, nProducts);
-                shop.exitShop(id);
-            }
-            else {
-                shop.tryAgainLater(id);
-            }
-        } while (!log.endOpCustomer());
-        System.out.println("Cliente "+id+" acabou execução!");
+        try {
+            do {
+                livingNormalLife();
+                shop.goShopping(id);
+
+                if(shop.isDoorOpen()) {
+                    shop.enterShop(id);
+                    if ((nProducts = shop.perusingAround()) != 0)
+                        shop.iWantThis(id, nProducts);
+                    shop.exitShop(id);
+                }
+                else {
+                    shop.tryAgainLater(id);
+                }
+            } while (!log.endOpCustomer());
+            System.out.println("Cliente "+id+" acabou execução!");
+        } catch(RemoteException e) {
+            e.printStackTrace();
+        }
     }
     
     /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Constants;
+package Static.Constants;
 
 /**
  *
@@ -18,6 +18,8 @@ public class RegistryConst {
     public static int portRegistry = 22440; // 22440 - 22449
     public static String hostRegistry = "localhost";
     
+    public static int objectRegister = 22441;
+    /*
     public static int portLogging = 22441;
     public static String hostLogging = "localhost";
     
@@ -28,5 +30,5 @@ public class RegistryConst {
     public static String hostWorkshop = "localhost";
     
     public static int portWarehouse = 22444;
-    public static String hostWarehouse = "localhost";
+    public static String hostWarehouse = "localhost";*/
 }

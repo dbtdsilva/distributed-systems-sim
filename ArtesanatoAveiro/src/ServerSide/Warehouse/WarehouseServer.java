@@ -1,6 +1,6 @@
 package ServerSide.Warehouse;
 
-import Constants.RegistryConst;
+import Static.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
 import Interfaces.WarehouseInterface;
 import java.rmi.AlreadyBoundException;
@@ -21,8 +21,8 @@ public class WarehouseServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostWarehouse;
-        rmiRegPortNumb = RegistryConst.portWarehouse;
+        rmiRegHostName = RegistryConst.hostRegistry;
+        rmiRegPortNumb = RegistryConst.portRegistry;
 
         /* localização por nome do objecto remoto no serviço de registos RMI */
         LoggingInterface loggingInt = null;             // interface da barbearia (objecto remoto)
@@ -51,7 +51,7 @@ public class WarehouseServer {
         warehouse = new Warehouse(loggingInt);
 
         try {
-            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, 22000);
+            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, RegistryConst.objectRegister);
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
             e.printStackTrace();

@@ -5,7 +5,7 @@
  */
 package ServerSide.Shop;
 
-import Constants.RegistryConst;
+import Static.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import java.rmi.AlreadyBoundException;

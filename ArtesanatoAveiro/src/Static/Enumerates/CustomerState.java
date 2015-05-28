@@ -1,22 +1,20 @@
-package ClientSide.Entrepreneur;
+package Static.Enumerates;
 
 /**
- * This enumerate represents the state of entity Entrepreneur
+ * This enumerate represents the state of entity Customer
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public enum EntrepreneurState {
-    OPENING_THE_SHOP("OTS"),
-    WAITING_FOR_NEXT_TASK("WFNT"),
-    ATTENDING_A_CUSTOMER("AAC"),
-    CLOSING_THE_SHOP("CTS"),
-    COLLECTING_A_BATCH_OF_PRODUCTS("CABP"),
-    AT_THE_SUPPLIERS("ATS"),
-    DELIVERING_PRIME_MATERIALS("DPM");
+
+public enum CustomerState {
+    CARRYING_OUT_DAILY_CHORES("CODC"),
+    CHECKING_SHOP_DOOR_OPEN("CSDO"),
+    APPRAISING_OFFER_IN_DISPLAY("AOID"),
+    BUYING_SOME_GOODS("BSG");
     
     private final String acronym;
-    private EntrepreneurState(String acronym) 
+    private CustomerState(String acronym) 
     {
         this.acronym = acronym;
     }

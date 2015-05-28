@@ -6,6 +6,7 @@
 package Interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * 
@@ -19,7 +20,7 @@ public interface WorkshopInterface extends Remote {
      * @return the number of products that Entrepreneur is going to deliver to 
      * the shop
      */
-    public int goToWorkshop();
+    public int goToWorkshop() throws RemoteException;
     /**
      * Entrepreneur goes to the Workshop and returns that prime materials that
      * she fetched from the Warehouse.
@@ -28,7 +29,7 @@ public interface WorkshopInterface extends Remote {
      * 
      * @param nMaterials number of prime materials
      */
-    public void replenishStock(int nMaterials);    
+    public void replenishStock(int nMaterials) throws RemoteException;    
     /**
      * The craftsman is preparing to manufacture a product.
      * If there are enough materials to manufacture the product, the number of available prime materials 
@@ -38,7 +39,7 @@ public interface WorkshopInterface extends Remote {
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
-    public boolean collectingMaterials(int id);
+    public boolean collectingMaterials(int id) throws RemoteException;
     /**
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
@@ -46,17 +47,17 @@ public interface WorkshopInterface extends Remote {
      * 
      * @return the number of products stored in workshop.
      */
-    public int goToStore(int id);
+    public int goToStore(int id) throws RemoteException;
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
      * 
      * @param id The craftsman identifier.
      */
-    public void backToWork(int id);
+    public void backToWork(int id) throws RemoteException;
     /**
      * The craftsman has the prime materials that he needs, and will now start producing another piece.
      * 
      * @param id The craftsman identifier.
      */
-    public void prepareToProduce(int id);
+    public void prepareToProduce(int id) throws RemoteException;
 }

@@ -6,6 +6,7 @@
 package Interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * 
@@ -20,5 +21,5 @@ public interface WarehouseInterface extends Remote {
      * 
      * @return the number of prime materials fetched
      */
-    public int visitSuppliers();
+    public int visitSuppliers() throws RemoteException;
 }

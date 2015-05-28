@@ -1,4 +1,4 @@
-package ClientSide.Craftsman;
+package Static.Enumerates;
 
 /**
  * This enumerate represents the state of entity Craftsman

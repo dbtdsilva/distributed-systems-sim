@@ -1,14 +1,16 @@
 package ServerSide.Shop;
 
+import Static.Enumerates.ShopState;
 import Interfaces.ShopInterface;
 import ClientSide.Craftsman.Craftsman;
-import ClientSide.Craftsman.CraftsmanState;
+import Static.Enumerates.CraftsmanState;
 import ClientSide.Customer.Customer;
-import ClientSide.Customer.CustomerState;
+import Static.Enumerates.CustomerState;
 import ClientSide.Entrepreneur.Entrepreneur;
-import ClientSide.Entrepreneur.EntrepreneurState;
+import Static.Enumerates.EntrepreneurState;
 import ServerSide.Logger.Logging;
 import Interfaces.LoggingInterface;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -57,7 +59,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void goShopping(int id) {
+    public synchronized void goShopping(int id) throws RemoteException {
         ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
         log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
     }
@@ -75,7 +77,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void enterShop(int id) {
+    public synchronized void enterShop(int id) throws RemoteException {
         ((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         
         nCustomersInside += 1;
@@ -93,7 +95,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier 
      */
-    public synchronized void exitShop(int id) {
+    public synchronized void exitShop(int id) throws RemoteException {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
@@ -129,7 +131,7 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      * @param nProducts the number of products bought
      */
-    public synchronized void iWantThis(int id, int nProducts) {
+    public synchronized void iWantThis(int id, int nProducts) throws RemoteException {
         ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
         waitingLine.add(id);
         
@@ -154,7 +156,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void tryAgainLater(int id) {
+    public synchronized void tryAgainLater(int id) throws RemoteException {
         ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
     }
@@ -166,7 +168,7 @@ public class Shop implements ShopInterface {
     /**
      * Entrepreneur is preparing to work, she will open the shop.
      */
-    public synchronized void prepareToWork() {
+    public synchronized void prepareToWork() throws RemoteException {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         
         shopState = ShopState.OPEN;
@@ -183,7 +185,7 @@ public class Shop implements ShopInterface {
      *          'T', if craftsman requested to fetch the products in the Workshop;
      *          'E', if the shop is out of business.
      */
-    public synchronized char appraiseSit() {
+    public synchronized char appraiseSit() throws RemoteException {
         char returnChar;
         while (true) {
             while (requestEntrepreneur == 0) {
@@ -216,7 +218,7 @@ public class Shop implements ShopInterface {
      * 
      * @return the customer identifier
      */
-    public synchronized int addressACustomer() {
+    public synchronized int addressACustomer() throws RemoteException {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         
@@ -232,7 +234,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void sayGoodByeToCustomer(int id) {
+    public synchronized void sayGoodByeToCustomer(int id) throws RemoteException {
         notifyAll();    // Acordar customer com este ID
         
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
@@ -241,7 +243,7 @@ public class Shop implements ShopInterface {
     /**
      * The entrepreneur signals that she will close the shop.
      */
-    public synchronized void closeTheDoor() {
+    public synchronized void closeTheDoor() throws RemoteException {
         shopState = ShopState.ECLOSED;
         log.WriteShop(this.shopState, nCustomersInside, nProductsStock, reqFetchProducts, reqPrimeMaterials);
     }
@@ -257,7 +259,7 @@ public class Shop implements ShopInterface {
      * The entrepreneur prepares to leave the shop.
      * At this point the shop is considered as closed.
      */
-    public synchronized void prepareToLeave() {
+    public synchronized void prepareToLeave() throws RemoteException {
         shopState = ShopState.CLOSED;
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
         
@@ -273,7 +275,7 @@ public class Shop implements ShopInterface {
      * 
      * @param nProducts the number of products that she's carrying.
      */
-    public synchronized void returnToShop(int nProducts) {
+    public synchronized void returnToShop(int nProducts) throws RemoteException {
         if (nProducts >= 0) {
             nProductsStock += nProducts;
         }
@@ -298,7 +300,7 @@ public class Shop implements ShopInterface {
      * @return returns true if request has been done; returns false if it was 
      * already done by someone before.
      */
-    public synchronized boolean primeMaterialsNeeded(int id) {
+    public synchronized boolean primeMaterialsNeeded(int id) throws RemoteException {
         if (reqPrimeMaterials)
             return false;
         
@@ -319,7 +321,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id The craftsman identifier.
     */
-    public synchronized void batchReadyForTransfer(int id) {
+    public synchronized void batchReadyForTransfer(int id) throws RemoteException {
         if (reqFetchProducts)
             return;
         
@@ -341,14 +343,14 @@ public class Shop implements ShopInterface {
      * This function is used to the Entrepreneur reset the flag prime materials
      * request.
      */
-    public synchronized void resetRequestPrimeMaterials() {
+    public synchronized void resetRequestPrimeMaterials() throws RemoteException {
         reqPrimeMaterials = false;
         log.UpdatePrimeMaterialsRequest(reqPrimeMaterials);
     }
     /**
      * This function is used to the Entrepreneur reset the flag requestProducts.
      */
-    public synchronized void resetRequestProducts() {
+    public synchronized void resetRequestProducts() throws RemoteException {
         reqFetchProducts = false;
         log.UpdateFetchProductsRequest(reqFetchProducts);
     }

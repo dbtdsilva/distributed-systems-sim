@@ -1,9 +1,11 @@
 package ClientSide.Entrepreneur;
 
+import Static.Enumerates.EntrepreneurState;
 import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
 import ServerSide.Warehouse.Warehouse;
 import ServerSide.Workshop.Workshop;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,39 +45,43 @@ public class Entrepreneur extends Thread {
      */
     @Override
     public void run() {
-        do {
-            boolean canGoOut = false;
-            char sit;
-            
-            shop.prepareToWork();
-            do {                
-                sit = shop.appraiseSit();
-                switch (sit) {
-                    case 'C': 
-                        int id = shop.addressACustomer();
-                        serviceCustomer(id);
-                        shop.sayGoodByeToCustomer(id);
-                        break;
-                    case 'T':
-                    case 'M':
-                    case 'E':
-                        shop.closeTheDoor();
-                        canGoOut = !shop.customersInTheShop();
-                        break;
+        try {
+            do {
+                boolean canGoOut = false;
+                char sit;
+
+                shop.prepareToWork();
+                do {                
+                    sit = shop.appraiseSit();
+                    switch (sit) {
+                        case 'C': 
+                            int id = shop.addressACustomer();
+                            serviceCustomer(id);
+                            shop.sayGoodByeToCustomer(id);
+                            break;
+                        case 'T':
+                        case 'M':
+                        case 'E':
+                            shop.closeTheDoor();
+                            canGoOut = !shop.customersInTheShop();
+                            break;
+                    }
+                } while (!canGoOut);
+
+                shop.prepareToLeave();
+                if (sit == 'T') {           /* Transfer products */
+                    int nProducts = workshop.goToWorkshop();
+                    shop.returnToShop(nProducts);
+                } else if (sit == 'M') {    /* Materials needed */
+                    int nMaterials = warehouse.visitSuppliers();
+                    workshop.replenishStock(nMaterials);
+                    shop.returnToShop(-1);
                 }
-            } while (!canGoOut);
-            
-            shop.prepareToLeave();
-            if (sit == 'T') {           /* Transfer products */
-                int nProducts = workshop.goToWorkshop();
-                shop.returnToShop(nProducts);
-            } else if (sit == 'M') {    /* Materials needed */
-                int nMaterials = warehouse.visitSuppliers();
-                workshop.replenishStock(nMaterials);
-                shop.returnToShop(-1);
-            }
-        } while(!log.endOpEntrep());
-        System.out.println("Dona acabou execução!");
+            } while(!log.endOpEntrep());
+            System.out.println("Dona acabou execução!");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
     /**
      * Updates the state of the entrepreneur.

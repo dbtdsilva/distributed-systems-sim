@@ -1,9 +1,11 @@
 package ClientSide.Craftsman;
 
-import Constants.ProbConst;
+import Static.Enumerates.CraftsmanState;
+import Static.Constants.ProbConst;
 import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
 import ServerSide.Workshop.Workshop;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,23 +46,26 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         int val;
-        do {
-            if (!workshop.collectingMaterials(id)) {
-                shop.primeMaterialsNeeded(id);
-                workshop.backToWork(id);
-            } else {
-                workshop.prepareToProduce(id);
-                shappingItUp();
-                int productsStored = workshop.goToStore(id);
-                if (productsStored >= ProbConst.MAXproductsInWorkshop)
-                    shop.batchReadyForTransfer(id);
-                workshop.backToWork(id);
-            }
-        } while ((val = log.endOperCraft()) == 0);
-        
-        if (val == 2) 
-            shop.batchReadyForTransfer(id);
-        
+        try {
+            do {
+                if (!workshop.collectingMaterials(id)) {
+                    shop.primeMaterialsNeeded(id);
+                    workshop.backToWork(id);
+                } else {
+                    workshop.prepareToProduce(id);
+                    shappingItUp();
+                    int productsStored = workshop.goToStore(id);
+                    if (productsStored >= ProbConst.MAXproductsInWorkshop)
+                        shop.batchReadyForTransfer(id);
+                    workshop.backToWork(id);
+                }
+            } while ((val = log.endOperCraft()) == 0);
+
+            if (val == 2) 
+                shop.batchReadyForTransfer(id);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         System.out.println("Artesão "+id+" acabou execução!");
     }
     /**

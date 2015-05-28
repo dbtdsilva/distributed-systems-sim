@@ -6,7 +6,8 @@
 package ServerSide.Logger;
 
 import Interfaces.LoggingInterface;
-import Constants.ProbConst;
+import Static.Constants.ProbConst;
+import Static.Constants.RegistryConst;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -26,10 +27,8 @@ public class LoggingServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        System.out.print("Nome do nó de processamento onde está localizado o serviço de registo? ");
-        rmiRegHostName = in.nextLine();
-        System.out.print("Número do port de escuta do serviço de registo? ");
-        rmiRegPortNumb = in.nextInt();
+        rmiRegHostName = RegistryConst.hostRegistry;
+        rmiRegPortNumb = RegistryConst.portRegistry;
 
         /* instanciação e instalação do gestor de segurança */
         if (System.getSecurityManager() == null) {
@@ -48,16 +47,16 @@ public class LoggingServer {
             System.exit(1);
         }
         try {
-            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, 22000);
+            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, RegistryConst.objectRegister);
         } catch (RemoteException e) {
-            System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
+            System.out.println("Excepção na geração do stub para a Logging: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
         System.out.println("O stub para a barberaria foi gerado!");
 
         /* seu registo no serviço de registo RMI */
-        String nameEntry = "LoggingReg";
+        String nameEntry = RegistryConst.logNameEntry;
         Registry registry = null;
 
         try {
@@ -72,14 +71,14 @@ public class LoggingServer {
         try {
             registry.bind(nameEntry, logInterface);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo da barbearia: " + e.getMessage());
+            System.out.println("Excepção no registo do Logging: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("A barbearia já está registada: " + e.getMessage());
+            System.out.println("O Logging já está registado: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("A barbearia foi registada!");
+        System.out.println("O Logging foi registado!");
     }
 }

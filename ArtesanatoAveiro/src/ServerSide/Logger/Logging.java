@@ -1,11 +1,11 @@
 package ServerSide.Logger;
 
 import Interfaces.LoggingInterface;
-import ClientSide.Craftsman.CraftsmanState;
-import ClientSide.Customer.CustomerState;
-import ClientSide.Entrepreneur.EntrepreneurState;
-import Constants.ProbConst;
-import ServerSide.Shop.ShopState;
+import Static.Enumerates.CraftsmanState;
+import Static.Enumerates.CustomerState;
+import Static.Enumerates.EntrepreneurState;
+import Static.Constants.ProbConst;
+import Static.Enumerates.ShopState;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

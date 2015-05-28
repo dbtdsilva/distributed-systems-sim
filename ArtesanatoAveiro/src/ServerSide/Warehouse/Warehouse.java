@@ -1,10 +1,11 @@
 package ServerSide.Warehouse;
 
 import ClientSide.Entrepreneur.Entrepreneur;
-import ClientSide.Entrepreneur.EntrepreneurState;
-import Constants.ProbConst;
+import Static.Enumerates.EntrepreneurState;
+import Static.Constants.ProbConst;
 import Interfaces.LoggingInterface;
 import Interfaces.WarehouseInterface;
+import java.rmi.RemoteException;
 
 /**
  * The monitor that represents the Warehouse.
@@ -49,7 +50,7 @@ public class Warehouse implements WarehouseInterface {
      * 
      * @return the number of prime materials fetched
      */
-    public synchronized int visitSuppliers() {
+    public synchronized int visitSuppliers() throws RemoteException {
         int n = nTimesPMSupplied[nTimesSupplied];
         nTimesSupplied++;
         

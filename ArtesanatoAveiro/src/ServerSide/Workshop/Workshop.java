@@ -1,13 +1,14 @@
 package ServerSide.Workshop;
 
 import ClientSide.Craftsman.Craftsman;
-import ClientSide.Craftsman.CraftsmanState;
+import Static.Enumerates.CraftsmanState;
 import ClientSide.Entrepreneur.Entrepreneur;
-import ClientSide.Entrepreneur.EntrepreneurState;
-import Constants.ProbConst;
+import Static.Enumerates.EntrepreneurState;
+import Static.Constants.ProbConst;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WorkshopInterface;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,7 +57,7 @@ public class Workshop implements WorkshopInterface {
      * @return the number of products that Entrepreneur is going to deliver to 
      * the shop
      */
-    public synchronized int goToWorkshop() {
+    public synchronized int goToWorkshop() throws RemoteException {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         
         int n = nProductsStored;
@@ -76,7 +77,7 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param nMaterials number of prime materials
      */
-    public synchronized void replenishStock(int nMaterials) {
+    public synchronized void replenishStock(int nMaterials) throws RemoteException {
         ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
 
         nTimesPrimeMaterialsFetched++;
@@ -106,7 +107,7 @@ public class Workshop implements WorkshopInterface {
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
-    public synchronized boolean collectingMaterials(int id) {
+    public synchronized boolean collectingMaterials(int id) throws RemoteException {
         while (waitingEntrepreneur && nCurrentPrimeMaterials < ProbConst.nPrimeMaterials) {
             try {
                 wait();
@@ -134,7 +135,7 @@ public class Workshop implements WorkshopInterface {
      * 
      * @return the number of products stored in workshop.
      */
-    public synchronized int goToStore(int id) {
+    public synchronized int goToStore(int id) throws RemoteException {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.STORING_IT_FOR_TRANSFER);
         
         nFinishedProducts++;
@@ -150,7 +151,7 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param id The craftsman identifier.
      */
-    public synchronized void backToWork(int id) {
+    public synchronized void backToWork(int id) throws RemoteException {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
         log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
     } 
@@ -159,7 +160,7 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param id The craftsman identifier.
      */
-    public synchronized void prepareToProduce(int id) {
+    public synchronized void prepareToProduce(int id) throws RemoteException {
         ((Craftsman) Thread.currentThread()).setState(CraftsmanState.PRODUCING_A_NEW_PIECE);
         log.UpdateCraftsmanState(id, ((Craftsman) Thread.currentThread()).getCurrentState());
     } 
