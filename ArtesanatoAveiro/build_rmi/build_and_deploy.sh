@@ -1,3 +1,4 @@
+find . -name "*.class" -exec rm -rf {} \;
 find .. -name "*.java" > sources.txt
 javac @sources.txt -d .
 mkdir -p dir_serverSide/logging/
@@ -20,3 +21,7 @@ cp --parents -r Static/ dir_serverSide/warehouse/
 cp --parents -r ServerSide/Workshop/ dir_serverSide/workshop/
 cp --parents -r Interfaces/ dir_serverSide/workshop/
 cp --parents -r Static/ dir_serverSide/workshop/
+
+cp --parents -r ClientSide/ dir_clientSide/
+cp --parents -r Interfaces/ dir_clientSide/
+cp --parents -r Static/ dir_clientSide/

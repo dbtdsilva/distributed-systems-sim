@@ -1,5 +1,9 @@
 package ClientSide.Entrepreneur;
 
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Interfaces.WarehouseInterface;
+import Interfaces.WorkshopInterface;
 import Static.Enumerates.EntrepreneurState;
 import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
@@ -17,10 +21,10 @@ import java.util.logging.Logger;
  */
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
-    private final Shop shop;
-    private final Warehouse warehouse;
-    private final Workshop workshop;
-    private final Logging log;
+    private final ShopInterface shop;
+    private final WarehouseInterface warehouse;
+    private final WorkshopInterface workshop;
+    private final LoggingInterface log;
     
     /**
      * Initiliazes the entrepreneur class with the required information.
@@ -31,7 +35,8 @@ public class Entrepreneur extends Thread {
      * materials when requested by the Craftsmen.
      * @param workshop The simulation workshop where the craftsmen are located.
      */
-    public Entrepreneur(Logging log, Shop shop, Warehouse warehouse, Workshop workshop) {
+    public Entrepreneur(LoggingInterface log, ShopInterface shop, 
+            WarehouseInterface warehouse, WorkshopInterface workshop) {
         this.setName("Entrepreneur");
         
         state = EntrepreneurState.OPENING_THE_SHOP;

@@ -1,5 +1,8 @@
 package ClientSide.Craftsman;
 
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Interfaces.WorkshopInterface;
 import Static.Enumerates.CraftsmanState;
 import Static.Constants.ProbConst;
 import ServerSide.Logger.Logging;
@@ -17,9 +20,9 @@ import java.util.logging.Logger;
  */
 public class Craftsman extends Thread {
     private CraftsmanState state;
-    private final Workshop workshop;
-    private final Shop shop;
-    private final Logging log;
+    private final WorkshopInterface workshop;
+    private final ShopInterface shop;
+    private final LoggingInterface log;
     private final int id;
     
     /**
@@ -31,7 +34,8 @@ public class Craftsman extends Thread {
      *          to the Entrepreneur
      * @param workshop The simulation workshop where the craftsman will work.
      */
-    public Craftsman(int id, Logging log, Shop shop, Workshop workshop) {
+    public Craftsman(int id, LoggingInterface log, ShopInterface shop, 
+            WorkshopInterface workshop) {
         this.setName("Craftsman "+id);
         this.shop = shop;
         this.id = id;

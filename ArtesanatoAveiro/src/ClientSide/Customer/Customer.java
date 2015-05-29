@@ -1,5 +1,7 @@
 package ClientSide.Customer;
 
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
 import Static.Enumerates.CustomerState;
 import ServerSide.Logger.Logging;
 import ServerSide.Shop.Shop;
@@ -16,8 +18,8 @@ import java.util.logging.Logger;
 public class Customer extends Thread {
     private CustomerState state;
     private final int id;
-    private final Shop shop;
-    private final Logging log;
+    private final ShopInterface shop;
+    private final LoggingInterface log;
     
     /**
      * Initiliazes the customer class with the required information.
@@ -26,7 +28,7 @@ public class Customer extends Thread {
      * @param log The general repository
      * @param shop The simulation shop where the customer will buy products.
      */
-    public Customer(int id, Logging log, Shop shop) {
+    public Customer(int id, LoggingInterface log, ShopInterface shop) {
         this.setName("Customer "+id);
         this.id = id;
         this.shop = shop;
