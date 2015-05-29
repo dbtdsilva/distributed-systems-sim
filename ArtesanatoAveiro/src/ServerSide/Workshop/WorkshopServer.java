@@ -7,6 +7,7 @@ package ServerSide.Workshop;
 
 import Static.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
+import Interfaces.Register;
 import Interfaces.ShopInterface;
 import Interfaces.WorkshopInterface;
 import java.rmi.AlreadyBoundException;
@@ -79,28 +80,42 @@ public class WorkshopServer {
         System.out.println("Workshop interface exported successfully!");
 
         /* seu registo no serviço de registo RMI */
+        String nameEntryBase = RegistryConst.registerHandler;
+        String nameEntryObject = RegistryConst.workshopNameEntry;
         Registry registry = null;
+        Register reg = null;
 
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
         } catch (RemoteException e) {
-            System.out.println("Exception thrown in the RMI registry creation: " + e.getMessage());
+            System.out.println("Excepção na criação do registo RMI: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("RMI registry was created!");
+        System.out.println("O registo RMI foi criado!");
 
         try {
-            registry.bind(RegistryConst.workshopNameEntry, wsInterface);
+            reg = (Register) registry.lookup(nameEntryBase);
         } catch (RemoteException e) {
-            System.out.println("Exception thrown at workshop registry: " + e.getMessage());
+            System.out.println("RegisterRemoteObject lookup exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (NotBoundException e) {
+            System.out.println("RegisterRemoteObject not bound exception: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        try {
+            registry.bind(nameEntryObject, wsInterface);
+        } catch (RemoteException e) {
+            System.out.println("Excepção no registo do Logging: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("The workshop is already bound: " + e.getMessage());
+            System.out.println("O Logging já está registado: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Workshop was registered!");
 }
 }

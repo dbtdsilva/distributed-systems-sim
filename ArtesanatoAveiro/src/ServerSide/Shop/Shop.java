@@ -8,7 +8,6 @@ import ClientSide.Customer.Customer;
 import Static.Enumerates.CustomerState;
 import ClientSide.Entrepreneur.Entrepreneur;
 import Static.Enumerates.EntrepreneurState;
-import ServerSide.Logger.Logging;
 import Interfaces.LoggingInterface;
 import java.rmi.RemoteException;
 import java.util.LinkedList;

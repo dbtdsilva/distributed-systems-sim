@@ -215,6 +215,7 @@ public class Logging implements LoggingInterface {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
         }
+        pw.flush();
     }
     
     /**

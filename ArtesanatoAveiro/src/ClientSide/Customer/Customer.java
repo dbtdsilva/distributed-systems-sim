@@ -3,8 +3,6 @@ package ClientSide.Customer;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Static.Enumerates.CustomerState;
-import ServerSide.Logger.Logging;
-import ServerSide.Shop.Shop;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

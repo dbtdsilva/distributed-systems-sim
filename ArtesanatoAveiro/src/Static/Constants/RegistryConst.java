@@ -14,6 +14,7 @@ public class RegistryConst {
     public static String shopNameEntry = "ShopInt";
     public static String workshopNameEntry = "WorkshopInt";
     public static String warehouseNameEntry = "WarehouseInt";
+    public static String registerHandler = "RegisterHandler";
     
     public static int portRegistry = 22440; // 22440 - 22449
     public static String hostRegistry = "localhost";
@@ -30,4 +31,6 @@ public class RegistryConst {
     
     public static int portWarehouse = 22444;
     public static String hostWarehouse = "localhost";
+    
+    public static int portObject = 22445;
 }

@@ -7,6 +7,7 @@ package ServerSide.Shop;
 
 import Static.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
+import Interfaces.Register;
 import Interfaces.ShopInterface;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
@@ -70,7 +71,10 @@ public class ShopServer {
         System.out.println("O stub para a barberaria foi gerado!");
 
         /* seu registo no serviço de registo RMI */
+        String nameEntryBase = RegistryConst.registerHandler;
+        String nameEntryObject = RegistryConst.shopNameEntry;
         Registry registry = null;
+        Register reg = null;
 
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
@@ -82,16 +86,28 @@ public class ShopServer {
         System.out.println("O registo RMI foi criado!");
 
         try {
-            registry.bind(RegistryConst.shopNameEntry, shopInterface);
+            reg = (Register) registry.lookup(nameEntryBase);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo da loja: " + e.getMessage());
+            System.out.println("RegisterRemoteObject lookup exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
-        } catch (AlreadyBoundException e) {
-            System.out.println("A loja já está registada: " + e.getMessage());
+        } catch (NotBoundException e) {
+            System.out.println("RegisterRemoteObject not bound exception: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("A loja foi registada!");
+
+        try {
+            registry.bind(nameEntryObject, shopInterface);
+        } catch (RemoteException e) {
+            System.out.println("Excepção no registo do Logging: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        } catch (AlreadyBoundException e) {
+            System.out.println("O Logging já está registado: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+        System.out.println("O Logging foi registado!");
     }
 }
