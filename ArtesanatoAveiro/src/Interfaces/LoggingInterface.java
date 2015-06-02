@@ -158,11 +158,7 @@ public interface LoggingInterface extends Remote {
     public void WriteWorkshopAndEntrepreneurStat(int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    EntrepreneurState state) throws RemoteException;    
-    /**
-     * Activates the logger to the standard output.
-     */
-    public void setConsole() throws RemoteException;
+                    EntrepreneurState state) throws RemoteException;
     /**
      * Checks if the craftsman no longer has conditions to continue its work.
      * 

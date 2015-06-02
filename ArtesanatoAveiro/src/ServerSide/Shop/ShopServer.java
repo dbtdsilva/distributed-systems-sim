@@ -22,7 +22,6 @@ import java.util.Scanner;
  * @author diogosilva
  */
 public class ShopServer {
-    static Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
         /* obtenção da localização do serviço de registo RMI */
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI

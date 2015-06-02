@@ -6,6 +6,7 @@ import Static.Enumerates.CustomerState;
 import Static.Enumerates.EntrepreneurState;
 import Static.Constants.ProbConst;
 import Static.Enumerates.ShopState;
+import VectorClock.VectorTimestamp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class Logging implements LoggingInterface {
     private int nTotalPrimeMaterialsSupplied;
     private int nFinishedProducts;
     
-    private boolean console;
+    private VectorTimestamp vt;
     
     /**
      * Initializes the logger file.
@@ -75,9 +76,8 @@ public class Logging implements LoggingInterface {
             int nCustomers, 
             int nCraftsmen,
             int primeMaterials) throws IOException
-    {
-        console = false;
-                      
+    {        
+        vt = new VectorTimestamp(ProbConst.nCustomers + ProbConst.nCraftsmen + 1, 0);
         nWorkingCraftsmen = nCraftsmen;
         nCustomerIn = 0;
         nGoodsInDisplay = 0;
@@ -125,25 +125,13 @@ public class Logging implements LoggingInterface {
     public synchronized void WriteLine()
     {        
         pw.printf("  %4s   ", entrepState.getAcronym());
-        if (console)
-            System.out.printf("  %4s   ", entrepState.getAcronym());
-        
         for(int i = 0; i < customers.size(); i++) {
             pw.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
-        
-            if (console)
-                System.out.printf("%4s %2d ", customers.get(i).getAcronym(), nBoughtGoods.get(i));
         }
             
-        pw.printf(" ");
-        if (console)
-            System.out.printf(" ");
-        
+        pw.printf(" ");        
         for(int i = 0; i < craftsmen.size(); i++) {
             pw.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
-            
-            if (console)
-                System.out.printf("%4s %2d ", craftsmen.get(i).getAcronym(), nManufacturedProds.get(i));
         }
             
         char r;
@@ -163,17 +151,12 @@ public class Logging implements LoggingInterface {
         pw.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
                 nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
                 nFinishedProducts);
-        pw.println(" | "+Thread.currentThread().getName());
-        
-        
-        if (console) {
-            System.out.printf("  %4s  %2d  %2d  %1c   %1c     ", shopDoorState.getAcronym(), 
-                nCustomerIn, nGoodsInDisplay, r, t);
-            System.out.printf("%2d  %2d  %2d   %2d   %2d", nCurrentPrimeMaterials, 
-                nProductsStored, nTimesPrimeMaterialsFetched, nTotalPrimeMaterialsSupplied, 
-                nFinishedProducts);
-            System.out.println(" | "+Thread.currentThread().getName());
+        int [] arrayClocks = vt.toIntArray();
+        for (int i = 0; i < ProbConst.nCraftsmen + ProbConst.nCustomers + 1; i++) {
+            pw.printf(" %2d", arrayClocks[i]);
         }
+        pw.printf("\n");
+        pw.flush();
     }
     
     /**
@@ -204,13 +187,12 @@ public class Logging implements LoggingInterface {
             
             sb.append ("          SHOP                 WORKSHOP       ");
             sb2.append("  Stat NCI NPI PCR PMR  APMI NPI NSPM TAPM TNP");
-            
+            sb.append("           V");
+            for (int i = 0; i < ProbConst.nCraftsmen + ProbConst.nCustomers + 1; i++) {
+                sb2.append("  ").append(i);
+            }
             pw.println(sb.toString());
             pw.println(sb2.toString());
-            if (console) {
-                System.out.println(sb);
-                System.out.println(sb2);
-            }
             WriteLine();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
@@ -226,9 +208,6 @@ public class Logging implements LoggingInterface {
         pw.println("SIMULATION ENDED!");
         pw.flush();
         pw.close();
-        if (console) {
-            System.out.println("SIMULATION ENDED!");
-        }
     }
     
     /**
@@ -458,12 +437,6 @@ public class Logging implements LoggingInterface {
         WriteLine();
     }
     
-    /**
-     * Activates the logger to the standard output.
-     */
-    public void setConsole() {
-        console = true;
-    }
     /**
      * Checks if the craftsman no longer has conditions to continue its work.
      * 

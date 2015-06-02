@@ -54,8 +54,8 @@ public class Warehouse implements WarehouseInterface {
         int n = nTimesPMSupplied[nTimesSupplied];
         nTimesSupplied++;
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
-        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
+        log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
         return n;
     }
 }

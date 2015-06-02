@@ -59,8 +59,8 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      */
     public synchronized void goShopping(int id) throws RemoteException {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
-        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
+        //((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -77,13 +77,13 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      */
     public synchronized void enterShop(int id) throws RemoteException {
-        ((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
+        //((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         
         nCustomersInside += 1;
         
         log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    CustomerState.APPRAISING_OFFER_IN_DISPLAY,
                     id, 0);
     }
     /**
@@ -95,7 +95,7 @@ public class Shop implements ShopInterface {
      * @param id customer identifier 
      */
     public synchronized void exitShop(int id) throws RemoteException {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
+        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
         requestEntrepreneur++;
@@ -103,7 +103,7 @@ public class Shop implements ShopInterface {
         
         log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    CustomerState.CARRYING_OUT_DAILY_CHORES,
                     id, 0);
     }
     /**
@@ -131,12 +131,12 @@ public class Shop implements ShopInterface {
      * @param nProducts the number of products bought
      */
     public synchronized void iWantThis(int id, int nProducts) throws RemoteException {
-        ((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
+        //((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
         waitingLine.add(id);
         
         log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
-                    ((Customer) Thread.currentThread()).getCurrentState(),
+                    CustomerState.BUYING_SOME_GOODS,
                     id, nProducts);
         
         requestEntrepreneur++;
@@ -156,8 +156,8 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      */
     public synchronized void tryAgainLater(int id) throws RemoteException {
-        ((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        log.UpdateCustomerState(id, ((Customer) Thread.currentThread()).getCurrentState());
+        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
+        log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
     }
   
         /******************/
@@ -168,13 +168,13 @@ public class Shop implements ShopInterface {
      * Entrepreneur is preparing to work, she will open the shop.
      */
     public synchronized void prepareToWork() throws RemoteException {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         
         shopState = ShopState.OPEN;
         
         log.WriteShopAndEntrepreneurStat(this.shopState, nCustomersInside, 
                 nProductsStock, reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+                EntrepreneurState.WAITING_FOR_NEXT_TASK);
     }
     /**
      * The entrepreneur will wait until someone request her services.
@@ -218,7 +218,7 @@ public class Shop implements ShopInterface {
      * @return the customer identifier
      */
     public synchronized int addressACustomer() throws RemoteException {
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         
         if (waitingLine.size() == 0) {
@@ -236,8 +236,8 @@ public class Shop implements ShopInterface {
     public synchronized void sayGoodByeToCustomer(int id) throws RemoteException {
         notifyAll();    // Acordar customer com este ID
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
-        log.UpdateEntreperneurState(((Entrepreneur) Thread.currentThread()).getCurrentState());
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
+        log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
     }
     /**
      * The entrepreneur signals that she will close the shop.
@@ -260,11 +260,11 @@ public class Shop implements ShopInterface {
      */
     public synchronized void prepareToLeave() throws RemoteException {
         shopState = ShopState.CLOSED;
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
         
         log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+                EntrepreneurState.CLOSING_THE_SHOP);
     }  
     /**
      * The entrepreneur returns to the shop, she went to fetch products or to deliver
@@ -279,12 +279,12 @@ public class Shop implements ShopInterface {
             nProductsStock += nProducts;
         }
         
-        ((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
+        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         this.shopState = ShopState.OPEN;
         
         log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
-                ((Entrepreneur) Thread.currentThread()).getCurrentState());
+                EntrepreneurState.OPENING_THE_SHOP);
     }
     
         /***************/
@@ -308,11 +308,11 @@ public class Shop implements ShopInterface {
         
         notifyAll();
         
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         
         log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
-                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+                CraftsmanState.CONTACTING_ENTREPRENEUR, id);
         return true;
     }
     /**
@@ -328,11 +328,11 @@ public class Shop implements ShopInterface {
         requestEntrepreneur++;
         notifyAll();
         
-        ((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
+        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         
         log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
-                ((Craftsman) Thread.currentThread()).getCurrentState(), id);
+                CraftsmanState.CONTACTING_ENTREPRENEUR, id);
     }
         /*************/
         /** GENERAL **/
