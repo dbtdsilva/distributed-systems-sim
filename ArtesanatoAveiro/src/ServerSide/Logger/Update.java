@@ -8,11 +8,11 @@ import VectorClock.VectorTimestamp;
  */
 public class Update {
     private String text;
-    private VectorTimestamp clock;
+    private int [] clock;
 
     static final long serialVersionUID = 1L;
     
-    public Update(String text, VectorTimestamp clock)    {
+    public Update(String text, int [] clock)    {
         this.text = text;
         this.clock = clock;
     }
@@ -24,16 +24,16 @@ public class Update {
         this.text = text;
     }
 
-    public VectorTimestamp getClock() {
+    public int []  getClock() {
         return clock;
     }
-    public void setClock(VectorTimestamp clock) {
+    public void setClock(int [] clock) {
         this.clock = clock;
     }   
     
     public int compareTo(Update u)  {
-        int[] array1 = this.clock.toIntArray();
-        int[] array2 = u.getClock().toIntArray();
+        int[] array1 = this.clock;
+        int[] array2 = u.getClock();
         
         boolean array1_greater_array2 = false;
         boolean array1_lesser_array2 = false;

@@ -164,7 +164,7 @@ public class Logging implements LoggingInterface {
         pw.printf(toWrite);
         pw.flush();
         
-        Update upd = new Update(toWrite, vt);
+        Update upd = new Update(toWrite, vt.toIntArray());
         updates.add(upd);
     }
     
