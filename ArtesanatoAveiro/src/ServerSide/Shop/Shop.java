@@ -1,14 +1,12 @@
 package ServerSide.Shop;
 
-import Static.Enumerates.ShopState;
-import Interfaces.ShopInterface;
-import ClientSide.Craftsman.Craftsman;
-import Static.Enumerates.CraftsmanState;
-import ClientSide.Customer.Customer;
-import Static.Enumerates.CustomerState;
-import ClientSide.Entrepreneur.Entrepreneur;
-import Static.Enumerates.EntrepreneurState;
 import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Static.Enumerates.CraftsmanState;
+import Static.Enumerates.CustomerState;
+import Static.Enumerates.EntrepreneurState;
+import Static.Enumerates.ShopState;
+import VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -58,9 +56,9 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void goShopping(int id) throws RemoteException {
+    public synchronized VectorTimestamp goShopping(int id, VectorTimestamp vt) throws RemoteException {
         //((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
-        log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN);
+        return log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN, vt.clone());
     }
     /**
      * This function allows the customer to check if the door is open or not.
@@ -76,15 +74,15 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
-    public synchronized void enterShop(int id) throws RemoteException {
+    public synchronized VectorTimestamp enterShop(int id, VectorTimestamp vt) throws RemoteException {
         //((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         
         nCustomersInside += 1;
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        return log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
                     CustomerState.APPRAISING_OFFER_IN_DISPLAY,
-                    id, 0);
+                    id, 0, vt).clone();
     }
     /**
      * The customer exits the shop, notifying the Entrepreneur that he left. He
@@ -94,17 +92,17 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier 
      */
-    public synchronized void exitShop(int id) throws RemoteException {
+    public synchronized VectorTimestamp exitShop(int id, VectorTimestamp vt) throws RemoteException {
         //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         
         nCustomersInside -= 1;
         requestEntrepreneur++;
         notifyAll();        /* Telling entrepreneur */
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        return log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
                     CustomerState.CARRYING_OUT_DAILY_CHORES,
-                    id, 0);
+                    id, 0, vt).clone();
     }
     /**
      * The customer searchs for products inside the Shop.
@@ -130,14 +128,14 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      * @param nProducts the number of products bought
      */
-    public synchronized void iWantThis(int id, int nProducts) throws RemoteException {
+    public synchronized VectorTimestamp iWantThis(int id, int nProducts, VectorTimestamp vt) throws RemoteException {
         //((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
         waitingLine.add(id);
         
-        log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
+        VectorTimestamp temp = log.WriteShopAndCustomerStat(shopState, nCustomersInside, nProductsStock, 
                     reqFetchProducts, reqPrimeMaterials, 
                     CustomerState.BUYING_SOME_GOODS,
-                    id, nProducts);
+                    id, nProducts, vt);
         
         requestEntrepreneur++;
         notifyAll();    // Wake up entrepreneur
@@ -149,15 +147,17 @@ public class Shop implements ShopInterface {
                 Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        return temp.clone();
     }
     /**
      * The customer will try to enter the shop later.
      * 
      * @param id customer identifier
      */
-    public synchronized void tryAgainLater(int id) throws RemoteException {
+    public synchronized VectorTimestamp tryAgainLater(int id, VectorTimestamp vt) throws RemoteException {
         //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
-        log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES);
+        return log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES, vt).clone();
     }
   
         /******************/

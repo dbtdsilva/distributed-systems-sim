@@ -9,6 +9,7 @@ import Static.Enumerates.CraftsmanState;
 import Static.Enumerates.CustomerState;
 import Static.Enumerates.EntrepreneurState;
 import Static.Enumerates.ShopState;
+import VectorClock.VectorTimestamp;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -43,7 +44,7 @@ public interface LoggingInterface extends Remote {
      * @param id The customer's id
      * @param cs The customer's current state
      */
-    public void UpdateCustomerState(int id, CustomerState cs) throws RemoteException;
+    public VectorTimestamp UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk) throws RemoteException;
     
     /**
      * Update prime materials request. (Doesn't write)
@@ -110,10 +111,10 @@ public interface LoggingInterface extends Remote {
      * @param nBoughtGoods The number of products bought
      * 
      */
-    public void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
+    public VectorTimestamp WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CustomerState state,
-                                int idCust, int nBoughtGoods) throws RemoteException;
+                                int idCust, int nBoughtGoods, VectorTimestamp vt) throws RemoteException;
     /**
      * Writes the state of the workshop in the logger file.
      * 

@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import VectorClock.VectorTimestamp;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -19,7 +20,7 @@ public interface ShopInterface extends Remote {
      * 
      * @param id customer identifier
      */
-    public void goShopping(int id) throws RemoteException;
+    public VectorTimestamp goShopping(int id, VectorTimestamp vt) throws RemoteException;
     /**
      * This function allows the customer to check if the door is open or not.
      * 
@@ -32,7 +33,7 @@ public interface ShopInterface extends Remote {
      * 
      * @param id customer identifier
      */
-    public void enterShop(int id) throws RemoteException;
+    public VectorTimestamp enterShop(int id, VectorTimestamp vt) throws RemoteException;
     /**
      * The customer exits the shop, notifying the Entrepreneur that he left. He
      * need to update the number of customers inside the shop and update his state.
@@ -41,7 +42,7 @@ public interface ShopInterface extends Remote {
      * 
      * @param id customer identifier 
      */
-    public void exitShop(int id) throws RemoteException;
+    public VectorTimestamp exitShop(int id, VectorTimestamp vt) throws RemoteException;
     /**
      * The customer searchs for products inside the Shop.
      * 
@@ -55,13 +56,13 @@ public interface ShopInterface extends Remote {
      * @param id customer identifier
      * @param nProducts the number of products bought
      */
-    public void iWantThis(int id, int nProducts) throws RemoteException;
+    public VectorTimestamp iWantThis(int id, int nProducts, VectorTimestamp vt) throws RemoteException;
     /**
      * The customer will try to enter the shop later.
      * 
      * @param id customer identifier
      */
-    public void tryAgainLater(int id) throws RemoteException;
+    public VectorTimestamp tryAgainLater(int id, VectorTimestamp vt) throws RemoteException;
     /**
      * Entrepreneur is preparing to work, she will open the shop.
      */

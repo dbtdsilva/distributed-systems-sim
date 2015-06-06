@@ -30,7 +30,7 @@ public class VectorTimestamp implements Cloneable, Serializable {
     
     public synchronized void update(VectorTimestamp vt) {
         for (int i = 0; i < vt.ts.length; i++) {
-            ts[i] = vt.ts[i];
+            ts[i] = Math.max(vt.ts[i], this.ts[i]);
         }
     }
     

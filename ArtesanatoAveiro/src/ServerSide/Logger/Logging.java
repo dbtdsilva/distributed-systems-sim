@@ -1,10 +1,10 @@
 package ServerSide.Logger;
 
 import Interfaces.LoggingInterface;
+import Static.Constants.ProbConst;
 import Static.Enumerates.CraftsmanState;
 import Static.Enumerates.CustomerState;
 import Static.Enumerates.EntrepreneurState;
-import Static.Constants.ProbConst;
 import Static.Enumerates.ShopState;
 import VectorClock.VectorTimestamp;
 import java.io.File;
@@ -239,10 +239,12 @@ public class Logging implements LoggingInterface {
      * @param id The customer's id
      * @param cs The customer's current state
      */
-    public synchronized void UpdateCustomerState(int id, CustomerState cs)
+    public synchronized VectorTimestamp UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk)
     {
+        vt.update(clk);
         customers.put(id, cs);
         WriteLine();
+        return vt.clone();
     }
     
     /**
@@ -341,10 +343,12 @@ public class Logging implements LoggingInterface {
      * @param nBoughtGoods The number of products bought
      * 
      */
-    public synchronized void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
+    public synchronized VectorTimestamp WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CustomerState state,
-                                int idCust, int nBoughtGoods) {
+                                int idCust, int nBoughtGoods, VectorTimestamp clk) {
+        vt.update(clk);
+        
         if (nBoughtGoods > 0) {
             int prods = this.nBoughtGoods.get(idCust);
             prods += nBoughtGoods;
@@ -358,6 +362,8 @@ public class Logging implements LoggingInterface {
         this.reqPrimeMaterials = reqPrimeMaterials;
         
         WriteLine();
+        
+        return vt.clone();
     }
     /**
      * Writes the state of the workshop in the logger file.

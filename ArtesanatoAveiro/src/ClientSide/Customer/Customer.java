@@ -2,7 +2,9 @@ package ClientSide.Customer;
 
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
+import Static.Constants.ProbConst;
 import Static.Enumerates.CustomerState;
+import VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,8 @@ public class Customer extends Thread {
     private final int id;
     private final ShopInterface shop;
     private final LoggingInterface log;
+    private VectorTimestamp myClock;
+    private VectorTimestamp receivedClock;
     
     /**
      * Initiliazes the customer class with the required information.
@@ -32,6 +36,7 @@ public class Customer extends Thread {
         this.shop = shop;
         this.log = log;
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
+        myClock = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, id + 1);
     }
     /**
      * This function represents the life cycle of Customer.
@@ -42,16 +47,27 @@ public class Customer extends Thread {
         try {
             do {
                 livingNormalLife();
-                shop.goShopping(id);
+                myClock.increment();
+                receivedClock= shop.goShopping(id, myClock.clone());
+                myClock.update(receivedClock);
 
                 if(shop.isDoorOpen()) {
-                    shop.enterShop(id);
-                    if ((nProducts = shop.perusingAround()) != 0)
-                        shop.iWantThis(id, nProducts);
-                    shop.exitShop(id);
+                    myClock.increment();
+                    receivedClock = shop.enterShop(id, myClock.clone());
+                    myClock.update(receivedClock);
+                    if ((nProducts = shop.perusingAround()) != 0)   {
+                        myClock.increment();
+                        receivedClock = shop.iWantThis(id, nProducts, myClock.clone());
+                        myClock.update(receivedClock);
+                    }
+                    myClock.increment();
+                    receivedClock = shop.exitShop(id, myClock.clone());
+                    myClock.update(receivedClock);
                 }
                 else {
-                    shop.tryAgainLater(id);
+                    myClock.increment();
+                    receivedClock = shop.tryAgainLater(id, myClock.clone());
+                    myClock.update(receivedClock);
                 }
             } while (!log.endOpCustomer());
             System.out.println("Cliente "+id+" acabou execução!");
