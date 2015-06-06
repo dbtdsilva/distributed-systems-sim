@@ -20,7 +20,7 @@ public class Customer extends Thread {
     private final int id;
     private final ShopInterface shop;
     private final LoggingInterface log;
-    private VectorTimestamp myClock;
+    private final VectorTimestamp myClock;
     private VectorTimestamp receivedClock;
     
     /**

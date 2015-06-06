@@ -53,6 +53,7 @@ public class Warehouse implements WarehouseInterface {
      * 
      * @return the number of prime materials fetched
      */
+    @Override
     public synchronized Object[] visitSuppliers(VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         Object[] res = new Object[2];
@@ -60,7 +61,6 @@ public class Warehouse implements WarehouseInterface {
         int n = nTimesPMSupplied[nTimesSupplied];
         nTimesSupplied++;
         
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
         log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS, clocks.clone());
         res[0] = clocks.clone();
         res[1] = n;

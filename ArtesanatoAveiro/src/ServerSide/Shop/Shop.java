@@ -30,7 +30,7 @@ public class Shop implements ShopInterface {
     private boolean reqPrimeMaterials;
     private int requestEntrepreneur;
     
-    private VectorTimestamp clocks;
+    private final VectorTimestamp clocks;
     
     private final LoggingInterface log;
     
@@ -61,8 +61,8 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
+    @Override
     public synchronized VectorTimestamp goShopping(int id, VectorTimestamp vt) throws RemoteException {
-        //((Customer) Thread.currentThread()).setState(CustomerState.CHECKING_SHOP_DOOR_OPEN);
         clocks.update(vt);
         log.UpdateCustomerState(id, CustomerState.CHECKING_SHOP_DOOR_OPEN, clocks.clone());
         return clocks.clone();
@@ -73,6 +73,7 @@ public class Shop implements ShopInterface {
      * 
      * @return returns true if the shop is open; returns false if otherwise.
      */
+    @Override
     public synchronized boolean isDoorOpen() {
         return shopState == ShopState.OPEN;
     }
@@ -83,8 +84,8 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
+    @Override
     public synchronized VectorTimestamp enterShop(int id, VectorTimestamp vt) throws RemoteException {
-        //((Customer) Thread.currentThread()).setState(CustomerState.APPRAISING_OFFER_IN_DISPLAY);
         clocks.update(vt);
         
         nCustomersInside += 1;
@@ -105,8 +106,8 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier 
      */
+    @Override
     public synchronized VectorTimestamp exitShop(int id, VectorTimestamp vt) throws RemoteException {
-        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         clocks.update(vt);
         
         nCustomersInside -= 1;
@@ -126,6 +127,7 @@ public class Shop implements ShopInterface {
      * 
      * @return number of products that customer is going to buy (Between 0 and 2)
      */
+    @Override
     public synchronized Object[] perusingAround(VectorTimestamp vt) {
         clocks.update(vt);
         Object[] res = new Object[2];
@@ -152,8 +154,8 @@ public class Shop implements ShopInterface {
      * @param id customer identifier
      * @param nProducts the number of products bought
      */
-    public synchronized VectorTimestamp iWantThis(int id, int nProducts, VectorTimestamp vt) throws RemoteException {
-        //((Customer) Thread.currentThread()).setState(CustomerState.BUYING_SOME_GOODS);        
+    @Override
+    public synchronized VectorTimestamp iWantThis(int id, int nProducts, VectorTimestamp vt) throws RemoteException {    
         clocks.update(vt);
         waitingLine.add(id);
         
@@ -181,8 +183,8 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
+    @Override
     public synchronized VectorTimestamp tryAgainLater(int id, VectorTimestamp vt) throws RemoteException {
-        //((Customer) Thread.currentThread()).setState(CustomerState.CARRYING_OUT_DAILY_CHORES);
         clocks.update(vt);
         log.UpdateCustomerState(id, CustomerState.CARRYING_OUT_DAILY_CHORES, clocks.clone());
         
@@ -196,8 +198,8 @@ public class Shop implements ShopInterface {
     /**
      * Entrepreneur is preparing to work, she will open the shop.
      */
+    @Override
     public synchronized VectorTimestamp prepareToWork(VectorTimestamp vt) throws RemoteException {
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         
         clocks.update(vt);
         shopState = ShopState.OPEN;
@@ -216,6 +218,7 @@ public class Shop implements ShopInterface {
      *          'T', if craftsman requested to fetch the products in the Workshop;
      *          'E', if the shop is out of business.
      */
+    @Override
     public synchronized Object[] appraiseSit(VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         Object[] res = new Object[2];
@@ -257,8 +260,8 @@ public class Shop implements ShopInterface {
      * 
      * @return the customer identifier
      */
+    @Override
     public synchronized Object[] addressACustomer(VectorTimestamp vt) throws RemoteException {
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.ATTENDING_A_CUSTOMER);
         clocks.update(vt);
         Object[] res = new Object[2];
         log.UpdateEntreperneurState(EntrepreneurState.ATTENDING_A_CUSTOMER, clocks.clone());
@@ -278,11 +281,11 @@ public class Shop implements ShopInterface {
      * 
      * @param id customer identifier
      */
+    @Override
     public synchronized VectorTimestamp sayGoodByeToCustomer(int id, VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         notifyAll();    // Acordar customer com este ID
         
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.WAITING_FOR_NEXT_TASK);
         log.UpdateEntreperneurState(EntrepreneurState.WAITING_FOR_NEXT_TASK, clocks.clone());
         
         return clocks.clone();
@@ -291,6 +294,7 @@ public class Shop implements ShopInterface {
     /**
      * The entrepreneur signals that she will close the shop.
      */
+    @Override
     public synchronized VectorTimestamp closeTheDoor(VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         shopState = ShopState.ECLOSED;
@@ -304,6 +308,7 @@ public class Shop implements ShopInterface {
      * 
      * @return returns true if customers inside the shop; returns false otherwise.
      */
+    @Override
     public synchronized boolean customersInTheShop() {
         return nCustomersInside > 0;
     }
@@ -312,10 +317,10 @@ public class Shop implements ShopInterface {
      * The entrepreneur prepares to leave the shop.
      * At this point the shop is considered as closed.
      */
+    @Override
     public synchronized VectorTimestamp prepareToLeave(VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         shopState = ShopState.CLOSED;
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.CLOSING_THE_SHOP);
         
         log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
@@ -332,13 +337,13 @@ public class Shop implements ShopInterface {
      * 
      * @param nProducts the number of products that she's carrying.
      */
+    @Override
     public synchronized VectorTimestamp returnToShop(int nProducts, VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         if (nProducts >= 0) {
             nProductsStock += nProducts;
         }
         
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.OPENING_THE_SHOP);
         this.shopState = ShopState.OPEN;
         
         log.WriteShopAndEntrepreneurStat(shopState, nCustomersInside, nProductsStock, 
@@ -360,6 +365,7 @@ public class Shop implements ShopInterface {
      * @return returns true if request has been done; returns false if it was 
      * already done by someone before.
      */
+    @Override
     public synchronized Object[] primeMaterialsNeeded(int id, VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         Object[] res = new Object[2];
@@ -375,7 +381,6 @@ public class Shop implements ShopInterface {
         
         notifyAll();
         
-        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         
         log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
@@ -390,6 +395,7 @@ public class Shop implements ShopInterface {
      * 
      * @param id The craftsman identifier.
     */
+    @Override
     public synchronized VectorTimestamp batchReadyForTransfer(int id, VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         
@@ -399,8 +405,6 @@ public class Shop implements ShopInterface {
         reqFetchProducts = true;
         requestEntrepreneur++;
         notifyAll();
-        
-        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.CONTACTING_ENTREPRENEUR);
         
         log.WriteShopAndCraftsmanStat(shopState, nCustomersInside, nProductsStock, 
                 reqFetchProducts, reqPrimeMaterials, 
@@ -416,6 +420,7 @@ public class Shop implements ShopInterface {
      * This function is used to the Entrepreneur reset the flag prime materials
      * request.
      */
+    @Override
     public synchronized void resetRequestPrimeMaterials() throws RemoteException {
         reqPrimeMaterials = false;
         log.UpdatePrimeMaterialsRequest(reqPrimeMaterials);
@@ -424,6 +429,7 @@ public class Shop implements ShopInterface {
     /**
      * This function is used to the Entrepreneur reset the flag requestProducts.
      */
+    @Override
     public synchronized void resetRequestProducts() throws RemoteException {
         reqFetchProducts = false;
         log.UpdateFetchProductsRequest(reqFetchProducts);

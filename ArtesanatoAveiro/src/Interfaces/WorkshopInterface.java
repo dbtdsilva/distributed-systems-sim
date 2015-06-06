@@ -20,6 +20,8 @@ public interface WorkshopInterface extends Remote {
      * 
      * @return the number of products that Entrepreneur is going to deliver to 
      * the shop
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] goToWorkshop(VectorTimestamp vt) throws RemoteException;
     
@@ -30,6 +32,9 @@ public interface WorkshopInterface extends Remote {
      * the Craftsman to the Workshop and he will not need to wait.
      * 
      * @param nMaterials number of prime materials
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp replenishStock(int nMaterials, VectorTimestamp vt) throws RemoteException;    
     
@@ -41,6 +46,8 @@ public interface WorkshopInterface extends Remote {
      * 
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] collectingMaterials(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -50,6 +57,8 @@ public interface WorkshopInterface extends Remote {
      * @param id The craftsman identifier.
      * 
      * @return the number of products stored in workshop.
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] goToStore(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -57,6 +66,9 @@ public interface WorkshopInterface extends Remote {
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
      * 
      * @param id The craftsman identifier.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp backToWork(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -64,6 +76,9 @@ public interface WorkshopInterface extends Remote {
      * The craftsman has the prime materials that he needs, and will now start producing another piece.
      * 
      * @param id The craftsman identifier.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp prepareToProduce(int id, VectorTimestamp vt) throws RemoteException;
 }

@@ -61,8 +61,7 @@ public class Logging implements LoggingInterface {
     private int nTotalPrimeMaterialsSupplied;
     private int nFinishedProducts;
     
-    //private VectorTimestamp vt;
-    private ArrayList<Update> updates;
+    private final ArrayList<Update> updates;
     
     /**
      * Initializes the logger file.
@@ -126,6 +125,7 @@ public class Logging implements LoggingInterface {
      * Adds a line to the logger with the simulation information updated.
      * @param vt Vector clock
      */
+    @Override
     public synchronized void WriteLine(VectorTimestamp vt)
     {        
         String toWrite = "";

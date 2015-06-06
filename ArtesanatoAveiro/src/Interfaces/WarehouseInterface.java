@@ -20,6 +20,8 @@ public interface WarehouseInterface extends Remote {
      * She will fetch a random value of prime materials.
      * 
      * @return the number of prime materials fetched
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] visitSuppliers(VectorClock.VectorTimestamp vt) throws RemoteException;
 }

@@ -19,6 +19,9 @@ public interface ShopInterface extends Remote {
      * The customer goes to the Shopping.
      * 
      * @param id customer identifier
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp goShopping(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -26,6 +29,7 @@ public interface ShopInterface extends Remote {
      * This function allows the customer to check if the door is open or not.
      * 
      * @return returns true if the shop is open; returns false if otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public boolean isDoorOpen() throws RemoteException;
     
@@ -34,6 +38,9 @@ public interface ShopInterface extends Remote {
      * customers inside the shop.
      * 
      * @param id customer identifier
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp enterShop(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -44,6 +51,9 @@ public interface ShopInterface extends Remote {
      * the shop.
      * 
      * @param id customer identifier 
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp exitShop(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -51,6 +61,8 @@ public interface ShopInterface extends Remote {
      * The customer searchs for products inside the Shop.
      * 
      * @return number of products that customer is going to buy (Between 0 and 2)
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] perusingAround(VectorTimestamp vt) throws RemoteException;
     
@@ -60,6 +72,9 @@ public interface ShopInterface extends Remote {
      * 
      * @param id customer identifier
      * @param nProducts the number of products bought
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp iWantThis(int id, int nProducts, VectorTimestamp vt) throws RemoteException;
     
@@ -67,11 +82,17 @@ public interface ShopInterface extends Remote {
      * The customer will try to enter the shop later.
      * 
      * @param id customer identifier
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp tryAgainLater(int id, VectorTimestamp vt) throws RemoteException;
     
     /**
      * Entrepreneur is preparing to work, she will open the shop.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp prepareToWork(VectorTimestamp vt) throws RemoteException;
     
@@ -82,6 +103,8 @@ public interface ShopInterface extends Remote {
      *          'M', if craftsman requested for prime materials;
      *          'T', if craftsman requested to fetch the products in the Workshop;
      *          'E', if the shop is out of business.
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] appraiseSit(VectorTimestamp vt) throws RemoteException;
     
@@ -89,6 +112,8 @@ public interface ShopInterface extends Remote {
      * The Entrepreneur address the first customer in the waiting line.
      * 
      * @return the customer identifier
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] addressACustomer(VectorTimestamp vt) throws RemoteException;
     
@@ -96,11 +121,17 @@ public interface ShopInterface extends Remote {
      * The entrepreneur says good bye to the customer, waking him up.
      * 
      * @param id customer identifier
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp sayGoodByeToCustomer(int id, VectorTimestamp vt) throws RemoteException;
     
     /**
      * The entrepreneur signals that she will close the shop.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp closeTheDoor(VectorTimestamp vt) throws RemoteException;
     
@@ -108,12 +139,16 @@ public interface ShopInterface extends Remote {
      * This function returns true if there's customers inside the shop.
      * 
      * @return returns true if customers inside the shop; returns false otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public boolean customersInTheShop() throws RemoteException;
     
     /**
      * The entrepreneur prepares to leave the shop.
      * At this point the shop is considered as closed.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp prepareToLeave(VectorTimestamp vt) throws RemoteException;
     
@@ -124,6 +159,9 @@ public interface ShopInterface extends Remote {
      * must to put them on shop stock. After that request is done.
      * 
      * @param nProducts the number of products that she's carrying.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public VectorTimestamp returnToShop(int nProducts, VectorTimestamp vt) throws RemoteException;    
     
@@ -134,6 +172,8 @@ public interface ShopInterface extends Remote {
      * @param id the craftsman identifier
      * @return returns true if request has been done; returns false if it was 
      * already done by someone before.
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public Object[] primeMaterialsNeeded(int id, VectorTimestamp vt) throws RemoteException;
     
@@ -141,17 +181,22 @@ public interface ShopInterface extends Remote {
      * The store is at full capacity, the craftsman asks the entrepreneur to go get the batch that is ready.
      * 
      * @param id The craftsman identifier.
+     * @param vt The vector clock
+     * @return the resulting vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
     */
     public VectorTimestamp batchReadyForTransfer(int id, VectorTimestamp vt) throws RemoteException;
     
     /**
      * This function is used to the Entrepreneur reset the flag prime materials
      * request.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void resetRequestPrimeMaterials() throws RemoteException;
     
     /**
      * This function is used to the Entrepreneur reset the flag requestProducts.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void resetRequestProducts() throws RemoteException;
 }

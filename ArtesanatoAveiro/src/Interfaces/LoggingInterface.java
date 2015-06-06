@@ -36,6 +36,8 @@ public interface LoggingInterface extends Remote {
      * Writes the state of the entrepeneur in the logger file.
      * 
      * @param es The entrepeneur's current state
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
     */
     public void UpdateEntreperneurState(EntrepreneurState es, VectorTimestamp vt) throws RemoteException;        
     
@@ -44,6 +46,8 @@ public interface LoggingInterface extends Remote {
      * 
      * @param id The craftsman's id
      * @param cs The craftsman's current state
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void UpdateCraftsmanState(int id, CraftsmanState cs, VectorTimestamp vt) throws RemoteException;
     
@@ -52,6 +56,8 @@ public interface LoggingInterface extends Remote {
      * 
      * @param id The customer's id
      * @param cs The customer's current state
+     * @param clk The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk) throws RemoteException;
     
@@ -59,6 +65,7 @@ public interface LoggingInterface extends Remote {
      * Update prime materials request. (Doesn't write)
      * 
      * @param reqPrimeMaterials The current request status
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void UpdatePrimeMaterialsRequest(boolean reqPrimeMaterials) throws RemoteException;
     
@@ -66,6 +73,7 @@ public interface LoggingInterface extends Remote {
      * Update prime materials request. (Doesn't write)
      * 
      * @param reqFetchProds The current request status
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void UpdateFetchProductsRequest(boolean reqFetchProds) throws RemoteException;
     
@@ -77,6 +85,8 @@ public interface LoggingInterface extends Remote {
      * @param nGoodsInDisplay Number of products in display at the shop
      * @param reqFetchProds A phone call was made to the shop requesting the transfer of finished products
      * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      * 
      */
     public void WriteShop(ShopState s, int nCustomerIn, int nGoodsInDisplay,
@@ -91,6 +101,8 @@ public interface LoggingInterface extends Remote {
      * @param reqFetchProds A phone call was made to the shop requesting the transfer of finished products
      * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
      * @param state The entrepreneur state
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void WriteShopAndEntrepreneurStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
@@ -106,6 +118,8 @@ public interface LoggingInterface extends Remote {
      * @param reqPrimeMaterials A phone call was made to the shop requesting the supply of prime materials
      * @param state The craftsman state
      * @param idCraft The craftsman identifier
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void WriteShopAndCraftsmanStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
@@ -123,6 +137,8 @@ public interface LoggingInterface extends Remote {
      * @param state The customer state
      * @param idCust The customer identifier
      * @param nBoughtGoods The number of products bought
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      * 
      */
     public void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
@@ -138,6 +154,8 @@ public interface LoggingInterface extends Remote {
      * @param nTimesPrimeMaterialsFetched Number of times that a supply of prime materials was delivered to the workshop
      * @param nTotalPrimeMaterialsSupplied Total amount of prime materials that have already been supplied
      * @param nFinishedProducts Total number of products that have already been manufactured
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      * 
      */
     public void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, 
@@ -156,6 +174,8 @@ public interface LoggingInterface extends Remote {
      * @param state The craftsman state
      * @param idCraft The craftsman identifier
      * @param finishedProduct This field indicates if he did finish a product or not
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      * 
      */
     public void WriteWorkshopAndCraftsmanStat(int nCurrentPrimeMaterials, 
@@ -172,6 +192,8 @@ public interface LoggingInterface extends Remote {
      * @param nTotalPrimeMaterialsSupplied Total amount of prime materials that have already been supplied
      * @param nFinishedProducts Total number of products that have already been manufactured
      * @param state The entrepreneur state
+     * @param vt The vector clock
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      * 
      */
     public void WriteWorkshopAndEntrepreneurStat(int nCurrentPrimeMaterials, 
@@ -184,6 +206,7 @@ public interface LoggingInterface extends Remote {
      * 
      * @return Returns false if the craftsman can continue its work; returns 
      * false if otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public int endOperCraft() throws RemoteException;
     
@@ -192,6 +215,7 @@ public interface LoggingInterface extends Remote {
      * 
      * @return Returns false if the customer can continue; returns 
      * false if otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public boolean endOpCustomer() throws RemoteException;
     
@@ -200,6 +224,7 @@ public interface LoggingInterface extends Remote {
      * 
      * @return Returns false if the entrepreneur can continue its work; returns 
      * false if otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public boolean endOpEntrep() throws RemoteException;
     
@@ -209,6 +234,7 @@ public interface LoggingInterface extends Remote {
      * 
      * @return returns true if simulation values are consistent; returns false
      * otherwise.
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public boolean isConsist() throws RemoteException;
 }

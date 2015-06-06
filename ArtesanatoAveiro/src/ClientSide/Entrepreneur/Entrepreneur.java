@@ -24,7 +24,7 @@ public class Entrepreneur extends Thread {
     private final WorkshopInterface workshop;
     private final LoggingInterface log;
       
-    private VectorTimestamp myClock;
+    private final VectorTimestamp myClock;
     private VectorTimestamp receivedClock;
     
     /**

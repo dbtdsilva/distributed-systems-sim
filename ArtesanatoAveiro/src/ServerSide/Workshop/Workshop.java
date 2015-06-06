@@ -25,7 +25,7 @@ public class Workshop implements WorkshopInterface {
     private int nTotalPrimeMaterialsSupplied;
     private boolean waitingEntrepreneur;
     
-    private VectorTimestamp clocks;
+    private final VectorTimestamp clocks;
     
     private final LoggingInterface log;
     private final ShopInterface shop;
@@ -60,8 +60,8 @@ public class Workshop implements WorkshopInterface {
      * @return the number of products that Entrepreneur is going to deliver to 
      * the shop
      */
+    @Override
     public synchronized Object[] goToWorkshop(VectorTimestamp vt) throws RemoteException {
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.COLLECTING_A_BATCH_OF_PRODUCTS);
         clocks.update(vt);
         Object[] res = new Object[2];
         
@@ -86,9 +86,8 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param nMaterials number of prime materials
      */
+    @Override
     public synchronized VectorTimestamp replenishStock(int nMaterials, VectorTimestamp vt) throws RemoteException {
-        //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.DELIVERING_PRIME_MATERIALS);
-
         clocks.update(vt);
         
         nTimesPrimeMaterialsFetched++;
@@ -120,6 +119,7 @@ public class Workshop implements WorkshopInterface {
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
+    @Override
     public synchronized Object[] collectingMaterials(int id, VectorTimestamp vt) throws RemoteException {
         clocks.update(vt);
         
@@ -156,8 +156,8 @@ public class Workshop implements WorkshopInterface {
      * 
      * @return the number of products stored in workshop.
      */
+    @Override
     public synchronized Object[] goToStore(int id, VectorTimestamp vt) throws RemoteException {
-        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.STORING_IT_FOR_TRANSFER);
         clocks.update(vt);
         Object[] res = new Object[2];
         res[0] = clocks.clone();
@@ -179,8 +179,8 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param id The craftsman identifier.
      */
+    @Override
     public synchronized VectorTimestamp backToWork(int id, VectorTimestamp vt) throws RemoteException {
-        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.FETCHING_PRIME_MATERIALS);
         clocks.update(vt);
         log.UpdateCraftsmanState(id, CraftsmanState.FETCHING_PRIME_MATERIALS, clocks.clone());
         return clocks.clone();
@@ -191,8 +191,8 @@ public class Workshop implements WorkshopInterface {
      * 
      * @param id The craftsman identifier.
      */
+    @Override
     public synchronized VectorTimestamp prepareToProduce(int id, VectorTimestamp vt) throws RemoteException {
-        //((Craftsman) Thread.currentThread()).setState(CraftsmanState.PRODUCING_A_NEW_PIECE);
         clocks.update(vt);
         log.UpdateCraftsmanState(id, CraftsmanState.PRODUCING_A_NEW_PIECE, clocks.clone());
         return clocks.clone();

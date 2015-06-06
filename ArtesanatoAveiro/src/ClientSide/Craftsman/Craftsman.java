@@ -23,7 +23,7 @@ public class Craftsman extends Thread {
     private final LoggingInterface log;
     private final int id;
     
-    private VectorTimestamp myClock;
+    private final VectorTimestamp myClock;
     private VectorTimestamp receivedClock;
     
     /**
