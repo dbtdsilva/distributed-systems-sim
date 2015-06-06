@@ -21,5 +21,5 @@ public interface WarehouseInterface extends Remote {
      * 
      * @return the number of prime materials fetched
      */
-    public int visitSuppliers() throws RemoteException;
+    public Object[] visitSuppliers(VectorClock.VectorTimestamp vt) throws RemoteException;
 }

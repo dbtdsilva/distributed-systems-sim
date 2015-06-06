@@ -1,10 +1,10 @@
 package ServerSide.Warehouse;
 
-import ClientSide.Entrepreneur.Entrepreneur;
-import Static.Enumerates.EntrepreneurState;
-import Static.Constants.ProbConst;
 import Interfaces.LoggingInterface;
 import Interfaces.WarehouseInterface;
+import Static.Constants.ProbConst;
+import Static.Enumerates.EntrepreneurState;
+import VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 
 /**
@@ -18,6 +18,7 @@ public class Warehouse implements WarehouseInterface {
     
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
+    private VectorTimestamp clocks;
     
     /**
      * Initializes the warehouse class with the required information.
@@ -37,6 +38,8 @@ public class Warehouse implements WarehouseInterface {
         
         if (nTimesPMSupplied[nTimesPMSupplied.length-1] < nPMMin)
             nTimesPMSupplied[nTimesPMSupplied.length-1] += nPMMin;
+        
+        this.clocks = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, 0);
     }
     
     /******************/
@@ -50,12 +53,17 @@ public class Warehouse implements WarehouseInterface {
      * 
      * @return the number of prime materials fetched
      */
-    public synchronized int visitSuppliers() throws RemoteException {
+    public synchronized Object[] visitSuppliers(VectorTimestamp vt) throws RemoteException {
+        clocks.update(vt);
+        Object[] res = new Object[2];
+        
         int n = nTimesPMSupplied[nTimesSupplied];
         nTimesSupplied++;
         
         //((Entrepreneur) Thread.currentThread()).setState(EntrepreneurState.AT_THE_SUPPLIERS);
-        log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS);
-        return n;
+        log.UpdateEntreperneurState(EntrepreneurState.AT_THE_SUPPLIERS, clocks.clone());
+        res[0] = clocks.clone();
+        res[1] = n;
+        return res;
     }
 }

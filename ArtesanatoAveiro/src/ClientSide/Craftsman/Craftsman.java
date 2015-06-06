@@ -3,8 +3,9 @@ package ClientSide.Craftsman;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WorkshopInterface;
-import Static.Enumerates.CraftsmanState;
 import Static.Constants.ProbConst;
+import Static.Enumerates.CraftsmanState;
+import VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,9 @@ public class Craftsman extends Thread {
     private final ShopInterface shop;
     private final LoggingInterface log;
     private final int id;
+    
+    private VectorTimestamp myClock;
+    private VectorTimestamp receivedClock;
     
     /**
      * Initiliazes the craftsman class with the required information.
@@ -39,6 +43,8 @@ public class Craftsman extends Thread {
         this.workshop = workshop;
         this.log = log;
         state = CraftsmanState.FETCHING_PRIME_MATERIALS;
+        
+        myClock = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, ProbConst.nCustomers + id + 1);
     }
 
     /**
@@ -47,23 +53,51 @@ public class Craftsman extends Thread {
     @Override
     public void run() {
         int val;
+        Object[] res;
+        
         try {
             do {
-                if (!workshop.collectingMaterials(id)) {
-                    shop.primeMaterialsNeeded(id);
-                    workshop.backToWork(id);
+                myClock.increment();
+                res = workshop.collectingMaterials(id, myClock.clone()); 
+                myClock.update((VectorTimestamp)res[0]);
+                
+                if (!(boolean)res[1]) {
+                    myClock.increment();
+                    res = shop.primeMaterialsNeeded(id, myClock.clone());
+                    myClock.update((VectorTimestamp)res[0]);
+                    
+                    myClock.increment();
+                    receivedClock = workshop.backToWork(id, myClock.clone());
+                    myClock.update(receivedClock);
                 } else {
-                    workshop.prepareToProduce(id);
+                    myClock.increment();
+                    receivedClock = workshop.prepareToProduce(id, myClock.clone());
+                    myClock.update(receivedClock);
+                    
                     shappingItUp();
-                    int productsStored = workshop.goToStore(id);
-                    if (productsStored >= ProbConst.MAXproductsInWorkshop)
-                        shop.batchReadyForTransfer(id);
-                    workshop.backToWork(id);
+                    
+                    myClock.increment();
+                    res = workshop.goToStore(id, myClock.clone());
+                    int productsStored = (int)res[1];
+                    myClock.update((VectorTimestamp)res[0]);
+                    
+                    if (productsStored >= ProbConst.MAXproductsInWorkshop)  {
+                        myClock.increment();
+                        receivedClock = shop.batchReadyForTransfer(id, myClock.clone());   
+                        myClock.update(receivedClock);
+                    }
+                    
+                    myClock.increment();
+                    receivedClock = workshop.backToWork(id, myClock.clone());
+                    myClock.update(receivedClock);
                 }
             } while ((val = log.endOperCraft()) == 0);
 
-            if (val == 2) 
-                shop.batchReadyForTransfer(id);
+            if (val == 2)   {
+                myClock.increment();
+                receivedClock = shop.batchReadyForTransfer(id, myClock.clone());   
+                myClock.update(receivedClock);
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }

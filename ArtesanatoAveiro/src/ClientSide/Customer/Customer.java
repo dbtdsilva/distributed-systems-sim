@@ -55,7 +55,13 @@ public class Customer extends Thread {
                     myClock.increment();
                     receivedClock = shop.enterShop(id, myClock.clone());
                     myClock.update(receivedClock);
-                    if ((nProducts = shop.perusingAround()) != 0)   {
+                    
+                    myClock.increment();
+                    Object[] ret = shop.perusingAround(myClock.clone());
+                    nProducts = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    if (nProducts != 0)   {
                         myClock.increment();
                         receivedClock = shop.iWantThis(id, nProducts, myClock.clone());
                         myClock.update(receivedClock);

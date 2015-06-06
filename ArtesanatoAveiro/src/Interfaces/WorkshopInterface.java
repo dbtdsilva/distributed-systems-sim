@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import VectorClock.VectorTimestamp;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -20,7 +21,8 @@ public interface WorkshopInterface extends Remote {
      * @return the number of products that Entrepreneur is going to deliver to 
      * the shop
      */
-    public int goToWorkshop() throws RemoteException;
+    public Object[] goToWorkshop(VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Entrepreneur goes to the Workshop and returns that prime materials that
      * she fetched from the Warehouse.
@@ -29,7 +31,8 @@ public interface WorkshopInterface extends Remote {
      * 
      * @param nMaterials number of prime materials
      */
-    public void replenishStock(int nMaterials) throws RemoteException;    
+    public VectorTimestamp replenishStock(int nMaterials, VectorTimestamp vt) throws RemoteException;    
+    
     /**
      * The craftsman is preparing to manufacture a product.
      * If there are enough materials to manufacture the product, the number of available prime materials 
@@ -39,7 +42,8 @@ public interface WorkshopInterface extends Remote {
      * @param id The craftsman identifier.
      * @return true if there are enough prime materials to manufacture a product or false if there aren't.
      */
-    public boolean collectingMaterials(int id) throws RemoteException;
+    public Object[] collectingMaterials(int id, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * 
      * After the craftsman finishes the piece and stores it in the workshop.
@@ -47,17 +51,19 @@ public interface WorkshopInterface extends Remote {
      * 
      * @return the number of products stored in workshop.
      */
-    public int goToStore(int id) throws RemoteException;
+    public Object[] goToStore(int id, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * The craftsman has finished its latest task and is now ready to go fetch more prime materials.
      * 
      * @param id The craftsman identifier.
      */
-    public void backToWork(int id) throws RemoteException;
+    public VectorTimestamp backToWork(int id, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * The craftsman has the prime materials that he needs, and will now start producing another piece.
      * 
      * @param id The craftsman identifier.
      */
-    public void prepareToProduce(int id) throws RemoteException;
+    public VectorTimestamp prepareToProduce(int id, VectorTimestamp vt) throws RemoteException;
 }

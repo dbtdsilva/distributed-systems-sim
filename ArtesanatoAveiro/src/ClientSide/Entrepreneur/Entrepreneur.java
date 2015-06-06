@@ -4,7 +4,9 @@ import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WarehouseInterface;
 import Interfaces.WorkshopInterface;
+import Static.Constants.ProbConst;
 import Static.Enumerates.EntrepreneurState;
+import VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,9 @@ public class Entrepreneur extends Thread {
     private final WarehouseInterface warehouse;
     private final WorkshopInterface workshop;
     private final LoggingInterface log;
+      
+    private VectorTimestamp myClock;
+    private VectorTimestamp receivedClock;
     
     /**
      * Initiliazes the entrepreneur class with the required information.
@@ -40,6 +45,8 @@ public class Entrepreneur extends Thread {
         this.warehouse = warehouse;
         this.workshop = workshop;
         this.log = log;
+        
+        myClock = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, 0);
     }
     /**
      * This function represents the life cycle of Entrepreneur.
@@ -51,32 +58,68 @@ public class Entrepreneur extends Thread {
                 boolean canGoOut = false;
                 char sit;
 
-                shop.prepareToWork();
-                do {                
-                    sit = shop.appraiseSit();
+                myClock.increment();
+                receivedClock = shop.prepareToWork(myClock.clone());
+                myClock.update(receivedClock);
+                
+                Object[] ret;
+                
+                do {   
+                    myClock.increment();
+                    ret = shop.appraiseSit(myClock.clone());
+                    myClock.update((VectorTimestamp)ret[0]);
+                    sit = (char)ret[1];
+                    
                     switch (sit) {
                         case 'C': 
-                            int id = shop.addressACustomer();
+                            myClock.increment();
+                            ret = shop.addressACustomer(myClock.clone());
+                            int id = (int)ret[1];
+                            myClock.update((VectorTimestamp)ret[0]);
+                            
                             serviceCustomer(id);
-                            shop.sayGoodByeToCustomer(id);
+                            
+                            myClock.increment();
+                            receivedClock = shop.sayGoodByeToCustomer(id, myClock.clone());
+                            myClock.update(receivedClock);
                             break;
                         case 'T':
                         case 'M':
                         case 'E':
-                            shop.closeTheDoor();
+                            myClock.increment();
+                            receivedClock = shop.closeTheDoor(myClock.clone());
+                            myClock.update(receivedClock);
+                            
                             canGoOut = !shop.customersInTheShop();
                             break;
                     }
                 } while (!canGoOut);
 
-                shop.prepareToLeave();
+                myClock.increment();
+                receivedClock = shop.prepareToLeave(myClock.clone());
+                myClock.update(receivedClock);
                 if (sit == 'T') {           /* Transfer products */
-                    int nProducts = workshop.goToWorkshop();
-                    shop.returnToShop(nProducts);
+                    myClock.increment();
+                    ret = workshop.goToWorkshop(myClock.clone());
+                    int nProducts = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    myClock.increment();
+                    receivedClock = shop.returnToShop(nProducts, myClock.clone());
+                    myClock.update(receivedClock);
+                    
                 } else if (sit == 'M') {    /* Materials needed */
-                    int nMaterials = warehouse.visitSuppliers();
-                    workshop.replenishStock(nMaterials);
-                    shop.returnToShop(-1);
+                    ret = warehouse.visitSuppliers(myClock.clone());
+                    int nMaterials = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    myClock.increment();
+                    receivedClock = workshop.replenishStock(nMaterials, myClock.clone());
+                    myClock.update(receivedClock);
+                    
+                    myClock.increment();
+                    receivedClock = shop.returnToShop(-1, myClock.clone());
+                    myClock.update(receivedClock);
                 }
             } while(!log.endOpEntrep());
             System.out.println("Dona acabou execução!");

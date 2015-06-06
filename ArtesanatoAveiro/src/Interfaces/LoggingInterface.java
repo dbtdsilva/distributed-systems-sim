@@ -19,24 +19,27 @@ import java.rmi.RemoteException;
  */
 public interface LoggingInterface extends Remote {
     public void WriteLine() throws RemoteException;
+    
     /**
      * Writes the end of the logger file.
      * @throws java.rmi.RemoteException
      */
     public void EndWriting() throws RemoteException;
+    
     /**
      * Writes the state of the entrepeneur in the logger file.
      * 
      * @param es The entrepeneur's current state
     */
-    public void UpdateEntreperneurState(EntrepreneurState es) throws RemoteException;        
+    public void UpdateEntreperneurState(EntrepreneurState es, VectorTimestamp vt) throws RemoteException;        
+    
     /**
      * Writes the state of the craftsman in the logger file.
      * 
      * @param id The craftsman's id
      * @param cs The craftsman's current state
      */
-    public void UpdateCraftsmanState(int id, CraftsmanState cs) throws RemoteException;
+    public void UpdateCraftsmanState(int id, CraftsmanState cs, VectorTimestamp vt) throws RemoteException;
     
     /**
      * Writes the state of the customer in the logger file.
@@ -44,7 +47,7 @@ public interface LoggingInterface extends Remote {
      * @param id The customer's id
      * @param cs The customer's current state
      */
-    public VectorTimestamp UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk) throws RemoteException;
+    public void UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk) throws RemoteException;
     
     /**
      * Update prime materials request. (Doesn't write)
@@ -52,12 +55,14 @@ public interface LoggingInterface extends Remote {
      * @param reqPrimeMaterials The current request status
      */
     public void UpdatePrimeMaterialsRequest(boolean reqPrimeMaterials) throws RemoteException;
+    
     /**
      * Update prime materials request. (Doesn't write)
      * 
      * @param reqFetchProds The current request status
      */
     public void UpdateFetchProductsRequest(boolean reqFetchProds) throws RemoteException;
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -69,7 +74,8 @@ public interface LoggingInterface extends Remote {
      * 
      */
     public void WriteShop(ShopState s, int nCustomerIn, int nGoodsInDisplay,
-                                    boolean reqFetchProds, boolean reqPrimeMaterials) throws RemoteException;
+                                    boolean reqFetchProds, boolean reqPrimeMaterials, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -82,7 +88,8 @@ public interface LoggingInterface extends Remote {
      */
     public void WriteShopAndEntrepreneurStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
-                                boolean reqPrimeMaterials, EntrepreneurState state) throws RemoteException;
+                                boolean reqPrimeMaterials, EntrepreneurState state, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -97,7 +104,8 @@ public interface LoggingInterface extends Remote {
     public void WriteShopAndCraftsmanStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CraftsmanState state,
-                                int idCraft) throws RemoteException;
+                                int idCraft, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -111,10 +119,11 @@ public interface LoggingInterface extends Remote {
      * @param nBoughtGoods The number of products bought
      * 
      */
-    public VectorTimestamp WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
+    public void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CustomerState state,
                                 int idCust, int nBoughtGoods, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -127,7 +136,9 @@ public interface LoggingInterface extends Remote {
      */
     public void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, 
                                         int nTimesPrimeMaterialsFetched,
-                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts) throws RemoteException;
+                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
+                                        VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -144,7 +155,8 @@ public interface LoggingInterface extends Remote {
     public void WriteWorkshopAndCraftsmanStat(int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    CraftsmanState state, int idCraft, boolean finishedProduct) throws RemoteException;
+                    CraftsmanState state, int idCraft, boolean finishedProduct, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -159,7 +171,8 @@ public interface LoggingInterface extends Remote {
     public void WriteWorkshopAndEntrepreneurStat(int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    EntrepreneurState state) throws RemoteException;
+                    EntrepreneurState state, VectorTimestamp vt) throws RemoteException;
+    
     /**
      * Checks if the craftsman no longer has conditions to continue its work.
      * 
@@ -167,6 +180,7 @@ public interface LoggingInterface extends Remote {
      * false if otherwise.
      */
     public int endOperCraft() throws RemoteException;
+    
     /**
      * Checks if the customer no longer has conditions to continue.
      * 
@@ -174,6 +188,7 @@ public interface LoggingInterface extends Remote {
      * false if otherwise.
      */
     public boolean endOpCustomer() throws RemoteException;
+    
     /**
      * Checks if the Entrepreneur no longer has conditions to continue its work.
      * 
@@ -181,6 +196,7 @@ public interface LoggingInterface extends Remote {
      * false if otherwise.
      */
     public boolean endOpEntrep() throws RemoteException;
+    
     /**
      * This method allows to check if the final status of the simulation is a 
      * valid or not.

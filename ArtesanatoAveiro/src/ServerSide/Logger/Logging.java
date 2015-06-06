@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class Logging implements LoggingInterface {
     private int nFinishedProducts;
     
     private VectorTimestamp vt;
+    private ArrayList<Update> updates;
     
     /**
      * Initializes the logger file.
@@ -215,7 +217,7 @@ public class Logging implements LoggingInterface {
      * 
      * @param es The entrepeneur's current state
     */
-    public synchronized void UpdateEntreperneurState(EntrepreneurState es)
+    public synchronized void UpdateEntreperneurState(EntrepreneurState es, VectorTimestamp vt)
     {
         this.entrepState = es;
         WriteLine();
@@ -227,7 +229,7 @@ public class Logging implements LoggingInterface {
      * @param id The craftsman's id
      * @param cs The craftsman's current state
      */
-    public synchronized void UpdateCraftsmanState(int id, CraftsmanState cs)
+    public synchronized void UpdateCraftsmanState(int id, CraftsmanState cs, VectorTimestamp vt)
     {
         craftsmen.put(id, cs);
         WriteLine();
@@ -239,12 +241,11 @@ public class Logging implements LoggingInterface {
      * @param id The customer's id
      * @param cs The customer's current state
      */
-    public synchronized VectorTimestamp UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk)
+    public synchronized void UpdateCustomerState(int id, CustomerState cs, VectorTimestamp clk)
     {
         vt.update(clk);
         customers.put(id, cs);
         WriteLine();
-        return vt.clone();
     }
     
     /**
@@ -255,6 +256,7 @@ public class Logging implements LoggingInterface {
     public synchronized void UpdatePrimeMaterialsRequest(boolean reqPrimeMaterials) {
         this.reqPrimeMaterials = reqPrimeMaterials;
     }
+    
     /**
      * Update prime materials request. (Doesn't write)
      * 
@@ -263,6 +265,7 @@ public class Logging implements LoggingInterface {
     public synchronized void UpdateFetchProductsRequest(boolean reqFetchProds) {
         this.reqFetchProds = reqFetchProds;
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -274,7 +277,7 @@ public class Logging implements LoggingInterface {
      * 
      */
     public synchronized void WriteShop(ShopState s, int nCustomerIn, int nGoodsInDisplay,
-                                    boolean reqFetchProds, boolean reqPrimeMaterials)
+                                    boolean reqFetchProds, boolean reqPrimeMaterials, VectorTimestamp vt)
     {
         this.shopDoorState = s;
         this.nCustomerIn = nCustomerIn;
@@ -296,7 +299,7 @@ public class Logging implements LoggingInterface {
      */
     public synchronized void WriteShopAndEntrepreneurStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
-                                boolean reqPrimeMaterials, EntrepreneurState state) {
+                                boolean reqPrimeMaterials, EntrepreneurState state, VectorTimestamp vt) {
         this.entrepState = state;
         this.shopDoorState = s;
         this.nCustomerIn = nCustomerIn;
@@ -306,6 +309,7 @@ public class Logging implements LoggingInterface {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -320,7 +324,7 @@ public class Logging implements LoggingInterface {
     public synchronized void WriteShopAndCraftsmanStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CraftsmanState state,
-                                int idCraft) {
+                                int idCraft, VectorTimestamp vt) {
         craftsmen.put(idCraft, state);
         this.shopDoorState = s;
         this.nCustomerIn = nCustomerIn;
@@ -330,6 +334,7 @@ public class Logging implements LoggingInterface {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the shop in the logger file.
      * 
@@ -343,7 +348,7 @@ public class Logging implements LoggingInterface {
      * @param nBoughtGoods The number of products bought
      * 
      */
-    public synchronized VectorTimestamp WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
+    public synchronized void WriteShopAndCustomerStat(ShopState s, int nCustomerIn, 
                                 int nGoodsInDisplay, boolean reqFetchProds, 
                                 boolean reqPrimeMaterials, CustomerState state,
                                 int idCust, int nBoughtGoods, VectorTimestamp clk) {
@@ -362,9 +367,8 @@ public class Logging implements LoggingInterface {
         this.reqPrimeMaterials = reqPrimeMaterials;
         
         WriteLine();
-        
-        return vt.clone();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -377,7 +381,7 @@ public class Logging implements LoggingInterface {
      */
     public synchronized void WriteWorkshop(int nCurrentPrimeMaterials, int nProductsStored, 
                                         int nTimesPrimeMaterialsFetched,
-                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts)
+                                        int nTotalPrimeMaterialsSupplied, int nFinishedProducts, VectorTimestamp vt)
     {
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
@@ -386,6 +390,7 @@ public class Logging implements LoggingInterface {
         this.nFinishedProducts = nFinishedProducts;
         WriteLine();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -402,7 +407,7 @@ public class Logging implements LoggingInterface {
     public synchronized void WriteWorkshopAndCraftsmanStat(int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    CraftsmanState state, int idCraft, boolean finishedProduct) {
+                    CraftsmanState state, int idCraft, boolean finishedProduct, VectorTimestamp vt) {
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
@@ -417,6 +422,7 @@ public class Logging implements LoggingInterface {
         
         WriteLine();
     }
+    
     /**
      * Writes the state of the workshop in the logger file.
      * 
@@ -431,7 +437,7 @@ public class Logging implements LoggingInterface {
     public synchronized void WriteWorkshopAndEntrepreneurStat(int nCurrentPrimeMaterials, 
                     int nProductsStored, int nTimesPrimeMaterialsFetched,
                     int nTotalPrimeMaterialsSupplied, int nFinishedProducts,
-                    EntrepreneurState state) {
+                    EntrepreneurState state, VectorTimestamp vt) {
         this.nCurrentPrimeMaterials = nCurrentPrimeMaterials;
         this.nProductsStored = nProductsStored;
         this.nTimesPrimeMaterialsFetched = nTimesPrimeMaterialsFetched;
@@ -460,6 +466,7 @@ public class Logging implements LoggingInterface {
         }
         return 0;
     }
+    
     /**
      * Checks if the customer no longer has conditions to continue.
      * 
@@ -479,6 +486,7 @@ public class Logging implements LoggingInterface {
                 nTimesPrimeMaterialsFetched == ProbConst.MAXSupplies &&
                 !reqFetchProds && !reqPrimeMaterials;
     }
+    
     /**
      * Checks if the Entrepreneur no longer has conditions to continue its work.
      * 
@@ -498,6 +506,7 @@ public class Logging implements LoggingInterface {
                 !reqFetchProds && !reqPrimeMaterials && 
                 nCustomerIn == 0;
     }
+    
     /**
      * This method allows to check if the final status of the simulation is a 
      * valid or not.
@@ -505,7 +514,8 @@ public class Logging implements LoggingInterface {
      * @return returns true if simulation values are consistent; returns false
      * otherwise.
      */
-        public synchronized boolean isConsist() {
+    
+    public synchronized boolean isConsist() {
         /* Calculating some values to check consistency */
         int totalProductsBought = 0;
         for (int val : nBoughtGoods.values())
