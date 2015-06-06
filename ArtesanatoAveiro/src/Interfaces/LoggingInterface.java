@@ -18,7 +18,13 @@ import java.rmi.RemoteException;
  * @author diogosilva
  */
 public interface LoggingInterface extends Remote {
-    public void WriteLine() throws RemoteException;
+
+    /**
+     * Writes a line to the logging file
+     * @param vt the Vector clock
+     * @throws RemoteException
+     */
+    public void WriteLine(VectorTimestamp vt) throws RemoteException;
     
     /**
      * Writes the end of the logger file.
