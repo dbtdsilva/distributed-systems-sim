@@ -40,13 +40,13 @@ public class ShopServer {
         }
         catch (RemoteException e)
         { 
-            System.out.println("Excepção na localização da barbearia: " + e.getMessage () + "!");
+            System.out.println("Excepção na localização da loja: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit (1);
         }
         catch (NotBoundException e)
         { 
-            System.out.println("O logging não está registado: " + e.getMessage () + "!");
+            System.out.println("A loja não está registado: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit(1);
         }
@@ -63,11 +63,11 @@ public class ShopServer {
         try {
             shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, RegistryConst.portShop);
         } catch (RemoteException e) {
-            System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
+            System.out.println("Excepção na geração do stub para a loja: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("O stub para a barberaria foi gerado!");
+        System.out.println("O stub para a loja foi gerado!");
 
         /* seu registo no serviço de registo RMI */
         String nameEntryBase = RegistryConst.registerHandler;
@@ -99,14 +99,14 @@ public class ShopServer {
         try {
             registry.bind(nameEntryObject, shopInterface);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo do Logging: " + e.getMessage());
+            System.out.println("Excepção no registo da loja: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("O Logging já está registado: " + e.getMessage());
+            System.out.println("A loja já está registada: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("O Logging foi registado!");
+        System.out.println("A loja foi registada!");
     }
 }

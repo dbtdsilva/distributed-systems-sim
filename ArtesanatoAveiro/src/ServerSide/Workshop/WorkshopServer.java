@@ -36,13 +36,13 @@ public class WorkshopServer {
         }
         catch (RemoteException e)
         { 
-            System.out.println("Exception thrown while locating logger: " + e.getMessage () + "!");
+            System.out.println("Exception thrown while locating workshop: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit (1);
         }
         catch (NotBoundException e)
         { 
-            System.out.println("Logger is not registered: " + e.getMessage () + "!");
+            System.out.println("Workshop is not registered: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit(1);
         }
@@ -51,7 +51,7 @@ public class WorkshopServer {
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
             shopInt = (ShopInterface) registry.lookup (RegistryConst.shopNameEntry);
         } catch (RemoteException e) {
-            System.out.println("Exception thrown while exporting shop interface: " + e.getMessage());
+            System.out.println("Exception thrown while exporting workshop interface: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
@@ -77,7 +77,7 @@ public class WorkshopServer {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("Workshop interface exported successfully!");
+        System.out.println("O stub para a oficina foi gerado!");
 
         /* seu registo no serviço de registo RMI */
         String nameEntryBase = RegistryConst.registerHandler;
@@ -109,13 +109,14 @@ public class WorkshopServer {
         try {
             registry.bind(nameEntryObject, wsInterface);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo do Logging: " + e.getMessage());
+            System.out.println("Excepção no registo da oficina: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("O Logging já está registado: " + e.getMessage());
+            System.out.println("A oficina já está registado: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-}
+        System.out.println("A oficina foi registada!");
+    }
 }

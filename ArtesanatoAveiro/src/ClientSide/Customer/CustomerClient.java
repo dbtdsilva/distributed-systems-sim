@@ -57,13 +57,13 @@ public class CustomerClient {
         }
         catch (RemoteException e)
         { 
-            System.out.println("Exception thrown while locating logger: " + e.getMessage () + "!");
+            System.out.println("Exception thrown while locating shop: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit (1);
         }
         catch (NotBoundException e)
         { 
-            System.out.println("Logger is not registered: " + e.getMessage () + "!");
+            System.out.println("Shop is not registered: " + e.getMessage () + "!");
             e.printStackTrace ();
             System.exit(1);
         }
@@ -74,12 +74,13 @@ public class CustomerClient {
             customers[i].start();
         }
         
+        System.out.println("Customers started working..");
         for (Customer c : customers) {
             try {
                 c.join();
             } catch (InterruptedException e) {}
         }
         
-        System.out.println("ended");
+        System.out.println("Customers finished their job.");
     }
 }

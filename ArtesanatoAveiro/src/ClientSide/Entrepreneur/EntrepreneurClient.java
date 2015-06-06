@@ -104,11 +104,12 @@ public class EntrepreneurClient {
             System.exit(1);
         }
         Entrepreneur entr = new Entrepreneur(loggingInt, shopInt, whInt, wsInt);
-                
+        
+        System.out.println("Entrepreneur started working..");    
         entr.start();
         try {
             entr.join();
         } catch (InterruptedException e) {}
-        System.out.println("ended");
+        System.out.println("Entrepreneur finished the job.");
     }
 }

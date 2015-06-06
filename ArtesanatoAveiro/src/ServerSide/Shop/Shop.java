@@ -129,7 +129,7 @@ public class Shop implements ShopInterface {
     public synchronized Object[] perusingAround(VectorTimestamp vt) {
         clocks.update(vt);
         Object[] res = new Object[2];
-        res[1] = clocks.clone();
+        res[0] = clocks.clone();
         
         double val = Math.random();
         if (val > 0.7 && nProductsStock >= 2) {

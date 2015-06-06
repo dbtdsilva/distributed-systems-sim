@@ -32,11 +32,11 @@ public class WarehouseServer {
             Registry registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
             loggingInt = (LoggingInterface) registry.lookup(RegistryConst.logNameEntry);
         } catch (RemoteException e) {
-            System.out.println("Excepção na localização da barbearia: " + e.getMessage() + "!");
+            System.out.println("Excepção na localização do armazém: " + e.getMessage() + "!");
             e.printStackTrace();
             System.exit(1);
         } catch (NotBoundException e) {
-            System.out.println("O logging não está registado: " + e.getMessage() + "!");
+            System.out.println("O armazém não está registado: " + e.getMessage() + "!");
             e.printStackTrace();
             System.exit(1);
         }
@@ -54,11 +54,11 @@ public class WarehouseServer {
         try {
             whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, RegistryConst.portWarehouse);
         } catch (RemoteException e) {
-            System.out.println("Excepção na geração do stub para a barbearia: " + e.getMessage());
+            System.out.println("Excepção na geração do stub para o armazém: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("O stub para a barberaria foi gerado!");
+        System.out.println("O stub para o armazém foi gerado!");
 
         /* seu registo no serviço de registo RMI */
         String nameEntryBase = RegistryConst.registerHandler;
@@ -90,13 +90,14 @@ public class WarehouseServer {
         try {
             registry.bind(nameEntryObject, whInterface);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo do Logging: " + e.getMessage());
+            System.out.println("Excepção no registo do armazém: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("O Logging já está registado: " + e.getMessage());
+            System.out.println("O armazém já está registado: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
+        System.out.println("O armazém foi registado!");
     }
 }

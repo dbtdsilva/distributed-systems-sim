@@ -54,7 +54,7 @@ public class LoggingServer {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("O stub para a barberaria foi gerado!");
+        System.out.println("O stub para o logging foi gerado!");
 
         /* seu registo no serviço de registo RMI */
         String nameEntryBase = RegistryConst.registerHandler;
@@ -86,14 +86,14 @@ public class LoggingServer {
         try {
             registry.bind(nameEntryObject, logInterface);
         } catch (RemoteException e) {
-            System.out.println("Excepção no registo do Logging: " + e.getMessage());
+            System.out.println("Excepção no registo do logging: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         } catch (AlreadyBoundException e) {
-            System.out.println("O Logging já está registado: " + e.getMessage());
+            System.out.println("O logging já está registado: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println("O Logging foi registado!");
+        System.out.println("O logging foi registado!");
     }
 }

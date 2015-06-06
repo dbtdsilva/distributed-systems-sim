@@ -93,7 +93,8 @@ public class CraftsmanClient {
             craftsmen[i] = new Craftsman(i, loggingInt, shopInt, wsInt);
             craftsmen[i].start();
         }
-         
+
+        System.out.println("Craftsmen started working.."); 
         for(Craftsman c : craftsmen)
         {
             try {
@@ -101,6 +102,6 @@ public class CraftsmanClient {
             } catch (InterruptedException e) {}
             
         }
-        System.out.println("ended");
+        System.out.println("Craftsmen finished their job.");
     }
 }
