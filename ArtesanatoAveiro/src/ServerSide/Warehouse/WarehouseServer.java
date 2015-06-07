@@ -94,7 +94,7 @@ public class WarehouseServer {
         }
 
         try {
-            registry.bind(nameEntryObject, whInterface);
+            reg.bind(nameEntryObject, whInterface);
         } catch (RemoteException e) {
             System.out.println("Excepção no registo do armazém: " + e.getMessage());
             e.printStackTrace();

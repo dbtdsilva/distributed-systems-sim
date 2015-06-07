@@ -117,7 +117,7 @@ public class WorkshopServer {
         }
 
         try {
-            registry.bind(nameEntryObject, wsInterface);
+            reg.bind(nameEntryObject, wsInterface);
         } catch (RemoteException e) {
             System.out.println("Excepção no registo da oficina: " + e.getMessage());
             e.printStackTrace();

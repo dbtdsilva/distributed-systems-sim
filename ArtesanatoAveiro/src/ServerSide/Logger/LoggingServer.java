@@ -90,7 +90,7 @@ public class LoggingServer {
         }
 
         try {
-            registry.bind(nameEntryObject, logInterface);
+            reg.bind(nameEntryObject, logInterface);
         } catch (RemoteException e) {
             System.out.println("Excepção no registo do logging: " + e.getMessage());
             e.printStackTrace();

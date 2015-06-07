@@ -103,7 +103,7 @@ public class ShopServer {
         }
 
         try {
-            registry.bind(nameEntryObject, shopInterface);
+            reg.bind(nameEntryObject, shopInterface);
         } catch (RemoteException e) {
             System.out.println("Excepção no registo da loja: " + e.getMessage());
             e.printStackTrace();

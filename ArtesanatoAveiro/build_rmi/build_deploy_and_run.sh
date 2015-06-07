@@ -46,15 +46,24 @@ fi
 source config.ini
 
 if [[ "$1" = "remote" ]]; then
-	echo "  > Creating folders on the remote servers"
-	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_registry/'
-	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/logging/'
-	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/shop/'
-	sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/workshop/'
-	sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/warehouse/'
-	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/entrepreneur/'
-	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/craftsman/'
-	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/customer/'
+	echo "  > Cleaning up remote server"
+	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
+	ECHO "	> Creating folders on the remote server"
+	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_registry/'
+	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/logging/'
+	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/shop/'
+	sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/workshop/'
+	sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/warehouse/'
+	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_clientSide/entrepreneur/'
+	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_clientSide/craftsman/'
+	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_clientSide/customer/'
 	echo "	> Sending the proper files to the correct workstation"
 	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no * $GROUP@$REGISTER_HOST:~/Public/classes/
 	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_registry/* $GROUP@$REGISTER_HOST:~/Public/classes/dir_registry/
