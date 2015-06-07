@@ -55,7 +55,7 @@ if [[ "$1" = "remote" ]]; then
 	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
 	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
 	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*'
-	ECHO "	> Creating folders on the remote server"
+	echo "	> Creating folders on the remote server"
 	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_registry/'
 	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/logging/'
 	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'mkdir -p Public/classes/dir_serverSide/shop/'
@@ -90,21 +90,21 @@ if [[ "$1" = "remote" ]]; then
 	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/customer/* $GROUP@$CUSTOMERS_HOST:~/Public/classes/dir_clientSide/customer/
 	
 	echo "  > Cleaning logs from the server where Logging is going to run"
-	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking 'rm -rf Public/classes/dir_serverSide/logging/*.log'
+	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'rm -rf Public/classes/dir_serverSide/logging/*.log'
 
 	echo "	> Executing each jar file on the proper workstation"
 	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; ./set_rmiregistry.sh $REGISTER_PORT' &
 	sleep 2
 	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_registry; ./registry_com.sh' &
-	sleep 3
+	sleep 4
 	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/logging; ./serverSide_com.sh' &
 	PID_Log=$!
-	sleep 3
+	sleep 4
 	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/shop; ./serverSide_com.sh' &
 	sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/warehouse; ./serverSide_com.sh' &
-	sleep 3
+	sleep 4
 	sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/workshop; ./serverSide_com.sh' &
-	sleep 3
+	sleep 4
 	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_clientSide/entrepreneur; ./clientSide_com.sh' &
 	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_clientSide/customer; ./clientSide_com.sh' &
 	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_clientSide/craftsman; ./clientSide_com.sh' &

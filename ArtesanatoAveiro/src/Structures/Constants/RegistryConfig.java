@@ -48,7 +48,10 @@ public class RegistryConfig {
      * Bash property of the file.
      */
     private Properties prop;
-    
+    /**
+     * Constructor that receives the file with the configurations.
+     * @param filename path for the configuration file
+     */
     public RegistryConfig(String filename) {
         prop = new Properties();
         InputStream in = null;
@@ -68,27 +71,61 @@ public class RegistryConfig {
             }
         }
     }
+    /**
+     * Loads a parameter from the bash.
+     * @param param parameter name
+     * @return parameter value
+     */
     public String loadParam(String param) {
         return prop.getProperty(param);
     }
+    
+    /** 
+     * Loads the parameter REGISTER_HOST from the configuration file.
+     * @return parameter value
+     */
     public String registryHost() {
         return loadParam("REGISTER_HOST");
     }
+    /** 
+     * Loads the parameter REGISTER_PORT from the configuration file.
+     * @return parameter value
+     */
     public int registryPort() {
         return Integer.parseInt(loadParam("REGISTER_PORT"));
     }
+    /** 
+     * Loads the parameter REGISTER_OBJECT_PORT from the configuration file.
+     * @return parameter value
+     */
     public int objectPort() {
         return Integer.parseInt(loadParam("REGISTER_OBJECT_PORT"));
     }
+    /** 
+     * Loads the parameter LOGGING_PORT from the configuration file.
+     * @return parameter value
+     */
     public int loggingPort() {
         return Integer.parseInt(loadParam("LOGGING_PORT"));
     }
+    /** 
+     * Loads the parameter SHOP_PORT from the configuration file.
+     * @return parameter value
+     */
     public int shopPort() {
         return Integer.parseInt(loadParam("SHOP_PORT"));
     }
+    /** 
+     * Loads the parameter WORKSHOP_PORT from the configuration file.
+     * @return parameter value
+     */
     public int workshopPort() {
         return Integer.parseInt(loadParam("WORKSHOP_PORT"));
     }
+    /** 
+     * Loads the parameter WAREHOUSE_PORT from the configuration file.
+     * @return parameter value
+     */
     public int warehousePort() {
         return Integer.parseInt(loadParam("WAREHOUSE_PORT"));
     }
