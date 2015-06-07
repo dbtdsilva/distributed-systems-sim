@@ -5,11 +5,8 @@
  */
 package ClientSide.Customer;
 
-import ClientSide.Entrepreneur.Entrepreneur;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
-import Interfaces.WarehouseInterface;
-import Interfaces.WorkshopInterface;
 import Structures.Constants.ProbConst;
 import Structures.Constants.RegistryConst;
 import java.rmi.NotBoundException;
@@ -18,8 +15,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- *
- * @author diogosilva
+ * This class is the main class of the Customer entity.
+ * 
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class CustomerClient {
     /**

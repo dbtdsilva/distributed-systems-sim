@@ -6,8 +6,10 @@
 package Structures.Constants;
 
 /**
- *
- * @author diogosilva
+ * This class contains all the constants related with the Registry.
+ * 
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class RegistryConst {
 

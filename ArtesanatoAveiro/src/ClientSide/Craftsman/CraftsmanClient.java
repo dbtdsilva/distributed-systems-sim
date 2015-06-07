@@ -16,8 +16,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- *
- * @author diogosilva
+ * This class is the main class of the Craftsman entity.
+ * 
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class CraftsmanClient {
 

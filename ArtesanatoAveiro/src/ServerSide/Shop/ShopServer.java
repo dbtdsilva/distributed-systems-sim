@@ -17,8 +17,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- *
- * @author diogosilva
+ * This is the main class for the server Shop.
+ * 
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class ShopServer {
     /**

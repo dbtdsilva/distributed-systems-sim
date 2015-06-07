@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- *
+ * This class is used to represent a vector clock.
  * @author Diogo Silva (60337)
  * @author Tânia Alves (60340)
  */

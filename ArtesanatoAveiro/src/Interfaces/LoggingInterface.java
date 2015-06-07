@@ -14,8 +14,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- *
- * @author diogosilva
+ * This data type defines the interface for the object Logging.
+ * @author Diogo Silva (60337)
+ * @author Tânia Alves (60340)
  */
 public interface LoggingInterface extends Remote {
 

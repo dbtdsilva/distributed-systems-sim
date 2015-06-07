@@ -1,8 +1,10 @@
 package ServerSide.Logger;
 
 /**
- *
- * @author guesswho
+ * This class is an auxiliar class to represent the vector clock.
+ * 
+ * @author Diogo Silva, 60337
+ * @author Tânia Alves, 60340
  */
 public class Update {
     private String text;
