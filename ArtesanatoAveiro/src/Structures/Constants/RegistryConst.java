@@ -46,7 +46,7 @@ public class RegistryConst {
     /**
      * Host name of the registry where it is located.
      */
-    public static String hostRegistry = "localhost";
+    public static String hostRegistry = "l040101-ws02.ua.pt";
     
     /**
      * Logging port of the machine.
@@ -56,7 +56,7 @@ public class RegistryConst {
     /**
      * Host name of the logging where it is located.
      */
-    public static String hostLogging = "localhost";
+    public static String hostLogging = "l040101-ws01.ua.pt";
     
     /**
      * Shop port of the machine.
@@ -66,7 +66,7 @@ public class RegistryConst {
     /**
      * Host name of the shop where it is located.
      */
-    public static String hostShop = "localhost";
+    public static String hostShop = "l040101-ws05.ua.pt";
     
     /**
      * Workshop port of the machine.
@@ -76,7 +76,7 @@ public class RegistryConst {
     /**
      * Host name of the workshop where it is located.
      */
-    public static String hostWorkshop = "localhost";
+    public static String hostWorkshop = "l040101-ws04.ua.pt";
     
     /**
      * Warehouse port of the machine.
@@ -86,7 +86,7 @@ public class RegistryConst {
     /**
      * Host name of the warehouse where it is located.
      */
-    public static String hostWarehouse = "localhost";
+    public static String hostWarehouse = "l040101-ws03.ua.pt";
     
     /**
      * ObjectHandler port of the machine.
