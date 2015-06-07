@@ -6,7 +6,7 @@ package ServerSide.Logger;
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public class Update {
+public class Update implements Comparable {
     private String text;
     private int [] clock;
 
@@ -59,9 +59,10 @@ public class Update {
      * @param u Update object
      * @return the result of the comparison (-1, 1 or 0)
      */
-    public int compareTo(Update u)  {
+    @Override
+    public int compareTo(Object u)  {
         int[] array1 = this.clock;
-        int[] array2 = u.getClock();
+        int[] array2 = ((Update) u).getClock();
         
         boolean array1_greater_array2 = false;
         boolean array1_lesser_array2 = false;

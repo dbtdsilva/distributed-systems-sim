@@ -79,41 +79,24 @@ if [[ "$1" = "local" ]]; then
 	echo "	> Running at local machine"
 	./set_rmiregistry.sh 22440 &
 	PID0=$!
-	sleep 3
+	sleep 2
 	cd dir_registry; ./registry_com_alt.sh &
 	cd ..
 	PID1=$!
 	sleep 3
 	cd dir_serverSide/logging; ./serverSide_com_alt.sh &
-	cd ../..
-	PID2=$!
+	cd ../..; PID_Log=$!
 	sleep 3
-	cd dir_serverSide/shop; ./serverSide_com_alt.sh &
-	cd ../..
-	PID3=$!
+	(cd dir_serverSide/shop; ./serverSide_com_alt.sh &)
+	(cd dir_serverSide/warehouse; ./serverSide_com_alt.sh &)
 	sleep 3
-	cd dir_serverSide/workshop; ./serverSide_com_alt.sh &
-	cd ../..
-	PID4=$!
+	(cd dir_serverSide/workshop; ./serverSide_com_alt.sh &)
 	sleep 3
-	cd dir_serverSide/warehouse; ./serverSide_com_alt.sh &
-	cd ../..
-	PID5=$!
-	sleep 3
-	cd dir_clientSide/entrepreneur; ./clientSide_com_alt.sh &
-	cd ../..
-	PIDEntr=$!
-	cd dir_clientSide/customer; ./clientSide_com_alt.sh &
-	cd ../..
-	cd dir_clientSide/craftsman; ./clientSide_com_alt.sh &
-	cd ../..
-	wait $PIDEntr
-	sleep 1
+	(cd dir_clientSide/entrepreneur; ./clientSide_com_alt.sh &)
+	(cd dir_clientSide/customer; ./clientSide_com_alt.sh &)
+	(cd dir_clientSide/craftsman; ./clientSide_com_alt.sh &)
+	wait $PID_Log
 	pkill -TERM -P $PID0 
 	pkill -TERM -P $PID1
-	pkill -TERM -P $PID2 
-	pkill -TERM -P $PID3 
-	pkill -TERM -P $PID4 
-	pkill -TERM -P $PID5 
 	mv dir_serverSide/logging/Artesanato* final_logs/
 fi

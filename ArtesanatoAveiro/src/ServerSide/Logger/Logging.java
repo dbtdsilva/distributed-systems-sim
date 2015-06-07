@@ -25,8 +25,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,11 +43,11 @@ import java.util.logging.Logger;
 public class Logging implements LoggingInterface {
     /* File where the log will be saved */
 
-    private final File log;
+    private final File log, reorder;
     /* Name for the file where we want to save the log */
     private final String filename;
 
-    private PrintWriter pw;
+    private PrintWriter pw, reorder_pw;
 
     /* Auxiliar variables */
     // Entrepeneur information
@@ -116,6 +119,8 @@ public class Logging implements LoggingInterface {
             this.filename = loggerName;
         }
 
+        String [] arr = filename.split("_");
+        reorder = new File(arr[0]+"_vector_"+arr[1]);
         log = new File(filename);
         shopDoorState = ShopState.CLOSED;
         entrepState = EntrepreneurState.OPENING_THE_SHOP;
@@ -285,6 +290,7 @@ public class Logging implements LoggingInterface {
      */
     private void InitWriting() {
         try {
+            reorder_pw = new PrintWriter(reorder);
             pw = new PrintWriter(log);
 
             StringBuilder sb = new StringBuilder("ENTREPRE");
@@ -311,6 +317,8 @@ public class Logging implements LoggingInterface {
             }
             pw.println(sb.toString());
             pw.println(sb2.toString());
+            reorder_pw.println(sb.toString());
+            reorder_pw.println(sb2.toString());
             WriteLine(new VectorTimestamp(ProbConst.nCustomers + ProbConst.nCraftsmen + 1, 0));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
@@ -323,6 +331,28 @@ public class Logging implements LoggingInterface {
      */
     @Override
     public synchronized void EndWriting() {
+        Map<Integer, Update> tab = new Hashtable<>();
+        for (int i = 0; i < this.updates.size(); i++) {
+            tab.put(i, updates.get(i));
+        }
+        ArrayList<Map.Entry<Integer, Update>> l = new ArrayList(tab.entrySet());
+        Collections.sort(l, new Comparator<Map.Entry<Integer, Update>>()
+        {
+            @Override
+            public int compare(Map.Entry<Integer, Update> o1, Map.Entry<Integer, Update> o2) 
+            {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        
+        for (int i = 0; i < l.size(); i++) {
+            reorder_pw.printf(l.get(l.size()-i-1).getValue().getText());
+        }
+        reorder_pw.println("SIMULATION ENDED!");
+        reorder_pw.flush();
+        reorder_pw.close();
+        
+        
         pw.println("SIMULATION ENDED!");
         pw.flush();
         pw.close();
