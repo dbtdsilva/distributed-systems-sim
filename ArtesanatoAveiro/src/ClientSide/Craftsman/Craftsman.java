@@ -98,6 +98,8 @@ public class Craftsman extends Thread {
                 receivedClock = shop.batchReadyForTransfer(id, myClock.clone());   
                 myClock.update(receivedClock);
             }
+            
+            log.Shutdown();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -19,7 +19,12 @@ import java.rmi.RemoteException;
  * @author Tânia Alves (60340)
  */
 public interface LoggingInterface extends Remote {
-
+    /**
+     * This function is used for the entities signal the Logging that have closed.
+     * 
+     * @throws RemoteException may throw during a execution of a remote method call
+     */
+    public void Shutdown() throws RemoteException;
     /**
      * Writes a line to the logging file
      * @param vt the Vector clock

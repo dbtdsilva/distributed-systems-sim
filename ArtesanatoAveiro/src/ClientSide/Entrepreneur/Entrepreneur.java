@@ -123,6 +123,8 @@ public class Entrepreneur extends Thread {
                 }
             } while(!log.endOpEntrep());
             System.out.println("Dona acabou execução!");
+            
+            log.Shutdown();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

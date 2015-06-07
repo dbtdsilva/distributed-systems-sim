@@ -77,6 +77,7 @@ public class Customer extends Thread {
                 }
             } while (!log.endOpCustomer());
             System.out.println("Cliente "+id+" acabou execução!");
+            log.Shutdown();
         } catch(RemoteException e) {
             e.printStackTrace();
         }

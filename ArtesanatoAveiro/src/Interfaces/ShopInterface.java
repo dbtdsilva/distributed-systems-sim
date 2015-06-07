@@ -16,6 +16,12 @@ import java.rmi.RemoteException;
  */
 public interface ShopInterface extends Remote {
     /**
+     * This function is used for the logging to signal the shop to shutdown.
+     * 
+     * @throws RemoteException may throw during a execution of a remote method call
+     */
+    public void signalShutdown() throws RemoteException;
+    /**
      * The customer goes to the Shopping.
      * 
      * @param id customer identifier

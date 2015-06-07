@@ -1,14 +1,21 @@
 package ServerSide.Shop;
 
 import Interfaces.LoggingInterface;
+import Interfaces.Register;
 import Interfaces.ShopInterface;
 import Structures.Constants.ProbConst;
+import Structures.Constants.RegistryConst;
 import Structures.Enumerates.CraftsmanState;
 import Structures.Enumerates.CustomerState;
 import Structures.Enumerates.EntrepreneurState;
 import Structures.Enumerates.ShopState;
 import Structures.VectorClock.VectorTimestamp;
+import java.rmi.NoSuchObjectException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -433,5 +440,56 @@ public class Shop implements ShopInterface {
     public synchronized void resetRequestProducts() throws RemoteException {
         reqFetchProducts = false;
         log.UpdateFetchProductsRequest(reqFetchProducts);
+    }
+    /**
+     * This function is used for the logging to signal the shop to shutdown.
+     * 
+     * @throws RemoteException may throw during a execution of a remote method call
+     */
+    @Override
+    public void signalShutdown() throws RemoteException {
+        Register reg = null;
+        Registry registry = null;
+
+        String rmiRegHostName = RegistryConst.hostRegistry;
+        int rmiRegPortNumb = RegistryConst.portRegistry;
+        try {
+            registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        String nameEntryBase = RegistryConst.registerHandler;
+        String nameEntryObject = RegistryConst.shopNameEntry;
+
+        
+        try {
+            reg = (Register) registry.lookup(nameEntryBase);
+        } catch (RemoteException e) {
+            System.out.println("RegisterRemoteObject lookup exception: " + e.getMessage());
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, e);
+        } catch (NotBoundException e) {
+            System.out.println("RegisterRemoteObject not bound exception: " + e.getMessage());
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            // Unregister ourself
+            reg.unbind(nameEntryObject);
+        } catch (RemoteException e) {
+            System.out.println("Shop registration exception: " + e.getMessage());
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, e);
+        } catch (NotBoundException e) {
+            System.out.println("Shop not bound exception: " + e.getMessage());
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        try {
+            // Unexport; this will also remove us from the RMI runtime
+            UnicastRemoteObject.unexportObject(this, true);
+        } catch (NoSuchObjectException ex) {
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Shop closed.");
     }
 }

@@ -15,6 +15,13 @@ import java.rmi.RemoteException;
  */
 public interface WarehouseInterface extends Remote {
     /**
+     * This function is used for the logging to signal the shop to shutdown.
+     * 
+     * @throws RemoteException may throw during a execution of a remote method call
+     */
+    public void signalShutdown() throws RemoteException;
+    
+    /**
      * The entrepreneur visits the supplies to fetch prime materials for the
      * craftsman.
      * She will fetch a random value of prime materials.
