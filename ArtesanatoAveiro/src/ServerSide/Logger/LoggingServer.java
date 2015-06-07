@@ -16,13 +16,16 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 
 /**
  *
  * @author diogosilva
  */
 public class LoggingServer {
+    /**
+     * The main class for the logging server.
+     * @param args No arguments are going to be used.
+     */
     public static void main(String[] args) {
         /* obtenção da localização do serviço de registo RMI */
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI

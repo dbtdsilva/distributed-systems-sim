@@ -22,13 +22,13 @@ public interface LoggingInterface extends Remote {
     /**
      * Writes a line to the logging file
      * @param vt the Vector clock
-     * @throws RemoteException
+     * @throws RemoteException may throw during a execution of a remote method call
      */
     public void WriteLine(VectorTimestamp vt) throws RemoteException;
     
     /**
      * Writes the end of the logger file.
-     * @throws java.rmi.RemoteException
+     * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
     public void EndWriting() throws RemoteException;
     

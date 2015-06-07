@@ -7,10 +7,23 @@ package Static.Enumerates;
  * @author Tânia Alves, 60340
  */
 public enum ShopState {
+    /**
+     * The Shop is closed.
+     */
     CLOSED("CLS"), 
+    /**
+     * The Shop is open, however, the door remains closed.
+     */
     ECLOSED("ECLS"),
+    /**
+     * The Shop is open for business.
+     */
     OPEN("OPEN");
-    
+    /**
+     * Auxiliar variable that allows to transform the state into an acronym.
+     *
+     * @serialField acronym
+     */
     private final String acronym;
     private ShopState(String acronym) 
     {

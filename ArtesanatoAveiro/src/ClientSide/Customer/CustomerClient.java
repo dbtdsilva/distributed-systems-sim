@@ -22,6 +22,10 @@ import java.rmi.registry.Registry;
  * @author diogosilva
  */
 public class CustomerClient {
+    /**
+     * The main class for the customers entity.
+     * @param args No arguments are going to be used.
+     */
     public static void main(String [] args) {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço

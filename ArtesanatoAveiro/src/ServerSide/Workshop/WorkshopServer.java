@@ -21,7 +21,11 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author guesswho
  */
-public class WorkshopServer {    
+public class WorkshopServer {  
+    /**
+     * The main class for the workshop server.
+     * @param args No arguments are going to be used.
+     */
     public static void main(String[] args) {
         String rmiRegHostName = RegistryConst.hostRegistry;
         int rmiRegPortNumb = RegistryConst.portRegistry;

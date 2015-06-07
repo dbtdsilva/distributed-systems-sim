@@ -18,7 +18,7 @@ public class Warehouse implements WarehouseInterface {
     
     private int nTimesSupplied;
     private final int nTimesPMSupplied[];
-    private VectorTimestamp clocks;
+    private final VectorTimestamp clocks;
     
     /**
      * Initializes the warehouse class with the required information.

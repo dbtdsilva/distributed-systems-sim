@@ -16,7 +16,10 @@ import java.rmi.server.UnicastRemoteObject;
  * @author guesswho
  */
 public class WarehouseServer {
-
+    /**
+     * The main class for the warehouse server.
+     * @param args No arguments are going to be used.
+     */
     public static void main(String[] args) {
         /* obtenção da localização do serviço de registo RMI */
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI

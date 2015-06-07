@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import Interfaces.Register;
 import Static.Constants.RegistryConst;
-import static Static.Constants.RegistryConst.portObject;
 
 /**
  * This data type instantiates and registers a remote object that enables the
@@ -17,6 +16,7 @@ public class ServerRegisterRemoteObject {
 
     /**
      * Main task.
+     * @param args No arguments are going to be used;
      */
 
     public static void main(String[] args) {
