@@ -5,7 +5,7 @@ import Interfaces.Register;
 import Interfaces.WarehouseInterface;
 import ServerSide.Shop.Shop;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Structures.Enumerates.EntrepreneurState;
 import Structures.VectorClock.VectorTimestamp;
 import java.rmi.NoSuchObjectException;
@@ -86,16 +86,21 @@ public class Warehouse implements WarehouseInterface {
         Register reg = null;
         Registry registry = null;
 
-        String rmiRegHostName = RegistryConst.hostRegistry;
-        int rmiRegPortNumb = RegistryConst.portRegistry;
+        String rmiRegHostName;
+        int rmiRegPortNumb;
+        
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
+        
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
         } catch (RemoteException ex) {
             Logger.getLogger(Warehouse.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.warehouseNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.warehouseNameEntry;
 
         
         try {

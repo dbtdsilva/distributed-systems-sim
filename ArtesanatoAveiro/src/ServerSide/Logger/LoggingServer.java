@@ -8,7 +8,7 @@ package ServerSide.Logger;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
@@ -33,8 +33,9 @@ public class LoggingServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
 
         /* instanciação e instalação do gestor de segurança */
         if (System.getSecurityManager() == null) {
@@ -53,7 +54,7 @@ public class LoggingServer {
             System.exit(1);
         }
         try {
-            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, RegistryConst.portLogging);
+            logInterface = (LoggingInterface) UnicastRemoteObject.exportObject(logging, rc.loggingPort());
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a Logging: " + e.getMessage());
             e.printStackTrace();
@@ -62,8 +63,8 @@ public class LoggingServer {
         System.out.println("O stub para o logging foi gerado!");
 
         /* seu registo no serviço de registo RMI */
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.logNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.logNameEntry;
         Registry registry = null;
         Register reg = null;
 

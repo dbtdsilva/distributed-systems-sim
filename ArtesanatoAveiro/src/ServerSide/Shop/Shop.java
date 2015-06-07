@@ -4,7 +4,7 @@ import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.ShopInterface;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Structures.Enumerates.CraftsmanState;
 import Structures.Enumerates.CustomerState;
 import Structures.Enumerates.EntrepreneurState;
@@ -451,16 +451,21 @@ public class Shop implements ShopInterface {
         Register reg = null;
         Registry registry = null;
 
-        String rmiRegHostName = RegistryConst.hostRegistry;
-        int rmiRegPortNumb = RegistryConst.portRegistry;
+        String rmiRegHostName;
+        int rmiRegPortNumb;
+        
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
+        
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
         } catch (RemoteException ex) {
             Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.shopNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.shopNameEntry;
 
         
         try {

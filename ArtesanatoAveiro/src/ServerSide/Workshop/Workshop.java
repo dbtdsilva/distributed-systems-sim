@@ -6,7 +6,7 @@ import Interfaces.ShopInterface;
 import Interfaces.WorkshopInterface;
 import ServerSide.Warehouse.Warehouse;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Structures.Enumerates.CraftsmanState;
 import Structures.Enumerates.EntrepreneurState;
 import Structures.VectorClock.VectorTimestamp;
@@ -71,16 +71,19 @@ public class Workshop implements WorkshopInterface {
         Register reg = null;
         Registry registry = null;
 
-        String rmiRegHostName = RegistryConst.hostRegistry;
-        int rmiRegPortNumb = RegistryConst.portRegistry;
+        String rmiRegHostName;
+        int rmiRegPortNumb;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
         } catch (RemoteException ex) {
             Logger.getLogger(Workshop.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.workshopNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.workshopNameEntry;
 
         
         try {

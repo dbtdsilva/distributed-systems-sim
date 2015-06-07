@@ -5,7 +5,7 @@
  */
 package ServerSide.Shop;
 
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.ShopInterface;
@@ -32,8 +32,9 @@ public class ShopServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
         
         /* localização por nome do objecto remoto no serviço de registos RMI */
         LoggingInterface loggingInt = null;             // interface da barbearia (objecto remoto)
@@ -41,7 +42,7 @@ public class ShopServer {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup (RegistryConst.logNameEntry);
+            loggingInt = (LoggingInterface) registry.lookup (RegistryConfig.logNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -66,7 +67,7 @@ public class ShopServer {
         ShopInterface shopInterface = null;             // interface da barbearia
         shop = new Shop(loggingInt);
         try {
-            shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, RegistryConst.portShop);
+            shopInterface = (ShopInterface) UnicastRemoteObject.exportObject(shop, rc.shopPort());
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para a loja: " + e.getMessage());
             e.printStackTrace();
@@ -75,8 +76,8 @@ public class ShopServer {
         System.out.println("O stub para a loja foi gerado!");
 
         /* seu registo no serviço de registo RMI */
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.shopNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.shopNameEntry;
         Registry registry = null;
         Register reg = null;
 

@@ -5,7 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import Interfaces.Register;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 
 /**
  * This data type instantiates and registers a remote object that enables the
@@ -25,8 +25,9 @@ public class ServerRegisterRemoteObject {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
 
         /* create and install the security manager */
         if (System.getSecurityManager() == null) {
@@ -39,7 +40,7 @@ public class ServerRegisterRemoteObject {
         Register regEngineStub = null;
 
         try {
-            regEngineStub = (Register) UnicastRemoteObject.exportObject(regEngine, RegistryConst.portObject);
+            regEngineStub = (Register) UnicastRemoteObject.exportObject(regEngine, rc.objectPort());
         } catch (RemoteException e) {
             System.out.println("RegisterRemoteObject stub generation exception: " + e.getMessage());
             System.exit(1);
@@ -47,7 +48,7 @@ public class ServerRegisterRemoteObject {
         System.out.println("Stub was generated!");
 
         /* register it with the local registry service */
-        String nameEntry = RegistryConst.registerHandler;
+        String nameEntry = RegistryConfig.registerHandler;
         Registry registry = null;
 
         try {

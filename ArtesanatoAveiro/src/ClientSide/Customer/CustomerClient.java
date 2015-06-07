@@ -8,7 +8,7 @@ package ClientSide.Customer;
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -29,8 +29,9 @@ public class CustomerClient {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
         
         LoggingInterface loggingInt = null;
         ShopInterface shopInt = null;
@@ -38,7 +39,7 @@ public class CustomerClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup (RegistryConst.logNameEntry);
+            loggingInt = (LoggingInterface) registry.lookup (RegistryConfig.logNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -56,7 +57,7 @@ public class CustomerClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            shopInt = (ShopInterface) registry.lookup (RegistryConst.shopNameEntry);
+            shopInt = (ShopInterface) registry.lookup (RegistryConfig.shopNameEntry);
         }
         catch (RemoteException e)
         { 

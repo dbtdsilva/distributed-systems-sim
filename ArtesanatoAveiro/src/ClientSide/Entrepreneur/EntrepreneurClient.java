@@ -9,7 +9,7 @@ import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WarehouseInterface;
 import Interfaces.WorkshopInterface;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -30,8 +30,9 @@ public class EntrepreneurClient {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
         
         LoggingInterface loggingInt = null;
         ShopInterface shopInt = null;
@@ -41,7 +42,7 @@ public class EntrepreneurClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup (RegistryConst.logNameEntry);
+            loggingInt = (LoggingInterface) registry.lookup (RegistryConfig.logNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -59,7 +60,7 @@ public class EntrepreneurClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            shopInt = (ShopInterface) registry.lookup (RegistryConst.shopNameEntry);
+            shopInt = (ShopInterface) registry.lookup (RegistryConfig.shopNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -77,7 +78,7 @@ public class EntrepreneurClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            wsInt = (WorkshopInterface) registry.lookup (RegistryConst.workshopNameEntry);
+            wsInt = (WorkshopInterface) registry.lookup (RegistryConfig.workshopNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -95,7 +96,7 @@ public class EntrepreneurClient {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            whInt = (WarehouseInterface) registry.lookup (RegistryConst.warehouseNameEntry);
+            whInt = (WarehouseInterface) registry.lookup (RegistryConfig.warehouseNameEntry);
         }
         catch (RemoteException e)
         { 

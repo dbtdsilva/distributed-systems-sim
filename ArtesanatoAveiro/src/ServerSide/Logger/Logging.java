@@ -6,7 +6,7 @@ import Interfaces.ShopInterface;
 import Interfaces.WarehouseInterface;
 import Interfaces.WorkshopInterface;
 import Structures.Constants.ProbConst;
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Structures.Enumerates.CraftsmanState;
 import Structures.Enumerates.CustomerState;
 import Structures.Enumerates.EntrepreneurState;
@@ -144,21 +144,22 @@ public class Logging implements LoggingInterface {
         
         Register reg = null;
         Registry registry = null;
-
-        String rmiRegHostName = RegistryConst.hostRegistry;
-        int rmiRegPortNumb = RegistryConst.portRegistry;
+        
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        String rmiRegHostName = rc.registryHost();
+        int rmiRegPortNumb = rc.registryPort();
         try {
             registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
         } catch (RemoteException ex) {
             Logger.getLogger(Logging.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.logNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.logNameEntry;
 
         try
         {
-            ShopInterface shopInt = (ShopInterface) registry.lookup (RegistryConst.shopNameEntry);
+            ShopInterface shopInt = (ShopInterface) registry.lookup (RegistryConfig.shopNameEntry);
             shopInt.signalShutdown();
         }
         catch (RemoteException e)
@@ -174,7 +175,7 @@ public class Logging implements LoggingInterface {
         
         try
         {
-            WorkshopInterface wsInt = (WorkshopInterface) registry.lookup (RegistryConst.workshopNameEntry);
+            WorkshopInterface wsInt = (WorkshopInterface) registry.lookup (RegistryConfig.workshopNameEntry);
             wsInt.signalShutdown();
         }
         catch (RemoteException e)
@@ -190,7 +191,7 @@ public class Logging implements LoggingInterface {
         
         try
         {
-            WarehouseInterface whInt = (WarehouseInterface) registry.lookup (RegistryConst.warehouseNameEntry);
+            WarehouseInterface whInt = (WarehouseInterface) registry.lookup (RegistryConfig.warehouseNameEntry);
             whInt.signalShutdown();
         }
         catch (RemoteException e)

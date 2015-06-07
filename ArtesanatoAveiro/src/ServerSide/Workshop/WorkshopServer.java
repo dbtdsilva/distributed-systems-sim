@@ -5,7 +5,7 @@
  */
 package ServerSide.Workshop;
 
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.ShopInterface;
@@ -29,8 +29,12 @@ public class WorkshopServer {
      * @param args No arguments are going to be used.
      */
     public static void main(String[] args) {
-        String rmiRegHostName = RegistryConst.hostRegistry;
-        int rmiRegPortNumb = RegistryConst.portRegistry;
+        String rmiRegHostName;
+        int rmiRegPortNumb;
+        
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
         
         LoggingInterface loggingInt = null;             
         ShopInterface shopInt = null;
@@ -38,7 +42,7 @@ public class WorkshopServer {
         try
         { 
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup (RegistryConst.logNameEntry);
+            loggingInt = (LoggingInterface) registry.lookup (RegistryConfig.logNameEntry);
         }
         catch (RemoteException e)
         { 
@@ -55,7 +59,7 @@ public class WorkshopServer {
         
         try {
             Registry registry = LocateRegistry.getRegistry (rmiRegHostName, rmiRegPortNumb);
-            shopInt = (ShopInterface) registry.lookup (RegistryConst.shopNameEntry);
+            shopInt = (ShopInterface) registry.lookup (RegistryConfig.shopNameEntry);
         } catch (RemoteException e) {
             System.out.println("Exception thrown while exporting workshop interface: " + e.getMessage());
             e.printStackTrace();
@@ -77,7 +81,7 @@ public class WorkshopServer {
         workshop = new Workshop(loggingInt, shopInt);
         
         try {
-            wsInterface = (WorkshopInterface) UnicastRemoteObject.exportObject(workshop, RegistryConst.portWorkshop);
+            wsInterface = (WorkshopInterface) UnicastRemoteObject.exportObject(workshop, rc.workshopPort());
         } catch (RemoteException e) {
             System.out.println("Exception thrown while exporting workshop interface: " + e.getMessage());
             e.printStackTrace();
@@ -86,8 +90,8 @@ public class WorkshopServer {
         System.out.println("O stub para a oficina foi gerado!");
 
         /* seu registo no serviço de registo RMI */
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.workshopNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.workshopNameEntry;
         Registry registry = null;
         Register reg = null;
 

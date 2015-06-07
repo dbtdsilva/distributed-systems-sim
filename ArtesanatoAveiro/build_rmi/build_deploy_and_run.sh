@@ -43,58 +43,56 @@ if [[ ! -e final_logs ]]; then
     mkdir final_logs;
 fi
 
+source config.ini
+
 if [[ "$1" = "remote" ]]; then
 	echo "  > Creating folders on the remote servers"
-	sshpass -p sistema2015 ssh sd0405@l040101-ws02.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_registry/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws01.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/logging/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws05.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/shop/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws04.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/workshop/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws03.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/warehouse/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws11.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/entrepreneur/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws08.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/craftsman/'
-	sshpass -p sistema2015 ssh sd0405@l040101-ws09.ua.pt -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/customer/'
+	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_registry/'
+	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/logging/'
+	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/shop/'
+	sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/workshop/'
+	sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_serverSide/warehouse/'
+	sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/entrepreneur/'
+	sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/craftsman/'
+	sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'rm -rf Public/*; mkdir -p Public/classes/dir_clientSide/customer/'
 	echo "	> Sending the proper files to the correct workstation"
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no * sd0405@l040101-ws02.ua.pt:~/Public/classes/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_registry/* sd0405@l040101-ws02.ua.pt:~/Public/classes/dir_registry/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no * $GROUP@$REGISTER_HOST:~/Public/classes/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_registry/* $GROUP@$REGISTER_HOST:~/Public/classes/dir_registry/
 	
-	sshpass -p sistema2015 scp -o StrictHostKeyChecking=no dir_serverSide/java.policy sd0405@l040101-ws01.ua.pt:~/Public/classes/dir_serverSide/
-	sshpass -p sistema2015 scp -o StrictHostKeyChecking=no dir_serverSide/java.policy sd0405@l040101-ws05.ua.pt:~/Public/classes/dir_serverSide/
-	sshpass -p sistema2015 scp -o StrictHostKeyChecking=no dir_serverSide/java.policy sd0405@l040101-ws04.ua.pt:~/Public/classes/dir_serverSide/
-	sshpass -p sistema2015 scp -o StrictHostKeyChecking=no dir_serverSide/java.policy sd0405@l040101-ws03.ua.pt:~/Public/classes/dir_serverSide/
-	
+	sshpass -p sistema2015 scp -o StrictHostKeyChecking=no  $GROUP@$LOGGING_HOST:~/Public/classes/dir_serverSide/
 
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/logging/* sd0405@l040101-ws01.ua.pt:~/Public/classes/dir_serverSide/logging/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/shop/* sd0405@l040101-ws05.ua.pt:~/Public/classes/dir_serverSide/shop/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/workshop/* sd0405@l040101-ws04.ua.pt:~/Public/classes/dir_serverSide/workshop/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/warehouse/* sd0405@l040101-ws03.ua.pt:~/Public/classes/dir_serverSide/warehouse/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/entrepreneur/* sd0405@l040101-ws11.ua.pt:~/Public/classes/dir_clientSide/entrepreneur/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/craftsman/* sd0405@l040101-ws08.ua.pt:~/Public/classes/dir_clientSide/craftsman/
-	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/customer/* sd0405@l040101-ws09.ua.pt:~/Public/classes/dir_clientSide/customer/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/java.policy dir_serverSide/logging/* $GROUP@$LOGGING_HOST:~/Public/classes/dir_serverSide/logging/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/java.policy dir_serverSide/shop/* $GROUP@$SHOP_HOST:~/Public/classes/dir_serverSide/shop/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/java.policy dir_serverSide/workshop/* $GROUP@$WORKSHOP_HOST:~/Public/classes/dir_serverSide/workshop/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_serverSide/java.policy dir_serverSide/warehouse/* $GROUP@$WAREHOUSE_HOST:~/Public/classes/dir_serverSide/warehouse/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/entrepreneur/* $GROUP@$ENTREPRENEUR_HOST:~/Public/classes/dir_clientSide/entrepreneur/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/craftsman/* $GROUP@$CRAFTSMEN_HOST:~/Public/classes/dir_clientSide/craftsman/
+	sshpass -p sistema2015 scp -r -o StrictHostKeyChecking=no dir_clientSide/customer/* $GROUP@$CUSTOMERS_HOST:~/Public/classes/dir_clientSide/customer/
 
 	echo "  > Cleaning logs from the server where Logging is going to run"
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws01.ua.pt -o StrictHostKeyChecking 'rm *.log'
+	#sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking 'rm *.log'
 
 	echo "	> Executing each jar file on the proper workstation"
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws10.ua.pt -o StrictHostKeyChecking=no './set_rmiregistry.sh 22440'
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws10.ua.pt -o StrictHostKeyChecking=no './dir_registry/registry_com.sh'
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws01.ua.pt -o StrictHostKeyChecking=no './' &
+	#sshpass -p sistema2015 ssh $GROUP@l040101-ws10.ua.pt -o StrictHostKeyChecking=no './set_rmiregistry.sh 22440'
+	#sshpass -p sistema2015 ssh $GROUP@l040101-ws10.ua.pt -o StrictHostKeyChecking=no './dir_registry/registry_com.sh'
+	#sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no './' &
 	#PID_Logging=$!
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws05.ua.pt -o StrictHostKeyChecking=no 'java -jar Shop.jar' &
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws04.ua.pt -o StrictHostKeyChecking=no 'java -jar Workshop.jar' &
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws03.ua.pt -o StrictHostKeyChecking=no 'java -jar Warehouse.jar' &
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws11.ua.pt -o StrictHostKeyChecking=no 'java -jar Entrepreneur.jar' &
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws08.ua.pt -o StrictHostKeyChecking=no 'java -jar Craftsman.jar' &
-	#sshpass -p sistema2015 ssh sd0405@l040101-ws09.ua.pt -o StrictHostKeyChecking=no 'java -jar Customer.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'java -jar Shop.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$WORKSHOP_HOST -o StrictHostKeyChecking=no 'java -jar Workshop.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$WAREHOUSE_HOST -o StrictHostKeyChecking=no 'java -jar Warehouse.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$ENTREPRENEUR_HOST -o StrictHostKeyChecking=no 'java -jar Entrepreneur.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$CRAFTSMEN_HOST -o StrictHostKeyChecking=no 'java -jar Craftsman.jar' &
+	#sshpass -p sistema2015 ssh $GROUP@$CUSTOMERS_HOST -o StrictHostKeyChecking=no 'java -jar Customer.jar' &
 	#echo "	> Waiting for simulation to end (generate a logging file).."
 	#wait $PID_Logging
 	#echo "  > Simulation ended, copying log file to the local machine"
 	
-	#sshpass -p sistema2015 scp -o StrictHostKeyChecking=no sd0405@l040101-ws01.ua.pt:~/Artesanato* final_logs/
+	#sshpass -p sistema2015 scp -o StrictHostKeyChecking=no $GROUP@$LOGGING_HOST:~/Artesanato* final_logs/
 fi
 if [[ "$1" = "local" ]]; then
 	rm -rf dir_serverSide/logging/*.log
 	echo "	> Running at local machine"
-	./set_rmiregistry_alt.sh 22440 &
+	./set_rmiregistry_alt.sh $REGISTER_PORT &
 	PID0=$!
 	sleep 2
 	cd dir_registry; ./registry_com_alt.sh &

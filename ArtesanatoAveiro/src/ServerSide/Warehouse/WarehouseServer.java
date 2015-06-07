@@ -1,6 +1,6 @@
 package ServerSide.Warehouse;
 
-import Structures.Constants.RegistryConst;
+import Structures.Constants.RegistryConfig;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.WarehouseInterface;
@@ -27,15 +27,16 @@ public class WarehouseServer {
         String rmiRegHostName;                      // nome do sistema onde está localizado o serviço de registos RMI
         int rmiRegPortNumb;                         // port de escuta do serviço
 
-        rmiRegHostName = RegistryConst.hostRegistry;
-        rmiRegPortNumb = RegistryConst.portRegistry;
+        RegistryConfig rc = new RegistryConfig("../../config.ini");
+        rmiRegHostName = rc.registryHost();
+        rmiRegPortNumb = rc.registryPort();
 
         /* localização por nome do objecto remoto no serviço de registos RMI */
         LoggingInterface loggingInt = null;             // interface da barbearia (objecto remoto)
 
         try {
             Registry registry = LocateRegistry.getRegistry(rmiRegHostName, rmiRegPortNumb);
-            loggingInt = (LoggingInterface) registry.lookup(RegistryConst.logNameEntry);
+            loggingInt = (LoggingInterface) registry.lookup(RegistryConfig.logNameEntry);
         } catch (RemoteException e) {
             System.out.println("Excepção na localização do armazém: " + e.getMessage() + "!");
             e.printStackTrace();
@@ -57,7 +58,7 @@ public class WarehouseServer {
         warehouse = new Warehouse(loggingInt);
 
         try {
-            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, RegistryConst.portWarehouse);
+            whInterface = (WarehouseInterface) UnicastRemoteObject.exportObject(warehouse, rc.warehousePort());
         } catch (RemoteException e) {
             System.out.println("Excepção na geração do stub para o armazém: " + e.getMessage());
             e.printStackTrace();
@@ -66,8 +67,8 @@ public class WarehouseServer {
         System.out.println("O stub para o armazém foi gerado!");
 
         /* seu registo no serviço de registo RMI */
-        String nameEntryBase = RegistryConst.registerHandler;
-        String nameEntryObject = RegistryConst.warehouseNameEntry;
+        String nameEntryBase = RegistryConfig.registerHandler;
+        String nameEntryObject = RegistryConfig.warehouseNameEntry;
         Registry registry = null;
         Register reg = null;
 
