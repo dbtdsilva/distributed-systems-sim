@@ -77,7 +77,7 @@ fi
 if [[ "$1" = "local" ]]; then
 	rm -rf dir_serverSide/logging/*.log
 	echo "	> Running at local machine"
-	./set_rmiregistry.sh 22440 &
+	./set_rmiregistry_alt.sh 22440 &
 	PID0=$!
 	sleep 2
 	cd dir_registry; ./registry_com_alt.sh &
