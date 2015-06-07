@@ -5,7 +5,7 @@
  */
 package ServerSide.Shop;
 
-import Static.Constants.RegistryConst;
+import Structures.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.ShopInterface;

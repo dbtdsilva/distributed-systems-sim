@@ -1,6 +1,6 @@
 package ServerSide.Warehouse;
 
-import Static.Constants.RegistryConst;
+import Structures.Constants.RegistryConst;
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
 import Interfaces.WarehouseInterface;

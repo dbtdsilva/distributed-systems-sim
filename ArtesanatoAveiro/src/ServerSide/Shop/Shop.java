@@ -2,12 +2,12 @@ package ServerSide.Shop;
 
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
-import Static.Constants.ProbConst;
-import Static.Enumerates.CraftsmanState;
-import Static.Enumerates.CustomerState;
-import Static.Enumerates.EntrepreneurState;
-import Static.Enumerates.ShopState;
-import VectorClock.VectorTimestamp;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.CraftsmanState;
+import Structures.Enumerates.CustomerState;
+import Structures.Enumerates.EntrepreneurState;
+import Structures.Enumerates.ShopState;
+import Structures.VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.Queue;

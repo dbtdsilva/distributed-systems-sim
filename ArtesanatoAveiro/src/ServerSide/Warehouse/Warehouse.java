@@ -2,9 +2,9 @@ package ServerSide.Warehouse;
 
 import Interfaces.LoggingInterface;
 import Interfaces.WarehouseInterface;
-import Static.Constants.ProbConst;
-import Static.Enumerates.EntrepreneurState;
-import VectorClock.VectorTimestamp;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.EntrepreneurState;
+import Structures.VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 
 /**

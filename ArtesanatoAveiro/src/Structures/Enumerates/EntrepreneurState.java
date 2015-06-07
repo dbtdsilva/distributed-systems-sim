@@ -1,4 +1,4 @@
-package Static.Enumerates;
+package Structures.Enumerates;
 
 /**
  * This enumerate represents the state of entity Entrepreneur

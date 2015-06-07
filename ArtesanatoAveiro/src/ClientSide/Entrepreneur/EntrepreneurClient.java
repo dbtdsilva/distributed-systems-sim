@@ -9,7 +9,7 @@ import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
 import Interfaces.WarehouseInterface;
 import Interfaces.WorkshopInterface;
-import Static.Constants.RegistryConst;
+import Structures.Constants.RegistryConst;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

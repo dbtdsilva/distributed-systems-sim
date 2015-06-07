@@ -2,9 +2,9 @@ package ClientSide.Customer;
 
 import Interfaces.LoggingInterface;
 import Interfaces.ShopInterface;
-import Static.Constants.ProbConst;
-import Static.Enumerates.CustomerState;
-import VectorClock.VectorTimestamp;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.CustomerState;
+import Structures.VectorClock.VectorTimestamp;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

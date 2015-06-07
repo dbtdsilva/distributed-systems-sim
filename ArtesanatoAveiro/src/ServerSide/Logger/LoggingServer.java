@@ -7,8 +7,8 @@ package ServerSide.Logger;
 
 import Interfaces.LoggingInterface;
 import Interfaces.Register;
-import Static.Constants.ProbConst;
-import Static.Constants.RegistryConst;
+import Structures.Constants.ProbConst;
+import Structures.Constants.RegistryConst;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;

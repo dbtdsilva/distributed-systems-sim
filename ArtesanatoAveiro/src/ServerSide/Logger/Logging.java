@@ -1,12 +1,12 @@
 package ServerSide.Logger;
 
 import Interfaces.LoggingInterface;
-import Static.Constants.ProbConst;
-import Static.Enumerates.CraftsmanState;
-import Static.Enumerates.CustomerState;
-import Static.Enumerates.EntrepreneurState;
-import Static.Enumerates.ShopState;
-import VectorClock.VectorTimestamp;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.CraftsmanState;
+import Structures.Enumerates.CustomerState;
+import Structures.Enumerates.EntrepreneurState;
+import Structures.Enumerates.ShopState;
+import Structures.VectorClock.VectorTimestamp;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -23,5 +23,5 @@ public interface WarehouseInterface extends Remote {
      * @param vt The vector clock
      * @throws java.rmi.RemoteException may throw during a execution of a remote method call
      */
-    public Object[] visitSuppliers(VectorClock.VectorTimestamp vt) throws RemoteException;
+    public Object[] visitSuppliers(Structures.VectorClock.VectorTimestamp vt) throws RemoteException;
 }

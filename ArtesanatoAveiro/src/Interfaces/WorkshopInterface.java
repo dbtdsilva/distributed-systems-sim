@@ -5,7 +5,7 @@
  */
 package Interfaces;
 
-import VectorClock.VectorTimestamp;
+import Structures.VectorClock.VectorTimestamp;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

@@ -1,4 +1,4 @@
-package Static.Constants;
+package Structures.Constants;
 
 /**
  * This class contains all the constants.

@@ -5,11 +5,11 @@
  */
 package Interfaces;
 
-import Static.Enumerates.CraftsmanState;
-import Static.Enumerates.CustomerState;
-import Static.Enumerates.EntrepreneurState;
-import Static.Enumerates.ShopState;
-import VectorClock.VectorTimestamp;
+import Structures.Enumerates.CraftsmanState;
+import Structures.Enumerates.CustomerState;
+import Structures.Enumerates.EntrepreneurState;
+import Structures.Enumerates.ShopState;
+import Structures.VectorClock.VectorTimestamp;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

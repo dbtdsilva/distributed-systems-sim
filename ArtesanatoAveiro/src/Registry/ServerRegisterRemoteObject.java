@@ -5,7 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import Interfaces.Register;
-import Static.Constants.RegistryConst;
+import Structures.Constants.RegistryConst;
 
 /**
  * This data type instantiates and registers a remote object that enables the

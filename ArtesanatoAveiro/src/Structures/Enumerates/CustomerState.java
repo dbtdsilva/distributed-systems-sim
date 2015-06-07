@@ -1,31 +1,37 @@
-package Static.Enumerates;
+package Structures.Enumerates;
 
 /**
- * Enumerate used to represent the state of the Shop.
+ * This enumerate represents the state of entity Customer
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
-public enum ShopState {
+
+public enum CustomerState {
     /**
-     * The Shop is closed.
+     * The Customer is living his life normally.
      */
-    CLOSED("CLS"), 
+    CARRYING_OUT_DAILY_CHORES("CODC"),
     /**
-     * The Shop is open, however, the door remains closed.
+     * The Customer approached the door and is checking if the shop is open for business.
      */
-    ECLOSED("ECLS"),
+    CHECKING_SHOP_DOOR_OPEN("CSDO"),
     /**
-     * The Shop is open for business.
+     * The Customer is browsing the goods in display and checking if he wants something or not.
      */
-    OPEN("OPEN");
+    APPRAISING_OFFER_IN_DISPLAY("AOID"),
+    /**
+     * The Customer has found something he likes and is now in the transaction process.
+     */
+    BUYING_SOME_GOODS("BSG");
+    
     /**
      * Auxiliar variable that allows to transform the state into an acronym.
      *
      * @serialField acronym
      */
     private final String acronym;
-    private ShopState(String acronym) 
+    private CustomerState(String acronym) 
     {
         this.acronym = acronym;
     }
