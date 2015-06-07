@@ -86,9 +86,9 @@ if [[ "$1" = "remote" ]]; then
 	echo "	> Executing each jar file on the proper workstation"
 	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; ./set_rmiregistry.sh $REGISTER_PORT' &
 	sleep 2
-	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_registry; ./registry_com_alt.sh' &
+	sshpass -p sistema2015 ssh $GROUP@$REGISTER_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_registry; ./registry_com.sh' &
 	sleep 3
-	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/logging; ./serverSide_com_alt.sh' &
+	sshpass -p sistema2015 ssh $GROUP@$LOGGING_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/logging; ./serverSide_com.sh' &
 	PID_Log=$!
 	sleep 3
 	sshpass -p sistema2015 ssh $GROUP@$SHOP_HOST -o StrictHostKeyChecking=no 'cd Public/classes/; source config.ini; cd dir_serverSide/shop; ./serverSide_com.sh' &
