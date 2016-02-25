@@ -1,21 +1,35 @@
 package ClientSide.Customer;
 
+<<<<<<< HEAD
 import Communication.ClientComm;
 import Communication.CommConst;
 import Communication.Message.Message;
 import Communication.Message.MessageType;
 import static java.lang.Thread.sleep;
 import java.util.Arrays;
+=======
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.CustomerState;
+import Structures.VectorClock.VectorTimestamp;
+import java.rmi.RemoteException;
+>>>>>>> origin/Trabalho3
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+<<<<<<< HEAD
  * This class is used to represent the Customer entity.
+=======
+ * This class is used to represent the entity Craftsman
+>>>>>>> origin/Trabalho3
  * 
  * @author Diogo Silva, 60337
  * @author Tânia Alves, 60340
  */
 public class Customer extends Thread {
+<<<<<<< HEAD
     /**
      * Stores the information about this Customer's state.
      *
@@ -29,11 +43,20 @@ public class Customer extends Thread {
      * @serialField id
      */
     private final int id;
+=======
+    private CustomerState state;
+    private final int id;
+    private final ShopInterface shop;
+    private final LoggingInterface log;
+    private final VectorTimestamp myClock;
+    private VectorTimestamp receivedClock;
+>>>>>>> origin/Trabalho3
     
     /**
      * Initiliazes the customer class with the required information.
      * 
      * @param id The customer identifier.
+<<<<<<< HEAD
      */
     public Customer(int id) {
         this.setName("Customer "+id);
@@ -41,12 +64,26 @@ public class Customer extends Thread {
         state = CustomerState.CARRYING_OUT_DAILY_CHORES;
     }
     
+=======
+     * @param log The general repository
+     * @param shop The simulation shop where the customer will buy products.
+     */
+    public Customer(int id, LoggingInterface log, ShopInterface shop) {
+        this.setName("Customer "+id);
+        this.id = id;
+        this.shop = shop;
+        this.log = log;
+        state = CustomerState.CARRYING_OUT_DAILY_CHORES;
+        myClock = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, id + 1);
+    }
+>>>>>>> origin/Trabalho3
     /**
      * This function represents the life cycle of Customer.
      */
     @Override
     public void run() {
         int nProducts;
+<<<<<<< HEAD
         do {
             livingNormalLife();
             goShopping(id);
@@ -63,6 +100,45 @@ public class Customer extends Thread {
         } while (!endOpCustomer());
         
         System.out.println("Customer "+id+" ended execution!");
+=======
+        try {
+            do {
+                livingNormalLife();
+                myClock.increment();
+                receivedClock= shop.goShopping(id, myClock.clone());
+                myClock.update(receivedClock);
+
+                if(shop.isDoorOpen()) {
+                    myClock.increment();
+                    receivedClock = shop.enterShop(id, myClock.clone());
+                    myClock.update(receivedClock);
+                    
+                    myClock.increment();
+                    Object[] ret = shop.perusingAround(myClock.clone());
+                    nProducts = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    if (nProducts != 0)   {
+                        myClock.increment();
+                        receivedClock = shop.iWantThis(id, nProducts, myClock.clone());
+                        myClock.update(receivedClock);
+                    }
+                    myClock.increment();
+                    receivedClock = shop.exitShop(id, myClock.clone());
+                    myClock.update(receivedClock);
+                }
+                else {
+                    myClock.increment();
+                    receivedClock = shop.tryAgainLater(id, myClock.clone());
+                    myClock.update(receivedClock);
+                }
+            } while (!log.endOpCustomer());
+            System.out.println("Cliente "+id+" acabou execução!");
+            log.Shutdown();
+        } catch(RemoteException e) {
+            e.printStackTrace();
+        }
+>>>>>>> origin/Trabalho3
     }
     
     /**
@@ -73,7 +149,10 @@ public class Customer extends Thread {
     public void setState(CustomerState state) {
         this.state = state;
     }
+<<<<<<< HEAD
    
+=======
+>>>>>>> origin/Trabalho3
     /**
      * Gets the current state of the customer.
      * 
@@ -82,7 +161,10 @@ public class Customer extends Thread {
     public CustomerState getCurrentState() {
         return state;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/Trabalho3
     /**
      * The customer waits some time before going to the shop.
      */
@@ -93,6 +175,7 @@ public class Customer extends Thread {
             Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+<<<<<<< HEAD
 
     /**
      * The customer goes to the Shopping.
@@ -371,4 +454,6 @@ public class Customer extends Thread {
         con.close();
         return false;
     }
+=======
+>>>>>>> origin/Trabalho3
 }

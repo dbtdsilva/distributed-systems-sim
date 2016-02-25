@@ -1,11 +1,22 @@
 package ClientSide.Entrepreneur;
 
+<<<<<<< HEAD
 import Communication.ClientComm;
 import Communication.CommConst;
 import Communication.Message.Message;
 import Communication.Message.MessageType;
 import static java.lang.Thread.sleep;
 import java.util.Arrays;
+=======
+import Interfaces.LoggingInterface;
+import Interfaces.ShopInterface;
+import Interfaces.WarehouseInterface;
+import Interfaces.WorkshopInterface;
+import Structures.Constants.ProbConst;
+import Structures.Enumerates.EntrepreneurState;
+import Structures.VectorClock.VectorTimestamp;
+import java.rmi.RemoteException;
+>>>>>>> origin/Trabalho3
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +28,7 @@ import java.util.logging.Logger;
  */
 public class Entrepreneur extends Thread {
     private EntrepreneurState state;
+<<<<<<< HEAD
     
     /**
      * Initiliazes the entrepreneur class with the required information.
@@ -27,11 +39,43 @@ public class Entrepreneur extends Thread {
         state = EntrepreneurState.OPENING_THE_SHOP;
     }
     
+=======
+    private final ShopInterface shop;
+    private final WarehouseInterface warehouse;
+    private final WorkshopInterface workshop;
+    private final LoggingInterface log;
+      
+    private final VectorTimestamp myClock;
+    private VectorTimestamp receivedClock;
+    
+    /**
+     * Initiliazes the entrepreneur class with the required information.
+     * 
+     * @param log The general repository
+     * @param shop The simulation shop where the entrepreneur will work.
+     * @param warehouse The simulation warehouse where the entrepeneur fetchs prime 
+     * materials when requested by the Craftsmen.
+     * @param workshop The simulation workshop where the craftsmen are located.
+     */
+    public Entrepreneur(LoggingInterface log, ShopInterface shop, 
+            WarehouseInterface warehouse, WorkshopInterface workshop) {
+        this.setName("Entrepreneur");
+        
+        state = EntrepreneurState.OPENING_THE_SHOP;
+        this.shop = shop;
+        this.warehouse = warehouse;
+        this.workshop = workshop;
+        this.log = log;
+        
+        myClock = new VectorTimestamp(ProbConst.nCraftsmen + ProbConst.nCustomers + 1, 0);
+    }
+>>>>>>> origin/Trabalho3
     /**
      * This function represents the life cycle of Entrepreneur.
      */
     @Override
     public void run() {
+<<<<<<< HEAD
         do {
             boolean canGoOut = false;
             char sit;
@@ -68,6 +112,84 @@ public class Entrepreneur extends Thread {
         System.out.println("Entrepreneur ended execution!");
     }
     
+=======
+        try {
+            do {
+                boolean canGoOut = false;
+                char sit;
+
+                myClock.increment();
+                receivedClock = shop.prepareToWork(myClock.clone());
+                myClock.update(receivedClock);
+                
+                Object[] ret;
+                
+                do {   
+                    myClock.increment();
+                    ret = shop.appraiseSit(myClock.clone());
+                    myClock.update((VectorTimestamp)ret[0]);
+                    sit = (char)ret[1];
+                    
+                    switch (sit) {
+                        case 'C': 
+                            myClock.increment();
+                            ret = shop.addressACustomer(myClock.clone());
+                            int id = (int)ret[1];
+                            myClock.update((VectorTimestamp)ret[0]);
+                            
+                            serviceCustomer(id);
+                            
+                            myClock.increment();
+                            receivedClock = shop.sayGoodByeToCustomer(id, myClock.clone());
+                            myClock.update(receivedClock);
+                            break;
+                        case 'T':
+                        case 'M':
+                        case 'E':
+                            myClock.increment();
+                            receivedClock = shop.closeTheDoor(myClock.clone());
+                            myClock.update(receivedClock);
+                            
+                            canGoOut = !shop.customersInTheShop();
+                            break;
+                    }
+                } while (!canGoOut);
+
+                myClock.increment();
+                receivedClock = shop.prepareToLeave(myClock.clone());
+                myClock.update(receivedClock);
+                if (sit == 'T') {           /* Transfer products */
+                    myClock.increment();
+                    ret = workshop.goToWorkshop(myClock.clone());
+                    int nProducts = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    myClock.increment();
+                    receivedClock = shop.returnToShop(nProducts, myClock.clone());
+                    myClock.update(receivedClock);
+                    
+                } else if (sit == 'M') {    /* Materials needed */
+                    ret = warehouse.visitSuppliers(myClock.clone());
+                    int nMaterials = (int)ret[1];
+                    myClock.update((VectorTimestamp)ret[0]);
+                    
+                    myClock.increment();
+                    receivedClock = workshop.replenishStock(nMaterials, myClock.clone());
+                    myClock.update(receivedClock);
+                    
+                    myClock.increment();
+                    receivedClock = shop.returnToShop(-1, myClock.clone());
+                    myClock.update(receivedClock);
+                }
+            } while(!log.endOpEntrep());
+            System.out.println("Dona acabou execução!");
+            
+            log.Shutdown();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> origin/Trabalho3
     /**
      * Updates the state of the entrepreneur.
      * 
@@ -76,7 +198,10 @@ public class Entrepreneur extends Thread {
     public void setState(EntrepreneurState state) {
         this.state = state;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/Trabalho3
     /**
      * Gets the current state of the entrepreneur.
      * 
@@ -85,7 +210,10 @@ public class Entrepreneur extends Thread {
     public EntrepreneurState getCurrentState() {
         return state;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/Trabalho3
     /**
      * The entrepreneur services a customer.
      * 
@@ -98,6 +226,7 @@ public class Entrepreneur extends Thread {
             Logger.getLogger(Entrepreneur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+<<<<<<< HEAD
     
     /**
      * Entrepreneur is preparing to work, she will open the shop.
@@ -527,4 +656,6 @@ public class Entrepreneur extends Thread {
         return false;
             
     }
+=======
+>>>>>>> origin/Trabalho3
 }
